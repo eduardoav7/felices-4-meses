@@ -436,7 +436,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <p>Aunque estemos lejos, vemos el mismo cielo. Cada vez que mires las estrellas, acuérdate de que yo también las estoy mirando… y pensando en ti.</p>
       <figure class="polaroid r" style="margin-top:18px">
         <span class="tape"></span>
-        <img src="fotos/mirando-corazon.jpg" alt="Dibujo de un perrito mirando un corazón" width="762" height="1000" loading="lazy">
+        <img src="mirando-corazon.jpg" alt="Dibujo de un perrito mirando un corazón" width="762" height="1000" loading="lazy">
         <figcaption class="cap">Así me quedo yo cada vez que pienso en ti</figcaption>
       </figure>
       <div class="btn-row" style="margin-top:10px">
@@ -539,7 +539,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     </div>
     <figure class="polaroid" style="max-width:340px">
       <span class="tape"></span>
-      <img src="fotos/beso.jpg" alt="Dibujo de dos perritos dándose un beso" width="1000" height="572" loading="lazy">
+      <img src="beso.jpg" alt="Dibujo de dos perritos dándose un beso" width="1000" height="572" loading="lazy">
       <figcaption class="cap">Tú y yo</figcaption>
     </figure>
     <article class="card letter" id="cartaFinal"></article>
@@ -577,18 +577,18 @@ const INICIO = new Date(2026, 5, 14); // 14 de junio de 2026 (los meses empiezan
 // Canción del capítulo del cielo («Mirando las estrellas», de Tombochio).
 // Empieza a sonar sola cuando ella toca la primera estrella.
 // Sube el mp3 a la carpeta "musica" con este nombre exacto.
-const CANCION = 'musica/mirando-las-estrellas.mp3';
+const CANCION = 'mirando-las-estrellas.mp3';
 
 const PARADAS = [
-  { fecha: '14 jun', titulo: 'El comienzo', foto: 'fotos/globo.jpg', alt: 'Dibujo de nosotros con un globo de corazón',
+  { fecha: '14 jun', titulo: 'El comienzo', foto: 'globo.jpg', alt: 'Dibujo de nosotros con un globo de corazón',
     texto: 'El 14 de junio de 2026 cambió mi vida para siempre. Desde ese día tengo a alguien a quien dedicarle mis dibujitos, mis buenos días y todos mis pensamientos bonitos.' },
-  { fecha: '14 jul', titulo: 'Un mes', foto: 'fotos/changuitos.jpg', alt: 'Dos changuitos de juguete con plátanos',
+  { fecha: '14 jul', titulo: 'Un mes', foto: 'changuitos.jpg', alt: 'Dos changuitos de juguete con plátanos',
     texto: 'Nuestro primer mes. Descubrí que la distancia se hace chiquita cuando hablo contigo, y que dos changuitos enamorados pueden ser los más felices del mundo.' },
-  { fecha: '14 ago', titulo: 'Dos meses', foto: 'fotos/cocodrilo-delfin.jpg', alt: 'Un cocodrilo y una delfín de juguete',
+  { fecha: '14 ago', titulo: 'Dos meses', foto: 'cocodrilo-delfin.jpg', alt: 'Un cocodrilo y una delfín de juguete',
     texto: 'Un cocodrilo y una delfincita no deberían combinar… y aun así combinan perfecto. Así somos tú y yo: diferentes, pero hechos el uno para el otro.' },
-  { fecha: '14 sep', titulo: 'Tres meses', foto: 'fotos/3-meses.jpg', alt: 'Ramo de flores rosas con un osito y un listón de 3 meses',
+  { fecha: '14 sep', titulo: 'Tres meses', foto: '3-meses.jpg', alt: 'Ramo de flores rosas con un osito y un listón de 3 meses',
     texto: 'Flores, un osito y una página hecha con todo mi corazón. Tres meses, y yo cada día más enamorado de ti.' },
-  { fecha: '14 oct', titulo: '¡Hoy, cuatro meses!', foto: 'fotos/te-amo-brittany.jpg', alt: 'Dibujo que dice Te amo, Brittany',
+  { fecha: '14 oct', titulo: '¡Hoy, cuatro meses!', foto: 'te-amo-brittany.jpg', alt: 'Dibujo que dice Te amo, Brittany',
     texto: 'Y aquí estamos: cuatro meses después, con kilómetros de por medio y con más amor que nunca. Pero esto apenas empieza, porque todavía tengo mucho que mostrarte…' },
 ];
 
@@ -626,7 +626,7 @@ const CARTAS = [
     'Ojalá pudiera estar ahí ahorita. Te abrazaría fuerte, de esos abrazos largos en los que no hace falta decir nada, y me quedaría contigo hasta que pase. Como todavía no puedo, te dejo esta carta para que sea un abrazo de papel.',
     'Respira despacito. Tápate con tu cobija favorita. Y cuando te sientas lista, escríbeme, aunque sea solo un «estoy triste». No tienes que explicarme nada: solo quiero estar contigo.',
     'Ninguna tormenta dura para siempre, mi amor. Y mientras pasa esta, yo voy a estar aquí, sosteniéndote desde lejos. Te amo en tus días soleados, y te amo todavía más en tus días grises.' ] },
-  { cuando: 'me extrañes', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'fotos/extranandote.jpg', alt: 'Selfie de Eduardo', saludo: 'Mi amor:', texto: [
+  { cuando: 'me extrañes', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'extranandote.jpg', alt: 'Selfie de Eduardo', saludo: 'Mi amor:', texto: [
     'Si me extrañas, quiero que sepas que en este mismo momento yo también te estoy extrañando. Es imposible no hacerlo: te extraño cuando despierto, cuando veo algo bonito que quisiera enseñarte y cuando me acuesto a dormir.',
     'Aquí te dejo una foto mía para que me veas cuando quieras. Es la cara que pongo cuando pienso en ti, y pienso en ti muchísimo.',
     'Extrañarte es la prueba de lo mucho que te quiero. Y aunque duele un poquito, también me llena de esperanza, porque cada día que pasa es un día menos para poder abrazarte.',
@@ -643,7 +643,7 @@ const CARTAS = [
     'Tómate tu tiempo. Y cuando estés lista, cuéntame cómo te sientes. Te prometo escucharte con calma y con el corazón abierto, porque prefiero mil veces entenderte que tener la razón.',
     'Ninguna pelea es más grande que lo que siento por ti. Somos un equipo, y los equipos se arreglan juntos.',
     'Te amo, incluso cuando estás enojada conmigo. ¿Me regalas una sonrisita cuando estés lista? 👉👈' ] },
-  { cuando: 'necesites reírte', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'fotos/vaquerito.jpg', alt: 'Eduardo de bebé con sombrero vaquero', saludo: 'Mi niña bonita:', texto: [
+  { cuando: 'necesites reírte', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'vaquerito.jpg', alt: 'Eduardo de bebé con sombrero vaquero', saludo: 'Mi niña bonita:', texto: [
     'Te voy a confiar uno de mis secretos más grandes: este vaquerito chiquito soy yo 🤠.',
     'Mira esa carita tan seria, como si estuviera resolviendo el problema más importante del mundo. Mira ese sombrero que me queda enorme, y ese perrito de peluche que me cuida.',
     `Ese niño no sabía que algún día iba a conocer a una niña hermosa que le iba a cambiar la vida. Pero si pudiera decirle algo, le diría: «Espera tantito, que lo mejor está por llegar, y se llama ${NOMBRE}».`,

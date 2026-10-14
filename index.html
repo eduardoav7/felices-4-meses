@@ -18,6 +18,7 @@
   --ink-soft: #5d6186;
   --marker: #e23d52;
   --blush: #f6b3c2;
+  --blush-2: #fde3ea;
   --tape: rgba(246, 179, 194, .78);
   --kraft: #d9b285;
   --kraft-2: #e7c79d;
@@ -308,6 +309,82 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 .pd { font-style: italic; color: var(--ink-soft); }
 .letter .pd { margin-top: 24px; }
 
+/* Juegos */
+.juegos-hub, .game { display: flex; flex-direction: column; gap: 18px; }
+.juegos-hub > *, .game > * { min-width: 0; }
+.games { display: flex; flex-direction: column; gap: 14px; }
+.game-card {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: left;
+  background: var(--white); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 12px 5px 14px 7px;
+  box-shadow: 3px 4px 0 var(--ink); padding: 12px 14px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.game-card:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.game-card:focus-visible { outline: 3px dashed var(--marker); outline-offset: 4px; }
+.game-card .ico { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-size: 26px; background: var(--blush-2); border: 2px solid var(--ink); }
+.game-card .txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.game-card .t { font: 700 26px/1 var(--font-hand); }
+.game-card .d { font-size: 14px; line-height: 1.35; color: var(--ink-soft); }
+.game-card .st { font: 800 11px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; }
+.game-card .st.ok { color: var(--marker); }
+.back { align-self: flex-start; padding: 4px 0; text-decoration: none; font-weight: 800; color: var(--marker); }
+.hud { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 14px; font-weight: 700; color: var(--ink); font-size: 15px; }
+.hud b { color: var(--marker); font-variant-numeric: tabular-nums; }
+.lives { color: var(--marker); font-size: 20px; letter-spacing: 3px; }
+.game-box {
+  position: relative; width: 100%; overflow: hidden;
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 26px 26px;
+  border: 2.5px solid var(--ink); border-radius: 12px 6px 14px 8px; box-shadow: 4px 5px 0 var(--ink);
+}
+.game-box canvas { display: block; margin: 0 auto; touch-action: none; }
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px; text-align: center; background: rgba(253, 251, 246, .9); color: var(--ink); }
+.overlay p { margin: 0; max-width: 30ch; }
+.ov-title { font: 700 44px/1 var(--font-hand); color: var(--marker); }
+.game-msg { margin: 0; min-height: 32px; text-align: center; font: 700 27px/1.15 var(--font-hand); color: var(--marker); text-wrap: balance; }
+.game-hint { margin: 0; font-size: 14px; color: var(--ink-soft); text-align: center; }
+
+.mem-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.mem-card { aspect-ratio: 1 / 1; padding: 0; border: 0; background: none; cursor: pointer; perspective: 600px; -webkit-tap-highlight-color: transparent; }
+.mem-card .in { position: relative; display: block; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
+.mem-card.flip .in { transform: rotateY(180deg); }
+.mem-card .fa, .mem-card .fb { position: absolute; inset: 0; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 9px 4px 10px 5px; overflow: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.mem-card .fa {
+  background-color: var(--blush-2); color: var(--marker); font: 700 30px/1 var(--font-hand);
+  background-image: linear-gradient(rgba(226, 61, 82, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(226, 61, 82, .12) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+.mem-card .fb { transform: rotateY(180deg); background: var(--white); }
+.mem-card .fb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mem-card.ok .fb { border-color: var(--marker); box-shadow: inset 0 0 0 2px var(--marker); }
+.mem-card:focus-visible { outline: 3px dashed var(--marker); outline-offset: 2px; }
+
+.vales { display: flex; flex-direction: column; gap: 16px; }
+.vale { position: relative; min-height: 118px; background: var(--white); border: 2.5px dashed var(--marker); border-radius: 14px; overflow: hidden; }
+.vale::before, .vale::after { content: ""; position: absolute; z-index: 2; top: 50%; width: 20px; height: 20px; border-radius: 50%; background: var(--paper); border: 2.5px dashed var(--marker); transform: translateY(-50%); }
+.vale::before { left: -12px; }
+.vale::after { right: -12px; }
+.vale-in { padding: 14px 22px 12px; display: flex; flex-direction: column; gap: 2px; }
+.vale-in p { margin: 0; }
+.vale-t { font: 700 27px/1.1 var(--font-hand); color: var(--ink); text-wrap: balance; }
+.vale-f { margin-top: 4px !important; font-size: 12px; color: var(--ink-soft); }
+.vale canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; touch-action: none; cursor: grab; transition: opacity .5s ease; }
+.vale canvas.gone { opacity: 0; pointer-events: none; }
+
+.puz { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; width: 100%; max-width: 380px; aspect-ratio: 1 / 1; margin: 0 auto; padding: 0; background: var(--ink); border: 2.5px solid var(--ink); border-radius: 8px; overflow: hidden; transition: gap .4s ease; }
+.puz.done { gap: 0; }
+.pz { border: 0; padding: 0; margin: 0; cursor: pointer; background-color: var(--white); background-size: 300% 300%; background-repeat: no-repeat; -webkit-tap-highlight-color: transparent; }
+.pz.sel { box-shadow: inset 0 0 0 4px var(--marker); filter: brightness(1.08); }
+.pz:focus-visible { outline: 3px dashed var(--marker); outline-offset: -3px; }
+
+.dpad { display: grid; grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(2, 54px); grid-template-areas: ". u ." "l d r"; gap: 8px; justify-content: center; }
+.dpad button { display: grid; place-items: center; padding: 0; font-size: 24px; color: var(--ink); background: var(--white); border: 2.5px solid var(--ink); border-radius: 16px 8px 18px 10px; box-shadow: 2px 3px 0 var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.dpad button:active { transform: translate(1px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.dpad [data-dir="up"] { grid-area: u; }
+.dpad [data-dir="left"] { grid-area: l; }
+.dpad [data-dir="down"] { grid-area: d; }
+.dpad [data-dir="right"] { grid-area: r; }
+
 /* Modal y avisos */
 .modal {
   position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center;
@@ -388,6 +465,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="btn-row">
       <button class="btn" type="button" id="btnEmpezar">Vamos 🐾</button>
       <button class="btn ghost" type="button" id="btnOtraVez" hidden>Empezar desde el principio</button>
+      <button class="btn ghost" type="button" id="btnJuegosPortada" data-go="juegos" hidden>Nuestros juegos 🎮</button>
     </div>
     <p class="para" id="paraDe">Para: Brittany · De: Eduardo</p>
   </section>
@@ -555,6 +633,94 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="btn-row">
       <button class="btn ghost" type="button" id="btnFinalOtraVez">Jugar otra vez 🐾</button>
       <button class="btn" type="button" data-go="tesoro">Ir al tesoro 📦</button>
+      <button class="btn" type="button" data-go="juegos">Nuestros juegos 🎮</button>
+    </div>
+  </section>
+
+  <!-- JUEGOS -->
+  <section class="scene" id="juegos" hidden>
+    <div class="juegos-hub" id="juegosHub">
+      <div class="head">
+        <p class="eyebrow">Bonus</p>
+        <h2><span class="mark">Nuestros juegos</span></h2>
+        <p class="lead">Cinco jueguitos que hice para ti. Juégalos las veces que quieras.</p>
+      </div>
+      <div class="games" id="gamesList"></div>
+      <div class="btn-row"><button class="btn ghost" type="button" data-go="final">Volver a la última carta</button></div>
+    </div>
+
+    <div class="game" id="g-corazones" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 1 de 5</p>
+        <h2><span class="mark">Mishi atrapa corazones</span></h2>
+        <p class="lead">Desliza el dedo para mover a Mishi. Atrapa 14 corazones y esquiva las nubes grises.</p>
+      </div>
+      <div class="hud"><span>💗 <b id="hcScore">0</b> de 14</span><span class="lives" id="hcLives" aria-label="Vidas"></span></div>
+      <div class="game-box" id="hcBox">
+        <canvas id="hcCanvas" aria-label="Juego de atrapar corazones"></canvas>
+        <div class="overlay" id="hcOverlay">
+          <p class="ov-title" id="hcTitle">¿Lista?</p>
+          <p id="hcText">Tienes 3 vidas. Cada nube gris te quita una.</p>
+          <button class="btn" type="button" id="hcStart">Empezar 🐾</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game" id="g-memorama" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 2 de 5</p>
+        <h2><span class="mark">Memorama de nosotros</span></h2>
+        <p class="lead">Voltea dos cartas a la vez y encuentra los 8 pares.</p>
+      </div>
+      <div class="hud"><span>Movimientos: <b id="memMoves">0</b></span><span>Pares: <b id="memPairs">0</b> de 8</span></div>
+      <div class="mem-grid" id="memGrid"></div>
+      <p class="game-msg" id="memMsg" aria-live="polite">Encuentra los pares 🐾</p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="memAgain">Revolver las cartas</button></div>
+    </div>
+
+    <div class="game" id="g-vales" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 3 de 5</p>
+        <h2><span class="mark">Rasca y gana</span></h2>
+        <p class="lead">Raspa cada tarjeta con el dedo para descubrir tu premio. Son vales de verdad: tómales captura y cóbramelos cuando quieras.</p>
+      </div>
+      <div class="vales" id="vales"></div>
+      <p class="game-msg" id="valesMsg" hidden>¡Ganaste todos los vales! Cóbramelos cuando quieras 💞</p>
+    </div>
+
+    <div class="game" id="g-rompe" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 4 de 5</p>
+        <h2><span class="mark">Rompecabezas</span></h2>
+        <p class="lead">Toca dos piezas para cambiarlas de lugar hasta armar el dibujo.</p>
+      </div>
+      <div class="hud"><span>Movimientos: <b id="puzMoves">0</b></span><button class="linkish" type="button" id="puzVer">Ver cómo queda</button></div>
+      <div class="puz" id="puz"></div>
+      <p class="game-msg" id="puzMsg" aria-live="polite"></p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="puzAgain">Revolver las piezas</button></div>
+    </div>
+
+    <div class="game" id="g-laberinto" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 5 de 5</p>
+        <h2><span class="mark">El laberinto de los kilómetros</span></h2>
+        <p class="lead">Lleva a Mishi hasta el corazón. Usa las flechas o desliza el dedo sobre el laberinto.</p>
+      </div>
+      <div class="hud"><span>🏠 Sale de: <b id="mzFrom">Eduardo</b></span><span>💞 Llega a: <b id="mzTo">Brittany</b></span></div>
+      <div class="game-box"><canvas id="mzCanvas" aria-label="Laberinto"></canvas></div>
+      <div class="dpad" aria-label="Flechas">
+        <button type="button" data-dir="up" aria-label="Arriba">▲</button>
+        <button type="button" data-dir="left" aria-label="Izquierda">◀</button>
+        <button type="button" data-dir="down" aria-label="Abajo">▼</button>
+        <button type="button" data-dir="right" aria-label="Derecha">▶</button>
+      </div>
+      <p class="game-msg" id="mzMsg" aria-live="polite"></p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="mzAgain">Otro laberinto</button></div>
     </div>
   </section>
 
@@ -735,6 +901,26 @@ const CARTA_FINAL = {
   pd: 'P. D. Esto todavía no termina: algo va en camino hacia ti. Cuando llegue, ya sabes a qué capítulo regresar. 🐾',
 };
 
+// Juegos: los vales del «Rasca y gana» y las frases del memorama.
+const VALES = [
+  'una videollamada sin límite de tiempo.',
+  'una canción dedicada, la que tú me pidas.',
+  'un dibujo hecho solo para ti.',
+  'ganar la próxima discusión, sin pelear. 😌',
+  'una cita a distancia: misma película, misma hora y cada quien con sus palomitas.',
+  'un abrazo de cinco minutos la próxima vez que nos veamos.',
+];
+const FRASES_MEMORAMA = {
+  'globo': 'El día que todo empezó 🎈',
+  'changuitos': 'Dos changuitos enamorados 🐒',
+  'cocodrilo-delfin': 'Diferentes, pero perfectos juntos',
+  '3-meses': 'Nuestros tres meses 💐',
+  'te-amo-brittany': `Te amo, ${NOMBRE} ❤️`,
+  'mirando-corazon': 'Así te miro yo ✨',
+  'beso': 'Tú y yo 💞',
+  'vaquerito': 'Tu vaquerito favorito 🤠',
+};
+
 /* ==========================================================
    De aquí para abajo es el funcionamiento de la página.
    ========================================================== */
@@ -742,7 +928,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const NS = 'http://www.w3.org/2000/svg';
 const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const ESCENAS = ['portada','camino','cielo','promesas','cartas','tesoro','final'];
+const ESCENAS = ['portada','camino','cielo','promesas','cartas','tesoro','final','juegos'];
 const KEY = 'felices-4-meses-v2';
 
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
@@ -766,6 +952,7 @@ function go(id) {
   document.querySelectorAll('.scene').forEach(s => { s.hidden = s.id !== id; });
   document.body.classList.toggle('noche', id === 'cielo');
   if (id === 'cielo') prepararCancion(); else bajarCancion();
+  if (id === 'juegos') volverJuegos(); else detenerJuegos();
   window.scrollTo(0, 0);
   if (id === 'portada') portada();
   S.visto[id] = true; save();
@@ -826,6 +1013,7 @@ function portada() {
   const terminado = S.camino >= PARADAS.length && S.estrellas.length >= RAZONES.length && S.promesas >= PROMESAS.length;
   const b1 = $('#btnEmpezar'), b2 = $('#btnOtraVez');
   b2.hidden = !empezado;
+  $('#btnJuegosPortada').hidden = !empezado;
   if (!empezado) {
     $('#bubbleIntro').textContent = `¡Miau! Soy Mishi. Hoy te voy a llevar por un recorrido que ${FIRMA} preparó solo para ti. ¿Vamos?`;
     b1.textContent = 'Vamos 🐾';
@@ -850,6 +1038,7 @@ function portada() {
 function reiniciarJuego() {
   S.camino = 0; S.promesas = 0; S.cartas = []; S.dias = [];
   S.tesoro = [false, false, false]; S.acepto = false;
+  S.juegos = JUEGOS_VACIO(); pintarJuegos();
   reiniciarCielo();
   pintarPromesas();
   document.querySelectorAll('#envelopes .env').forEach(e => e.classList.remove('open'));
@@ -1298,6 +1487,7 @@ $('#menuBtn').addEventListener('click', () => {
     ['4', 'Ábrelo cuando…', 'cartas', `${S.cartas.length} de ${CARTAS.length} cartas`],
     ['5', 'El tesoro', 'tesoro', S.tesoro.every(Boolean) ? 'listo' : `${S.tesoro.filter(Boolean).length} de 3`],
     ['✉', 'Una última carta', 'final', ''],
+    ['🎮', 'Nuestros juegos', 'juegos', juegosGanados() >= JUEGOS.length ? 'listo' : `${juegosGanados()} de ${JUEGOS.length}`],
   ];
   openModal(`
     <h3>Índice</h3>
@@ -1305,6 +1495,459 @@ $('#menuBtn').addEventListener('click', () => {
     <button class="btn ghost" type="button" id="btnIndiceOtraVez">Jugar otra vez 🐾</button>`);
   $('#btnIndiceOtraVez').addEventListener('click', reiniciarJuego);
 });
+
+/* ---------- Juegos ---------- */
+const JUEGOS = [
+  { id: 'corazones', ico: '💗', t: 'Mishi atrapa corazones', d: 'Atrapa 14 corazones y esquiva las nubes grises.' },
+  { id: 'memorama', ico: '🃏', t: 'Memorama de nosotros', d: 'Encuentra los pares de nuestras fotos y dibujos.' },
+  { id: 'vales', ico: '🎟️', t: 'Rasca y gana', d: 'Raspa las tarjetas y descubre vales para cobrarme.' },
+  { id: 'rompe', ico: '🧩', t: 'Rompecabezas', d: 'Arma otra vez uno de mis dibujos.' },
+  { id: 'laberinto', ico: '🗺️', t: 'El laberinto de los kilómetros', d: 'Ayuda a Mishi a llevarte un abrazo.' },
+];
+const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false });
+if (!S.juegos || typeof S.juegos !== 'object') S.juegos = JUEGOS_VACIO();
+let juegoActual = null;
+
+function estadoJuego(id) {
+  if (id === 'vales') {
+    const n = S.juegos.vales.length, ok = n >= VALES.length;
+    return { ok, txt: ok ? '✓ Ganado' : `${n} de ${VALES.length}` };
+  }
+  return S.juegos[id] ? { ok: true, txt: '✓ Ganado' } : { ok: false, txt: 'Jugar' };
+}
+function juegosGanados() { return JUEGOS.filter(j => estadoJuego(j.id).ok).length; }
+function pintarJuegos() {
+  $('#gamesList').innerHTML = JUEGOS.map(j => {
+    const st = estadoJuego(j.id);
+    return `<button class="game-card" type="button" data-juego="${j.id}">
+      <span class="ico" aria-hidden="true">${j.ico}</span>
+      <span class="txt"><span class="t">${esc(j.t)}</span><span class="d">${esc(j.d)}</span></span>
+      <span class="st ${st.ok ? 'ok' : ''}">${st.txt}</span></button>`;
+  }).join('');
+}
+function abrirJuego(id) {
+  detenerJuegos();
+  juegoActual = id;
+  $('#juegosHub').hidden = true;
+  document.querySelectorAll('#juegos .game').forEach(g => { g.hidden = g.id !== 'g-' + id; });
+  window.scrollTo(0, 0);
+  requestAnimationFrame(() => INICIAR[id]());
+}
+function volverJuegos() {
+  detenerJuegos();
+  juegoActual = null;
+  document.querySelectorAll('#juegos .game').forEach(g => { g.hidden = true; });
+  $('#juegosHub').hidden = false;
+  pintarJuegos();
+  window.scrollTo(0, 0);
+}
+function detenerJuegos() { hc.stop(); }
+function ganar(titulo, texto, otraVez) {
+  confetti(4200, 150);
+  openModal(`
+    <p class="eyebrow">¡Ganaste! 🎉</p>
+    <p class="finale-words" style="font-size:40px">${esc(titulo)}</p>
+    <p>${esc(texto)}</p>
+    <div class="btn-row">
+      <button class="btn ghost" type="button" id="btnOtraPartida">Jugar otra vez</button>
+      <button class="btn" type="button" id="btnAJuegos">Más juegos</button>
+    </div>`);
+  $('#btnOtraPartida').onclick = () => { closeModal(); otraVez(); };
+  $('#btnAJuegos').onclick = () => { closeModal(); volverJuegos(); };
+}
+document.addEventListener('click', e => {
+  const j = e.target.closest('[data-juego]');
+  if (j) { abrirJuego(j.dataset.juego); return; }
+  if (e.target.closest('[data-volver]')) volverJuegos();
+});
+
+/* Ayudantes de dibujo */
+let gatoImg = null;
+function imgGato() {
+  if (gatoImg) return gatoImg;
+  gatoImg = new Image();
+  gatoImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${document.getElementById('gato').innerHTML}</svg>`);
+  return gatoImg;
+}
+function prepCanvas(cv, w, h) {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.width = w + 'px'; cv.style.height = h + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+function corazon(ctx, x, y, s, color, borde = true) {
+  const t = y - s / 2;
+  ctx.beginPath();
+  ctx.moveTo(x, t + s * 0.3);
+  ctx.bezierCurveTo(x, t, x - s * 0.5, t, x - s * 0.5, t + s * 0.3);
+  ctx.bezierCurveTo(x - s * 0.5, t + s * 0.6, x, t + s * 0.8, x, t + s);
+  ctx.bezierCurveTo(x, t + s * 0.8, x + s * 0.5, t + s * 0.6, x + s * 0.5, t + s * 0.3);
+  ctx.bezierCurveTo(x + s * 0.5, t, x, t, x, t + s * 0.3);
+  ctx.closePath();
+  ctx.fillStyle = color; ctx.fill();
+  if (borde) { ctx.lineWidth = 2; ctx.strokeStyle = '#22264a'; ctx.stroke(); }
+}
+
+/* Juego 1: Mishi atrapa corazones */
+const hc = (() => {
+  const META = 14, cv = $('#hcCanvas'), box = $('#hcBox');
+  let ctx, W = 0, H = 0, raf = 0, last = 0, running = false;
+  let score = 0, lives = 3, items = [], pops = [], catX = 0, spawnT = 0, flashT = 0;
+  function size() {
+    W = box.clientWidth;
+    H = Math.round(Math.min(480, Math.max(340, W * 1.2)));
+    ctx = prepCanvas(cv, W, H);
+    catX = Math.max(30, Math.min(W - 30, catX || W / 2));
+  }
+  function hud() {
+    $('#hcScore').textContent = score;
+    $('#hcLives').textContent = '♥'.repeat(Math.max(0, lives)) + '♡'.repeat(Math.max(0, 3 - lives));
+  }
+  function overlay(titulo, texto, boton) {
+    $('#hcTitle').textContent = titulo; $('#hcText').textContent = texto; $('#hcStart').textContent = boton;
+    $('#hcOverlay').hidden = false;
+  }
+  function reset() { score = 0; lives = 3; items = []; pops = []; spawnT = 0.4; flashT = 0; catX = W / 2; hud(); }
+  function iniciar() {
+    stop(); size(); reset(); draw(0);
+    const g = imgGato();
+    if (!g.complete) g.addEventListener('load', () => { if (!running) draw(0); }, { once: true });
+    overlay('¿Lista?', 'Tienes 3 vidas. Cada nube gris te quita una.', 'Empezar 🐾');
+  }
+  function start() {
+    size(); reset();
+    $('#hcOverlay').hidden = true;
+    running = true; last = performance.now();
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+  }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  function spawn() {
+    const nube = Math.random() < Math.min(0.32, 0.18 + score * 0.01);
+    items.push({ x: 26 + Math.random() * (W - 52), y: -26, v: (nube ? 115 : 135) + score * 9 + Math.random() * 60, nube, s: nube ? 36 : 26 + Math.random() * 8, w: Math.random() * 6.28 });
+  }
+  function loop(now) {
+    if (!running) return;
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    spawnT -= dt;
+    if (spawnT <= 0) { spawn(); spawnT = Math.max(0.42, 0.85 - score * 0.025); }
+    const catY = H - 44;
+    items.forEach(it => { it.y += it.v * dt; it.w += dt * 3; });
+    items = items.filter(it => {
+      if (it.y > catY - 34 && it.y < catY + 16 && Math.abs(it.x - catX) < 36) {
+        if (it.nube) { lives--; flashT = 0.35; pops.push({ x: it.x, y: catY - 44, t: 0.8, txt: '−1 ♥', c: '#5d6186' }); }
+        else { score++; pops.push({ x: it.x, y: catY - 44, t: 0.8, txt: '+1', c: '#e23d52' }); }
+        hud();
+        return false;
+      }
+      return it.y < H + 30;
+    });
+    draw(dt);
+    if (score >= META) {
+      stop();
+      S.juegos.corazones = true; save();
+      overlay('¡Ganaste!', 'Atrapaste los 14 corazones.', 'Jugar otra vez 🐾');
+      ganar('¡Atrapaste 14 corazones!', 'Y así de fácil atrapaste el mío desde el primer día. 💞', start);
+      return;
+    }
+    if (lives <= 0) { stop(); overlay('¡Casi!', 'Las nubes ganaron esta vez. ¿Lo intentas otra vez?', 'Intentar otra vez 🐾'); return; }
+    raf = requestAnimationFrame(loop);
+  }
+  function nube(x, y, s) {
+    ctx.fillStyle = '#c3c7da'; ctx.strokeStyle = '#22264a'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(x - s * 0.35, y, s * 0.32, Math.PI * 0.5, Math.PI * 1.5);
+    ctx.arc(x - s * 0.05, y - s * 0.2, s * 0.38, Math.PI, Math.PI * 2);
+    ctx.arc(x + s * 0.38, y, s * 0.3, Math.PI * 1.5, Math.PI * 0.5);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = '#7f9bd6'; ctx.beginPath();
+    for (let k = -1; k <= 1; k++) { ctx.moveTo(x + k * s * 0.3, y + s * 0.45); ctx.lineTo(x + k * s * 0.3 - 3, y + s * 0.68); }
+    ctx.stroke();
+  }
+  function draw(dt) {
+    ctx.clearRect(0, 0, W, H);
+    if (flashT > 0) { flashT -= dt; ctx.fillStyle = `rgba(93,97,134,${Math.max(0, flashT * 0.5)})`; ctx.fillRect(0, 0, W, H); }
+    items.forEach(it => { if (it.nube) nube(it.x, it.y, it.s); else corazon(ctx, it.x + Math.sin(it.w) * 3, it.y, it.s, '#e23d52'); });
+    const g = imgGato(), catY = H - 44;
+    if (g.complete && g.naturalWidth) ctx.drawImage(g, catX - 36, catY - 50, 72, 72);
+    ctx.textAlign = 'center'; ctx.font = '700 24px Caveat, cursive';
+    pops = pops.filter(p => {
+      p.t -= dt; p.y -= 40 * dt;
+      ctx.globalAlpha = Math.max(0, p.t / 0.8); ctx.fillStyle = p.c; ctx.fillText(p.txt, p.x, p.y); ctx.globalAlpha = 1;
+      return p.t > 0;
+    });
+  }
+  function mover(e) {
+    const r = cv.getBoundingClientRect();
+    catX = Math.max(30, Math.min(W - 30, e.clientX - r.left));
+    if (!running && ctx) draw(0);
+  }
+  cv.addEventListener('pointerdown', mover);
+  cv.addEventListener('pointermove', mover);
+  $('#hcStart').addEventListener('click', start);
+  function tecla(dir) { if (dir === 'left') catX = Math.max(30, catX - 28); if (dir === 'right') catX = Math.min(W - 30, catX + 28); if (!running && ctx) draw(0); }
+  return { iniciar, stop, tecla };
+})();
+
+/* Juego 2: memorama */
+const mem = (() => {
+  const CARTAS_MEM = Object.keys(FRASES_MEMORAMA);
+  let first = null, lock = false, moves = 0, pairs = 0;
+  function upd() { $('#memMoves').textContent = moves; $('#memPairs').textContent = pairs; }
+  function iniciar() {
+    const deck = CARTAS_MEM.flatMap(k => [k, k]);
+    for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+    first = null; lock = false; moves = 0; pairs = 0; upd();
+    $('#memMsg').textContent = 'Encuentra los pares 🐾';
+    const g = $('#memGrid'); g.innerHTML = '';
+    deck.forEach(k => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'mem-card'; b.dataset.k = k;
+      b.setAttribute('aria-label', 'Carta volteada');
+      b.innerHTML = `<span class="in"><span class="fa" aria-hidden="true">♥</span><span class="fb"><img src="${k}.jpg" alt=""></span></span>`;
+      b.addEventListener('click', () => tocar(b));
+      g.appendChild(b);
+    });
+  }
+  function tocar(b) {
+    if (lock || b === first || b.classList.contains('ok') || b.classList.contains('flip')) return;
+    b.classList.add('flip');
+    if (!first) { first = b; return; }
+    moves++; upd();
+    if (first.dataset.k === b.dataset.k) {
+      first.classList.add('ok'); b.classList.add('ok');
+      pairs++; upd();
+      $('#memMsg').textContent = FRASES_MEMORAMA[b.dataset.k] || '¡Par!';
+      first = null;
+      if (pairs === CARTAS_MEM.length) {
+        S.juegos.memorama = true; save();
+        setTimeout(() => ganar(`¡Encontraste los ${CARTAS_MEM.length} pares!`, `Lo lograste en ${moves} movimientos. Pero el par más bonito siempre vamos a ser tú y yo.`, iniciar), 700);
+      }
+    } else {
+      lock = true;
+      const a = first; first = null;
+      setTimeout(() => { a.classList.remove('flip'); b.classList.remove('flip'); lock = false; }, 850);
+    }
+  }
+  $('#memAgain').addEventListener('click', iniciar);
+  return { iniciar };
+})();
+
+/* Juego 3: rasca y gana */
+const vales = (() => {
+  function iniciar() {
+    const w = $('#vales'); w.innerHTML = '';
+    VALES.forEach((t, i) => {
+      const d = document.createElement('div');
+      d.className = 'vale';
+      d.innerHTML = `<div class="vale-in"><p class="eyebrow">Vale por</p><p class="vale-t">${esc(t)}</p><p class="vale-f">Canjeable con ${esc(FIRMA)} · No caduca nunca</p></div>`;
+      w.appendChild(d);
+      if (!S.juegos.vales.includes(i)) {
+        const cv = document.createElement('canvas');
+        cv.setAttribute('aria-label', 'Raspa para descubrir el vale');
+        d.appendChild(cv);
+        requestAnimationFrame(() => capa(cv, d, i));
+      }
+    });
+    $('#valesMsg').hidden = S.juegos.vales.length < VALES.length;
+  }
+  function capa(cv, d, i) {
+    const w = d.clientWidth, h = d.clientHeight;
+    const ctx = prepCanvas(cv, w, h);
+    cv.style.width = '100%'; cv.style.height = '100%';
+    const gr = ctx.createLinearGradient(0, 0, w, h);
+    gr.addColorStop(0, '#f4a9bb'); gr.addColorStop(1, '#f9d0da');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h);
+    for (let y = 12, row = 0; y < h + 10; y += 24, row++) {
+      for (let x = 12 + (row % 2) * 12; x < w + 10; x += 24) corazon(ctx, x, y, 8, 'rgba(255,255,255,.55)', false);
+    }
+    ctx.fillStyle = '#22264a'; ctx.font = '700 30px Caveat, cursive'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Raspa aquí ✨', w / 2, h / 2);
+    ctx.globalCompositeOperation = 'destination-out';
+    let down = false, n = 0;
+    const raspar = e => {
+      const r = cv.getBoundingClientRect();
+      ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 22, 0, Math.PI * 2); ctx.fill();
+      if (++n % 8 === 0) revisar();
+    };
+    cv.addEventListener('pointerdown', e => { down = true; try { cv.setPointerCapture(e.pointerId); } catch (err) {} raspar(e); });
+    cv.addEventListener('pointermove', e => { if (down) raspar(e); });
+    const fin = () => { if (down) { down = false; revisar(); } };
+    cv.addEventListener('pointerup', fin);
+    cv.addEventListener('pointercancel', fin);
+    function revisar() {
+      if (cv.classList.contains('gone')) return;
+      const data = ctx.getImageData(0, 0, cv.width, cv.height).data;
+      let clear = 0, tot = 0;
+      for (let k = 3; k < data.length; k += 4 * 11) { tot++; if (data[k] < 40) clear++; }
+      if (clear / tot < 0.5) return;
+      cv.classList.add('gone');
+      setTimeout(() => cv.remove(), 600);
+      if (!S.juegos.vales.includes(i)) { S.juegos.vales.push(i); save(); }
+      confetti(1400, 40);
+      if (S.juegos.vales.length >= VALES.length) {
+        $('#valesMsg').hidden = false;
+        setTimeout(() => ganar(`¡Ganaste los ${VALES.length} vales!`, 'Tómales captura y cóbramelos cuando quieras. Todos son válidos para siempre.', () => { S.juegos.vales = []; save(); iniciar(); }), 900);
+      }
+    }
+  }
+  return { iniciar };
+})();
+
+/* Juego 4: rompecabezas */
+const puz = (() => {
+  const N = 3, IMG = 'globo.jpg';
+  let order = [], sel = null, moves = 0, done = false;
+  function iniciar() {
+    order = [...Array(N * N).keys()];
+    do {
+      for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+    } while (order.filter((v, i) => v === i).length > 1);
+    sel = null; moves = 0; done = false;
+    $('#puzMsg').textContent = '';
+    pintar();
+  }
+  function pintar() {
+    const p = $('#puz');
+    p.classList.toggle('done', done);
+    $('#puzMoves').textContent = moves;
+    p.innerHTML = order.map((t, slot) => {
+      const r = Math.floor(t / N), c = t % N;
+      return `<button class="pz${sel === slot ? ' sel' : ''}" type="button" data-slot="${slot}" aria-label="Pieza ${slot + 1}" style="background-image:url('${IMG}');background-position:${c * 50}% ${r * 50}%"></button>`;
+    }).join('');
+  }
+  $('#puz').addEventListener('click', e => {
+    const b = e.target.closest('.pz');
+    if (!b || done) return;
+    const s = +b.dataset.slot;
+    if (sel === null) { sel = s; pintar(); return; }
+    if (sel === s) { sel = null; pintar(); return; }
+    [order[sel], order[s]] = [order[s], order[sel]];
+    sel = null; moves++;
+    if (order.every((v, i) => v === i)) {
+      done = true; S.juegos.rompe = true; save();
+      pintar();
+      $('#puzMsg').textContent = `¡Listo en ${moves} movimientos!`;
+      setTimeout(() => ganar('¡Armaste el dibujo!', 'Pieza por pieza, así también vamos armando lo nuestro.', iniciar), 700);
+      return;
+    }
+    pintar();
+  });
+  $('#puzAgain').addEventListener('click', iniciar);
+  $('#puzVer').addEventListener('click', () => openModal(`
+    <p class="eyebrow">Así debe quedar</p>
+    <figure class="polaroid" style="max-width:300px"><span class="tape"></span><img src="${IMG}" alt="Dibujo completo"></figure>
+    <button class="btn" type="button" data-close>Seguir armando</button>`));
+  return { iniciar };
+})();
+
+/* Juego 5: el laberinto de los kilómetros */
+const lab = (() => {
+  const C = 7, R = 9, O = 6, cv = $('#mzCanvas');
+  const DIRS = { up: [0, -1, 0], right: [1, 0, 1], down: [0, 1, 2], left: [-1, 0, 3] };
+  let ctx, cell = 40, W, H, cells = [], px = 0, py = 0, visit = new Set(), ganado = false;
+  function gen() {
+    cells = Array.from({ length: R }, () => Array.from({ length: C }, () => [1, 1, 1, 1]));
+    const seen = Array.from({ length: R }, () => Array(C).fill(false));
+    const D = [[0, -1, 0, 2], [1, 0, 1, 3], [0, 1, 2, 0], [-1, 0, 3, 1]];
+    const stack = [[0, 0]]; seen[0][0] = true;
+    while (stack.length) {
+      const [x, y] = stack[stack.length - 1];
+      const opts = D.filter(([dx, dy]) => { const nx = x + dx, ny = y + dy; return nx >= 0 && ny >= 0 && nx < C && ny < R && !seen[ny][nx]; });
+      if (!opts.length) { stack.pop(); continue; }
+      const [dx, dy, w, o] = opts[Math.floor(Math.random() * opts.length)];
+      cells[y][x][w] = 0; cells[y + dy][x + dx][o] = 0;
+      seen[y + dy][x + dx] = true; stack.push([x + dx, y + dy]);
+    }
+  }
+  function size() {
+    const bw = cv.parentElement.clientWidth;
+    cell = Math.max(24, Math.min(36, Math.floor((bw - O * 2 - 4) / C)));
+    W = cell * C + O * 2; H = cell * R + O * 2;
+    ctx = prepCanvas(cv, W, H);
+  }
+  function iniciar() {
+    gen(); px = 0; py = 0; visit = new Set(['0,0']); ganado = false;
+    $('#mzMsg').textContent = '';
+    $('#mzFrom').textContent = FIRMA; $('#mzTo').textContent = NOMBRE;
+    size();
+    const g = imgGato();
+    if (!g.complete) g.addEventListener('load', draw, { once: true });
+    draw();
+  }
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(223,231,251,.9)'; ctx.fillRect(O, O, cell, cell);
+    ctx.fillStyle = 'rgba(246,179,194,.5)'; ctx.fillRect(O + (C - 1) * cell, O + (R - 1) * cell, cell, cell);
+    ctx.fillStyle = '#f6b3c2';
+    visit.forEach(k => {
+      const [x, y] = k.split(',').map(Number);
+      ctx.beginPath(); ctx.arc(O + x * cell + cell / 2, O + y * cell + cell / 2, cell * 0.12, 0, Math.PI * 2); ctx.fill();
+    });
+    corazon(ctx, O + (C - 1) * cell + cell / 2, O + (R - 1) * cell + cell / 2, cell * 0.62, '#e23d52');
+    ctx.strokeStyle = '#22264a'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (let y = 0; y < R; y++) for (let x = 0; x < C; x++) {
+      const w = cells[y][x], X = O + x * cell, Y = O + y * cell;
+      if (w[0]) { ctx.moveTo(X, Y); ctx.lineTo(X + cell, Y); }
+      if (w[1]) { ctx.moveTo(X + cell, Y); ctx.lineTo(X + cell, Y + cell); }
+      if (w[2]) { ctx.moveTo(X, Y + cell); ctx.lineTo(X + cell, Y + cell); }
+      if (w[3]) { ctx.moveTo(X, Y); ctx.lineTo(X, Y + cell); }
+    }
+    ctx.stroke();
+    const g = imgGato();
+    if (g.complete && g.naturalWidth) ctx.drawImage(g, O + px * cell + cell * 0.06, O + py * cell + cell * 0.04, cell * 0.88, cell * 0.88);
+  }
+  function paso(dir) {
+    const [dx, dy, w] = DIRS[dir];
+    if (cells[py][px][w]) return false;
+    const nx = px + dx, ny = py + dy;
+    if (nx < 0 || ny < 0 || nx >= C || ny >= R) return false;
+    px = nx; py = ny; visit.add(px + ',' + py);
+    return true;
+  }
+  function mover(dir, correr) {
+    if (ganado || !cells.length) return;
+    let movio = paso(dir), guard = 0;
+    while (correr && movio && guard++ < 40) {
+      if (px === C - 1 && py === R - 1) break;
+      if (cells[py][px].filter(v => !v).length !== 2) break;
+      movio = paso(dir);
+    }
+    draw();
+    if (px === C - 1 && py === R - 1) {
+      ganado = true; S.juegos.laberinto = true; save();
+      $('#mzMsg').textContent = '¡Llegó el abrazo! 💞';
+      setTimeout(() => ganar('¡El abrazo llegó!', 'Ningún laberinto, ni ningún kilómetro, es más grande que mis ganas de abrazarte.', iniciar), 500);
+    }
+  }
+  let sx = null, sy = null;
+  cv.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+  cv.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+    mover(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'), true);
+  });
+  document.querySelectorAll('.dpad [data-dir]').forEach(b => b.addEventListener('click', () => mover(b.dataset.dir, false)));
+  $('#mzAgain').addEventListener('click', iniciar);
+  function ajustar() { if (!cells.length) return; size(); draw(); }
+  return { iniciar, mover, ajustar };
+})();
+
+const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar };
+document.addEventListener('keydown', e => {
+  if (escena !== 'juegos' || !modal.hidden) return;
+  const dir = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' }[e.key];
+  if (!dir) return;
+  if (juegoActual === 'laberinto') { e.preventDefault(); lab.mover(dir, false); }
+  else if (juegoActual === 'corazones') { e.preventDefault(); hc.tecla(dir); }
+});
+window.addEventListener('resize', () => { if (escena === 'juegos' && juegoActual === 'laberinto') lab.ajustar(); });
+pintarJuegos();
 
 /* Botones para repetir cada capítulo */
 $('#btnCaminarOtraVez').addEventListener('click', () => {

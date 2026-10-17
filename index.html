@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Felices 4 meses</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap">
+<style>
+/* Concepto: un cuaderno cuadriculado (como el de tus dibujos) que un gatito recorre capítulo por capítulo; en el capítulo del cielo se apaga la luz. */
+:root {
+  --paper: #fdfbf6;
+  --grid: #e3e9f6;
+  --ink: #22264a;
+  --ink-soft: #5d6186;
+  --marker: #e23d52;
+  --blush: #f6b3c2;
+  --blush-2: #fde3ea;
+  --tape: rgba(246, 179, 194, .78);
+  --kraft: #d9b285;
+  --kraft-2: #e7c79d;
+  --night: #0f1330;
+  --night-2: #222a5c;
+  --star: #ffe8a8;
+  --white: #ffffff;
+  --shadow: rgba(34, 38, 74, .18);
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --hl: rgba(246, 179, 194, .7);
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --font-body: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 26px 26px;
+  color: var(--text);
+  font: 400 17px/1.6 var(--font-body);
+  transition: background-color .8s ease;
+  overflow-x: hidden;
+}
+body.noche {
+  --text: #f4efe6;
+  --text-soft: #b9bedf;
+  --hl: rgba(255, 232, 168, .22);
+  background-color: var(--night);
+  background-image: radial-gradient(120% 70% at 50% 0%, var(--night-2), var(--night) 70%);
+  background-size: auto;
+}
+img { max-width: 100%; }
+/* Colores para dibujos SVG */
+.f-ink { fill: var(--ink); }
+.f-ink-soft { fill: var(--ink-soft); }
+.f-kraft { fill: var(--kraft); }
+.f-kraft-2 { fill: var(--kraft-2); }
+.f-marker { fill: var(--marker); }
+.f-white { fill: var(--white); }
+.ff-font-body { font-family: var(--font-body); }
+.ff-font-hand { font-family: var(--font-hand); }
+.s-grid { stroke: var(--grid); }
+.s-ink { stroke: var(--ink); }
+.s-marker { stroke: var(--marker); }
+
+button { font: inherit; color: inherit; }
+.wrap {
+  max-width: 460px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.scene { padding-block: 72px 110px; display: flex; flex-direction: column; gap: 22px; }
+.scene > * { min-width: 0; }
+
+/* Tipografía */
+.hand { font-family: var(--font-hand); }
+.eyebrow { margin: 0; font: 800 12px/1.3 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--marker); }
+body.noche .eyebrow { color: var(--star); }
+h1, h2, h3 { margin: 0; font-family: var(--font-hand); font-weight: 700; text-wrap: balance; color: var(--text); }
+h1 { font-size: clamp(50px, 14vw, 68px); line-height: .92; }
+h1 .sub { display: block; font-size: .62em; font-weight: 500; color: var(--marker); margin-top: 6px; }
+h2 { font-size: clamp(44px, 12vw, 56px); line-height: .95; }
+h2 .mark { background: linear-gradient(transparent 58%, var(--hl) 58%, var(--hl) 90%, transparent 90%); padding: 0 4px; }
+h3 { font-size: 34px; line-height: 1; }
+.lead { margin: 0; color: var(--text-soft); max-width: 38ch; }
+.head { display: flex; flex-direction: column; gap: 8px; }
+
+/* Botones con borde de plumón */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 800 16px/1.1 var(--font-body);
+  color: var(--white);
+  background: var(--marker);
+  border: 2.5px solid var(--ink);
+  border-radius: 255px 16px 225px 16px / 16px 225px 16px 255px;
+  padding: 14px 24px;
+  box-shadow: 3px 4px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:focus-visible, .linkish:focus-visible, .env:focus-visible, .day:focus-visible, .star:focus-visible, .chip:focus-visible { outline: 3px dashed var(--marker); outline-offset: 4px; }
+.btn.ghost { background: var(--white); color: var(--ink); }
+body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.linkish { background: none; border: 0; padding: 6px; color: var(--text-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 15px; }
+
+/* Polaroid con cinta */
+.polaroid { position: relative; background: var(--white); padding: 10px 10px 6px; box-shadow: 0 12px 26px var(--shadow); transform: rotate(-2deg); width: 100%; max-width: 300px; margin: 8px auto 0; }
+.polaroid.r { transform: rotate(2.2deg); }
+.polaroid img { display: block; width: 100%; height: auto; }
+.polaroid .cap { margin: 0; padding: 8px 4px 4px; text-align: center; font: 700 24px/1.1 var(--font-hand); color: var(--ink); }
+.tape { position: absolute; top: -12px; left: 50%; width: 92px; height: 24px; transform: translateX(-50%) rotate(3deg); background: var(--tape); }
+
+/* Índice */
+.menu-btn {
+  position: fixed; z-index: 30;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--white); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 14px 6px 12px 8px;
+  padding: 7px 12px; font: 800 13px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 2px 3px 0 var(--ink); cursor: pointer;
+}
+.menu-list { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.chip {
+  width: 100%; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; text-align: left;
+  background: var(--white); color: var(--ink); border: 2px solid var(--ink); border-radius: 10px 4px 12px 6px;
+  padding: 10px 12px; cursor: pointer;
+}
+.chip .n { font: 700 26px/1 var(--font-hand); color: var(--marker); text-align: center; }
+.chip .t { font-weight: 800; }
+.chip .st { font-size: 13px; color: var(--ink-soft); }
+.chip .st.ok { color: var(--marker); font-weight: 800; }
+
+/* Portada */
+.cover { align-items: center; text-align: center; gap: 18px; }
+.date-stamp { display: inline-block; border: 2px dashed var(--marker); color: var(--marker); padding: 6px 12px; border-radius: 6px; font: 800 13px/1.2 var(--font-body); letter-spacing: .12em; text-transform: uppercase; transform: rotate(-2deg); }
+.cat-intro { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 4px; }
+.bubble {
+  position: relative; max-width: 290px; background: var(--white); color: var(--ink);
+  border: 2.5px solid var(--ink); border-radius: 22px 18px 24px 16px; padding: 12px 16px;
+  font: 600 16px/1.45 var(--font-body); box-shadow: 3px 4px 0 var(--ink);
+}
+.bubble::after { content: ""; position: absolute; left: 50%; bottom: -13px; width: 20px; height: 20px; background: var(--white); border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); transform: translateX(-50%) rotate(45deg); border-bottom-right-radius: 4px; }
+.cat { width: 128px; height: 128px; display: block; overflow: visible; }
+.cat-intro .cat { animation: idle 3s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes idle { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-3deg) translateY(-2px); } }
+.ticket { display: flex; align-items: baseline; justify-content: center; gap: 10px; font-weight: 600; color: var(--text-soft); }
+.ticket strong { font: 700 54px/1 var(--font-hand); color: var(--marker); font-variant-numeric: tabular-nums; }
+.para { margin: 0; font: 700 26px/1.1 var(--font-hand); color: var(--ink-soft); }
+
+/* Capítulo 1: el camino */
+.path-box { position: relative; width: 100%; }
+.path-box svg.path { display: block; width: 100%; height: auto; overflow: visible; }
+.path-base { fill: none; stroke: var(--ink-soft); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 10; opacity: .55; }
+.path-done { fill: none; stroke: var(--marker); stroke-width: 4.5; stroke-linecap: round; }
+.stop circle { fill: var(--white); stroke: var(--marker); stroke-width: 3; transition: fill .3s; }
+.stop .heart { fill: var(--blush); transition: fill .3s; }
+.stop.reached { cursor: pointer; }
+.stop.reached circle { fill: var(--marker); }
+.stop.reached .heart { fill: var(--white); }
+.stop-date { font: 700 24px var(--font-hand); fill: var(--ink); }
+.stop-title { font: 500 19px var(--font-hand); fill: var(--ink-soft); }
+.walker { position: absolute; left: 0; top: 0; width: 70px; height: 70px; pointer-events: none; will-change: transform; z-index: 2; }
+.walker .bob { width: 100%; height: 100%; }
+.walker .cat { width: 70px; height: 70px; }
+.walker.walking .cat { animation: walk .32s ease-in-out infinite alternate; }
+@keyframes walk { from { transform: translateY(0) rotate(-5deg); } to { transform: translateY(-6px) rotate(5deg); } }
+.path-hint { position: absolute; top: 34px; left: calc(50% + 42px); transform: rotate(-6deg); font: 700 22px/1.1 var(--font-hand); color: var(--marker); white-space: nowrap; transition: opacity .4s; }
+.dock { position: sticky; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 5; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* Capítulo 2: el cielo */
+.sky { position: relative; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; }
+.sky svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bgstar { fill: var(--white); }
+.tw { animation: tw 3.2s ease-in-out infinite; }
+@keyframes tw { 0%, 100% { opacity: var(--o, .5); } 50% { opacity: .1; } }
+.star { cursor: pointer; outline: none; }
+.star .hit { fill: transparent; }
+.star .halo { fill: var(--star); opacity: .22; transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-in-out infinite; }
+.star .core { fill: var(--star); transform-box: fill-box; transform-origin: center; transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+.star.lit .halo { animation: none; opacity: .28; transform: scale(1.25); }
+.star.lit .core { fill: var(--white); transform: scale(1.5); }
+@keyframes pulse { 0%, 100% { transform: scale(.8); opacity: .12; } 50% { transform: scale(1.35); opacity: .35; } }
+.const-line { fill: none; stroke: var(--star); stroke-width: .45; stroke-linecap: round; stroke-linejoin: round; opacity: .85; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.6s ease-in-out; }
+.const-line.drawn { stroke-dashoffset: 0; }
+.reason-card { border: 1.5px solid rgba(255, 232, 168, .35); border-radius: 18px 10px 20px 12px; padding: 16px 18px; background: rgba(255, 255, 255, .04); min-height: 128px; display: flex; flex-direction: column; gap: 6px; }
+.reason-card .lbl { margin: 0; font: 700 26px/1 var(--font-hand); color: var(--star); }
+.reason { margin: 0; font: 600 25px/1.25 var(--font-hand); color: var(--text); }
+.reason.in { animation: fadeUp .5s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.sky-done { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+.sky-done p { margin: 0; }
+.big-hand { font: 700 32px/1.1 var(--font-hand); color: var(--star); text-wrap: balance; }
+
+/* Capítulo 3: promesas */
+.card {
+  position: relative; background: var(--white); color: var(--ink);
+  border: 2.5px solid var(--ink); border-radius: 8px 16px 10px 14px;
+  box-shadow: 5px 6px 0 var(--ink); padding: 26px 20px 20px;
+}
+.promise-card { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.promise-card.swap { animation: swap .45s ease both; }
+@keyframes swap { from { opacity: 0; transform: translateX(28px) rotate(2deg); } to { opacity: 1; transform: none; } }
+.promise { margin: 0; font: 700 31px/1.15 var(--font-hand); color: var(--ink); text-wrap: pretty; }
+.stamp { position: absolute; right: 14px; top: 14px; border: 3px solid var(--marker); color: var(--marker); border-radius: 6px; padding: 3px 10px; font: 800 13px/1.2 var(--font-body); letter-spacing: .18em; text-transform: uppercase; opacity: 0; transform: rotate(-12deg) scale(2.2); pointer-events: none; }
+.stamped .stamp { animation: stamp .32s ease-out forwards; }
+@keyframes stamp { to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--marker); }
+.dots i.on { background: var(--marker); }
+.accepted { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.accepted li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font: 600 21px/1.2 var(--font-hand); color: var(--ink-soft); }
+.accepted li::before { content: "♥"; color: var(--marker); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.accepted-title { margin: 0; font: 800 12px/1.3 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* Capítulo 4: cartas y calendario */
+.envelopes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
+.env { background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; -webkit-tap-highlight-color: transparent; }
+.env svg { width: 100%; height: auto; overflow: visible; transition: transform .2s; }
+.env:active svg { transform: scale(.97); }
+.env .flap { transform-origin: 60px 3px; transition: transform .28s ease-in; }
+.env .flapback { opacity: 0; transition: opacity .15s ease .26s; }
+.env .paper { opacity: 0; transition: transform .4s ease .3s, opacity .1s linear .25s; }
+.env.open .flap { transform: scaleY(0); }
+.env.open .flapback { opacity: 1; }
+.env.open .paper { opacity: 1; transform: translateY(-16px); }
+.env.open .seal { opacity: 0; }
+.env-label { font: 700 22px/1.05 var(--font-hand); color: var(--ink); }
+.env-label small { display: block; font: 800 10px/1.4 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--marker); }
+.cal { display: flex; flex-direction: column; gap: 6px; }
+.cal-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.cal-head span { text-align: center; font: 800 11px/1 var(--font-body); letter-spacing: .1em; color: var(--ink-soft); }
+.day {
+  position: relative; aspect-ratio: 1 / 1; min-width: 0; padding: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;
+  background: var(--white); color: var(--ink); border: 2px solid var(--ink); border-radius: 9px 4px 10px 5px;
+  font: 700 22px/1 var(--font-hand); font-variant-numeric: tabular-nums;
+}
+.day small { font: 800 8px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--marker); margin-top: 1px; }
+.day.locked { background: transparent; border-style: dashed; color: var(--ink-soft); opacity: .55; }
+.day.today { background: var(--marker); color: var(--white); box-shadow: 2px 3px 0 var(--ink); }
+.day.today small { color: var(--white); }
+.day.read::after { content: "♥"; position: absolute; right: 3px; bottom: 1px; font: 400 10px/1 var(--font-body); color: var(--marker); }
+.day.today.read::after { color: var(--white); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--ink-soft); }
+
+/* Capítulo 5: tesoro */
+.package { width: 100%; max-width: 300px; margin: 0 auto; display: block; overflow: visible; }
+.package .bowg { transform-origin: 100px 46px; animation: wiggle 3.6s ease-in-out infinite; }
+@keyframes wiggle { 0%, 88%, 100% { transform: rotate(0); } 92% { transform: rotate(-6deg); } 96% { transform: rotate(5deg); } }
+.locks { display: flex; flex-direction: column; gap: 18px; }
+.lock { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; }
+.lock > div { min-width: 0; }
+.lock svg { width: 52px; height: 62px; overflow: visible; }
+.shackle { transition: transform .5s cubic-bezier(.3, 1.6, .5, 1); transform-origin: 45px 34px; }
+.lock.open .shackle { transform: translateY(-7px) rotate(30deg); }
+.lock-body { transition: fill .4s; }
+.lock.open .lock-body { fill: var(--blush); }
+.lock .hint { margin: 2px 0 10px; font: 700 26px/1.1 var(--font-hand); color: var(--ink); }
+.lock form { display: flex; gap: 8px; }
+.lock input {
+  flex: 1; min-width: 0; font: 700 18px/1 var(--font-body); color: var(--ink); background: var(--white);
+  border: 2px solid var(--ink); border-radius: 10px 4px 12px 6px; padding: 11px 12px; letter-spacing: .04em;
+}
+.lock input:focus-visible { outline: 3px dashed var(--marker); outline-offset: 2px; }
+.lock .btn { padding: 11px 16px; }
+.lock .err { margin: 8px 0 0; color: var(--marker); font-weight: 700; font-size: 15px; }
+.shake { animation: shake .4s; }
+@keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+.reveal { margin-top: 8px; padding: 14px 16px; background: var(--white); border: 2px solid var(--marker); border-radius: 12px 6px 14px 8px; color: var(--ink); animation: fadeUp .5s ease both; }
+.reveal p { margin: 0; }
+.reveal .w { font: 700 28px/1 var(--font-hand); color: var(--marker); margin-bottom: 6px; text-transform: capitalize; }
+
+/* Final */
+.counter { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center; }
+.counter div { background: var(--white); border: 2px solid var(--ink); border-radius: 10px 5px 12px 6px; padding: 10px 2px 8px; color: var(--ink); }
+.counter b { display: block; font: 700 36px/1 var(--font-hand); color: var(--marker); font-variant-numeric: tabular-nums; }
+.counter span { font: 800 10px/1.3 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* Hoja de carta (líneas de cuaderno) */
+.letter {
+  background-color: var(--white);
+  background-image: repeating-linear-gradient(transparent 0 31px, var(--grid) 31px 32px);
+  background-position: 0 26px;
+  color: var(--ink);
+}
+.letter p { margin: 0 0 32px; line-height: 32px; font-size: 16.5px; }
+.letter p:last-of-type { margin-bottom: 0; }
+.firma { font: 700 34px/1.1 var(--font-hand); color: var(--marker); margin: 4px 0 0; }
+.firma .desp { display: block; font: 600 17px/1.6 var(--font-body); color: var(--ink-soft); }
+.saludo { font: 700 32px/1.1 var(--font-hand); color: var(--marker); }
+.letter .saludo { font: 700 32px/32px var(--font-hand); color: var(--marker); }
+.letter .firma { font: 700 36px/1.1 var(--font-hand); color: var(--marker); margin-top: 8px; }
+.letter .firma .desp { font: 600 16.5px/1.6 var(--font-body); color: var(--ink-soft); }
+.pd { font-style: italic; color: var(--ink-soft); }
+.letter .pd { margin-top: 24px; }
+
+/* Juegos */
+.juegos-hub, .game { display: flex; flex-direction: column; gap: 18px; }
+.juegos-hub > *, .game > * { min-width: 0; }
+.games { display: flex; flex-direction: column; gap: 14px; }
+.game-card {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: left;
+  background: var(--white); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 12px 5px 14px 7px;
+  box-shadow: 3px 4px 0 var(--ink); padding: 12px 14px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.game-card:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.game-card:focus-visible { outline: 3px dashed var(--marker); outline-offset: 4px; }
+.game-card .ico { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-size: 26px; background: var(--blush-2); border: 2px solid var(--ink); }
+.game-card .txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.game-card .t { font: 700 26px/1 var(--font-hand); }
+.game-card .d { font-size: 14px; line-height: 1.35; color: var(--ink-soft); }
+.game-card .st { font: 800 11px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; }
+.game-card .st.ok { color: var(--marker); }
+.back { align-self: flex-start; padding: 4px 0; text-decoration: none; font-weight: 800; color: var(--marker); }
+.hud { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 14px; font-weight: 700; color: var(--ink); font-size: 15px; }
+.hud b { color: var(--marker); font-variant-numeric: tabular-nums; }
+.lives { color: var(--marker); font-size: 20px; letter-spacing: 3px; }
+.game-box {
+  position: relative; width: 100%; overflow: hidden;
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 26px 26px;
+  border: 2.5px solid var(--ink); border-radius: 12px 6px 14px 8px; box-shadow: 4px 5px 0 var(--ink);
+}
+.game-box canvas { display: block; margin: 0 auto; touch-action: none; }
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px; text-align: center; background: rgba(253, 251, 246, .9); color: var(--ink); }
+.overlay p { margin: 0; max-width: 30ch; }
+.ov-title { font: 700 44px/1 var(--font-hand); color: var(--marker); }
+.game-msg { margin: 0; min-height: 32px; text-align: center; font: 700 27px/1.15 var(--font-hand); color: var(--marker); text-wrap: balance; }
+.game-hint { margin: 0; font-size: 14px; color: var(--ink-soft); text-align: center; }
+
+.mem-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.mem-card { aspect-ratio: 1 / 1; padding: 0; border: 0; background: none; cursor: pointer; perspective: 600px; -webkit-tap-highlight-color: transparent; }
+.mem-card .in { position: relative; display: block; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
+.mem-card.flip .in { transform: rotateY(180deg); }
+.mem-card .fa, .mem-card .fb { position: absolute; inset: 0; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 9px 4px 10px 5px; overflow: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.mem-card .fa {
+  background-color: var(--blush-2); color: var(--marker); font: 700 30px/1 var(--font-hand);
+  background-image: linear-gradient(rgba(226, 61, 82, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(226, 61, 82, .12) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+.mem-card .fb { transform: rotateY(180deg); background: var(--white); }
+.mem-card .fb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mem-card.ok .fb { border-color: var(--marker); box-shadow: inset 0 0 0 2px var(--marker); }
+.mem-card:focus-visible { outline: 3px dashed var(--marker); outline-offset: 2px; }
+
+.vales { display: flex; flex-direction: column; gap: 16px; }
+.vale { position: relative; min-height: 118px; background: var(--white); border: 2.5px dashed var(--marker); border-radius: 14px; overflow: hidden; }
+.vale::before, .vale::after { content: ""; position: absolute; z-index: 2; top: 50%; width: 20px; height: 20px; border-radius: 50%; background: var(--paper); border: 2.5px dashed var(--marker); transform: translateY(-50%); }
+.vale::before { left: -12px; }
+.vale::after { right: -12px; }
+.vale-in { padding: 14px 22px 12px; display: flex; flex-direction: column; gap: 2px; }
+.vale-in p { margin: 0; }
+.vale-t { font: 700 27px/1.1 var(--font-hand); color: var(--ink); text-wrap: balance; }
+.vale-f { margin-top: 4px !important; font-size: 12px; color: var(--ink-soft); }
+.vale canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; touch-action: none; cursor: grab; transition: opacity .5s ease; }
+.vale canvas.gone { opacity: 0; pointer-events: none; }
+
+.puz { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; width: 100%; max-width: 380px; aspect-ratio: 1 / 1; margin: 0 auto; padding: 0; background: var(--ink); border: 2.5px solid var(--ink); border-radius: 8px; overflow: hidden; transition: gap .4s ease; }
+.puz.done { gap: 0; }
+.pz { border: 0; padding: 0; margin: 0; cursor: pointer; background-color: var(--white); background-size: 300% 300%; background-repeat: no-repeat; -webkit-tap-highlight-color: transparent; }
+.pz.sel { box-shadow: inset 0 0 0 4px var(--marker); filter: brightness(1.08); }
+.pz:focus-visible { outline: 3px dashed var(--marker); outline-offset: -3px; }
+
+.dpad { display: grid; grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(2, 54px); grid-template-areas: ". u ." "l d r"; gap: 8px; justify-content: center; }
+.dpad button { display: grid; place-items: center; padding: 0; font-size: 24px; color: var(--ink); background: var(--white); border: 2.5px solid var(--ink); border-radius: 16px 8px 18px 10px; box-shadow: 2px 3px 0 var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.dpad button:active { transform: translate(1px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.dpad [data-dir="up"] { grid-area: u; }
+.dpad [data-dir="left"] { grid-area: l; }
+.dpad [data-dir="down"] { grid-area: d; }
+.dpad [data-dir="right"] { grid-area: r; }
+
+/* Modal y avisos */
+.modal {
+  position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(15, 19, 48, .58);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+}
+.sheet {
+  position: relative; width: 100%; max-width: 440px; max-height: calc(100vh - 40px); max-height: calc(100dvh - 40px); overflow-y: auto; overscroll-behavior: contain;
+  background-color: var(--paper); color: var(--ink);
+  border: 2.5px solid var(--ink); border-radius: 8px 16px 10px 14px; box-shadow: 6px 8px 0 var(--ink);
+  padding: 26px 20px 22px; display: flex; flex-direction: column; gap: 14px;
+  animation: pop .35s cubic-bezier(.3, 1.4, .5, 1) both;
+}
+.sheet.letter { background-color: var(--white); }
+.sheet h3, .sheet p { color: var(--ink); }
+.sheet p { margin: 0; }
+.sheet .btn { align-self: center; margin-top: 4px; }
+.x { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border: 0; background: none; color: var(--ink-soft); font-size: 26px; line-height: 1; cursor: pointer; }
+@keyframes pop { from { opacity: 0; transform: translateY(16px) scale(.96); } to { opacity: 1; transform: none; } }
+.toast {
+  position: fixed; z-index: 70; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  max-width: calc(100% - 32px); background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: 14px;
+  font-weight: 700; font-size: 15px; text-align: center; box-shadow: 0 8px 20px var(--shadow);
+}
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 80; }
+.finale-words { font: 700 44px/1 var(--font-hand); color: var(--marker); text-align: center; text-wrap: balance; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="gato" viewBox="0 0 100 100">
+    <path d="M72 88 C 94 88 98 66 86 58" fill="none" stroke="#22264a" stroke-width="9" stroke-linecap="round"/>
+    <path d="M72 88 C 94 88 98 66 86 58" fill="none" stroke="#fffdf8" stroke-width="4.4" stroke-linecap="round"/>
+    <ellipse cx="50" cy="75" rx="24" ry="19" fill="#fffdf8" stroke="#22264a" stroke-width="2.6"/>
+    <ellipse cx="50" cy="79" rx="11" ry="10" fill="#fde8ee"/>
+    <path d="M26 36 L29 12 L46 25 Z" fill="#fffdf8" stroke="#22264a" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M74 36 L71 12 L54 25 Z" fill="#fffdf8" stroke="#22264a" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M31 28 L32 18 L40 24 Z" fill="#f6b3c2"/>
+    <path d="M69 28 L68 18 L60 24 Z" fill="#f6b3c2"/>
+    <ellipse cx="50" cy="45" rx="27" ry="22" fill="#fffdf8" stroke="#22264a" stroke-width="2.6"/>
+    <g transform="translate(29 25) rotate(-20)">
+      <path d="M0 0 L-9 -6 L-9 6 Z" fill="#e23d52" stroke="#22264a" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M0 0 L9 -6 L9 6 Z" fill="#e23d52" stroke="#22264a" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle r="2.6" fill="#e23d52" stroke="#22264a" stroke-width="1.6"/>
+    </g>
+    <ellipse cx="39" cy="45" rx="3.2" ry="4" fill="#22264a"/>
+    <circle cx="40.2" cy="43.4" r="1.1" fill="#ffffff"/>
+    <ellipse cx="61" cy="45" rx="3.2" ry="4" fill="#22264a"/>
+    <circle cx="62.2" cy="43.4" r="1.1" fill="#ffffff"/>
+    <ellipse cx="32" cy="53" rx="4.6" ry="3" fill="#f6b3c2"/>
+    <ellipse cx="68" cy="53" rx="4.6" ry="3" fill="#f6b3c2"/>
+    <path d="M47 51 L53 51 L50 54.5 Z" fill="#e23d52"/>
+    <path d="M50 54.5 Q47.5 58.5 44.5 56.5 M50 54.5 Q52.5 58.5 55.5 56.5" fill="none" stroke="#22264a" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M28 49 L15 46 M28 53 L15 55 M72 49 L85 46 M72 53 L85 55" stroke="#22264a" stroke-width="1.4" stroke-linecap="round"/>
+    <ellipse cx="41" cy="92" rx="7" ry="4.2" fill="#fffdf8" stroke="#22264a" stroke-width="2.4"/>
+    <ellipse cx="59" cy="92" rx="7" ry="4.2" fill="#fffdf8" stroke="#22264a" stroke-width="2.4"/>
+  </symbol>
+</svg>
+
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir el índice">☰ Índice</button>
+
+<main class="wrap">
+
+  <!-- PORTADA -->
+  <section class="scene cover" id="portada">
+    <span class="date-stamp">14 · 06 · 2026 &nbsp;→&nbsp; 14 · 10 · 2026</span>
+    <h1>Felices 4 meses,<span class="sub" id="apodo">mi princesita hermosa</span></h1>
+    <div class="cat-intro">
+      <div class="bubble" id="bubbleIntro">¡Miau! Soy Mishi. Hoy te voy a llevar por un recorrido que Eduardo preparó solo para ti. ¿Vamos?</div>
+      <svg class="cat" viewBox="0 0 100 100" aria-hidden="true"><use href="#gato"/></svg>
+    </div>
+    <div class="ticket"><strong id="diasPortada">122</strong><span>días juntos</span></div>
+    <div class="btn-row">
+      <button class="btn" type="button" id="btnEmpezar">Vamos 🐾</button>
+      <button class="btn ghost" type="button" id="btnOtraVez" hidden>Empezar desde el principio</button>
+      <button class="btn ghost" type="button" id="btnJuegosPortada" data-go="juegos" hidden>Nuestros juegos 🎮</button>
+    </div>
+    <p class="para" id="paraDe">Para: Brittany · De: Eduardo</p>
+  </section>
+
+  <!-- 1. EL CAMINO -->
+  <section class="scene" id="camino" hidden>
+    <div class="head">
+      <p class="eyebrow">Capítulo 1 de 5</p>
+      <h2><span class="mark">El camino</span></h2>
+      <p class="lead">Mishi va a caminar por nuestros cuatro meses. En cada parada hay un recuerdo esperándote.</p>
+    </div>
+    <div class="path-box" id="pathBox">
+      <span class="path-hint" id="pathHint">¡aquí estoy!</span>
+      <svg class="path" id="pathSvg" viewBox="0 0 300 1056" aria-hidden="true">
+        <g id="measure" style="visibility:hidden"></g>
+        <path class="path-base" id="pathBase"/>
+        <path class="path-done" id="pathDone"/>
+        <g id="stopsG"></g>
+      </svg>
+      <div class="walker" id="walker"><div class="bob" id="bob"><svg class="cat" viewBox="0 0 100 100" aria-hidden="true"><use href="#gato"/></svg></div></div>
+    </div>
+    <div class="dock"><button class="btn ghost" type="button" id="btnCaminarOtraVez" hidden>Caminar otra vez</button><button class="btn" type="button" id="btnAvanzar">Empezar a caminar 🐾</button></div>
+  </section>
+
+  <!-- 2. EL CIELO -->
+  <section class="scene" id="cielo" hidden>
+    <div class="head">
+      <p class="eyebrow">Capítulo 2 de 5</p>
+      <h2><span class="mark">Nuestro cielo</span></h2>
+      <p class="lead">Escondí 14 estrellas, porque el 14 es nuestro día. Cada una guarda una razón por la que te amo. Sube el volumen y tócalas todas.</p>
+    </div>
+    <div class="sky">
+      <svg id="skySvg" viewBox="0 0 100 100" role="group" aria-label="Cielo con 14 estrellas">
+        <g id="bgStars"></g>
+        <g id="constG"></g>
+        <g id="starsG"></g>
+      </svg>
+    </div>
+    <div class="reason-card" aria-live="polite">
+      <p class="eyebrow"><span id="starCount">0</span> de 14 estrellas</p>
+      <p class="lbl">Te amo…</p>
+      <p class="reason" id="reasonText">toca una estrella para empezar ✨</p>
+    </div>
+    <div class="sky-done" id="skyDone" hidden>
+      <p class="big-hand">¿Ya viste lo que formaron las estrellas?</p>
+      <p>Aunque estemos lejos, vemos el mismo cielo. Cada vez que mires las estrellas, acuérdate de que yo también las estoy mirando… y pensando en ti.</p>
+      <figure class="polaroid r" style="margin-top:18px">
+        <span class="tape"></span>
+        <img src="mirando-corazon.jpg" alt="Dibujo de un perrito mirando un corazón" width="762" height="1000" loading="lazy">
+        <figcaption class="cap">Así me quedo yo cada vez que pienso en ti</figcaption>
+      </figure>
+      <div class="btn-row" style="margin-top:10px">
+        <button class="btn ghost" type="button" id="btnCieloOtraVez">Apagar las estrellas y jugar otra vez</button>
+        <button class="btn" type="button" data-go="promesas">Siguiente capítulo →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PROMESAS -->
+  <section class="scene" id="promesas" hidden>
+    <div class="head">
+      <p class="eyebrow">Capítulo 3 de 5</p>
+      <h2><span class="mark">Mis promesas para ti</span></h2>
+      <p class="lead">Léelas con calma. Si estás de acuerdo con cada una, acéptala.</p>
+    </div>
+    <article class="card promise-card" id="promiseCard">
+      <span class="stamp">Aceptada</span>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <p class="eyebrow">Promesa <span id="pNum">1</span> de <span id="pTotal">8</span></p>
+      <p class="promise" id="pText"></p>
+      <button class="btn" type="button" id="btnAcepto">Acepto 💞</button>
+    </article>
+    <article class="card promise-card" id="promiseFinal" hidden>
+      <p class="eyebrow">La última promesa</p>
+      <p class="promise">No te la puedo dar por aquí. Va en camino hacia ti 📦</p>
+      <p>Cuando llegue, la vas a entender. Te lo explico en el capítulo 5.</p>
+      <div class="btn-row">
+        <button class="btn ghost" type="button" id="btnPromesasOtraVez">Leerlas otra vez</button>
+        <button class="btn" type="button" data-go="cartas">Siguiente capítulo →</button>
+      </div>
+    </article>
+    <div id="acceptedWrap" hidden>
+      <p class="accepted-title">Promesas aceptadas</p>
+      <ol class="accepted" id="acceptedList"></ol>
+    </div>
+  </section>
+
+  <!-- 4. ÁBRELO CUANDO -->
+  <section class="scene" id="cartas" hidden>
+    <div class="head">
+      <p class="eyebrow">Capítulo 4 de 5</p>
+      <h2><span class="mark">Ábrelo cuando…</span></h2>
+      <p class="lead">Cartas para los días en que no puedo abrazarte. Ábrelas cuando las necesites, o todas hoy, no te voy a acusar.</p>
+    </div>
+    <div class="envelopes" id="envelopes"></div>
+    <div class="head" style="margin-top:18px">
+      <h3>Un mensajito cada día</h3>
+      <p class="lead">Del 14 de octubre al 14 de noviembre se abre uno nuevo cada día. No se vale adelantarse.</p>
+    </div>
+    <div class="cal" id="cal">
+      <div class="cal-row cal-head" aria-hidden="true"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+      <div class="cal-row" id="calGrid"></div>
+    </div>
+    <div class="legend"><span>♥ = ya lo leíste</span><span>Punteado = todavía no se abre</span></div>
+    <div class="btn-row"><button class="btn" type="button" data-go="tesoro">Siguiente capítulo →</button></div>
+  </section>
+
+  <!-- 5. EL TESORO -->
+  <section class="scene" id="tesoro" hidden>
+    <div class="head">
+      <p class="eyebrow">Capítulo 5 de 5</p>
+      <h2><span class="mark">El tesoro</span></h2>
+      <p class="lead">Algo va en camino hacia ti. Adentro vienen 3 tesoros y cada uno trae escondida una palabra secreta. Cuando llegue, búscalas y escríbelas aquí para abrir cada candado.</p>
+    </div>
+    <svg class="package" viewBox="0 0 200 172" role="img" aria-label="Una caja de regalo en camino">
+      <ellipse cx="100" cy="162" rx="82" ry="7" fill="rgba(34,38,74,.12)"/>
+      <rect class="f-kraft s-ink" x="30" y="64" width="140" height="92" rx="3" stroke-width="2.5"/>
+      <rect class="f-kraft-2 s-ink" x="22" y="46" width="156" height="26" rx="3" stroke-width="2.5"/>
+      <rect class="f-marker s-ink" x="92" y="46" width="16" height="110" stroke-width="2"/>
+      <g transform="rotate(-5 64 108)">
+        <rect class="f-white s-ink" x="40" y="88" width="50" height="40" rx="2" stroke-width="1.6"/>
+        <text class="ff-font-hand f-ink-soft" x="45" y="101" font-size="10">Para:</text>
+        <text class="ff-font-hand f-ink" x="45" y="116" font-size="13" font-weight="700" id="pkgName">Brittany</text>
+        <line class="s-grid" x1="45" y1="121" x2="84" y2="121" stroke-width="1.2"/>
+      </g>
+      <g transform="rotate(-9 140 116)">
+        <rect class="s-marker" x="117" y="104" width="46" height="22" rx="2" fill="none" stroke-width="1.8"/>
+        <text class="ff-font-body f-marker" x="140" y="113.5" text-anchor="middle" font-size="7" font-weight="800" letter-spacing="1">FRÁGIL</text>
+        <text class="ff-font-hand f-marker" x="140" y="122" text-anchor="middle" font-size="8">contiene amor</text>
+      </g>
+      <g class="bowg">
+        <path class="f-marker s-ink" d="M100 46 C 66 6 46 40 100 46 Z" stroke-width="2.2" stroke-linejoin="round"/>
+        <path class="f-marker s-ink" d="M100 46 C 134 6 154 40 100 46 Z" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle class="f-marker s-ink" cx="100" cy="46" r="6" stroke-width="2.2"/>
+      </g>
+    </svg>
+    <div class="locks" id="locks"></div>
+    <div class="btn-row" id="tesoroBtns">
+      <button class="btn ghost" type="button" id="btnVerFinale" hidden>Ver otra vez la sorpresa 💞</button>
+      <button class="btn" type="button" data-go="final">Mientras tanto, una última carta →</button>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="scene" id="final" hidden>
+    <div class="head">
+      <p class="eyebrow">Una última carta</p>
+      <h2><span class="mark" id="finalTitle">Felices 4 meses, Brittany</span></h2>
+    </div>
+    <figure class="polaroid" style="max-width:340px">
+      <span class="tape"></span>
+      <img src="beso.jpg" alt="Dibujo de dos perritos dándose un beso" width="1000" height="572" loading="lazy">
+      <figcaption class="cap">Tú y yo</figcaption>
+    </figure>
+    <article class="card letter" id="cartaFinal"></article>
+    <div class="head">
+      <p class="eyebrow">Y seguimos contando</p>
+      <div class="counter" aria-live="off">
+        <div><b id="cD">0</b><span>días</span></div>
+        <div><b id="cH">0</b><span>horas</span></div>
+        <div><b id="cM">0</b><span>minutos</span></div>
+        <div><b id="cS">0</b><span>segundos</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn ghost" type="button" id="btnFinalOtraVez">Jugar otra vez 🐾</button>
+      <button class="btn" type="button" data-go="tesoro">Ir al tesoro 📦</button>
+      <button class="btn" type="button" data-go="juegos">Nuestros juegos 🎮</button>
+    </div>
+  </section>
+
+  <!-- JUEGOS -->
+  <section class="scene" id="juegos" hidden>
+    <div class="juegos-hub" id="juegosHub">
+      <div class="head">
+        <p class="eyebrow">Bonus</p>
+        <h2><span class="mark">Nuestros juegos</span></h2>
+        <p class="lead">Cinco jueguitos que hice para ti. Juégalos las veces que quieras.</p>
+      </div>
+      <div class="games" id="gamesList"></div>
+      <div class="btn-row"><button class="btn ghost" type="button" data-go="final">Volver a la última carta</button></div>
+    </div>
+
+    <div class="game" id="g-corazones" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 1 de 5</p>
+        <h2><span class="mark">Mishi atrapa corazones</span></h2>
+        <p class="lead">Desliza el dedo para mover a Mishi. Atrapa 14 corazones y esquiva las nubes grises.</p>
+      </div>
+      <div class="hud"><span>💗 <b id="hcScore">0</b> de 14</span><span class="lives" id="hcLives" aria-label="Vidas"></span></div>
+      <div class="game-box" id="hcBox">
+        <canvas id="hcCanvas" aria-label="Juego de atrapar corazones"></canvas>
+        <div class="overlay" id="hcOverlay">
+          <p class="ov-title" id="hcTitle">¿Lista?</p>
+          <p id="hcText">Tienes 3 vidas. Cada nube gris te quita una.</p>
+          <button class="btn" type="button" id="hcStart">Empezar 🐾</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game" id="g-memorama" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 2 de 5</p>
+        <h2><span class="mark">Memorama de nosotros</span></h2>
+        <p class="lead">Voltea dos cartas a la vez y encuentra los 8 pares.</p>
+      </div>
+      <div class="hud"><span>Movimientos: <b id="memMoves">0</b></span><span>Pares: <b id="memPairs">0</b> de 8</span></div>
+      <div class="mem-grid" id="memGrid"></div>
+      <p class="game-msg" id="memMsg" aria-live="polite">Encuentra los pares 🐾</p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="memAgain">Revolver las cartas</button></div>
+    </div>
+
+    <div class="game" id="g-vales" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 3 de 5</p>
+        <h2><span class="mark">Rasca y gana</span></h2>
+        <p class="lead">Raspa cada tarjeta con el dedo para descubrir tu premio. Son vales de verdad: tómales captura y cóbramelos cuando quieras.</p>
+      </div>
+      <div class="vales" id="vales"></div>
+      <p class="game-msg" id="valesMsg" hidden>¡Ganaste todos los vales! Cóbramelos cuando quieras 💞</p>
+    </div>
+
+    <div class="game" id="g-rompe" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 4 de 5</p>
+        <h2><span class="mark">Rompecabezas</span></h2>
+        <p class="lead">Toca dos piezas para cambiarlas de lugar hasta armar el dibujo.</p>
+      </div>
+      <div class="hud"><span>Movimientos: <b id="puzMoves">0</b></span><button class="linkish" type="button" id="puzVer">Ver cómo queda</button></div>
+      <div class="puz" id="puz"></div>
+      <p class="game-msg" id="puzMsg" aria-live="polite"></p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="puzAgain">Revolver las piezas</button></div>
+    </div>
+
+    <div class="game" id="g-laberinto" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 5 de 5</p>
+        <h2><span class="mark">El laberinto de los kilómetros</span></h2>
+        <p class="lead">Lleva a Mishi hasta el corazón. Usa las flechas o desliza el dedo sobre el laberinto.</p>
+      </div>
+      <div class="hud"><span>🏠 Sale de: <b id="mzFrom">Eduardo</b></span><span>💞 Llega a: <b id="mzTo">Brittany</b></span></div>
+      <div class="game-box"><canvas id="mzCanvas" aria-label="Laberinto"></canvas></div>
+      <div class="dpad" aria-label="Flechas">
+        <button type="button" data-dir="up" aria-label="Arriba">▲</button>
+        <button type="button" data-dir="left" aria-label="Izquierda">◀</button>
+        <button type="button" data-dir="down" aria-label="Abajo">▼</button>
+        <button type="button" data-dir="right" aria-label="Derecha">▶</button>
+      </div>
+      <p class="game-msg" id="mzMsg" aria-live="polite"></p>
+      <div class="btn-row"><button class="btn ghost" type="button" id="mzAgain">Otro laberinto</button></div>
+    </div>
+  </section>
+
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Mensaje"></div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+/* ==========================================================
+   TEXTOS: aquí puedes cambiar todo lo que dice la página.
+   ========================================================== */
+const NOMBRE = 'Brittany';
+const FIRMA = 'Eduardo';
+const INICIO = new Date(2026, 5, 14); // 14 de junio de 2026 (los meses empiezan en 0)
+
+// Canción del capítulo del cielo («Mirando las estrellas», de Tombochio).
+// Empieza a sonar sola cuando ella toca la primera estrella.
+// Sube el mp3 a la carpeta "musica" con este nombre exacto.
+const CANCION = 'mirando-las-estrellas.mp3';
+
+const PARADAS = [
+  { fecha: '14 jun', titulo: 'El comienzo', foto: 'globo.jpg', alt: 'Dibujo de nosotros con un globo de corazón',
+    texto: 'El 14 de junio de 2026 cambió mi vida para siempre. Desde ese día tengo a alguien a quien dedicarle mis dibujitos, mis buenos días y todos mis pensamientos bonitos.' },
+  { fecha: '14 jul', titulo: 'Un mes', foto: 'changuitos.jpg', alt: 'Dos changuitos de juguete con plátanos',
+    texto: 'Nuestro primer mes. Descubrí que la distancia se hace chiquita cuando hablo contigo, y que dos changuitos enamorados pueden ser los más felices del mundo.' },
+  { fecha: '14 ago', titulo: 'Dos meses', foto: 'cocodrilo-delfin.jpg', alt: 'Un cocodrilo y una delfín de juguete',
+    texto: 'Un cocodrilo y una delfincita no deberían combinar… y aun así combinan perfecto. Así somos tú y yo: diferentes, pero hechos el uno para el otro.' },
+  { fecha: '14 sep', titulo: 'Tres meses', foto: '3-meses.jpg', alt: 'Ramo de flores rosas con un osito y un listón de 3 meses',
+    texto: 'Flores, un osito y una página hecha con todo mi corazón. Tres meses, y yo cada día más enamorado de ti.' },
+  { fecha: '14 oct', titulo: '¡Hoy, cuatro meses!', foto: 'te-amo-brittany.jpg', alt: 'Dibujo que dice Te amo, Brittany',
+    texto: 'Y aquí estamos: cuatro meses después, con kilómetros de por medio y con más amor que nunca. Pero esto apenas empieza, porque todavía tengo mucho que mostrarte…' },
+];
+
+const RAZONES = [
+  'porque tu sonrisa ilumina hasta mis días más nublados.',
+  'porque contigo los kilómetros se sienten como centímetros.',
+  'porque a tu lado quiero ser la mejor versión de mí.',
+  'porque tienes el corazón más tierno del mundo, tan tierno como un gatito.',
+  'porque tu voz es mi lugar favorito para descansar.',
+  'porque eres hermosa por fuera, y todavía más por dentro.',
+  'porque contigo las horas se van volando y nunca me alcanzan.',
+  'porque me quieres tal como soy, sin pedirme ser alguien más.',
+  'porque eres mi primer pensamiento al despertar y el último antes de dormir.',
+  'porque cuando te veo, aunque sea a través de una pantalla, todo vuelve a estar en paz.',
+  'porque contigo me siento en casa, aunque estés lejos.',
+  'porque llegaste a mi vida y la llenaste de colores.',
+  'porque cada día encuentro una razón nueva para quererte.',
+  'porque eres tú. Y eso siempre va a ser suficiente.',
+];
+
+const PROMESAS = [
+  'Te prometo que la distancia nunca va a ser más grande que lo que siento por ti.',
+  'Te prometo estar para ti siempre, en tus días buenos y en los difíciles.',
+  'Te prometo escucharte con el corazón, incluso cuando no sepa qué decir.',
+  'Te prometo sacarte una sonrisa todos los días, aunque sea desde lejos.',
+  'Te prometo que cada 14 va a ser especial.',
+  'Te prometo cuidar tu corazón como lo más valioso que tengo.',
+  'Te prometo que algún día ya no habrá kilómetros entre nosotros, y vamos a cumplir juntos todos los planes pendientes.',
+  'Te prometo elegirte todos los días.',
+];
+
+const CARTAS = [
+  { cuando: 'estés triste', color: '#fde3ea', oscuro: '#f6c2cf', saludo: 'Mi niña hermosa:', texto: [
+    'Si abriste esta carta es porque hoy el corazón te pesa un poquito más de lo normal. Antes que nada, quiero que sepas algo: no tienes que estar bien todo el tiempo. Está bien llorar, está bien estar cansada y está bien no tener ganas de nada.',
+    'Ojalá pudiera estar ahí ahorita. Te abrazaría fuerte, de esos abrazos largos en los que no hace falta decir nada, y me quedaría contigo hasta que pase. Como todavía no puedo, te dejo esta carta para que sea un abrazo de papel.',
+    'Respira despacito. Tápate con tu cobija favorita. Y cuando te sientas lista, escríbeme, aunque sea solo un «estoy triste». No tienes que explicarme nada: solo quiero estar contigo.',
+    'Ninguna tormenta dura para siempre, mi amor. Y mientras pasa esta, yo voy a estar aquí, sosteniéndote desde lejos. Te amo en tus días soleados, y te amo todavía más en tus días grises.' ] },
+  { cuando: 'me extrañes', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'extranandote.jpg', alt: 'Selfie de Eduardo', saludo: 'Mi amor:', texto: [
+    'Si me extrañas, quiero que sepas que en este mismo momento yo también te estoy extrañando. Es imposible no hacerlo: te extraño cuando despierto, cuando veo algo bonito que quisiera enseñarte y cuando me acuesto a dormir.',
+    'Aquí te dejo una foto mía para que me veas cuando quieras. Es la cara que pongo cuando pienso en ti, y pienso en ti muchísimo.',
+    'Extrañarte es la prueba de lo mucho que te quiero. Y aunque duele un poquito, también me llena de esperanza, porque cada día que pasa es un día menos para poder abrazarte.',
+    'Esta noche asómate a la ventana y mira el cielo. Es el mismo que estoy viendo yo. Así, aunque estemos lejos, vamos a estar mirando lo mismo. Pronto, mi vida. Muy pronto.' ] },
+  { cuando: 'no puedas dormir', color: '#fbefc9', oscuro: '#f2dc9b', saludo: 'Mi princesita:', texto: [
+    '¿El sueño no llega? Ven, acomódate. Esta carta es para leerla despacito, como si te la estuviera contando al oído.',
+    'Cierra los ojos un momento e imagina que estoy a tu lado. Que te acaricio el cabello, que te tapo bien con la cobija y que te digo bajito que todo está bien. Que el día ya terminó y que no tienes que resolver nada hasta mañana.',
+    'Respira conmigo: inhala contando hasta cuatro, aguanta cuatro y suelta en cuatro. Otra vez. Una vez más.',
+    'Si tu cabecita no deja de pensar, piensa en nosotros: en todos los planes que tenemos, en el día en que ya no tengamos que despedirnos por una pantalla y en todas las noches que nos esperan juntos.',
+    'Duerme tranquila, mi amor. Yo te cuido los sueños desde aquí. Te amo más que a todas las estrellas juntas.' ] },
+  { cuando: 'estés enojada conmigo', color: '#fde3ea', oscuro: '#f6c2cf', saludo: 'Mi amor:', texto: [
+    'Si estás leyendo esto es porque algo que hice o dije te lastimó. Y antes de cualquier otra cosa, quiero pedirte perdón. De verdad.',
+    'A veces no sé decir las cosas bien, a veces me equivoco, y a veces la distancia hace que todo se sienta más grande de lo que es. Pero nunca es mi intención hacerte sentir mal. Tú eres lo que más quiero cuidar.',
+    'Tómate tu tiempo. Y cuando estés lista, cuéntame cómo te sientes. Te prometo escucharte con calma y con el corazón abierto, porque prefiero mil veces entenderte que tener la razón.',
+    'Ninguna pelea es más grande que lo que siento por ti. Somos un equipo, y los equipos se arreglan juntos.',
+    'Te amo, incluso cuando estás enojada conmigo. ¿Me regalas una sonrisita cuando estés lista? 👉👈' ] },
+  { cuando: 'necesites reírte', color: '#dfe7fb', oscuro: '#c3d1f4', foto: 'vaquerito.jpg', alt: 'Eduardo de bebé con sombrero vaquero', saludo: 'Mi niña bonita:', texto: [
+    'Te voy a confiar uno de mis secretos más grandes: este vaquerito chiquito soy yo 🤠.',
+    'Mira esa carita tan seria, como si estuviera resolviendo el problema más importante del mundo. Mira ese sombrero que me queda enorme, y ese perrito de peluche que me cuida.',
+    `Ese niño no sabía que algún día iba a conocer a una niña hermosa que le iba a cambiar la vida. Pero si pudiera decirle algo, le diría: «Espera tantito, que lo mejor está por llegar, y se llama ${NOMBRE}».`,
+    'Ahora sí, sonríe. Tu sonrisa es mi cosa favorita del mundo, y no quiero que se te pierda hoy.' ] },
+  { cuando: 'dudes de mi amor', color: '#fbefc9', oscuro: '#f2dc9b', saludo: 'Mi vida:', texto: [
+    'Si algún día dudas de lo mucho que te amo, lee esta carta despacito, todas las veces que haga falta.',
+    'Te amo. No por costumbre ni porque sea lo fácil. Te amo porque te elegí, y te sigo eligiendo cada mañana cuando despierto y lo primero que hago es pensar en ti.',
+    'Te amo cuando hablamos por horas y cuando no sabemos qué decir. Te amo en las videollamadas que se traban y en los mensajes de buenas noches. Te amo con todo y kilómetros, con todo y días difíciles.',
+    'La distancia no me hace quererte menos. Me enseña a quererte mejor: con paciencia, con detalles y con muchas ganas.',
+    'Así que si un día la duda toca a tu puerta, ábrele esta carta. Y recuerda que de este lado hay alguien que daría todo por verte sonreír. Ese alguien soy yo, y no me pienso ir a ningún lado.' ] },
+  { cuando: 'tengas un día pesado', color: '#fde3ea', oscuro: '#f6c2cf', saludo: 'Mi cielo:', texto: [
+    'Hoy fue de esos días, ¿verdad? De los que se sienten eternos y te dejan sin energía. Ya pasó. Ya estás aquí.',
+    'Quítate los zapatos, ponte cómoda, prepárate algo calientito y deja que el día se quede afuera. Ya hiciste suficiente.',
+    'Quiero que sepas que estoy muy orgulloso de ti. De cómo sigues adelante aunque estés cansada, de lo fuerte que eres aunque a veces no te des cuenta y de todo lo que haces cada día.',
+    'No tienes que poder con todo hoy. Mañana es un día nuevo y vas a poder con él, como siempre.',
+    'Si quieres, cuéntame cómo te fue. Y si no tienes ganas de hablar, mándame un corazón y yo entiendo. Te mando el abrazo más grande del mundo, de esos que quitan el cansancio.' ] },
+  { cuando: 'estés feliz', color: '#dfe7fb', oscuro: '#c3d1f4', saludo: 'Mi amor:', texto: [
+    '¡Qué bonito que estés feliz! Esta es mi carta favorita, porque verte feliz es de las cosas que más me gustan en la vida.',
+    'Cuéntame todo: qué pasó, cómo te sentiste, quién estaba contigo. Mándame audios, fotos y mensajes larguísimos. Quiero vivir este momento contigo, aunque sea desde lejos.',
+    'Guarda bien este día en tu corazón. Acuérdate de cómo se siente, para que en los días difíciles sepas que los buenos siempre regresan.',
+    'Y si me dejas pedirte algo: sigue sonriendo así. Porque cuando tú eres feliz, mi mundo entero se ilumina.',
+    'Te amo hoy, que estás feliz, y todos los días.' ] },
+];
+
+// Un mensajito por día, del 14 de octubre al 14 de noviembre (32 mensajes).
+const MENSAJES = [
+  '¡Felices 4 meses, mi amor! Hoy empieza tu calendario: cada día se abre un mensajito nuevo hasta el 14 de noviembre.',
+  'Solo quería recordarte que eres lo más bonito de mi día.',
+  'Tómate un vasito de agua y piensa que alguien, a muchos kilómetros, está sonriendo por ti.',
+  'Si hoy miras al cielo, acuérdate de que estamos bajo el mismo. Cada estrella que veas es un «te amo» que te mando desde aquí. ✨',
+  'Ojalá hoy pudiera despertarte con un beso. Mientras tanto, que este mensajito te dé los buenos días de mi parte. ☀️',
+  'Empieza la semana y quiero que sepas algo: pase lo que pase, yo voy a estar de tu lado. Siempre. 🤍',
+  'Tu risa es mi canción favorita. Si pudiera, la escucharía en repetición todo el día. 🎶',
+  'Cada día que pasa es un día menos para poder abrazarte. Y créeme, ese abrazo va a ser eterno. 🫂',
+  'Me gusta imaginar nuestro futuro: tú, yo, una tarde tranquila y nada más importante que estar juntos. 🌅',
+  'Eres mi lugar seguro, aunque estés a muchos kilómetros. Contigo mi corazón siempre está en casa. 🏡',
+  'Te amo cuando estás feliz, cuando estás cansada y cuando el día no sale como esperabas. Te amo en todas tus versiones. 💞',
+  'Recordatorio para el corazón más bonito que conozco: eres suficiente, eres valiente y eres muy, muy hermosa. 🌷',
+  'Si los abrazos se pudieran mandar por mensaje, hoy te llegarían mil. Imagina que este es el primero. 🐾',
+  'Gracias por tu paciencia, por tu ternura y por quedarte. Contigo quiero ser mejor cada día. 🤍',
+  'Cierra los ojos cinco segundos e imagina que te doy un beso en la frente. ¿Ya? Ese fue de verdad. 😘',
+  'Mi lugar favorito del mundo todavía no está en ningún mapa: es donde tú y yo estemos juntos. 🗺️',
+  'No sé si ya te lo dije hoy, así que te lo digo ahora: me encantas, en todo y siempre. 💗',
+  'Feliz Halloween, mi gatita. 🎃 No necesitas disfraz: ya eres lo más lindo de esta noche y de todas.',
+  'Llegó noviembre, y yo te sigo queriendo como el primer día… no, mucho más. 🍂',
+  'Un día menos para nuestro 14 y un día más de quererte. Así cuento el tiempo desde que llegaste. ⏳',
+  '¿Ya comiste? Cuídate mucho, porque te quiero sana, feliz y sonriendo siempre. 🍓',
+  'Me encanta escucharte hablar de las cosas que amas. Te brillan los ojos, aunque sea a través de una pantalla. ✨',
+  'Si hoy me extrañas, abre la carta de «cuando me extrañes». Y si no… ábrela igual, que yo sí te extraño. 😌',
+  'Algún día vamos a mirar juntos el cielo de verdad, tomados de la mano. Te lo prometo. 🌌',
+  'Eres mi primer pensamiento al despertar y el último antes de dormir. Y todo lo de en medio también eres tú. 🌙',
+  'La distancia pesa menos cuando sabes con quién la recorres. Y yo la recorro contigo, feliz. 🛤️',
+  'Hoy te mando mil besos. Guárdalos donde quieras, pero úsalos todos. 💋',
+  'Faltan 4 días para nuestros 5 meses. Empieza la cuenta regresiva más bonita del mundo. 🐾',
+  'Cosas que amo de ti, parte infinita: tu forma de reír, de cuidarme, de ser tú… todo. 💖',
+  'Gracias por elegirme, incluso de lejos. Yo te elijo a ti hoy, mañana y todos los días. 🤍',
+  'Mañana es 14… ¿ya sabes qué día es? 😏 Prepárate, porque te amo un mes más que ayer.',
+  '¡Felices 5 meses, mi amor! 💞 Este calendario se acabó, pero lo nuestro apenas empieza. Gracias por cada día. Te amo, por toda la vida, Dios mediante.',
+];
+
+// Las 3 palabras secretas que van escondidas en el paquete.
+const TESOROS = [
+  { pista: 'El más suavecito y abrazable.', palabra: 'miau',
+    texto: '¡Lo encontraste! 🐾 Ahora tienes a alguien que te acompañe cuando yo no pueda estar. Abrázalo fuerte cuando me extrañes: cada abrazo que le des me llega a mí. Por cierto, todavía no tiene nombre. ¿Cómo le vas a poner?' },
+  { pista: 'Algo que hice yo mismo, nudo por nudo.', palabra: 'contigo',
+    texto: 'Esto lo hice con mis propias manos. Cada nudo fue un «te amo» que no pude decirte en persona. Úsala para que, aunque estemos lejos, sientas que te estoy tomando de la mano.' },
+  { pista: 'El más pequeñito, pero el más importante.', palabra: 'siempre',
+    texto: 'Esta es la promesa que no podía darte por aquí. Es mi promesa de quererte, cuidarte y elegirte todos los días, hasta que ya no haya kilómetros entre nosotros. Cada vez que lo veas, acuérdate de que alguien te ama con todo su corazón.' },
+];
+
+const CARTA_FINAL = {
+  saludo: 'Mi princesita hermosa:',
+  parrafos: [
+    'Hoy cumplimos cuatro meses. Ciento veintidós días desde aquel 14 de junio de 2026 en que mi vida cambió para siempre. Y aunque parece poco tiempo, siento que te conozco desde hace mucho, como si mi corazón te hubiera estado esperando antes de saber tu nombre.',
+    'Quiero empezar dándote las gracias. Gracias por elegirme. Gracias por quedarte, por tenerme paciencia, por escucharme cuando te cuento mis cosas y por confiarme las tuyas. Gracias por cada mensaje de buenos días, por cada llamada que no queríamos colgar y por cada vez que me has hecho sentir que no estoy solo.',
+    'No te voy a mentir: a veces la distancia duele. Hay noches en las que quisiera tomarte de la mano, abrazarte sin decir nada o simplemente verte de cerca. Hay días en los que una pantalla no alcanza. Pero en estos cuatro meses descubrí algo: la distancia no es más fuerte que lo que siento por ti. Al contrario, me ha enseñado a quererte con más paciencia, con más detalles y con más ganas.',
+    'Contigo aprendí que el amor no se mide en kilómetros. Se mide en las veces que pienso en ti sin darme cuenta. En lo rápido que sonrío cuando veo tu nombre en mi celular. En todas las cosas que veo durante el día y que quisiera enseñarte. En los dibujitos que hago en mis cuadernos, pensando en ti.',
+    'Me encanta todo de ti. Tu risa, que me arregla cualquier día. Tu forma de ver el mundo. Tu corazón tan bonito, que se derrite con un gatito. Tu manera de cuidarme aunque estemos lejos. Tu voz cuando me dices buenas noches. Eres, sin exagerar, lo más bonito que me ha pasado.',
+    'Esta página la hice pensando en ti, línea por línea. Cada estrella, cada carta y cada promesa tiene un pedacito de mí. Quería regalarte algo que pudieras abrir cuando me extrañes, algo que te recordara, aunque yo no esté ahí, que hay alguien que te ama con todo lo que es.',
+    'Pienso mucho en nuestro futuro. En el día en que ya no tengamos que despedirnos por videollamada. En las tardes de caminar sin prisa, tomados de la mano. En las películas que vamos a ver juntos, en la comida que vamos a compartir, en los domingos tranquilos sin hacer nada, solo estando. En mirar las estrellas de verdad, uno al lado del otro.',
+    'No sé exactamente cuándo va a llegar ese día, pero sé que va a llegar. Y mientras tanto, te prometo estar aquí. En los días buenos, para celebrar contigo. En los días difíciles, para sostenerte. Te prometo no rendirme, no dejar de esforzarme y no dejar de elegirte.',
+    'También quiero que sepas algo muy importante: no tienes que ser perfecta para que yo te ame. Te amo con tus días buenos y tus días grises, con tus miedos y con tus sueños, con todo lo que eres y con todo lo que vas a ser. Y si algún día se te olvida lo valiosa que eres, aquí voy a estar yo para recordártelo, las veces que haga falta.',
+    'Cuatro meses son apenas el comienzo. Todavía nos faltan muchos 14 por celebrar, muchas historias por escribir y muchos recuerdos por hacer. Y yo quiero vivir cada uno de ellos contigo.',
+    `Gracias por existir, ${NOMBRE}. Gracias por hacer mi vida más bonita. Gracias por ser tú.`,
+    'Felices cuatro meses, mi amor. Te amo hoy, te voy a amar mañana y te voy a seguir amando por toda la vida, Dios mediante.',
+    'Contigo. Siempre.',
+  ],
+  despedida: 'Para siempre tuyo,',
+  pd: 'P. D. Esto todavía no termina: algo va en camino hacia ti. Cuando llegue, ya sabes a qué capítulo regresar. 🐾',
+};
+
+// Juegos: los vales del «Rasca y gana» y las frases del memorama.
+const VALES = [
+  'una videollamada sin límite de tiempo.',
+  'una canción dedicada, la que tú me pidas.',
+  'un dibujo hecho solo para ti.',
+  'ganar la próxima discusión, sin pelear. 😌',
+  'una cita a distancia: misma película, misma hora y cada quien con sus palomitas.',
+  'un abrazo de cinco minutos la próxima vez que nos veamos.',
+];
+const FRASES_MEMORAMA = {
+  'globo': 'El día que todo empezó 🎈',
+  'changuitos': 'Dos changuitos enamorados 🐒',
+  'cocodrilo-delfin': 'Diferentes, pero perfectos juntos',
+  '3-meses': 'Nuestros tres meses 💐',
+  'te-amo-brittany': `Te amo, ${NOMBRE} ❤️`,
+  'mirando-corazon': 'Así te miro yo ✨',
+  'beso': 'Tú y yo 💞',
+  'vaquerito': 'Tu vaquerito favorito 🤠',
+};
+
+/* ==========================================================
+   De aquí para abajo es el funcionamiento de la página.
+   ========================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const ESCENAS = ['portada','camino','cielo','promesas','cartas','tesoro','final','juegos'];
+const KEY = 'felices-4-meses-v2';
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+const S = Object.assign({ camino: 0, estrellas: [], promesas: 0, cartas: [], dias: [], tesoro: [false, false, false], acepto: false, visto: {} }, load());
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+function hoy0() { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+/* ---------- Navegación ---------- */
+let escena = 'portada';
+function go(id) {
+  if (!ESCENAS.includes(id)) id = 'portada';
+  escena = id;
+  document.querySelectorAll('.scene').forEach(s => { s.hidden = s.id !== id; });
+  document.body.classList.toggle('noche', id === 'cielo');
+  if (id === 'cielo') prepararCancion(); else bajarCancion();
+  if (id === 'juegos') volverJuegos(); else detenerJuegos();
+  window.scrollTo(0, 0);
+  if (id === 'portada') portada();
+  S.visto[id] = true; save();
+  try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  if (id === 'camino') requestAnimationFrame(layoutCamino);
+  if (id === 'final') tick();
+}
+function siguientePendiente() {
+  if (S.camino < PARADAS.length) return 'camino';
+  if (S.estrellas.length < RAZONES.length) return 'cielo';
+  if (S.promesas < PROMESAS.length) return 'promesas';
+  if (!S.visto.cartas) return 'cartas';
+  if (!S.visto.tesoro) return 'tesoro';
+  if (!S.tesoro.every(Boolean)) return 'tesoro';
+  return 'final';
+}
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { closeModal(); go(g.dataset.go); return; }
+  if (e.target.closest('[data-close]')) closeModal();
+});
+
+/* ---------- Modal y aviso ---------- */
+const modal = $('#modal'), sheet = $('#sheet');
+let alCerrar = null;
+function openModal(html, opts = {}) {
+  sheet.className = 'sheet' + (opts.letter ? ' letter' : '');
+  sheet.innerHTML = '<button class="x" type="button" data-close aria-label="Cerrar">×</button>' + html;
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  alCerrar = opts.onClose || null;
+  sheet.scrollTop = 0;
+  const f = sheet.querySelector('.btn') || sheet.querySelector('.x');
+  if (f) f.focus({ preventScroll: true });
+}
+function closeModal() {
+  if (modal.hidden) return;
+  modal.hidden = true;
+  document.body.style.overflow = '';
+  const cb = alCerrar; alCerrar = null;
+  if (cb) cb();
+}
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+let toastT;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2600);
+}
+
+/* ---------- Portada ---------- */
+function portada() {
+  $('#diasPortada').textContent = Math.floor((hoy0() - INICIO) / 864e5);
+  $('#paraDe').textContent = `Para: ${NOMBRE} · De: ${FIRMA}`;
+  $('#pkgName').textContent = NOMBRE;
+  $('#finalTitle').textContent = `Felices 4 meses, ${NOMBRE}`;
+  const empezado = S.camino > 0 || S.estrellas.length > 0 || S.promesas > 0;
+  const terminado = S.camino >= PARADAS.length && S.estrellas.length >= RAZONES.length && S.promesas >= PROMESAS.length;
+  const b1 = $('#btnEmpezar'), b2 = $('#btnOtraVez');
+  b2.hidden = !empezado;
+  $('#btnJuegosPortada').hidden = !empezado;
+  if (!empezado) {
+    $('#bubbleIntro').textContent = `¡Miau! Soy Mishi. Hoy te voy a llevar por un recorrido que ${FIRMA} preparó solo para ti. ¿Vamos?`;
+    b1.textContent = 'Vamos 🐾';
+    b1.onclick = () => go('camino');
+  } else if (terminado) {
+    $('#bubbleIntro').textContent = '¡Miau! Volviste. ¿Quieres que te lleve otra vez por todo el recorrido?';
+    b1.textContent = 'Jugar otra vez 🐾';
+    b1.onclick = reiniciarJuego;
+    b2.textContent = 'Ir al tesoro 📦';
+    b2.onclick = () => go('tesoro');
+  } else {
+    $('#bubbleIntro').textContent = '¡Miau! Volviste. ¿Seguimos donde nos quedamos?';
+    b1.textContent = 'Continuar 🐾';
+    b1.onclick = () => go(siguientePendiente());
+    b2.textContent = 'Empezar desde el principio';
+    b2.onclick = reiniciarJuego;
+  }
+}
+
+/* ---------- Volver a jugar ---------- */
+// Reinicia todo: camino, estrellas, promesas, sobres, mensajitos leídos y los candados del tesoro.
+function reiniciarJuego() {
+  S.camino = 0; S.promesas = 0; S.cartas = []; S.dias = [];
+  S.tesoro = [false, false, false]; S.acepto = false;
+  S.juegos = JUEGOS_VACIO(); pintarJuegos();
+  reiniciarCielo();
+  pintarPromesas();
+  document.querySelectorAll('#envelopes .env').forEach(e => e.classList.remove('open'));
+  document.querySelectorAll('#calGrid .day').forEach(d => d.classList.remove('read'));
+  document.querySelectorAll('#locks .lock').forEach(d => {
+    d.classList.remove('open');
+    const f = d.querySelector('form'); f.hidden = false; f.reset();
+    d.querySelector('.err').hidden = true;
+    d.querySelector('.reveal').hidden = true;
+  });
+  actualizarTesoro();
+  save();
+  closeModal();
+  go('camino');
+  toast('¡Listo! Mishi te espera al inicio del camino 🐾');
+}
+function reiniciarCielo() {
+  S.estrellas = []; save();
+  document.querySelectorAll('#starsG .star').forEach(s => s.classList.remove('lit'));
+  $('#constG').innerHTML = '';
+  $('#skyDone').hidden = true;
+  $('#starCount').textContent = 0;
+  $('#reasonText').textContent = 'toca una estrella para empezar ✨';
+}
+
+/* ---------- Capítulo 1: el camino ---------- */
+const PTS = [[150, 62], [78, 170], [222, 372], [78, 574], [222, 776], [150, 968]];
+const segs = []; let segLen = [], cum = [0], total = 0, medido = false, caminando = false;
+(function construirCamino() {
+  let d = `M${PTS[0][0]} ${PTS[0][1]}`;
+  const meas = $('#measure');
+  for (let i = 1; i < PTS.length; i++) {
+    const [x0, y0] = PTS[i - 1], [x1, y1] = PTS[i];
+    const k = (y1 - y0) * 0.55;
+    const c = `C${x0} ${y0 + k} ${x1} ${y1 - k} ${x1} ${y1}`;
+    d += ' ' + c;
+    segs.push(el('path', { d: `M${x0} ${y0} ${c}` }, meas));
+  }
+  $('#pathBase').setAttribute('d', d);
+  $('#pathDone').setAttribute('d', d);
+  const g = $('#stopsG');
+  PARADAS.forEach((p, idx) => {
+    const i = idx + 1, [x, y] = PTS[i];
+    const s = el('g', { class: 'stop', 'data-i': i }, g);
+    el('circle', { cx: x, cy: y, r: 14 }, s);
+    el('path', { class: 'heart', d: `M${x} ${y + 5} C ${x - 9} ${y - 1} ${x - 6} ${y - 8} ${x} ${y - 3.5} C ${x + 6} ${y - 8} ${x + 9} ${y - 1} ${x} ${y + 5} Z` }, s);
+    let tx, ty, anchor;
+    if (i === PARADAS.length) { tx = x; ty = y + 44; anchor = 'middle'; }
+    else if (x < 150) { tx = x + 26; ty = y - 2; anchor = 'start'; }
+    else { tx = x - 26; ty = y - 2; anchor = 'end'; }
+    const t1 = el('text', { x: tx, y: ty, 'text-anchor': anchor, class: 'stop-date' }, s); t1.textContent = p.fecha;
+    const t2 = el('text', { x: tx, y: ty + 20, 'text-anchor': anchor, class: 'stop-title' }, s); t2.textContent = p.titulo;
+    s.addEventListener('click', () => { if (i <= S.camino && !caminando) abrirParada(i); });
+  });
+})();
+function medir() {
+  if (medido) return;
+  segLen = segs.map(p => p.getTotalLength());
+  cum = [0]; segLen.forEach((l, i) => cum.push(cum[i] + l));
+  total = cum[cum.length - 1];
+  if (!total) return;
+  const pd = $('#pathDone');
+  pd.style.strokeDasharray = total;
+  medido = true;
+}
+function ponerGato(x, y, dir) {
+  const box = $('#pathBox'), s = box.clientWidth / 300;
+  $('#walker').style.transform = `translate(${x * s - 35}px, ${y * s - 64}px)`;
+  $('#bob').style.transform = dir < 0 ? 'scaleX(-1)' : '';
+}
+function marcarParadas() {
+  document.querySelectorAll('.stop').forEach(s => s.classList.toggle('reached', +s.dataset.i <= S.camino));
+  const b = $('#btnAvanzar');
+  b.textContent = S.camino === 0 ? 'Empezar a caminar 🐾' : S.camino < PARADAS.length ? 'Avanzar 🐾' : 'Siguiente capítulo →';
+  $('#btnCaminarOtraVez').hidden = S.camino < PARADAS.length;
+  $('#pathHint').style.opacity = S.camino === 0 ? 1 : 0;
+}
+function layoutCamino() {
+  medir();
+  if (!medido || caminando) return;
+  const [x, y] = PTS[S.camino];
+  ponerGato(x, y, 1);
+  $('#pathDone').style.strokeDashoffset = total - cum[S.camino];
+  marcarParadas();
+}
+function caminarA(i) {
+  if (caminando) return;
+  medir();
+  caminando = true;
+  $('#pathHint').style.opacity = 0;
+  $('#walker').classList.add('walking');
+  const seg = segs[i - 1], len = segLen[i - 1], dur = REDUCED ? 1 : 2000, t0 = performance.now();
+  const box = $('#pathBox'), s = box.clientWidth / 300;
+  const top = box.getBoundingClientRect().top + window.scrollY + PTS[i][1] * s - window.innerHeight * 0.42;
+  window.scrollTo({ top: Math.max(0, top), behavior: REDUCED ? 'auto' : 'smooth' });
+  function frame(now) {
+    const t = Math.min(1, (now - t0) / dur);
+    const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const L = e * len, p = seg.getPointAtLength(L), q = seg.getPointAtLength(Math.min(len, L + 2));
+    ponerGato(p.x, p.y, q.x < p.x - 0.01 ? -1 : 1);
+    $('#pathDone').style.strokeDashoffset = total - (cum[i - 1] + L);
+    if (t < 1) { requestAnimationFrame(frame); return; }
+    $('#walker').classList.remove('walking');
+    caminando = false;
+    S.camino = i; save();
+    marcarParadas();
+    setTimeout(() => abrirParada(i), REDUCED ? 0 : 250);
+  }
+  requestAnimationFrame(frame);
+}
+function abrirParada(i) {
+  const p = PARADAS[i - 1], ultimo = i === PARADAS.length;
+  openModal(`
+    <figure class="polaroid ${i % 2 ? '' : 'r'}" style="margin-top:14px">
+      <span class="tape"></span>
+      <img src="${p.foto}" alt="${esc(p.alt)}">
+      <figcaption class="cap">${esc(p.fecha)} · ${esc(p.titulo)}</figcaption>
+    </figure>
+    <p>${esc(p.texto)}</p>
+    <button class="btn" type="button" ${ultimo ? 'data-go="cielo"' : 'data-close'}>${ultimo ? 'Siguiente capítulo →' : 'Seguir el camino 🐾'}</button>`);
+}
+$('#btnAvanzar').addEventListener('click', () => {
+  if (S.camino < PARADAS.length) caminarA(S.camino + 1); else go('cielo');
+});
+window.addEventListener('resize', () => { if (escena === 'camino') layoutCamino(); });
+
+/* ---------- Capítulo 2: el cielo ---------- */
+const ESTRELLAS = [[22,42],[18,12],[40,30],[60,30],[82,12],[78,42],[86,62],[72,82],[50,90],[28,82],[14,62],[37,54],[63,54],[50,66]];
+(function construirCielo() {
+  let seed = 14; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const bg = $('#bgStars');
+  for (let i = 0; i < 90; i++) {
+    const o = (0.25 + rnd() * 0.6).toFixed(2);
+    const c = el('circle', { cx: (rnd() * 100).toFixed(2), cy: (rnd() * 100).toFixed(2), r: (0.12 + rnd() * 0.33).toFixed(2), class: 'bgstar' + (i % 3 === 0 ? ' tw' : '') }, bg);
+    c.style.opacity = o; c.style.setProperty('--o', o); c.style.animationDelay = (rnd() * 3).toFixed(2) + 's';
+  }
+  const g = $('#starsG');
+  ESTRELLAS.forEach(([x, y], i) => {
+    const s = el('g', { class: 'star', transform: `translate(${x} ${y})`, tabindex: '0', role: 'button', 'aria-label': `Estrella ${i + 1}`, 'data-i': i }, g);
+    el('circle', { class: 'hit', r: 5.5 }, s);
+    el('circle', { class: 'halo', r: 2.6 }, s);
+    el('path', { class: 'core', d: 'M0 -2.2 Q0.35 -0.35 2.2 0 Q0.35 0.35 0 2.2 Q-0.35 0.35 -2.2 0 Q-0.35 -0.35 0 -2.2 Z' }, s);
+    s.style.animationDelay = (i * 0.17) + 's';
+    s.querySelector('.halo').style.animationDelay = (i * 0.17) + 's';
+    const act = () => tocarEstrella(i);
+    s.addEventListener('click', act);
+    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
+  });
+  S.estrellas.forEach(i => { const s = g.querySelector(`[data-i="${i}"]`); if (s) s.classList.add('lit'); });
+  $('#starCount').textContent = S.estrellas.length;
+  if (S.estrellas.length) $('#reasonText').textContent = RAZONES[S.estrellas.length - 1];
+  if (S.estrellas.length >= RAZONES.length) completarCielo(false);
+})();
+/* Canción: suena al tocar una estrella, sin reproductor visible */
+const audio = new Audio();
+audio.preload = 'auto';
+let audioFalla = false, fadeT = null;
+audio.addEventListener('error', () => { if (audio.getAttribute('src')) audioFalla = true; });
+function prepararCancion() {
+  if (audio.getAttribute('src')) return;
+  audio.src = CANCION;
+  try { audio.load(); } catch (e) {}
+}
+function tocarCancion() {
+  if (audioFalla) return;
+  clearInterval(fadeT); audio.volume = 1;
+  prepararCancion();
+  const pr = audio.play();
+  if (pr && pr.catch) pr.catch(() => {});
+}
+function bajarCancion() {
+  if (audio.paused) return;
+  clearInterval(fadeT);
+  fadeT = setInterval(() => {
+    audio.volume = Math.max(0, audio.volume - 0.1);
+    if (audio.volume <= 0.01) { clearInterval(fadeT); audio.pause(); audio.volume = 1; }
+  }, 60);
+}
+
+function mostrarRazon(k) {
+  const r = $('#reasonText');
+  r.classList.remove('in'); void r.offsetWidth;
+  r.textContent = RAZONES[k];
+  r.classList.add('in');
+}
+function tocarEstrella(i) {
+  const s = $(`#starsG [data-i="${i}"]`);
+  const ya = S.estrellas.indexOf(i);
+  if (audio.paused) tocarCancion();
+  if (ya >= 0) { mostrarRazon(ya); return; }
+  S.estrellas.push(i); save();
+  s.classList.add('lit');
+  $('#starCount').textContent = S.estrellas.length;
+  mostrarRazon(S.estrellas.length - 1);
+  if (S.estrellas.length === RAZONES.length) setTimeout(() => completarCielo(true), 900);
+}
+function completarCielo(animar) {
+  const g = $('#constG');
+  if (g.childNodes.length) return;
+  const P = ESTRELLAS;
+  const contorno = 'M' + [0,1,2,3,4,5,6,7,8,9,10].map(i => P[i].join(' ')).join(' L') + ' Z';
+  const boca = 'M50 66 Q46 72 42 69 M50 66 Q54 72 58 69 M33 64 L22 62 M33 68 L22 70 M67 64 L78 62 M67 68 L78 70';
+  [contorno, boca].forEach((d, k) => {
+    const p = el('path', { d, class: 'const-line', pathLength: 1 }, g);
+    if (k) p.style.transitionDelay = '1.6s';
+    if (!animar) p.classList.add('drawn');
+  });
+  if (animar) {
+    requestAnimationFrame(() => requestAnimationFrame(() => g.querySelectorAll('.const-line').forEach(p => p.classList.add('drawn'))));
+    setTimeout(() => {
+      $('#skyDone').hidden = false;
+      $('#skyDone').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+    }, REDUCED ? 0 : 3600);
+  } else {
+    $('#skyDone').hidden = false;
+  }
+}
+
+/* ---------- Capítulo 3: promesas ---------- */
+function pintarPromesas() {
+  const n = S.promesas, tot = PROMESAS.length;
+  $('#pTotal').textContent = tot;
+  $('#dots').innerHTML = PROMESAS.map((_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('');
+  const fin = n >= tot;
+  $('#promiseCard').hidden = fin;
+  $('#promiseFinal').hidden = !fin;
+  if (!fin) { $('#pNum').textContent = n + 1; $('#pText').textContent = PROMESAS[n]; }
+  $('#acceptedWrap').hidden = n === 0;
+  $('#acceptedList').innerHTML = PROMESAS.slice(0, n).map(t => `<li>${esc(t)}</li>`).join('');
+}
+let sellando = false;
+$('#btnAcepto').addEventListener('click', () => {
+  if (sellando) return; sellando = true;
+  const c = $('#promiseCard');
+  c.classList.add('stamped');
+  setTimeout(() => {
+    S.promesas++; save();
+    c.classList.remove('stamped', 'swap'); void c.offsetWidth;
+    pintarPromesas();
+    if (S.promesas < PROMESAS.length) c.classList.add('swap');
+    else $('#promiseFinal').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'center' });
+    sellando = false;
+  }, REDUCED ? 50 : 750);
+});
+pintarPromesas();
+
+/* ---------- Capítulo 4: cartas y calendario ---------- */
+function sobreSVG(c) {
+  return `<svg viewBox="-4 -28 128 120" aria-hidden="true">
+    <path class="flapback s-ink" d="M2 3 L60 -24 L118 3 Z" fill="${c.oscuro}" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect class="s-ink" x="2" y="3" width="116" height="84" rx="4" fill="${c.oscuro}" stroke-width="2.5"/>
+    <g class="paper"><rect class="f-white s-ink" x="14" y="10" width="92" height="58" rx="2" stroke-width="1.6"/>
+      <path class="s-grid" d="M24 24 H96 M24 34 H96 M24 44 H80" stroke-width="2.5"/></g>
+    <path class="s-ink" d="M2 34 L60 66 L118 34 L118 83 Q118 87 114 87 L6 87 Q2 87 2 83 Z" fill="${c.color}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path class="s-ink" d="M4 85 L48 58 M116 85 L72 58" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path class="flap s-ink" d="M2 3 L60 52 L118 3 Z" fill="${c.oscuro}" stroke-width="2.5" stroke-linejoin="round"/>
+    <g class="seal"><circle class="f-marker s-ink" cx="60" cy="49" r="10" stroke-width="2"/>
+      <path class="f-white" d="M60 54 C 54 50 55 44 60 47 C 65 44 66 50 60 54 Z"/></g>
+  </svg>`;
+}
+(function construirCartas() {
+  const wrap = $('#envelopes');
+  CARTAS.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'env' + (S.cartas.includes(i) ? ' open' : '');
+    b.setAttribute('aria-label', `Ábrelo cuando ${c.cuando}`);
+    b.innerHTML = sobreSVG(c) + `<span class="env-label"><small>Ábrelo cuando</small>…${esc(c.cuando)}</span>`;
+    b.addEventListener('click', () => {
+      const nueva = !b.classList.contains('open');
+      b.classList.add('open');
+      if (!S.cartas.includes(i)) { S.cartas.push(i); save(); }
+      setTimeout(() => abrirCarta(c), nueva && !REDUCED ? 650 : 0);
+    });
+    wrap.appendChild(b);
+  });
+})();
+function abrirCarta(c) {
+  const foto = c.foto ? `<figure class="polaroid" style="max-width:240px;margin-block:10px 6px"><span class="tape"></span><img src="${c.foto}" alt="${esc(c.alt || '')}"></figure>` : '';
+  openModal(`
+    <p class="eyebrow">Ábrelo cuando</p>
+    <h3>…${esc(c.cuando)}</h3>
+    ${foto}
+    ${c.saludo ? `<p class="saludo">${esc(c.saludo)}</p>` : ''}
+    ${c.texto.map(t => `<p>${esc(t)}</p>`).join('')}
+    <p class="firma"><span class="desp">Con todo mi amor,</span>${esc(FIRMA)} 💞</p>
+    <button class="btn" type="button" data-close>Guardar la carta</button>`, { letter: true });
+}
+(function construirCalendario() {
+  const grid = $('#calGrid');
+  const primero = new Date(2026, 9, 14);
+  const offset = (primero.getDay() + 6) % 7;
+  for (let k = 0; k < offset; k++) grid.appendChild(document.createElement('span'));
+  const h = hoy0();
+  MENSAJES.forEach((m, i) => {
+    const d = new Date(2026, 9, 14 + i);
+    const abierto = h >= d, esHoy = +h === +d;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'day' + (abierto ? '' : ' locked') + (esHoy ? ' today' : '') + (S.dias.includes(i) ? ' read' : '');
+    const mes = (i === 0 || d.getDate() === 1) ? `<small>${MESES[d.getMonth()].slice(0, 3)}</small>` : '';
+    b.innerHTML = `${d.getDate()}${mes}`;
+    b.setAttribute('aria-label', `${d.getDate()} de ${MESES[d.getMonth()]}${abierto ? '' : ', todavía cerrado'}`);
+    b.addEventListener('click', () => {
+      if (!abierto) { toast(`Este se abre el ${d.getDate()} de ${MESES[d.getMonth()]} 🔒`); return; }
+      if (!S.dias.includes(i)) { S.dias.push(i); save(); b.classList.add('read'); }
+      openModal(`
+        <p class="eyebrow">Mensajito del ${d.getDate()} de ${MESES[d.getMonth()]}</p>
+        <p class="promise">${esc(m)}</p>
+        <button class="btn" type="button" data-close>Cerrar</button>`);
+    });
+    grid.appendChild(b);
+  });
+})();
+
+/* ---------- Capítulo 5: el tesoro ---------- */
+const norm = t => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zñ0-9]/g, '');
+function candado() {
+  return `<svg viewBox="0 0 62 74" aria-hidden="true">
+    <path class="shackle s-ink" d="M17 34 V22 a14 14 0 0 1 28 0 V34" fill="none" stroke-width="5.5" stroke-linecap="round"/>
+    <rect class="lock-body f-marker s-ink" x="7" y="32" width="48" height="38" rx="8" stroke-width="2.8"/>
+    <path class="f-white" d="M31 58 C 24 53 25 45 31 48.5 C 37 45 38 53 31 58 Z"/>
+  </svg>`;
+}
+(function construirTesoro() {
+  const wrap = $('#locks');
+  TESOROS.forEach((t, i) => {
+    const d = document.createElement('div');
+    d.className = 'lock' + (S.tesoro[i] ? ' open' : '');
+    d.innerHTML = `${candado()}
+      <div>
+        <p class="eyebrow">Tesoro ${i + 1}</p>
+        <p class="hint">${esc(t.pista)}</p>
+        <form autocomplete="off" ${S.tesoro[i] ? 'hidden' : ''}>
+          <input id="palabra${i + 1}" name="palabra${i + 1}" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Palabra secreta" aria-label="Palabra secreta del tesoro ${i + 1}">
+          <button class="btn" type="submit">Abrir</button>
+        </form>
+        <p class="err" hidden>Mmm, esa no es. Revisa bien la notita 👀</p>
+        <div class="reveal" ${S.tesoro[i] ? '' : 'hidden'}><p class="w">${esc(t.palabra)}</p><p>${esc(t.texto)}</p></div>
+      </div>`;
+    const form = d.querySelector('form'), err = d.querySelector('.err');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = form.querySelector('input').value;
+      if (!norm(v)) return;
+      if (norm(v) === norm(t.palabra)) {
+        S.tesoro[i] = true; save();
+        err.hidden = true; form.hidden = true;
+        d.classList.add('open');
+        d.querySelector('.reveal').hidden = false;
+        confetti(1200, 40);
+        actualizarTesoro();
+        if (S.tesoro.every(Boolean)) setTimeout(finale, REDUCED ? 300 : 2200);
+      } else {
+        err.hidden = false;
+        form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+      }
+    });
+    wrap.appendChild(d);
+  });
+  actualizarTesoro();
+})();
+function actualizarTesoro() { $('#btnVerFinale').hidden = !S.tesoro.every(Boolean); }
+$('#btnVerFinale').addEventListener('click', () => finale());
+function finale() {
+  const palabras = TESOROS.map((t, i) => esc(i ? t.palabra : t.palabra.charAt(0).toUpperCase() + t.palabra.slice(1))).join(',<br>') + '.';
+  const sellada = () => `
+    <p class="eyebrow">Promesa sellada</p>
+    <p class="finale-words">Te amo, ${esc(NOMBRE)}</p>
+    <p>Hoy, mañana y siempre. Gracias por aceptarme también de lejos.</p>
+    <button class="btn" type="button" data-go="final">Leer la última carta</button>`;
+  openModal(`
+    <p class="eyebrow">Encontraste los 3 tesoros</p>
+    <p class="finale-words">${palabras}</p>
+    <p>En idioma gatito, «miau» significa «te amo». Así que ya lo sabes: te amo. Contigo. Siempre.</p>
+    <p>Todo lo que venía en esa caja es una promesa: la de seguir eligiéndote todos los días, hasta que ya no haya kilómetros entre nosotros.</p>
+    <div id="aceptoBox">${S.acepto ? '' : '<button class="btn" type="button" id="btnSiAcepto">Sí, acepto 💞</button>'}</div>
+    ${S.acepto ? sellada() : ''}`);
+  confetti(4200, 160);
+  const b = $('#btnSiAcepto');
+  if (b) b.addEventListener('click', () => {
+    S.acepto = true; save();
+    $('#aceptoBox').outerHTML = sellada();
+    confetti(5000, 220);
+  });
+}
+
+/* ---------- Final ---------- */
+(function cartaFinal() {
+  const c = $('#cartaFinal');
+  const F = CARTA_FINAL;
+  c.innerHTML = `<p class="saludo">${esc(F.saludo)}</p>`
+    + F.parrafos.map(t => `<p>${esc(t)}</p>`).join('')
+    + `<p class="firma"><span class="desp">${esc(F.despedida)}</span>${esc(FIRMA)} 💞</p>`
+    + (F.pd ? `<p class="pd">${esc(F.pd)}</p>` : '');
+})();
+const pad = n => String(n).padStart(2, '0');
+function tick() {
+  const ms = Math.max(0, Date.now() - INICIO.getTime());
+  $('#cD').textContent = Math.floor(ms / 864e5);
+  $('#cH').textContent = pad(Math.floor(ms / 36e5) % 24);
+  $('#cM').textContent = pad(Math.floor(ms / 6e4) % 60);
+  $('#cS').textContent = pad(Math.floor(ms / 1e3) % 60);
+}
+setInterval(() => { if (escena === 'final') tick(); }, 1000);
+
+/* ---------- Confeti de corazones y patitas ---------- */
+const cv = $('#confetti'); let confetiT = 0;
+function confetti(dur, n) {
+  if (REDUCED) return;
+  const ctx = cv.getContext('2d'); if (!ctx) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.hidden = false;
+  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const cols = ['#e23d52', '#f6b3c2', '#ff8fa7', '#ffe8a8'];
+  const P = Array.from({ length: n }, () => ({
+    x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * 0.6,
+    vy: 1.4 + Math.random() * 2.4, vx: -0.8 + Math.random() * 1.6,
+    r: Math.random() * 6.28, vr: -0.05 + Math.random() * 0.1,
+    s: 14 + Math.random() * 14, paw: Math.random() < 0.22, c: cols[Math.floor(Math.random() * cols.length)],
+  }));
+  const id = ++confetiT, t0 = performance.now();
+  (function f(now) {
+    if (id !== confetiT) return;
+    const t = now - t0;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.globalAlpha = t > dur - 800 ? Math.max(0, (dur - t) / 800) : 1;
+    P.forEach(p => {
+      p.x += p.vx + Math.sin((t / 400) + p.r) * 0.5; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      ctx.font = `${p.s}px system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      if (p.paw) ctx.fillText('🐾', 0, 0); else { ctx.fillStyle = p.c; ctx.fillText('♥', 0, 0); }
+      ctx.restore();
+    });
+    if (t < dur) requestAnimationFrame(f); else { ctx.clearRect(0, 0, innerWidth, innerHeight); cv.hidden = true; }
+  })(t0);
+}
+
+/* ---------- Índice ---------- */
+$('#menuBtn').addEventListener('click', () => {
+  const items = [
+    ['♥', 'Portada', 'portada', ''],
+    ['1', 'El camino', 'camino', S.camino >= PARADAS.length ? 'listo' : `${S.camino} de ${PARADAS.length}`],
+    ['2', 'Nuestro cielo', 'cielo', S.estrellas.length >= RAZONES.length ? 'listo' : `${S.estrellas.length} de ${RAZONES.length}`],
+    ['3', 'Mis promesas', 'promesas', S.promesas >= PROMESAS.length ? 'listo' : `${S.promesas} de ${PROMESAS.length}`],
+    ['4', 'Ábrelo cuando…', 'cartas', `${S.cartas.length} de ${CARTAS.length} cartas`],
+    ['5', 'El tesoro', 'tesoro', S.tesoro.every(Boolean) ? 'listo' : `${S.tesoro.filter(Boolean).length} de 3`],
+    ['✉', 'Una última carta', 'final', ''],
+    ['🎮', 'Nuestros juegos', 'juegos', juegosGanados() >= JUEGOS.length ? 'listo' : `${juegosGanados()} de ${JUEGOS.length}`],
+  ];
+  openModal(`
+    <h3>Índice</h3>
+    <ul class="menu-list">${items.map(([n, t, id, st]) => `<li><button class="chip" type="button" data-go="${id}"><span class="n">${n}</span><span class="t">${t}</span><span class="st ${st === 'listo' ? 'ok' : ''}">${st === 'listo' ? '✓ listo' : st}</span></button></li>`).join('')}</ul>
+    <button class="btn ghost" type="button" id="btnIndiceOtraVez">Jugar otra vez 🐾</button>`);
+  $('#btnIndiceOtraVez').addEventListener('click', reiniciarJuego);
+});
+
+/* ---------- Juegos ---------- */
+const JUEGOS = [
+  { id: 'corazones', ico: '💗', t: 'Mishi atrapa corazones', d: 'Atrapa 14 corazones y esquiva las nubes grises.' },
+  { id: 'memorama', ico: '🃏', t: 'Memorama de nosotros', d: 'Encuentra los pares de nuestras fotos y dibujos.' },
+  { id: 'vales', ico: '🎟️', t: 'Rasca y gana', d: 'Raspa las tarjetas y descubre vales para cobrarme.' },
+  { id: 'rompe', ico: '🧩', t: 'Rompecabezas', d: 'Arma otra vez uno de mis dibujos.' },
+  { id: 'laberinto', ico: '🗺️', t: 'El laberinto de los kilómetros', d: 'Ayuda a Mishi a llevarte un abrazo.' },
+];
+const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false });
+if (!S.juegos || typeof S.juegos !== 'object') S.juegos = JUEGOS_VACIO();
+let juegoActual = null;
+
+function estadoJuego(id) {
+  if (id === 'vales') {
+    const n = S.juegos.vales.length, ok = n >= VALES.length;
+    return { ok, txt: ok ? '✓ Ganado' : `${n} de ${VALES.length}` };
+  }
+  return S.juegos[id] ? { ok: true, txt: '✓ Ganado' } : { ok: false, txt: 'Jugar' };
+}
+function juegosGanados() { return JUEGOS.filter(j => estadoJuego(j.id).ok).length; }
+function pintarJuegos() {
+  $('#gamesList').innerHTML = JUEGOS.map(j => {
+    const st = estadoJuego(j.id);
+    return `<button class="game-card" type="button" data-juego="${j.id}">
+      <span class="ico" aria-hidden="true">${j.ico}</span>
+      <span class="txt"><span class="t">${esc(j.t)}</span><span class="d">${esc(j.d)}</span></span>
+      <span class="st ${st.ok ? 'ok' : ''}">${st.txt}</span></button>`;
+  }).join('');
+}
+function abrirJuego(id) {
+  detenerJuegos();
+  juegoActual = id;
+  $('#juegosHub').hidden = true;
+  document.querySelectorAll('#juegos .game').forEach(g => { g.hidden = g.id !== 'g-' + id; });
+  window.scrollTo(0, 0);
+  requestAnimationFrame(() => INICIAR[id]());
+}
+function volverJuegos() {
+  detenerJuegos();
+  juegoActual = null;
+  document.querySelectorAll('#juegos .game').forEach(g => { g.hidden = true; });
+  $('#juegosHub').hidden = false;
+  pintarJuegos();
+  window.scrollTo(0, 0);
+}
+function detenerJuegos() { hc.stop(); }
+function ganar(titulo, texto, otraVez) {
+  confetti(4200, 150);
+  openModal(`
+    <p class="eyebrow">¡Ganaste! 🎉</p>
+    <p class="finale-words" style="font-size:40px">${esc(titulo)}</p>
+    <p>${esc(texto)}</p>
+    <div class="btn-row">
+      <button class="btn ghost" type="button" id="btnOtraPartida">Jugar otra vez</button>
+      <button class="btn" type="button" id="btnAJuegos">Más juegos</button>
+    </div>`);
+  $('#btnOtraPartida').onclick = () => { closeModal(); otraVez(); };
+  $('#btnAJuegos').onclick = () => { closeModal(); volverJuegos(); };
+}
+document.addEventListener('click', e => {
+  const j = e.target.closest('[data-juego]');
+  if (j) { abrirJuego(j.dataset.juego); return; }
+  if (e.target.closest('[data-volver]')) volverJuegos();
+});
+
+/* Ayudantes de dibujo */
+let gatoImg = null;
+function imgGato() {
+  if (gatoImg) return gatoImg;
+  gatoImg = new Image();
+  gatoImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${document.getElementById('gato').innerHTML}</svg>`);
+  return gatoImg;
+}
+function prepCanvas(cv, w, h) {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.width = w + 'px'; cv.style.height = h + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+function corazon(ctx, x, y, s, color, borde = true) {
+  const t = y - s / 2;
+  ctx.beginPath();
+  ctx.moveTo(x, t + s * 0.3);
+  ctx.bezierCurveTo(x, t, x - s * 0.5, t, x - s * 0.5, t + s * 0.3);
+  ctx.bezierCurveTo(x - s * 0.5, t + s * 0.6, x, t + s * 0.8, x, t + s);
+  ctx.bezierCurveTo(x, t + s * 0.8, x + s * 0.5, t + s * 0.6, x + s * 0.5, t + s * 0.3);
+  ctx.bezierCurveTo(x + s * 0.5, t, x, t, x, t + s * 0.3);
+  ctx.closePath();
+  ctx.fillStyle = color; ctx.fill();
+  if (borde) { ctx.lineWidth = 2; ctx.strokeStyle = '#22264a'; ctx.stroke(); }
+}
+
+/* Juego 1: Mishi atrapa corazones */
+const hc = (() => {
+  const META = 14, cv = $('#hcCanvas'), box = $('#hcBox');
+  let ctx, W = 0, H = 0, raf = 0, last = 0, running = false;
+  let score = 0, lives = 3, items = [], pops = [], catX = 0, spawnT = 0, flashT = 0;
+  function size() {
+    W = box.clientWidth;
+    H = Math.round(Math.min(480, Math.max(340, W * 1.2)));
+    ctx = prepCanvas(cv, W, H);
+    catX = Math.max(30, Math.min(W - 30, catX || W / 2));
+  }
+  function hud() {
+    $('#hcScore').textContent = score;
+    $('#hcLives').textContent = '♥'.repeat(Math.max(0, lives)) + '♡'.repeat(Math.max(0, 3 - lives));
+  }
+  function overlay(titulo, texto, boton) {
+    $('#hcTitle').textContent = titulo; $('#hcText').textContent = texto; $('#hcStart').textContent = boton;
+    $('#hcOverlay').hidden = false;
+  }
+  function reset() { score = 0; lives = 3; items = []; pops = []; spawnT = 0.4; flashT = 0; catX = W / 2; hud(); }
+  function iniciar() {
+    stop(); size(); reset(); draw(0);
+    const g = imgGato();
+    if (!g.complete) g.addEventListener('load', () => { if (!running) draw(0); }, { once: true });
+    overlay('¿Lista?', 'Tienes 3 vidas. Cada nube gris te quita una.', 'Empezar 🐾');
+  }
+  function start() {
+    size(); reset();
+    $('#hcOverlay').hidden = true;
+    running = true; last = performance.now();
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+  }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  function spawn() {
+    const nube = Math.random() < Math.min(0.32, 0.18 + score * 0.01);
+    items.push({ x: 26 + Math.random() * (W - 52), y: -26, v: (nube ? 115 : 135) + score * 9 + Math.random() * 60, nube, s: nube ? 36 : 26 + Math.random() * 8, w: Math.random() * 6.28 });
+  }
+  function loop(now) {
+    if (!running) return;
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    spawnT -= dt;
+    if (spawnT <= 0) { spawn(); spawnT = Math.max(0.42, 0.85 - score * 0.025); }
+    const catY = H - 44;
+    items.forEach(it => { it.y += it.v * dt; it.w += dt * 3; });
+    items = items.filter(it => {
+      if (it.y > catY - 34 && it.y < catY + 16 && Math.abs(it.x - catX) < 36) {
+        if (it.nube) { lives--; flashT = 0.35; pops.push({ x: it.x, y: catY - 44, t: 0.8, txt: '−1 ♥', c: '#5d6186' }); }
+        else { score++; pops.push({ x: it.x, y: catY - 44, t: 0.8, txt: '+1', c: '#e23d52' }); }
+        hud();
+        return false;
+      }
+      return it.y < H + 30;
+    });
+    draw(dt);
+    if (score >= META) {
+      stop();
+      S.juegos.corazones = true; save();
+      overlay('¡Ganaste!', 'Atrapaste los 14 corazones.', 'Jugar otra vez 🐾');
+      ganar('¡Atrapaste 14 corazones!', 'Y así de fácil atrapaste el mío desde el primer día. 💞', start);
+      return;
+    }
+    if (lives <= 0) { stop(); overlay('¡Casi!', 'Las nubes ganaron esta vez. ¿Lo intentas otra vez?', 'Intentar otra vez 🐾'); return; }
+    raf = requestAnimationFrame(loop);
+  }
+  function nube(x, y, s) {
+    ctx.fillStyle = '#c3c7da'; ctx.strokeStyle = '#22264a'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(x - s * 0.35, y, s * 0.32, Math.PI * 0.5, Math.PI * 1.5);
+    ctx.arc(x - s * 0.05, y - s * 0.2, s * 0.38, Math.PI, Math.PI * 2);
+    ctx.arc(x + s * 0.38, y, s * 0.3, Math.PI * 1.5, Math.PI * 0.5);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = '#7f9bd6'; ctx.beginPath();
+    for (let k = -1; k <= 1; k++) { ctx.moveTo(x + k * s * 0.3, y + s * 0.45); ctx.lineTo(x + k * s * 0.3 - 3, y + s * 0.68); }
+    ctx.stroke();
+  }
+  function draw(dt) {
+    ctx.clearRect(0, 0, W, H);
+    if (flashT > 0) { flashT -= dt; ctx.fillStyle = `rgba(93,97,134,${Math.max(0, flashT * 0.5)})`; ctx.fillRect(0, 0, W, H); }
+    items.forEach(it => { if (it.nube) nube(it.x, it.y, it.s); else corazon(ctx, it.x + Math.sin(it.w) * 3, it.y, it.s, '#e23d52'); });
+    const g = imgGato(), catY = H - 44;
+    if (g.complete && g.naturalWidth) ctx.drawImage(g, catX - 36, catY - 50, 72, 72);
+    ctx.textAlign = 'center'; ctx.font = '700 24px Caveat, cursive';
+    pops = pops.filter(p => {
+      p.t -= dt; p.y -= 40 * dt;
+      ctx.globalAlpha = Math.max(0, p.t / 0.8); ctx.fillStyle = p.c; ctx.fillText(p.txt, p.x, p.y); ctx.globalAlpha = 1;
+      return p.t > 0;
+    });
+  }
+  function mover(e) {
+    const r = cv.getBoundingClientRect();
+    catX = Math.max(30, Math.min(W - 30, e.clientX - r.left));
+    if (!running && ctx) draw(0);
+  }
+  cv.addEventListener('pointerdown', mover);
+  cv.addEventListener('pointermove', mover);
+  $('#hcStart').addEventListener('click', start);
+  function tecla(dir) { if (dir === 'left') catX = Math.max(30, catX - 28); if (dir === 'right') catX = Math.min(W - 30, catX + 28); if (!running && ctx) draw(0); }
+  return { iniciar, stop, tecla };
+})();
+
+/* Juego 2: memorama */
+const mem = (() => {
+  const CARTAS_MEM = Object.keys(FRASES_MEMORAMA);
+  let first = null, lock = false, moves = 0, pairs = 0;
+  function upd() { $('#memMoves').textContent = moves; $('#memPairs').textContent = pairs; }
+  function iniciar() {
+    const deck = CARTAS_MEM.flatMap(k => [k, k]);
+    for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+    first = null; lock = false; moves = 0; pairs = 0; upd();
+    $('#memMsg').textContent = 'Encuentra los pares 🐾';
+    const g = $('#memGrid'); g.innerHTML = '';
+    deck.forEach(k => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'mem-card'; b.dataset.k = k;
+      b.setAttribute('aria-label', 'Carta volteada');
+      b.innerHTML = `<span class="in"><span class="fa" aria-hidden="true">♥</span><span class="fb"><img src="${k}.jpg" alt=""></span></span>`;
+      b.addEventListener('click', () => tocar(b));
+      g.appendChild(b);
+    });
+  }
+  function tocar(b) {
+    if (lock || b === first || b.classList.contains('ok') || b.classList.contains('flip')) return;
+    b.classList.add('flip');
+    if (!first) { first = b; return; }
+    moves++; upd();
+    if (first.dataset.k === b.dataset.k) {
+      first.classList.add('ok'); b.classList.add('ok');
+      pairs++; upd();
+      $('#memMsg').textContent = FRASES_MEMORAMA[b.dataset.k] || '¡Par!';
+      first = null;
+      if (pairs === CARTAS_MEM.length) {
+        S.juegos.memorama = true; save();
+        setTimeout(() => ganar(`¡Encontraste los ${CARTAS_MEM.length} pares!`, `Lo lograste en ${moves} movimientos. Pero el par más bonito siempre vamos a ser tú y yo.`, iniciar), 700);
+      }
+    } else {
+      lock = true;
+      const a = first; first = null;
+      setTimeout(() => { a.classList.remove('flip'); b.classList.remove('flip'); lock = false; }, 850);
+    }
+  }
+  $('#memAgain').addEventListener('click', iniciar);
+  return { iniciar };
+})();
+
+/* Juego 3: rasca y gana */
+const vales = (() => {
+  function iniciar() {
+    const w = $('#vales'); w.innerHTML = '';
+    VALES.forEach((t, i) => {
+      const d = document.createElement('div');
+      d.className = 'vale';
+      d.innerHTML = `<div class="vale-in"><p class="eyebrow">Vale por</p><p class="vale-t">${esc(t)}</p><p class="vale-f">Canjeable con ${esc(FIRMA)} · No caduca nunca</p></div>`;
+      w.appendChild(d);
+      if (!S.juegos.vales.includes(i)) {
+        const cv = document.createElement('canvas');
+        cv.setAttribute('aria-label', 'Raspa para descubrir el vale');
+        d.appendChild(cv);
+        requestAnimationFrame(() => capa(cv, d, i));
+      }
+    });
+    $('#valesMsg').hidden = S.juegos.vales.length < VALES.length;
+  }
+  function capa(cv, d, i) {
+    const w = d.clientWidth, h = d.clientHeight;
+    const ctx = prepCanvas(cv, w, h);
+    cv.style.width = '100%'; cv.style.height = '100%';
+    const gr = ctx.createLinearGradient(0, 0, w, h);
+    gr.addColorStop(0, '#f4a9bb'); gr.addColorStop(1, '#f9d0da');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h);
+    for (let y = 12, row = 0; y < h + 10; y += 24, row++) {
+      for (let x = 12 + (row % 2) * 12; x < w + 10; x += 24) corazon(ctx, x, y, 8, 'rgba(255,255,255,.55)', false);
+    }
+    ctx.fillStyle = '#22264a'; ctx.font = '700 30px Caveat, cursive'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Raspa aquí ✨', w / 2, h / 2);
+    ctx.globalCompositeOperation = 'destination-out';
+    let down = false, n = 0;
+    const raspar = e => {
+      const r = cv.getBoundingClientRect();
+      ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 22, 0, Math.PI * 2); ctx.fill();
+      if (++n % 8 === 0) revisar();
+    };
+    cv.addEventListener('pointerdown', e => { down = true; try { cv.setPointerCapture(e.pointerId); } catch (err) {} raspar(e); });
+    cv.addEventListener('pointermove', e => { if (down) raspar(e); });
+    const fin = () => { if (down) { down = false; revisar(); } };
+    cv.addEventListener('pointerup', fin);
+    cv.addEventListener('pointercancel', fin);
+    function revisar() {
+      if (cv.classList.contains('gone')) return;
+      const data = ctx.getImageData(0, 0, cv.width, cv.height).data;
+      let clear = 0, tot = 0;
+      for (let k = 3; k < data.length; k += 4 * 11) { tot++; if (data[k] < 40) clear++; }
+      if (clear / tot < 0.5) return;
+      cv.classList.add('gone');
+      setTimeout(() => cv.remove(), 600);
+      if (!S.juegos.vales.includes(i)) { S.juegos.vales.push(i); save(); }
+      confetti(1400, 40);
+      if (S.juegos.vales.length >= VALES.length) {
+        $('#valesMsg').hidden = false;
+        setTimeout(() => ganar(`¡Ganaste los ${VALES.length} vales!`, 'Tómales captura y cóbramelos cuando quieras. Todos son válidos para siempre.', () => { S.juegos.vales = []; save(); iniciar(); }), 900);
+      }
+    }
+  }
+  return { iniciar };
+})();
+
+/* Juego 4: rompecabezas */
+const puz = (() => {
+  const N = 3, IMG = 'globo.jpg';
+  let order = [], sel = null, moves = 0, done = false;
+  function iniciar() {
+    order = [...Array(N * N).keys()];
+    do {
+      for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+    } while (order.filter((v, i) => v === i).length > 1);
+    sel = null; moves = 0; done = false;
+    $('#puzMsg').textContent = '';
+    pintar();
+  }
+  function pintar() {
+    const p = $('#puz');
+    p.classList.toggle('done', done);
+    $('#puzMoves').textContent = moves;
+    p.innerHTML = order.map((t, slot) => {
+      const r = Math.floor(t / N), c = t % N;
+      return `<button class="pz${sel === slot ? ' sel' : ''}" type="button" data-slot="${slot}" aria-label="Pieza ${slot + 1}" style="background-image:url('${IMG}');background-position:${c * 50}% ${r * 50}%"></button>`;
+    }).join('');
+  }
+  $('#puz').addEventListener('click', e => {
+    const b = e.target.closest('.pz');
+    if (!b || done) return;
+    const s = +b.dataset.slot;
+    if (sel === null) { sel = s; pintar(); return; }
+    if (sel === s) { sel = null; pintar(); return; }
+    [order[sel], order[s]] = [order[s], order[sel]];
+    sel = null; moves++;
+    if (order.every((v, i) => v === i)) {
+      done = true; S.juegos.rompe = true; save();
+      pintar();
+      $('#puzMsg').textContent = `¡Listo en ${moves} movimientos!`;
+      setTimeout(() => ganar('¡Armaste el dibujo!', 'Pieza por pieza, así también vamos armando lo nuestro.', iniciar), 700);
+      return;
+    }
+    pintar();
+  });
+  $('#puzAgain').addEventListener('click', iniciar);
+  $('#puzVer').addEventListener('click', () => openModal(`
+    <p class="eyebrow">Así debe quedar</p>
+    <figure class="polaroid" style="max-width:300px"><span class="tape"></span><img src="${IMG}" alt="Dibujo completo"></figure>
+    <button class="btn" type="button" data-close>Seguir armando</button>`));
+  return { iniciar };
+})();
+
+/* Juego 5: el laberinto de los kilómetros */
+const lab = (() => {
+  const C = 7, R = 9, O = 6, cv = $('#mzCanvas');
+  const DIRS = { up: [0, -1, 0], right: [1, 0, 1], down: [0, 1, 2], left: [-1, 0, 3] };
+  let ctx, cell = 40, W, H, cells = [], px = 0, py = 0, visit = new Set(), ganado = false;
+  function gen() {
+    cells = Array.from({ length: R }, () => Array.from({ length: C }, () => [1, 1, 1, 1]));
+    const seen = Array.from({ length: R }, () => Array(C).fill(false));
+    const D = [[0, -1, 0, 2], [1, 0, 1, 3], [0, 1, 2, 0], [-1, 0, 3, 1]];
+    const stack = [[0, 0]]; seen[0][0] = true;
+    while (stack.length) {
+      const [x, y] = stack[stack.length - 1];
+      const opts = D.filter(([dx, dy]) => { const nx = x + dx, ny = y + dy; return nx >= 0 && ny >= 0 && nx < C && ny < R && !seen[ny][nx]; });
+      if (!opts.length) { stack.pop(); continue; }
+      const [dx, dy, w, o] = opts[Math.floor(Math.random() * opts.length)];
+      cells[y][x][w] = 0; cells[y + dy][x + dx][o] = 0;
+      seen[y + dy][x + dx] = true; stack.push([x + dx, y + dy]);
+    }
+  }
+  function size() {
+    const bw = cv.parentElement.clientWidth;
+    cell = Math.max(24, Math.min(36, Math.floor((bw - O * 2 - 4) / C)));
+    W = cell * C + O * 2; H = cell * R + O * 2;
+    ctx = prepCanvas(cv, W, H);
+  }
+  function iniciar() {
+    gen(); px = 0; py = 0; visit = new Set(['0,0']); ganado = false;
+    $('#mzMsg').textContent = '';
+    $('#mzFrom').textContent = FIRMA; $('#mzTo').textContent = NOMBRE;
+    size();
+    const g = imgGato();
+    if (!g.complete) g.addEventListener('load', draw, { once: true });
+    draw();
+  }
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(223,231,251,.9)'; ctx.fillRect(O, O, cell, cell);
+    ctx.fillStyle = 'rgba(246,179,194,.5)'; ctx.fillRect(O + (C - 1) * cell, O + (R - 1) * cell, cell, cell);
+    ctx.fillStyle = '#f6b3c2';
+    visit.forEach(k => {
+      const [x, y] = k.split(',').map(Number);
+      ctx.beginPath(); ctx.arc(O + x * cell + cell / 2, O + y * cell + cell / 2, cell * 0.12, 0, Math.PI * 2); ctx.fill();
+    });
+    corazon(ctx, O + (C - 1) * cell + cell / 2, O + (R - 1) * cell + cell / 2, cell * 0.62, '#e23d52');
+    ctx.strokeStyle = '#22264a'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (let y = 0; y < R; y++) for (let x = 0; x < C; x++) {
+      const w = cells[y][x], X = O + x * cell, Y = O + y * cell;
+      if (w[0]) { ctx.moveTo(X, Y); ctx.lineTo(X + cell, Y); }
+      if (w[1]) { ctx.moveTo(X + cell, Y); ctx.lineTo(X + cell, Y + cell); }
+      if (w[2]) { ctx.moveTo(X, Y + cell); ctx.lineTo(X + cell, Y + cell); }
+      if (w[3]) { ctx.moveTo(X, Y); ctx.lineTo(X, Y + cell); }
+    }
+    ctx.stroke();
+    const g = imgGato();
+    if (g.complete && g.naturalWidth) ctx.drawImage(g, O + px * cell + cell * 0.06, O + py * cell + cell * 0.04, cell * 0.88, cell * 0.88);
+  }
+  function paso(dir) {
+    const [dx, dy, w] = DIRS[dir];
+    if (cells[py][px][w]) return false;
+    const nx = px + dx, ny = py + dy;
+    if (nx < 0 || ny < 0 || nx >= C || ny >= R) return false;
+    px = nx; py = ny; visit.add(px + ',' + py);
+    return true;
+  }
+  function mover(dir, correr) {
+    if (ganado || !cells.length) return;
+    let movio = paso(dir), guard = 0;
+    while (correr && movio && guard++ < 40) {
+      if (px === C - 1 && py === R - 1) break;
+      if (cells[py][px].filter(v => !v).length !== 2) break;
+      movio = paso(dir);
+    }
+    draw();
+    if (px === C - 1 && py === R - 1) {
+      ganado = true; S.juegos.laberinto = true; save();
+      $('#mzMsg').textContent = '¡Llegó el abrazo! 💞';
+      setTimeout(() => ganar('¡El abrazo llegó!', 'Ningún laberinto, ni ningún kilómetro, es más grande que mis ganas de abrazarte.', iniciar), 500);
+    }
+  }
+  let sx = null, sy = null;
+  cv.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+  cv.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+    mover(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'), true);
+  });
+  document.querySelectorAll('.dpad [data-dir]').forEach(b => b.addEventListener('click', () => mover(b.dataset.dir, false)));
+  $('#mzAgain').addEventListener('click', iniciar);
+  function ajustar() { if (!cells.length) return; size(); draw(); }
+  return { iniciar, mover, ajustar };
+})();
+
+const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar };
+document.addEventListener('keydown', e => {
+  if (escena !== 'juegos' || !modal.hidden) return;
+  const dir = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' }[e.key];
+  if (!dir) return;
+  if (juegoActual === 'laberinto') { e.preventDefault(); lab.mover(dir, false); }
+  else if (juegoActual === 'corazones') { e.preventDefault(); hc.tecla(dir); }
+});
+window.addEventListener('resize', () => { if (escena === 'juegos' && juegoActual === 'laberinto') lab.ajustar(); });
+pintarJuegos();
+
+/* Botones para repetir cada capítulo */
+$('#btnCaminarOtraVez').addEventListener('click', () => {
+  if (caminando) return;
+  S.camino = 0; save();
+  layoutCamino();
+  window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+});
+$('#btnCieloOtraVez').addEventListener('click', () => {
+  reiniciarCielo();
+  window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+});
+$('#btnPromesasOtraVez').addEventListener('click', () => {
+  S.promesas = 0; save();
+  pintarPromesas();
+  window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+});
+$('#btnFinalOtraVez').addEventListener('click', reiniciarJuego);
+
+/* ---------- Arranque ---------- */
+portada();
+go((location.hash || '').replace('#', '') || 'portada');
+window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (h && h !== escena) { closeModal(); go(h); } });
+</script>
+</body>
+</html>

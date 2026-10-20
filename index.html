@@ -773,7 +773,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
           <li><span>📦</span><span>Empuja las cajas caminando hacia ellas.</span></li>
           <li><span>💖</span><span>Junta 4 corazones e invoca al príncipe 👑.</span></li>
           <li><span>🚪</span><span>El príncipe derrota a los zombies y te lleva cargando hasta la puerta.</span></li>
-          <li><span>🧟</span><span>Si un zombie te alcanza, pierdes una vida. Tienes 5.</span></li>
+          <li><span>🧟</span><span>Los zombies son lentos y dormilones. Si uno te alcanza pierdes una vida (tienes 5), pero sigues donde estabas.</span></li>
         </ul>
       </div>
       <p class="game-msg" id="advEstado" aria-live="polite"></p>
@@ -1012,8 +1012,8 @@ const FRASES_MEMORAMA = {
 const NIVELES_AVENTURA = [
   { nombre: 'El jardín', intro: 'Muévete con las flechas y junta los 4 corazones. Si una caja te estorba, empújala caminando hacia ella. Con los 4 corazones podrás invocar al príncipe 👑', fin: 'Contigo todo florece, igual que este jardín. 🌷' },
   { nombre: 'El bosque encantado', intro: 'Empuja la caja hasta el círculo del corazón para abrir la reja.', fin: 'Ni el bosque más oscuro me da miedo si vas conmigo. 🌲' },
-  { nombre: 'El lago de las estrellas', intro: 'Busca la llave 🔑 para abrir la puerta cerrada. Y no dejes que la caja te encierre.', fin: 'Hasta el lago se queda quieto para verte pasar. 🌊' },
-  { nombre: 'La noche de los zombies', intro: 'Dos cajas, dos círculos y una llave. Los zombies andan despiertos… pero tú puedes.', fin: 'Ningún zombie, ni ningún kilómetro, va a separarnos. 💞' },
+  { nombre: 'El lago de las estrellas', intro: 'Busca la llave 🔑 para abrir la puerta cerrada y junta los corazones que brillan junto al lago.', fin: 'Hasta el lago se queda quieto para verte pasar. 🌊' },
+  { nombre: 'La noche de los zombies', intro: 'Una caja, un círculo y una llave. Los zombies andan despiertos… pero tú puedes.', fin: 'Ningún zombie, ni ningún kilómetro, va a separarnos. 💞' },
   { nombre: 'El castillo', intro: 'El último nivel. Busca la llave, junta los 4 corazones e invoca a tu príncipe: él te llevará a casa. Hay una sorpresa esperándote.', fin: '' },
 ];
 const CARTA_PRINCESA = {
@@ -2060,10 +2060,10 @@ const aventura = (() => {
   const COLS = 9, ROWS = 13;
   const MAPAS = [
     ["#########", "#...E...#", "#.H...H.#", "#......Z#", "####.####", "#.......#", "#.....H.#", "#.......#", "#...P...#", "####B####", "#.......#", "#.H.....#", "#########"],
-    ["#########", "#E..#.H.#", "#...G...#", "#...#.H.#", "#...#####", "#......Z#", "#.......#", "#..B..o.#", "#.......#", "#.H.##..#", "#...#H..#", "#.P.#..Z#", "#########"],
-    ["#########", "#H..#..E#", "#...D...#", "#...#.H.#", "##B######", "#...~~..#", "#.K.~~.Z#", "#...~~..#", "#.......#", "#...~~.H#", "#...~~Z.#", "#.P.~~.H#", "#########"],
-    ["#########", "#K.E#.H.#", "#...G...#", "#...#.H.#", "##.######", "#...P...#", "#.B...B.#", "#..o.o..#", "#Z.....Z#", "####D####", "#.......#", "#.H..Z.H#", "#########"],
-    ["#########", "#...E...#", "#..Z....#", "###...###", "#H#...#H#", "#.D.....#", "###...###", "#......Z#", "#.......#", "#.......#", "#K......#", "#H...P.H#", "#########"]
+    ["#########", "#E..#.H.#", "#...G...#", "#...#.H.#", "#...#####", "#......Z#", "#.......#", "#..B.o..#", "#.......#", "#.H.##..#", "#...#H..#", "#.P.#...#", "#########"],
+    ["#########", "#H..#..E#", "#...D...#", "#...#.H.#", "##.######", "#...~~..#", "#.K.~~.Z#", "#...~~..#", "#.......#", "#...~~.H#", "#...~~..#", "#.P.~~.H#", "#########"],
+    ["#########", "#K.E#.H.#", "#...G...#", "#...#.H.#", "##.######", "#...P...#", "#..B....#", "#..o....#", "#......Z#", "####D####", "#......Z#", "#.H....H#", "#########"],
+    ["#########", "#...E...#", "#......Z#", "###...###", "#H#...#H#", "#.D.....#", "###...###", "#......Z#", "#.......#", "#.......#", "#K......#", "#H...P.H#", "#########"]
   ];
   const NV = MAPAS.length;
   const TEMAS = [
@@ -2073,8 +2073,8 @@ const aventura = (() => {
     { suelo: '#41466e', grid: '#4c527c', pared: '#2b2f50', paredB: '#181a30', estilo: 'seto', deco: 'estrella', linea: '#ffe8a8' },
     { suelo: '#f6eee4', grid: '#e7dacb', pared: '#bfae9d', paredB: '#8a796a', estilo: 'piedra', deco: 'alfombra' },
   ];
-  const VEL_Z = [1000, 900, 850, 800, 980];
-  const AGGRO = 5;
+  const VEL_Z = [1600, 1550, 1500, 1500, 1550];
+  const AGGRO = 3;
   const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
   const INK = '#22264a';
   const $a = id => document.getElementById(id);
@@ -2201,10 +2201,9 @@ const aventura = (() => {
       tarjeta('¡Ay, no! 🧟', 'Los zombies ganaron esta vez. Pero una princesa nunca se rinde. ¿Lo intentamos otra vez?', [['Reintentar el nivel', () => iniciarNivel(nivel)]]);
       return;
     }
-    aviso(lives === 1 ? '¡Un zombie te alcanzó! Te queda 1 vida' : `¡Un zombie te alcanzó! Te quedan ${lives} vidas`, 2000);
-    pr.x = pr.fx = start.x; pr.y = pr.fy = start.y; pr.t = 1;
-    zs.forEach(z => { if (z.vivo) { z.x = z.fx = z.sx; z.y = z.fy = z.sy; z.t = 1; } });
-    inv = 1.6; zTimer = 0;
+    aviso(lives === 1 ? '¡Uy, un zombie! Te queda 1 vida 💗' : `¡Uy, un zombie! Te quedan ${lives} vidas 💗`, 2000);
+    zs.forEach(z => { if (z.vivo && Math.abs(z.x - pr.x) + Math.abs(z.y - pr.y) <= 1) { chispas(z.x, z.y, '#8e7cc3', 10); z.x = z.fx = z.sx; z.y = z.fy = z.sy; z.t = 1; } });
+    inv = 2.5; zTimer = 0;
   }
   function siguientePaso(z) {
     const prev = new Map([[k(z.x, z.y), null]]), q = [[z.x, z.y, 0]];
@@ -2226,7 +2225,7 @@ const aventura = (() => {
       if (hayZombie(cx, cy, z)) return null;
       return [cx, cy];
     }
-    if (Math.random() < 0.35) {
+    if (Math.random() < 0.25) {
       const ops = Object.values(DIRS).map(([dx, dy]) => [z.x + dx, z.y + dy]).filter(([x, y]) => libreZ(x, y, z));
       if (ops.length) return ops[Math.floor(Math.random() * ops.length)];
     }
@@ -2400,7 +2399,7 @@ const aventura = (() => {
   function actualizar(dt) {
     if (inv > 0) inv -= dt;
     if (held && pr.t >= 1) intentar(held);
-    zTimer += dt * 1000;
+    if (inv <= 0) zTimer += dt * 1000;
     if (!ataque && zTimer >= VEL_Z[nivel]) {
       zTimer = 0;
       zs.forEach(z => {

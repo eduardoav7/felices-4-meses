@@ -385,6 +385,42 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 .dpad [data-dir="down"] { grid-area: d; }
 .dpad [data-dir="right"] { grid-area: r; }
 
+/* Juego 6: aventura */
+.adv { position: fixed; inset: 0; z-index: 55; display: flex; flex-direction: column; background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 26px 26px;
+  padding: env(safe-area-inset-top, 0px) max(8px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-left, 0px)); color: var(--ink); }
+.adv-top { display: flex; align-items: center; gap: 10px; padding: 8px 2px 6px; max-width: 520px; width: 100%; margin: 0 auto; }
+.adv-x { flex: none; width: 42px; height: 42px; display: grid; place-items: center; padding: 0; font-size: 18px; font-weight: 800; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 12px 6px 14px 8px; box-shadow: 2px 3px 0 var(--ink); cursor: pointer; }
+.adv-title { flex: 1; min-width: 0; line-height: 1.05; }
+.adv-title b { display: block; font: 800 11px/1.3 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--marker); }
+.adv-title span { display: block; font: 700 25px/1 var(--font-hand); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.adv-stats { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; font-weight: 800; font-size: 14px; }
+.adv-stats b { color: var(--marker); font-variant-numeric: tabular-nums; }
+.adv-vidas { color: var(--marker); letter-spacing: 1px; font-size: 13px; }
+.adv-stage { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.adv-stage canvas { display: block; border: 2.5px solid var(--ink); border-radius: 10px; box-shadow: 4px 5px 0 var(--ink); touch-action: none; }
+.adv-msg { position: absolute; z-index: 2; top: 8px; left: 50%; transform: translateX(-50%); width: max-content; max-width: 92%; padding: 7px 12px; border-radius: 12px; background: var(--ink); color: var(--white); font-weight: 700; font-size: 14px; line-height: 1.3; text-align: center; pointer-events: none; box-shadow: 0 6px 16px var(--shadow); }
+.adv-card { position: absolute; z-index: 3; inset: 0; display: flex; align-items: center; justify-content: center; padding: 14px; background: rgba(15, 19, 48, .4); }
+.adv-sheet { width: 100%; max-width: 360px; max-height: 100%; overflow: auto; display: flex; flex-direction: column; gap: 12px; text-align: center; background: var(--paper); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 8px 16px 10px 14px; box-shadow: 6px 8px 0 var(--ink); padding: 22px 18px; animation: pop .35s cubic-bezier(.3, 1.4, .5, 1) both; }
+.adv-sheet p { margin: 0; }
+.adv-sheet-t { font: 700 34px/1.05 var(--font-hand); color: var(--marker); text-wrap: balance; }
+.adv-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; max-width: 520px; margin: 0 auto; padding: 10px 2px 12px; }
+.adv .dpad { grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(2, 50px); }
+.adv-btn { justify-self: center; width: 78px; height: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 6px; font: 800 13px/1.1 var(--font-body); border: 2.5px solid var(--ink); border-radius: 22px 12px 24px 14px; box-shadow: 3px 4px 0 var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.adv-btn .i { font-size: 26px; line-height: 1; }
+.adv-btn:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.adv-btn:focus-visible { outline: 3px dashed var(--marker); outline-offset: 3px; }
+.adv-reset { width: 58px; height: 58px; gap: 2px; padding: 4px; font-size: 10.5px; border-radius: 16px 9px 18px 10px; box-shadow: 2px 3px 0 var(--ink); background: var(--white); color: var(--ink); }
+.adv-reset .i { font-size: 19px; }
+.adv-summon { background: var(--marker); color: var(--white); }
+.adv-summon[disabled] { opacity: .45; filter: grayscale(.6); cursor: not-allowed; }
+.adv-summon.ready { animation: pulso 1s ease-in-out infinite; }
+@keyframes pulso { 50% { transform: scale(1.06); } }
+.adv .dpad button { touch-action: none; user-select: none; -webkit-user-select: none; }
+.adv-preview { display: block; width: 100%; max-width: 256px; height: auto; margin: 0 auto; border: 2px solid var(--ink); border-radius: 10px; }
+.adv-how { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.adv-how li { display: grid; grid-template-columns: 28px 1fr; gap: 6px; align-items: start; color: var(--ink); font-size: 15px; line-height: 1.4; }
+
 /* Modal y avisos */
 .modal {
   position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center;
@@ -643,7 +679,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <div class="head">
         <p class="eyebrow">Bonus</p>
         <h2><span class="mark">Nuestros juegos</span></h2>
-        <p class="lead">Cinco jueguitos que hice para ti. Juégalos las veces que quieras.</p>
+        <p class="lead">Seis jueguitos que hice para ti. Juégalos las veces que quieras.</p>
       </div>
       <div class="games" id="gamesList"></div>
       <div class="btn-row"><button class="btn ghost" type="button" data-go="final">Volver a la última carta</button></div>
@@ -652,7 +688,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-corazones" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 1 de 5</p>
+        <p class="eyebrow">Juego 1 de 6</p>
         <h2><span class="mark">Mishi atrapa corazones</span></h2>
         <p class="lead">Desliza el dedo para mover a Mishi. Atrapa 14 corazones y esquiva las nubes grises.</p>
       </div>
@@ -670,7 +706,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-memorama" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 2 de 5</p>
+        <p class="eyebrow">Juego 2 de 6</p>
         <h2><span class="mark">Memorama de nosotros</span></h2>
         <p class="lead">Voltea dos cartas a la vez y encuentra los 8 pares.</p>
       </div>
@@ -683,7 +719,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-vales" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 3 de 5</p>
+        <p class="eyebrow">Juego 3 de 6</p>
         <h2><span class="mark">Rasca y gana</span></h2>
         <p class="lead">Raspa cada tarjeta con el dedo para descubrir tu premio. Son vales de verdad: tómales captura y cóbramelos cuando quieras.</p>
       </div>
@@ -694,7 +730,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-rompe" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 4 de 5</p>
+        <p class="eyebrow">Juego 4 de 6</p>
         <h2><span class="mark">Rompecabezas</span></h2>
         <p class="lead">Toca dos piezas para cambiarlas de lugar hasta armar el dibujo.</p>
       </div>
@@ -707,7 +743,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-laberinto" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 5 de 5</p>
+        <p class="eyebrow">Juego 5 de 6</p>
         <h2><span class="mark">El laberinto de los kilómetros</span></h2>
         <p class="lead">Lleva a Mishi hasta el corazón. Usa las flechas o desliza el dedo sobre el laberinto.</p>
       </div>
@@ -722,9 +758,60 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <p class="game-msg" id="mzMsg" aria-live="polite"></p>
       <div class="btn-row"><button class="btn ghost" type="button" id="mzAgain">Otro laberinto</button></div>
     </div>
+
+    <div class="game" id="g-aventura" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 6 de 6 · Aventura</p>
+        <h2><span class="mark">La princesa y los zombies</span></h2>
+        <p class="lead">Unos zombies muy gruñones quieren atrapar a la princesa. Resuelve los acertijos de cada nivel, junta 4 corazones e invoca al príncipe para que los derrote.</p>
+      </div>
+      <canvas class="adv-preview" id="advPreview" aria-label="La princesa, un corazón, el príncipe y un zombie"></canvas>
+      <div class="card">
+        <ul class="adv-how">
+          <li><span>🕹️</span><span>Muévete con las flechas o deslizando el dedo.</span></li>
+          <li><span>📦</span><span>Empuja las cajas caminando hacia ellas.</span></li>
+          <li><span>💖</span><span>Junta 4 corazones e invoca al príncipe 👑.</span></li>
+          <li><span>🚪</span><span>El príncipe derrota a los zombies y te lleva cargando hasta la puerta.</span></li>
+          <li><span>🧟</span><span>Si un zombie te alcanza, pierdes una vida. Tienes 5.</span></li>
+        </ul>
+      </div>
+      <p class="game-msg" id="advEstado" aria-live="polite"></p>
+      <div class="btn-row">
+        <button class="btn" type="button" id="advJugar">Jugar 🐾</button>
+        <button class="btn ghost" type="button" id="advDesdeCero" hidden>Empezar desde el nivel 1</button>
+        <button class="btn ghost" type="button" id="advCarta" hidden>Leer la carta 💌</button>
+      </div>
+    </div>
   </section>
 
 </main>
+
+<div class="adv" id="adv" hidden role="dialog" aria-modal="true" aria-label="La princesa y los zombies">
+  <div class="adv-top">
+    <button class="adv-x" type="button" id="advSalir" aria-label="Salir del juego">✕</button>
+    <div class="adv-title"><b id="advNivel">Nivel 1 de 5</b><span id="advNombre">El jardín</span></div>
+    <div class="adv-stats">
+      <span>💖 <b id="advCor">0</b> de 4 <span id="advLlave" hidden>· 🔑</span></span>
+      <span class="adv-vidas" id="advVidas" aria-label="Vidas">♥♥♥♥♥</span>
+    </div>
+  </div>
+  <div class="adv-stage" id="advStage">
+    <canvas id="advCanvas" aria-label="Mapa del nivel"></canvas>
+    <div class="adv-msg" id="advMsg" role="status" hidden></div>
+    <div class="adv-card" id="advCard" hidden></div>
+  </div>
+  <div class="adv-controls">
+    <button class="adv-btn adv-reset" type="button" id="advReiniciar" aria-label="Reiniciar nivel"><span class="i" aria-hidden="true">↺</span><span>Reiniciar</span></button>
+    <div class="dpad" aria-label="Flechas">
+      <button type="button" data-dir="up" aria-label="Arriba">▲</button>
+      <button type="button" data-dir="left" aria-label="Izquierda">◀</button>
+      <button type="button" data-dir="down" aria-label="Abajo">▼</button>
+      <button type="button" data-dir="right" aria-label="Derecha">▶</button>
+    </div>
+    <button class="adv-btn adv-summon" type="button" id="advInvocar" aria-label="Invocar al príncipe" disabled><span class="i" aria-hidden="true">👑</span><span id="advInvocarTxt">Invocar</span></button>
+  </div>
+</div>
 
 <div class="modal" id="modal" hidden>
   <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Mensaje"></div>
@@ -919,6 +1006,30 @@ const FRASES_MEMORAMA = {
   'mirando-corazon': 'Así te miro yo ✨',
   'beso': 'Tú y yo 💞',
   'vaquerito': 'Tu vaquerito favorito 🤠',
+};
+
+// Juego «La princesa y los zombies»: nombre de cada nivel, instrucciones, mensaje al completarlo y la carta final.
+const NIVELES_AVENTURA = [
+  { nombre: 'El jardín', intro: 'Muévete con las flechas y junta los 4 corazones. Si una caja te estorba, empújala caminando hacia ella. Con los 4 corazones podrás invocar al príncipe 👑', fin: 'Contigo todo florece, igual que este jardín. 🌷' },
+  { nombre: 'El bosque encantado', intro: 'Empuja la caja hasta el círculo del corazón para abrir la reja.', fin: 'Ni el bosque más oscuro me da miedo si vas conmigo. 🌲' },
+  { nombre: 'El lago de las estrellas', intro: 'Busca la llave 🔑 para abrir la puerta cerrada. Y no dejes que la caja te encierre.', fin: 'Hasta el lago se queda quieto para verte pasar. 🌊' },
+  { nombre: 'La noche de los zombies', intro: 'Dos cajas, dos círculos y una llave. Los zombies andan despiertos… pero tú puedes.', fin: 'Ningún zombie, ni ningún kilómetro, va a separarnos. 💞' },
+  { nombre: 'El castillo', intro: 'El último nivel. Busca la llave, junta los 4 corazones e invoca a tu príncipe: él te llevará a casa. Hay una sorpresa esperándote.', fin: '' },
+];
+const CARTA_PRINCESA = {
+  saludo: 'Mi princesa hermosa:',
+  parrafos: [
+    'Había una vez un muchacho que vivía muy lejos de su princesa. No tenía castillo ni caballo blanco, pero tenía un corazón que, desde un 14 de junio, empezó a latir con su nombre. Y si estás leyendo esto, es porque acabas de cruzar todo un reino para llegar hasta aquí.',
+    'Atravesaste un jardín, un bosque encantado, un lago de estrellas, una noche llena de zombies y hasta un castillo. Y lo lograste, como logras todo lo que te propones: con valentía, con paciencia y con ese corazón tan bonito que tienes.',
+    '¿Sabes por qué el príncipe solo aparece cuando juntas cuatro corazones? Porque cada corazón es uno de nuestros meses juntos. Cuatro meses en los que me enseñaste que el amor de verdad no le tiene miedo a nada: ni a la distancia, ni a los días difíciles, ni a los zombies.',
+    'Y si lo cuento en semanas, ya son 18. Dieciocho semanas de buenos días y buenas noches, de risas que me curan el alma, de extrañarnos muchísimo y de elegirnos una y otra vez. Dieciocho semanas, y aun así siento que apenas estoy empezando a descubrir todo lo bonito que hay en ti. Ojalá me regales muchísimas semanas más, y después años, y después toda una vida.',
+    'En este juego el príncipe tiene una espada para cuidarte, pero en la vida real no necesito ninguna. Lo único que necesito para protegerte es esto que siento por ti, y eso no lo rompe nada: ni el tiempo, ni los kilómetros, ni las tormentas.',
+    'Cuando ya no puedas más, yo te cargo. Cuando tengas miedo, me quedo a tu lado. Y cuando llegue la noche y me extrañes, mira el cielo: cada estrella es una promesa que te hago desde aquí.',
+    'Tú no necesitas que nadie te rescate, porque eres fuerte y valiente. Pero yo quiero caminar contigo, tomarte de la mano y vivir a tu lado cada aventura que venga, nivel por nivel y corazón por corazón.',
+    'Gracias por ser mi princesa, mi compañera y mi lugar favorito en el mundo. Este cuento apenas empieza, y quiero escribir contigo cada una de sus páginas, por toda la vida, Dios mediante.',
+    'Y como en todos los cuentos bonitos, el final dice así: y vivieron felices… y enamorados para siempre. 👑💞',
+  ],
+  despedida: 'Con todo mi amor,',
 };
 
 /* ==========================================================
@@ -1503,12 +1614,18 @@ const JUEGOS = [
   { id: 'vales', ico: '🎟️', t: 'Rasca y gana', d: 'Raspa las tarjetas y descubre vales para cobrarme.' },
   { id: 'rompe', ico: '🧩', t: 'Rompecabezas', d: 'Arma otra vez uno de mis dibujos.' },
   { id: 'laberinto', ico: '🗺️', t: 'El laberinto de los kilómetros', d: 'Ayuda a Mishi a llevarte un abrazo.' },
+  { id: 'aventura', ico: '👑', t: 'La princesa y los zombies', d: 'Una aventura de 5 niveles con un premio especial al final.' },
 ];
-const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false });
+const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false, aventura: { nivel: 1, ganado: false } });
 if (!S.juegos || typeof S.juegos !== 'object') S.juegos = JUEGOS_VACIO();
+if (!S.juegos.aventura || typeof S.juegos.aventura !== 'object') S.juegos.aventura = { nivel: 1, ganado: false };
 let juegoActual = null;
 
 function estadoJuego(id) {
+  if (id === 'aventura') {
+    const a = S.juegos.aventura;
+    return a.ganado ? { ok: true, txt: '✓ Ganado' } : { ok: false, txt: a.nivel > 1 ? `Nivel ${a.nivel} de 5` : 'Jugar' };
+  }
   if (id === 'vales') {
     const n = S.juegos.vales.length, ok = n >= VALES.length;
     return { ok, txt: ok ? '✓ Ganado' : `${n} de ${VALES.length}` };
@@ -1938,7 +2055,713 @@ const lab = (() => {
   return { iniciar, mover, ajustar };
 })();
 
-const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar };
+/* Juego 6: La princesa y los zombies */
+const aventura = (() => {
+  const COLS = 9, ROWS = 13;
+  const MAPAS = [
+    ["#########", "#...E...#", "#.H...H.#", "#......Z#", "####.####", "#.......#", "#.....H.#", "#.......#", "#...P...#", "####B####", "#.......#", "#.H.....#", "#########"],
+    ["#########", "#E..#.H.#", "#...G...#", "#...#.H.#", "#...#####", "#......Z#", "#.......#", "#..B..o.#", "#.......#", "#.H.##..#", "#...#H..#", "#.P.#..Z#", "#########"],
+    ["#########", "#H..#..E#", "#...D...#", "#...#.H.#", "##B######", "#...~~..#", "#.K.~~.Z#", "#...~~..#", "#.......#", "#...~~.H#", "#...~~Z.#", "#.P.~~.H#", "#########"],
+    ["#########", "#K.E#.H.#", "#...G...#", "#...#.H.#", "##.######", "#...P...#", "#.B...B.#", "#..o.o..#", "#Z.....Z#", "####D####", "#.......#", "#.H..Z.H#", "#########"],
+    ["#########", "#...E...#", "#..Z....#", "###...###", "#H#...#H#", "#.D.....#", "###...###", "#......Z#", "#.......#", "#.......#", "#K......#", "#H...P.H#", "#########"]
+  ];
+  const NV = MAPAS.length;
+  const TEMAS = [
+    { suelo: '#eef7e4', grid: '#dcebc9', pared: '#8cc472', paredB: '#5e9a4f', estilo: 'seto', deco: 'flor' },
+    { suelo: '#e5efd9', grid: '#d0e0c0', pared: '#4f8a55', paredB: '#2f5f36', estilo: 'arbol', deco: 'pasto' },
+    { suelo: '#eaf4f7', grid: '#d4e6ee', pared: '#a9bccb', paredB: '#71889c', estilo: 'roca', deco: 'brillo' },
+    { suelo: '#41466e', grid: '#4c527c', pared: '#2b2f50', paredB: '#181a30', estilo: 'seto', deco: 'estrella', linea: '#ffe8a8' },
+    { suelo: '#f6eee4', grid: '#e7dacb', pared: '#bfae9d', paredB: '#8a796a', estilo: 'piedra', deco: 'alfombra' },
+  ];
+  const VEL_Z = [1000, 900, 850, 800, 980];
+  const AGGRO = 5;
+  const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+  const INK = '#22264a';
+  const $a = id => document.getElementById(id);
+  const adv = $a('adv'), cv = $a('advCanvas'), stage = $a('advStage');
+
+  let ctx, T = 36, W = 0, H = 0, raf = 0, last = 0, abierto = false, pausa = true;
+  let nivel = 0, tema, base, crates, crateAnim, plates, gateOpen, doors, llaves, keys, hearts, exit, start;
+  let zs, pr, prince, lives, cor, inv, zTimer, held = null, ataque = null, paseo = null, efectos = [], textos = [], llegando = false, msgTimer = 0, sacudida = 0;
+
+  const k = (x, y) => x + ',' + y;
+  const ease = t => (t >= 1 ? 1 : 1 - Math.pow(1 - t, 3));
+  function dentro(x, y) { return x >= 0 && y >= 0 && x < COLS && y < ROWS; }
+
+  /* ---------- Carga de nivel ---------- */
+  function cargar(n) {
+    nivel = n; tema = TEMAS[n % TEMAS.length];
+    const M = MAPAS[n];
+    base = []; crates = new Set(); crateAnim = new Map(); plates = []; doors = new Set(); keys = new Set(); hearts = new Set(); zs = [];
+    gateOpen = false; llaves = 0; cor = 0; lives = 5; inv = 0; prince = null; ataque = null; paseo = null; efectos = []; textos = []; llegando = false; zTimer = 0; held = null;
+    for (let y = 0; y < ROWS; y++) {
+      base.push([]);
+      for (let x = 0; x < COLS; x++) {
+        const ch = M[y][x];
+        base[y].push('#~GoE'.includes(ch) ? ch : '.');
+        if (ch === 'B') crates.add(k(x, y));
+        if (ch === 'o') plates.push(k(x, y));
+        if (ch === 'D') doors.add(k(x, y));
+        if (ch === 'H') hearts.add(k(x, y));
+        if (ch === 'K') keys.add(k(x, y));
+        if (ch === 'E') exit = { x, y };
+        if (ch === 'P') start = { x, y };
+        if (ch === 'Z') zs.push({ x, y, fx: x, fy: y, t: 1, d: 0.35, sx: x, sy: y, vivo: true, flor: 0, fase: Math.random() * 6 });
+      }
+    }
+    pr = { x: start.x, y: start.y, fx: start.x, fy: start.y, t: 1, d: 0.13 };
+    hud();
+  }
+
+  /* ---------- Reglas ---------- */
+  function hayZombie(x, y, salvo) { return zs.some(z => z !== salvo && z.vivo && z.x === x && z.y === y); }
+  function libreZ(x, y, yo) {
+    if (!dentro(x, y)) return false;
+    const b = base[y][x], kk = k(x, y);
+    if (b === '#' || b === '~' || b === 'E') return false;
+    if (b === 'G' && !gateOpen) return false;
+    if (crates.has(kk) || doors.has(kk)) return false;
+    return !hayZombie(x, y, yo);
+  }
+  function mover(e, x, y, d) { e.fx = e.x; e.fy = e.y; e.x = x; e.y = y; e.t = 0; if (d) e.d = d; }
+  function aviso(txt, ms = 2200) {
+    const m = $a('advMsg'); m.textContent = txt; m.hidden = false;
+    clearTimeout(msgTimer); msgTimer = setTimeout(() => { m.hidden = true; }, ms);
+  }
+  function chispas(x, y, color, n = 14) {
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2, v = 1.5 + Math.random() * 2.5;
+      efectos.push({ x: (x + 0.5) * T, y: (y + 0.5) * T, vx: Math.cos(a) * v * T, vy: Math.sin(a) * v * T, vida: 0.7, max: 0.7, color });
+    }
+  }
+  function hud() {
+    $a('advNivel').textContent = `Nivel ${nivel + 1} de ${NV}`;
+    $a('advNombre').textContent = NIVELES_AVENTURA[nivel].nombre;
+    $a('advCor').textContent = cor;
+    $a('advVidas').textContent = '♥'.repeat(Math.max(0, lives));
+    $a('advLlave').hidden = llaves < 1;
+    const b = $a('advInvocar'), listo = cor >= 4 && !prince;
+    b.disabled = !listo;
+    b.classList.toggle('ready', listo);
+    $a('advInvocarTxt').textContent = prince ? '¡Llegó!' : 'Invocar';
+  }
+  function revisarPlacas() {
+    if (gateOpen || !plates.length) return;
+    if (plates.every(p => crates.has(p))) {
+      gateOpen = true;
+      aviso('¡Se abrió la reja! 🌸');
+      for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) if (base[y][x] === 'G') chispas(x, y, '#ffd25e', 18);
+    }
+  }
+  function intentar(dir) {
+    if (pausa || llegando || ataque || paseo || pr.t < 1) return;
+    const [dx, dy] = DIRS[dir];
+    const nx = pr.x + dx, ny = pr.y + dy;
+    if (!dentro(nx, ny)) return;
+    const b = base[ny][nx], kk = k(nx, ny);
+    if (b === '#' || b === '~') return;
+    if (b === 'G' && !gateOpen) { aviso('La reja está cerrada. Pon una caja en cada círculo 🔒'); return; }
+    if (b === 'E' && !prince) { aviso(cor >= 4 ? 'Invoca al príncipe para abrir la puerta 👑' : 'La puerta se abre con 4 corazones y el príncipe 💞'); return; }
+    if (doors.has(kk)) {
+      if (llaves > 0) { llaves--; doors.delete(kk); chispas(nx, ny, '#ffd25e', 18); aviso('¡Abriste la puerta! 🗝️'); hud(); }
+      else aviso('Esta puerta necesita una llave 🔑');
+      return;
+    }
+    if (crates.has(kk)) {
+      const bx = nx + dx, by = ny + dy, bk = k(bx, by);
+      if (!dentro(bx, by)) return;
+      const bb = base[by][bx];
+      if (bb === '#' || bb === '~' || bb === 'E' || bb === 'G' || crates.has(bk) || doors.has(bk) || hearts.has(bk) || keys.has(bk) || hayZombie(bx, by)) return;
+      crates.delete(kk); crates.add(bk);
+      crateAnim.set(bk, { fx: nx, fy: ny, t: 0 });
+      revisarPlacas();
+    }
+    const ox = pr.x, oy = pr.y;
+    mover(pr, nx, ny);
+    if (prince) mover(prince, ox, oy, 0.13);
+    if (hearts.has(kk)) {
+      hearts.delete(kk); cor++; chispas(nx, ny, '#e23d52', 18);
+      if (cor >= 4) aviso('¡Tienes 4 corazones! Ya puedes invocar al príncipe 👑', 3200);
+      else aviso(`💖 ${cor} de 4`, 1200);
+      hud();
+    }
+    if (keys.has(kk)) { keys.delete(kk); llaves++; chispas(nx, ny, '#ffd25e', 16); aviso('¡Encontraste una llave! 🔑'); hud(); }
+    if (prince && nx === exit.x && ny === exit.y) llegando = true;
+    choque();
+  }
+  function choque() {
+    if (inv > 0 || prince || pausa) return;
+    if (hayZombie(pr.x, pr.y)) golpe();
+  }
+  function golpe() {
+    lives--; sacudida = 0.35; hud();
+    chispas(pr.x, pr.y, '#8e7cc3', 16);
+    if (lives <= 0) {
+      pausa = true; held = null;
+      tarjeta('¡Ay, no! 🧟', 'Los zombies ganaron esta vez. Pero una princesa nunca se rinde. ¿Lo intentamos otra vez?', [['Reintentar el nivel', () => iniciarNivel(nivel)]]);
+      return;
+    }
+    aviso(lives === 1 ? '¡Un zombie te alcanzó! Te queda 1 vida' : `¡Un zombie te alcanzó! Te quedan ${lives} vidas`, 2000);
+    pr.x = pr.fx = start.x; pr.y = pr.fy = start.y; pr.t = 1;
+    zs.forEach(z => { if (z.vivo) { z.x = z.fx = z.sx; z.y = z.fy = z.sy; z.t = 1; } });
+    inv = 1.6; zTimer = 0;
+  }
+  function siguientePaso(z) {
+    const prev = new Map([[k(z.x, z.y), null]]), q = [[z.x, z.y, 0]];
+    let hallado = null;
+    while (q.length) {
+      const [x, y, d] = q.shift();
+      if (x === pr.x && y === pr.y) { hallado = [x, y, d]; break; }
+      if (d >= 14) continue;
+      for (const [dx, dy] of Object.values(DIRS)) {
+        const nx = x + dx, ny = y + dy, nk = k(nx, ny);
+        if (prev.has(nk)) continue;
+        if (!(nx === pr.x && ny === pr.y) && !libreZ(nx, ny, z)) continue;
+        prev.set(nk, [x, y]); q.push([nx, ny, d + 1]);
+      }
+    }
+    if (hallado && hallado[2] <= AGGRO) {
+      let cx = hallado[0], cy = hallado[1], p = prev.get(k(cx, cy));
+      while (p && !(p[0] === z.x && p[1] === z.y)) { cx = p[0]; cy = p[1]; p = prev.get(k(cx, cy)); }
+      if (hayZombie(cx, cy, z)) return null;
+      return [cx, cy];
+    }
+    if (Math.random() < 0.35) {
+      const ops = Object.values(DIRS).map(([dx, dy]) => [z.x + dx, z.y + dy]).filter(([x, y]) => libreZ(x, y, z));
+      if (ops.length) return ops[Math.floor(Math.random() * ops.length)];
+    }
+    return null;
+  }
+  function invocar() {
+    if (pausa || prince || cor < 4) return;
+    const op = Object.values(DIRS).map(([dx, dy]) => [pr.x + dx, pr.y + dy])
+      .find(([x, y]) => dentro(x, y) && '.o'.includes(base[y][x]) && !crates.has(k(x, y)) && !doors.has(k(x, y)) && !hayZombie(x, y)) || [pr.x, pr.y];
+    prince = { x: op[0], y: op[1], fx: op[0], fy: op[1], t: 1, d: 0.13, aparece: 0, mira: 1, ang: -1.1 };
+    chispas(op[0], op[1], '#ffd25e', 26);
+    const cola = zs.filter(z => z.vivo).sort((a, b) => Math.hypot(a.x - pr.x, a.y - pr.y) - Math.hypot(b.x - pr.x, b.y - pr.y));
+    ataque = { cola, i: 0, fase: 'aparecer', t: 0, px: op[0], py: op[1], ox: op[0], oy: op[1], tx: op[0], ty: op[1] };
+    held = null;
+    aviso('Príncipe: «¡Nadie toca a mi princesa!» ⚔️', 2400);
+    hud();
+  }
+  function siguienteObjetivo() {
+    const a = ataque;
+    a.ox = a.px; a.oy = a.py; a.t = 0;
+    const z = a.cola[a.i];
+    if (z) {
+      const lado = a.px <= z.x ? -0.62 : 0.62;
+      a.tx = z.x + lado; a.ty = z.y; a.fase = 'ir';
+    } else {
+      a.tx = prince.x; a.ty = prince.y; a.fase = 'volver';
+    }
+    if (Math.abs(a.tx - a.px) > 0.05) prince.mira = a.tx > a.px ? 1 : -1;
+    if (z) prince.mira = z.x >= a.tx ? 1 : -1;
+  }
+  function actualizarAtaque(dt) {
+    const a = ataque, DUR = { aparecer: 0.55, ir: 0.22, cortar: 0.36, volver: 0.3 };
+    a.t += dt / DUR[a.fase];
+    const u = Math.min(1, a.t);
+    if (a.fase === 'ir' || a.fase === 'volver') {
+      const e = ease(u);
+      a.px = a.ox + (a.tx - a.ox) * e; a.py = a.oy + (a.ty - a.oy) * e;
+      efectos.push({ x: (a.px + 0.5) * T, y: (a.py + 0.6) * T, vx: 0, vy: -12, vida: 0.35, max: 0.35, color: '#ffd25e' });
+    }
+    if (a.fase === 'cortar') {
+      const z = a.cola[a.i];
+      prince.ang = -2.5 + 3.2 * ease(u);
+      if (u >= 0.45 && z.vivo) {
+        z.vivo = false; z.flor = 0; sacudida = 0.15;
+        chispas(z.x, z.y, '#f6b3c2', 20);
+        textos.push({ txt: '¡Zas!', x: (z.x + 0.5) * T, y: (z.y + 0.1) * T, vida: 0.8 });
+      }
+    }
+    if (u < 1) return;
+    if (a.fase === 'aparecer') { siguienteObjetivo(); return; }
+    if (a.fase === 'ir') { a.fase = 'cortar'; a.t = 0; return; }
+    if (a.fase === 'cortar') { prince.ang = -1.1; a.i++; siguienteObjetivo(); return; }
+    ataque = null; prince.ang = -1.1;
+    chispas(exit.x, exit.y, '#ff8fa7', 24);
+    const ruta = rutaSalida();
+    if (ruta) {
+      paseo = { ruta, i: 0, t: 0, fase: 'abrazo' };
+      aviso('Príncipe: «Ven, mi princesa. Yo te llevo a casa» 💞', 3000);
+    } else {
+      aviso('¡El príncipe derrotó a los zombies! Ahora lleguen juntos a la puerta 💞', 3400);
+    }
+  }
+  function rutaSalida() {
+    const prev = new Map([[k(pr.x, pr.y), null]]), q = [[pr.x, pr.y]];
+    while (q.length) {
+      const [x, y] = q.shift();
+      if (x === exit.x && y === exit.y) {
+        const ruta = []; let c = [x, y];
+        while (c && !(c[0] === pr.x && c[1] === pr.y)) { ruta.unshift(c); c = prev.get(k(c[0], c[1])); }
+        return ruta;
+      }
+      for (const [dx, dy] of Object.values(DIRS)) {
+        const nx = x + dx, ny = y + dy, nk = k(nx, ny);
+        if (!dentro(nx, ny) || prev.has(nk)) continue;
+        const b = base[ny][nx];
+        if (b === '#' || b === '~' || (b === 'G' && !gateOpen) || crates.has(nk) || doors.has(nk)) continue;
+        prev.set(nk, [x, y]); q.push([nx, ny]);
+      }
+    }
+    return null;
+  }
+  function actualizarPaseo(dt) {
+    const p = paseo;
+    p.t += dt / (p.fase === 'abrazo' ? 0.8 : p.fase === 'camino' ? 0.2 : 0.7);
+    if (p.fase === 'abrazo' && p.t >= 0.5 && !p.alzo) { p.alzo = true; chispas(pr.x, pr.y, '#ff8fa7', 22); }
+    if (p.fase === 'abrazo' && p.t >= 1) { p.fase = 'camino'; p.t = 0; }
+    if (p.fase === 'camino') {
+      while (p.t >= 1 && p.fase === 'camino') {
+        p.t -= 1;
+        const [x, y] = p.ruta[p.i]; pr.x = pr.fx = x; pr.y = pr.fy = y; prince.x = prince.fx = x; prince.y = prince.fy = y;
+        p.i++;
+        if (p.i >= p.ruta.length) { p.fase = 'llegada'; p.t = 0; chispas(exit.x, exit.y, '#ff8fa7', 30); }
+      }
+      if (Math.random() < 0.25) { const [cx, cy] = posPaseo(); efectos.push({ x: cx, y: cy - T * 0.55, vx: (Math.random() - 0.5) * 20, vy: -30, vida: 0.7, max: 0.7, color: '#e23d52' }); }
+    }
+    if (p.fase === 'llegada' && p.t >= 1) { paseo = null; completar(); }
+  }
+  function posPaseo() {
+    const p = paseo;
+    if (p.fase !== 'camino') { const c = p.fase === 'llegada' ? [exit.x, exit.y] : [pr.x, pr.y]; return [(c[0] + 0.5) * T, (c[1] + 0.5) * T]; }
+    const a = p.i === 0 ? [pr.x, pr.y] : p.ruta[p.i - 1], b = p.ruta[p.i], u = Math.min(1, p.t);
+    if (b[0] !== a[0]) prince.mira = b[0] > a[0] ? 1 : -1;
+    return [(a[0] + (b[0] - a[0]) * u + 0.5) * T, (a[1] + (b[1] - a[1]) * u + 0.5) * T];
+  }
+  function posAbrazo() {
+    const u = ease(Math.min(1, paseo.t / 0.5));
+    return [(prince.x + (pr.x - prince.x) * u + 0.5) * T, (prince.y + (pr.y - prince.y) * u + 0.5) * T];
+  }
+
+  /* ---------- Flujo ---------- */
+  function tarjeta(titulo, texto, botones) {
+    const c = $a('advCard');
+    c.innerHTML = `<div class="adv-sheet"><p class="adv-sheet-t">${esc(titulo)}</p><p>${esc(texto)}</p><div class="btn-row">${botones.map((b, i) => `<button class="btn${i ? ' ghost' : ''}" type="button" data-i="${i}">${esc(b[0])}</button>`).join('')}</div></div>`;
+    c.querySelectorAll('[data-i]').forEach(btn => btn.addEventListener('click', () => botones[+btn.dataset.i][1]()));
+    c.hidden = false;
+    const f = c.querySelector('.btn'); if (f) f.focus({ preventScroll: true });
+  }
+  function ocultarTarjeta() { $a('advCard').hidden = true; }
+  function iniciarNivel(n) {
+    cargar(n); medir();
+    $a('advMsg').hidden = true;
+    pausa = true;
+    const nv = NIVELES_AVENTURA[n];
+    tarjeta(`Nivel ${n + 1} · ${nv.nombre}`, nv.intro, [['¡Vamos! 🐾', () => { ocultarTarjeta(); pausa = false; last = performance.now(); }]]);
+  }
+  function completar() {
+    pausa = true; held = null; llegando = false;
+    const av = S.juegos.aventura;
+    if (nivel + 1 < NV) {
+      av.nivel = Math.max(av.nivel, nivel + 2); save();
+      confetti(2600, 90);
+      tarjeta(`¡Nivel ${nivel + 1} completado!`, NIVELES_AVENTURA[nivel].fin, [['Siguiente nivel →', () => iniciarNivel(nivel + 1)], ['Salir', cerrar]]);
+    } else {
+      av.ganado = true; av.nivel = NV; save();
+      confetti(5200, 200);
+      tarjeta('¡Salvaste el reino! 👑', 'Los zombies ya no van a molestar a nadie. Y el príncipe dejó algo para ti…', [['Abrir la carta 💌', () => { cerrar(); cartaPrincesa(); }]]);
+    }
+  }
+  function medir() {
+    const r = stage.getBoundingClientRect();
+    T = Math.max(20, Math.floor(Math.min((r.width - 10) / COLS, (r.height - 10) / ROWS)));
+    W = T * COLS; H = T * ROWS;
+    ctx = prepCanvas(cv, W, H);
+  }
+  function abrir(n) {
+    adv.hidden = false; abierto = true;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      iniciarNivel(n);
+      last = performance.now();
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+    });
+  }
+  function cerrar() {
+    abierto = false; pausa = true; held = null;
+    cancelAnimationFrame(raf);
+    adv.hidden = true; ocultarTarjeta();
+    document.body.style.overflow = '';
+    pintarPanelAventura();
+  }
+
+  /* ---------- Bucle ---------- */
+  function loop(now) {
+    if (!abierto) return;
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (!pausa) actualizar(dt);
+    animar(dt);
+    dibujar(now / 1000);
+    raf = requestAnimationFrame(loop);
+  }
+  function actualizar(dt) {
+    if (inv > 0) inv -= dt;
+    if (held && pr.t >= 1) intentar(held);
+    zTimer += dt * 1000;
+    if (!ataque && zTimer >= VEL_Z[nivel]) {
+      zTimer = 0;
+      zs.forEach(z => {
+        if (!z.vivo || z.t < 1) return;
+        const p = siguientePaso(z);
+        if (p) mover(z, p[0], p[1], 0.35);
+      });
+      choque();
+    }
+    if (ataque) actualizarAtaque(dt);
+    if (paseo) actualizarPaseo(dt);
+    if (llegando && pr.t >= 1) completar();
+  }
+  function animar(dt) {
+    [pr, prince, ...zs].forEach(e => { if (e && e.t < 1) e.t = Math.min(1, e.t + dt / e.d); });
+    crateAnim.forEach((a, kk) => { a.t += dt / 0.13; if (a.t >= 1) crateAnim.delete(kk); });
+    zs.forEach(z => { if (!z.vivo && z.flor < 1) z.flor = Math.min(1, z.flor + dt * 2.5); });
+    if (prince && prince.aparece < 1) prince.aparece = Math.min(1, prince.aparece + dt * 2.5);
+    if (sacudida > 0) sacudida -= dt;
+    efectos = efectos.filter(p => { p.vida -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.92; p.vy *= 0.92; return p.vida > 0; });
+    textos = textos.filter(t => { t.vida -= dt; t.y -= 30 * dt; return t.vida > 0; });
+  }
+
+  /* ---------- Dibujo ---------- */
+  function pos(e) { const t = ease(e.t); return [(e.fx + (e.x - e.fx) * t + 0.5) * T, (e.fy + (e.y - e.fy) * t + 0.5) * T]; }
+  function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  function hash(x, y) { return ((x * 73856093) ^ (y * 19349663) ^ (nivel * 83492791)) >>> 0; }
+  function pared(x, y) {
+    const X = x * T, Y = y * T;
+    if (tema.estilo === 'arbol') {
+      ctx.fillStyle = tema.paredB; ctx.beginPath(); ctx.arc(X + T / 2, Y + T * 0.56, T * 0.47, 0, 7); ctx.fill();
+      ctx.fillStyle = tema.pared; ctx.beginPath(); ctx.arc(X + T / 2, Y + T * 0.46, T * 0.42, 0, 7); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.beginPath(); ctx.arc(X + T * 0.36, Y + T * 0.34, T * 0.12, 0, 7); ctx.fill();
+    } else if (tema.estilo === 'roca') {
+      ctx.fillStyle = tema.paredB; rr(X + 2, Y + 4, T - 4, T - 5, T * 0.32); ctx.fill();
+      ctx.fillStyle = tema.pared; rr(X + 2, Y + 2, T - 4, T - 8, T * 0.32); ctx.fill();
+    } else if (tema.estilo === 'piedra') {
+      ctx.fillStyle = tema.pared; ctx.fillRect(X, Y, T, T);
+      ctx.strokeStyle = tema.paredB; ctx.lineWidth = 1.5;
+      ctx.strokeRect(X + 0.75, Y + 0.75, T - 1.5, T - 1.5);
+      ctx.beginPath(); ctx.moveTo(X, Y + T / 2); ctx.lineTo(X + T, Y + T / 2); ctx.moveTo(X + T / 2, Y); ctx.lineTo(X + T / 2, Y + T / 2); ctx.moveTo(X + T / 4, Y + T / 2); ctx.lineTo(X + T / 4, Y + T); ctx.stroke();
+    } else {
+      ctx.fillStyle = tema.paredB; rr(X + 1, Y + 3, T - 2, T - 3, T * 0.28); ctx.fill();
+      ctx.fillStyle = tema.pared; rr(X + 1, Y + 1, T - 2, T - 6, T * 0.28); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.16)';
+      ctx.beginPath(); ctx.arc(X + T * 0.3, Y + T * 0.3, T * 0.09, 0, 7); ctx.arc(X + T * 0.62, Y + T * 0.5, T * 0.07, 0, 7); ctx.fill();
+    }
+  }
+  function deco(x, y, time) {
+    const h = hash(x, y) % 9;
+    if (h > 1) return;
+    const X = x * T + T * (0.25 + (h * 0.37) % 0.5), Y = y * T + T * (0.3 + (h * 0.21) % 0.4);
+    if (tema.deco === 'flor') {
+      ctx.fillStyle = h ? '#f6b3c2' : '#fff1a8';
+      for (let i = 0; i < 5; i++) { const a = i * 1.2566; ctx.beginPath(); ctx.arc(X + Math.cos(a) * T * 0.07, Y + Math.sin(a) * T * 0.07, T * 0.05, 0, 7); ctx.fill(); }
+      ctx.fillStyle = '#f2b544'; ctx.beginPath(); ctx.arc(X, Y, T * 0.035, 0, 7); ctx.fill();
+    } else if (tema.deco === 'pasto') {
+      ctx.strokeStyle = '#8fbf73'; ctx.lineWidth = 1.5; ctx.beginPath();
+      ctx.moveTo(X - 4, Y + 4); ctx.lineTo(X - 2, Y - 3); ctx.moveTo(X, Y + 4); ctx.lineTo(X, Y - 5); ctx.moveTo(X + 4, Y + 4); ctx.lineTo(X + 2, Y - 3); ctx.stroke();
+    } else if (tema.deco === 'brillo' || tema.deco === 'estrella') {
+      ctx.globalAlpha = 0.45 + 0.4 * Math.sin(time * 2 + h * 3 + x);
+      ctx.fillStyle = tema.deco === 'estrella' ? '#ffe8a8' : '#ffffff';
+      ctx.beginPath(); ctx.arc(X, Y, T * 0.035, 0, 7); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+  function agua(x, y, time) {
+    const X = x * T, Y = y * T;
+    ctx.fillStyle = '#8ecae6'; ctx.fillRect(X, Y, T + 0.5, T + 0.5);
+    ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 1.5;
+    const o = Math.sin(time * 2 + x + y) * 2;
+    ctx.beginPath(); ctx.moveTo(X + T * 0.2 + o, Y + T * 0.4); ctx.quadraticCurveTo(X + T * 0.35 + o, Y + T * 0.3, X + T * 0.5 + o, Y + T * 0.4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(X + T * 0.45 - o, Y + T * 0.72); ctx.quadraticCurveTo(X + T * 0.6 - o, Y + T * 0.62, X + T * 0.75 - o, Y + T * 0.72); ctx.stroke();
+  }
+  function placa(x, y) {
+    const cx = (x + 0.5) * T, cy = (y + 0.5) * T, on = crates.has(k(x, y));
+    ctx.fillStyle = on ? '#ffd25e' : '#f3e2b3'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, cy, T * 0.36, 0, 7); ctx.fill(); ctx.stroke();
+    corazon(ctx, cx, cy + T * 0.02, T * 0.32, on ? '#e23d52' : 'rgba(226,61,82,.35)', false);
+  }
+  function reja(x, y) {
+    const X = x * T, Y = y * T;
+    if (gateOpen) {
+      ctx.strokeStyle = 'rgba(34,38,74,.25)'; ctx.setLineDash([3, 3]); ctx.lineWidth = 1.5; ctx.strokeRect(X + 3, Y + 3, T - 6, T - 6); ctx.setLineDash([]);
+      return;
+    }
+    ctx.fillStyle = 'rgba(34,38,74,.12)'; ctx.fillRect(X, Y, T, T);
+    ctx.strokeStyle = tema.linea || INK; ctx.lineWidth = 3; ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (let i = 1; i <= 3; i++) { ctx.moveTo(X + i * T / 4, Y + 4); ctx.lineTo(X + i * T / 4, Y + T - 4); }
+    ctx.moveTo(X + 4, Y + T * 0.3); ctx.lineTo(X + T - 4, Y + T * 0.3);
+    ctx.stroke();
+  }
+  function puertaSalida(x, y, time) {
+    const X = x * T, Y = y * T, abierta = !!prince && !ataque;
+    if (abierta) { ctx.fillStyle = `rgba(255,143,167,${0.25 + 0.15 * Math.sin(time * 4)})`; ctx.beginPath(); ctx.arc(X + T / 2, Y + T / 2, T * 0.62, 0, 7); ctx.fill(); }
+    ctx.fillStyle = abierta ? '#ffb7c8' : '#b8b2c4'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(X + T * 0.14, Y + T - 2); ctx.lineTo(X + T * 0.14, Y + T * 0.42); ctx.arc(X + T / 2, Y + T * 0.42, T * 0.36, Math.PI, 0); ctx.lineTo(X + T * 0.86, Y + T - 2); ctx.closePath(); ctx.fill(); ctx.stroke();
+    corazon(ctx, X + T / 2, Y + T * 0.55, T * 0.34, abierta ? '#e23d52' : '#8b8597');
+  }
+  function puertaLlave(x, y) {
+    const X = x * T, Y = y * T;
+    ctx.fillStyle = '#b0773f'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    rr(X + T * 0.12, Y + T * 0.06, T * 0.76, T * 0.9, T * 0.18); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(34,38,74,.35)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(X + T / 2, Y + T * 0.1); ctx.lineTo(X + T / 2, Y + T * 0.92); ctx.stroke();
+    ctx.fillStyle = '#ffd25e'; ctx.beginPath(); ctx.arc(X + T / 2, Y + T * 0.5, T * 0.12, 0, 7); ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(X + T / 2, Y + T * 0.48, T * 0.035, 0, 7); ctx.fill(); ctx.fillRect(X + T / 2 - 1, Y + T * 0.48, 2, T * 0.07);
+  }
+  function llave(x, y, time) {
+    const cx = (x + 0.5) * T, cy = (y + 0.5) * T + Math.sin(time * 3 + x) * T * 0.05;
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(-0.6);
+    ctx.fillStyle = '#ffd25e'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(-T * 0.14, 0, T * 0.13, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillRect(-T * 0.02, -T * 0.04, T * 0.3, T * 0.08); ctx.strokeRect(-T * 0.02, -T * 0.04, T * 0.3, T * 0.08);
+    ctx.fillRect(T * 0.18, T * 0.04, T * 0.06, T * 0.08); ctx.strokeRect(T * 0.18, T * 0.04, T * 0.06, T * 0.08);
+    ctx.restore();
+  }
+  function caja(cx, cy) {
+    const s = T * 0.78, X = cx - s / 2, Y = cy - s / 2;
+    ctx.fillStyle = '#d9b285'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    rr(X, Y, s, s, 4); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = '#a07a4f'; ctx.lineWidth = 2; ctx.beginPath();
+    ctx.moveTo(X + 5, Y + 5); ctx.lineTo(X + s - 5, Y + s - 5); ctx.moveTo(X + s - 5, Y + 5); ctx.lineTo(X + 5, Y + s - 5); ctx.stroke();
+    ctx.strokeStyle = INK; ctx.lineWidth = 1.5; ctx.strokeRect(X + 4, Y + 4, s - 8, s - 8);
+  }
+  function sombra(cx, cy) { ctx.fillStyle = 'rgba(0,0,0,.14)'; ctx.beginPath(); ctx.ellipse(cx, cy + T * 0.36, T * 0.27, T * 0.08, 0, 0, 7); ctx.fill(); }
+  function princesa(cx, cy, s, time, moviendo, conSombra = true) {
+    const b = moviendo ? Math.abs(Math.sin(time * 14)) * s * 0.05 : Math.sin(time * 2.5) * s * 0.015;
+    if (conSombra) sombra(cx, cy);
+    cy -= b;
+    ctx.lineWidth = 1.6; ctx.strokeStyle = INK;
+    ctx.fillStyle = '#4a2c2a'; rr(cx - s * 0.2, cy - s * 0.28, s * 0.4, s * 0.38, s * 0.16); ctx.fill();
+    ctx.fillStyle = '#f48fb1'; ctx.beginPath();
+    ctx.moveTo(cx - s * 0.3, cy + s * 0.36); ctx.lineTo(cx + s * 0.3, cy + s * 0.36); ctx.lineTo(cx + s * 0.13, cy + s * 0.02); ctx.lineTo(cx - s * 0.13, cy + s * 0.02); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(cx, cy + s * 0.12, s * 0.035, 0, 7); ctx.fill();
+    ctx.fillStyle = '#ffe1c6'; ctx.beginPath(); ctx.arc(cx, cy - s * 0.12, s * 0.17, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#4a2c2a'; ctx.beginPath(); ctx.arc(cx, cy - s * 0.14, s * 0.175, Math.PI * 1.02, Math.PI * 1.98); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(cx - s * 0.06, cy - s * 0.1, s * 0.022, 0, 7); ctx.arc(cx + s * 0.06, cy - s * 0.1, s * 0.022, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(244,143,177,.85)'; ctx.beginPath(); ctx.arc(cx - s * 0.1, cy - s * 0.05, s * 0.03, 0, 7); ctx.arc(cx + s * 0.1, cy - s * 0.05, s * 0.03, 0, 7); ctx.fill();
+    ctx.fillStyle = '#ffd25e'; ctx.beginPath();
+    ctx.moveTo(cx - s * 0.12, cy - s * 0.27); ctx.lineTo(cx - s * 0.12, cy - s * 0.38); ctx.lineTo(cx - s * 0.06, cy - s * 0.32); ctx.lineTo(cx, cy - s * 0.41); ctx.lineTo(cx + s * 0.06, cy - s * 0.32); ctx.lineTo(cx + s * 0.12, cy - s * 0.38); ctx.lineTo(cx + s * 0.12, cy - s * 0.27); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#e23d52'; ctx.beginPath(); ctx.arc(cx, cy - s * 0.31, s * 0.025, 0, 7); ctx.fill();
+  }
+  function espada(hx, hy, s, ang) {
+    ctx.save(); ctx.translate(hx, hy); ctx.rotate(ang);
+    ctx.lineWidth = 1.3; ctx.strokeStyle = INK;
+    ctx.fillStyle = '#e8edf6'; ctx.beginPath();
+    ctx.moveTo(s * 0.07, -s * 0.03); ctx.lineTo(s * 0.44, -s * 0.03); ctx.lineTo(s * 0.52, 0); ctx.lineTo(s * 0.44, s * 0.03); ctx.lineTo(s * 0.07, s * 0.03); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#ffd25e';
+    ctx.fillRect(s * 0.045, -s * 0.09, s * 0.04, s * 0.18); ctx.strokeRect(s * 0.045, -s * 0.09, s * 0.04, s * 0.18);
+    ctx.fillStyle = '#b0773f'; ctx.fillRect(-s * 0.05, -s * 0.022, s * 0.095, s * 0.044); ctx.strokeRect(-s * 0.05, -s * 0.022, s * 0.095, s * 0.044);
+    ctx.restore();
+  }
+  function principe(cx, cy, s, time, moviendo, escala, mira = 1, ang = -1.1, cargando = false) {
+    const b = moviendo ? Math.abs(Math.sin(time * 14 + 1)) * s * 0.05 : Math.sin(time * 2.5 + 1) * s * 0.015;
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(escala * mira, escala); ctx.translate(-cx, -cy);
+    sombra(cx, cy);
+    cy -= b;
+    ctx.lineWidth = 1.6; ctx.strokeStyle = INK;
+    ctx.fillStyle = '#e23d52'; ctx.beginPath(); ctx.moveTo(cx - s * 0.17, cy); ctx.lineTo(cx + s * 0.17, cy); ctx.lineTo(cx + s * 0.26, cy + s * 0.34); ctx.lineTo(cx - s * 0.26, cy + s * 0.34); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#6f8fe0'; rr(cx - s * 0.16, cy - s * 0.01, s * 0.32, s * 0.34, s * 0.06); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#ffd25e'; ctx.fillRect(cx - s * 0.16, cy + s * 0.15, s * 0.32, s * 0.05);
+    ctx.strokeStyle = INK; ctx.lineWidth = 1.6;
+    ctx.fillStyle = '#ffe1c6'; ctx.beginPath(); ctx.arc(cx, cy - s * 0.13, s * 0.17, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#2e2420'; ctx.beginPath(); ctx.arc(cx, cy - s * 0.16, s * 0.175, Math.PI * 1.05, Math.PI * 1.95); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = INK; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.arc(cx - s * 0.065, cy - s * 0.1, s * 0.05, 0, 7); ctx.moveTo(cx + s * 0.115, cy - s * 0.1); ctx.arc(cx + s * 0.065, cy - s * 0.1, s * 0.05, 0, 7); ctx.moveTo(cx - s * 0.015, cy - s * 0.1); ctx.lineTo(cx + s * 0.015, cy - s * 0.1); ctx.stroke();
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(cx - s * 0.065, cy - s * 0.1, s * 0.016, 0, 7); ctx.arc(cx + s * 0.065, cy - s * 0.1, s * 0.016, 0, 7); ctx.fill();
+    ctx.lineWidth = 1.6; ctx.fillStyle = '#ffd25e'; ctx.beginPath();
+    ctx.moveTo(cx - s * 0.1, cy - s * 0.28); ctx.lineTo(cx - s * 0.1, cy - s * 0.37); ctx.lineTo(cx - s * 0.035, cy - s * 0.32); ctx.lineTo(cx, cy - s * 0.39); ctx.lineTo(cx + s * 0.035, cy - s * 0.32); ctx.lineTo(cx + s * 0.1, cy - s * 0.37); ctx.lineTo(cx + s * 0.1, cy - s * 0.28); ctx.closePath(); ctx.fill(); ctx.stroke();
+    if (!cargando) {
+      espada(cx + s * 0.19, cy + s * 0.13, s, ang);
+      ctx.fillStyle = '#ffe1c6'; ctx.strokeStyle = INK; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.arc(cx + s * 0.19, cy + s * 0.13, s * 0.05, 0, 7); ctx.fill(); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function princesaCargada(cx, cy, s, time, mira) {
+    ctx.save();
+    ctx.translate(cx, cy + s * 0.1);
+    ctx.scale(mira, 1);
+    ctx.rotate(-1.25); ctx.scale(0.72, 0.72);
+    princesa(0, 0, s, time, false, false);
+    ctx.restore();
+    ctx.fillStyle = '#ffe1c6'; ctx.strokeStyle = INK; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.arc(cx - s * 0.12 * mira, cy + s * 0.2, s * 0.05, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx + s * 0.1 * mira, cy + s * 0.04, s * 0.05, 0, 7); ctx.fill(); ctx.stroke();
+  }
+  function zombie(cx, cy, s, time, fase) {
+    const w = Math.sin(time * 3 + fase) * s * 0.03;
+    sombra(cx, cy);
+    ctx.lineWidth = 1.6; ctx.strokeStyle = INK;
+    ctx.fillStyle = '#9ccc65';
+    ctx.beginPath(); ctx.ellipse(cx - s * 0.27, cy + s * 0.08 + w, s * 0.07, s * 0.05, 0, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(cx + s * 0.27, cy + s * 0.08 - w, s * 0.07, s * 0.05, 0, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#8e7cc3'; rr(cx - s * 0.2, cy - s * 0.02, s * 0.4, s * 0.36, s * 0.08); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = '#6d5ca6'; ctx.beginPath(); ctx.moveTo(cx - s * 0.2, cy + s * 0.3); ctx.lineTo(cx - s * 0.12, cy + s * 0.24); ctx.lineTo(cx - s * 0.04, cy + s * 0.32); ctx.lineTo(cx + s * 0.06, cy + s * 0.25); ctx.lineTo(cx + s * 0.14, cy + s * 0.32); ctx.stroke();
+    ctx.strokeStyle = INK;
+    ctx.fillStyle = '#9ccc65'; ctx.beginPath(); ctx.arc(cx + w, cy - s * 0.15, s * 0.18, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(cx - s * 0.07 + w, cy - s * 0.17, s * 0.05, 0, 7); ctx.arc(cx + s * 0.07 + w, cy - s * 0.16, s * 0.035, 0, 7); ctx.fill();
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(cx - s * 0.065 + w, cy - s * 0.165, s * 0.02, 0, 7); ctx.arc(cx + s * 0.07 + w, cy - s * 0.155, s * 0.016, 0, 7); ctx.fill();
+    ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(cx - s * 0.06 + w, cy - s * 0.06); ctx.lineTo(cx - s * 0.02 + w, cy - s * 0.08); ctx.lineTo(cx + s * 0.02 + w, cy - s * 0.06); ctx.lineTo(cx + s * 0.06 + w, cy - s * 0.08); ctx.stroke();
+  }
+  function flor(cx, cy, s, p) {
+    const e = ease(p);
+    ctx.save(); ctx.translate(cx, cy + s * 0.1); ctx.scale(e, e);
+    ctx.strokeStyle = '#5e9a4f'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, s * 0.25); ctx.stroke();
+    ctx.fillStyle = '#f6b3c2'; ctx.strokeStyle = INK; ctx.lineWidth = 1.2;
+    for (let i = 0; i < 5; i++) { const a = i * 1.2566 - Math.PI / 2; ctx.beginPath(); ctx.arc(Math.cos(a) * s * 0.11, Math.sin(a) * s * 0.11, s * 0.08, 0, 7); ctx.fill(); ctx.stroke(); }
+    ctx.fillStyle = '#ffd25e'; ctx.beginPath(); ctx.arc(0, 0, s * 0.07, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+  function dibujar(time) {
+    if (!ctx) return;
+    ctx.save();
+    if (sacudida > 0) ctx.translate((Math.random() - 0.5) * 6, (Math.random() - 0.5) * 6);
+    ctx.fillStyle = tema.suelo; ctx.fillRect(-4, -4, W + 8, H + 8);
+    ctx.strokeStyle = tema.grid; ctx.lineWidth = 1; ctx.beginPath();
+    for (let x = 1; x < COLS; x++) { ctx.moveTo(x * T + 0.5, 0); ctx.lineTo(x * T + 0.5, H); }
+    for (let y = 1; y < ROWS; y++) { ctx.moveTo(0, y * T + 0.5); ctx.lineTo(W, y * T + 0.5); }
+    ctx.stroke();
+    if (tema.deco === 'alfombra') { ctx.fillStyle = 'rgba(226,61,82,.18)'; ctx.fillRect(exit.x * T + T * 0.2, (exit.y + 1) * T, T * 0.6, H - (exit.y + 2) * T); }
+    for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+      const b = base[y][x];
+      if (b === '#') pared(x, y);
+      else if (b === '~') agua(x, y, time);
+      else {
+        if (b === '.') deco(x, y, time);
+        if (b === 'o') placa(x, y);
+        if (b === 'G') reja(x, y);
+        if (b === 'E') puertaSalida(x, y, time);
+      }
+    }
+    doors.forEach(kk => { const [x, y] = kk.split(',').map(Number); puertaLlave(x, y); });
+    keys.forEach(kk => { const [x, y] = kk.split(',').map(Number); llave(x, y, time); });
+    hearts.forEach(kk => {
+      const [x, y] = kk.split(',').map(Number);
+      const cx = (x + 0.5) * T, cy = (y + 0.5) * T + Math.sin(time * 3 + x * 0.7) * T * 0.06;
+      ctx.fillStyle = 'rgba(255,143,167,.25)'; ctx.beginPath(); ctx.arc(cx, cy, T * 0.36, 0, 7); ctx.fill();
+      corazon(ctx, cx, cy, T * 0.5, '#e23d52');
+    });
+    crates.forEach(kk => {
+      const [x, y] = kk.split(',').map(Number), a = crateAnim.get(kk);
+      let cx = (x + 0.5) * T, cy = (y + 0.5) * T;
+      if (a) { const t = ease(a.t); cx = (a.fx + (x - a.fx) * t + 0.5) * T; cy = (a.fy + (y - a.fy) * t + 0.5) * T; }
+      caja(cx, cy);
+    });
+    zs.forEach(z => { if (!z.vivo) flor((z.x + 0.5) * T, (z.y + 0.5) * T, T, z.flor); });
+    const actores = [];
+    zs.forEach(z => { if (z.vivo) actores.push({ y: pos(z)[1], f: () => { const [cx, cy] = pos(z); zombie(cx, cy, T * 1.15, time, z.fase); } }); });
+    const enBrazos = paseo && (paseo.fase !== 'abrazo' || paseo.t >= 0.5);
+    if (enBrazos) {
+      const [cx, cy] = posPaseo();
+      actores.push({ y: cy, f: () => { principe(cx, cy, T * 1.15, time, paseo.fase === 'camino', 1, prince.mira, -1.1, true); princesaCargada(cx, cy, T * 1.15, time, prince.mira); } });
+    } else {
+      if (prince) {
+        const pp = () => paseo ? posAbrazo() : ataque ? [(ataque.px + 0.5) * T, (ataque.py + 0.5) * T] : pos(prince);
+        const corriendo = prince.t < 1 || !!paseo || (ataque && (ataque.fase === 'ir' || ataque.fase === 'volver'));
+        actores.push({ y: pp()[1] + 0.1, f: () => { const [cx, cy] = pp(); principe(cx, cy, T * 1.15, time, corriendo, 0.3 + 0.7 * ease(prince.aparece), prince.mira, prince.ang); } });
+      }
+      const parpadeo = inv > 0 && Math.floor(time * 10) % 2 === 0;
+      if (!parpadeo) actores.push({ y: pos(pr)[1], f: () => { const [cx, cy] = pos(pr); princesa(cx, cy, T * 1.15, time, pr.t < 1 || !!held); } });
+    }
+    actores.sort((a, b) => a.y - b.y).forEach(a => a.f());
+    if (ataque && ataque.fase === 'cortar') {
+      const z = ataque.cola[ataque.i], u = Math.min(1, ataque.t), e = ease(u);
+      ctx.save(); ctx.translate((z.x + 0.5) * T, (z.y + 0.45) * T); ctx.scale(prince.mira, 1);
+      ctx.lineCap = 'round';
+      ctx.globalAlpha = Math.max(0, 1 - u * 0.8);
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = T * 0.16;
+      ctx.beginPath(); ctx.arc(0, 0, T * 0.55, -2.4, -2.4 + 3.0 * e); ctx.stroke();
+      ctx.strokeStyle = '#ffd25e'; ctx.lineWidth = T * 0.06;
+      ctx.beginPath(); ctx.arc(0, 0, T * 0.55, -2.4, -2.4 + 3.0 * e); ctx.stroke();
+      ctx.restore(); ctx.globalAlpha = 1;
+    }
+    efectos.forEach(p => {
+      ctx.globalAlpha = Math.max(0, p.vida / p.max);
+      corazon(ctx, p.x, p.y, T * 0.18, p.color, false);
+    });
+    ctx.globalAlpha = 1;
+    textos.forEach(t => {
+      ctx.globalAlpha = Math.max(0, Math.min(1, t.vida / 0.4));
+      ctx.font = `700 ${Math.round(T * 0.62)}px Caveat, cursive`; ctx.textAlign = 'center';
+      ctx.lineWidth = 4; ctx.strokeStyle = '#ffffff'; ctx.strokeText(t.txt, t.x, t.y);
+      ctx.fillStyle = '#e23d52'; ctx.fillText(t.txt, t.x, t.y);
+    });
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  /* ---------- Controles ---------- */
+  document.querySelectorAll('#adv .dpad [data-dir]').forEach(b => {
+    const d = b.dataset.dir;
+    b.addEventListener('pointerdown', e => { e.preventDefault(); held = d; intentar(d); try { b.setPointerCapture(e.pointerId); } catch (err) {} });
+    const soltar = () => { if (held === d) held = null; };
+    b.addEventListener('pointerup', soltar); b.addEventListener('pointercancel', soltar); b.addEventListener('lostpointercapture', soltar);
+    b.addEventListener('contextmenu', e => e.preventDefault());
+  });
+  let sx = null, sy = null;
+  cv.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+  cv.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 16) return;
+    intentar(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+  });
+  const TECLAS = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', W: 'up', S: 'down', A: 'left', D: 'right' };
+  document.addEventListener('keydown', e => {
+    if (!abierto || !modal.hidden) return;
+    if (e.key === 'Escape') { cerrar(); return; }
+    if (e.key === ' ' || e.key === 'Enter') { if (!pausa) { e.preventDefault(); invocar(); } return; }
+    const d = TECLAS[e.key]; if (!d) return;
+    e.preventDefault();
+    if (!e.repeat) { held = d; intentar(d); }
+  });
+  document.addEventListener('keyup', e => { const d = TECLAS[e.key]; if (d && held === d) held = null; });
+  $a('advInvocar').addEventListener('click', invocar);
+  $a('advReiniciar').addEventListener('click', () => { if (abierto) iniciarNivel(nivel); });
+  $a('advSalir').addEventListener('click', cerrar);
+  window.addEventListener('resize', () => { if (abierto) medir(); });
+
+  /* Vista previa para el panel */
+  function vistaPrevia(c) {
+    const s = 64, w = s * 4, h = s * 1.3;
+    const old = ctx, oldT = T;
+    ctx = prepCanvas(c, w, h); T = s;
+    ctx.fillStyle = '#eef7e4'; ctx.fillRect(0, 0, w, h);
+    const t = 0.4;
+    princesa(s * 0.6, s * 0.72, s, t, false);
+    corazon(ctx, s * 1.45, s * 0.55, s * 0.4, '#e23d52');
+    principe(s * 2.25, s * 0.72, s, t, false, 1);
+    zombie(s * 3.35, s * 0.72, s, t, 0);
+    ctx = old; T = oldT;
+  }
+
+  return { abrir, cerrar, vistaPrevia, niveles: NV };
+})();
+
+function cartaPrincesa() {
+  const C = CARTA_PRINCESA;
+  openModal(`
+    <p class="eyebrow">Una carta del príncipe</p>
+    <h3>Para mi princesa 👑</h3>
+    <p class="saludo">${esc(C.saludo)}</p>
+    ${C.parrafos.map(t => `<p>${esc(t)}</p>`).join('')}
+    <p class="firma"><span class="desp">${esc(C.despedida)}</span>tu príncipe, ${esc(FIRMA)} 💞</p>
+    <button class="btn" type="button" data-close>Guardar la carta</button>`, { letter: true });
+}
+function pintarPanelAventura() {
+  const av = S.juegos.aventura, NV = aventura.niveles;
+  $('#advEstado').textContent = av.ganado ? '¡Ya salvaste el reino! 👑' : av.nivel > 1 ? `Vas en el nivel ${av.nivel} de ${NV}` : '';
+  const jugar = $('#advJugar');
+  jugar.textContent = av.ganado ? 'Jugar otra vez 🐾' : av.nivel > 1 ? `Seguir en el nivel ${av.nivel} 🐾` : 'Jugar 🐾';
+  $('#advDesdeCero').hidden = !(av.nivel > 1 && !av.ganado);
+  $('#advCarta').hidden = !av.ganado;
+  aventura.vistaPrevia($('#advPreview'));
+}
+$('#advJugar').addEventListener('click', () => { const av = S.juegos.aventura; aventura.abrir(av.ganado ? 0 : Math.min(av.nivel, aventura.niveles) - 1); });
+$('#advDesdeCero').addEventListener('click', () => aventura.abrir(0));
+$('#advCarta').addEventListener('click', cartaPrincesa);
+
+const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar, aventura: pintarPanelAventura };
 document.addEventListener('keydown', e => {
   if (escena !== 'juegos' || !modal.hidden) return;
   const dir = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' }[e.key];

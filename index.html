@@ -448,6 +448,10 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 }
 #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 80; }
 .finale-words { font: 700 44px/1 var(--font-hand); color: var(--marker); text-align: center; text-wrap: balance; }
+.sheet.letter .finale-words { font-size: 44px; line-height: 1.05; }
+#aceptoBox { display: flex; justify-content: center; padding-top: 6px; }
+#aceptoBox:empty { display: none; }
+.sellada { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding-top: 18px; border-top: 2px dashed var(--grid); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -640,7 +644,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     </svg>
     <div class="locks" id="locks"></div>
     <div class="btn-row" id="tesoroBtns">
-      <button class="btn ghost" type="button" id="btnVerFinale" hidden>Ver otra vez la sorpresa 💞</button>
+      <button class="btn ghost" type="button" id="btnVerFinale" hidden>Volver a leer tu carta 💌</button>
       <button class="btn" type="button" data-go="final">Mientras tanto, una última carta →</button>
     </div>
   </section>
@@ -966,6 +970,23 @@ const TESOROS = [
   { pista: 'El más pequeñito, pero el más importante.', palabra: 'siempre',
     texto: 'Esta es la promesa que no podía darte por aquí. Es mi promesa de quererte, cuidarte y elegirte todos los días, hasta que ya no haya kilómetros entre nosotros. Cada vez que lo veas, acuérdate de que alguien te ama con todo su corazón.' },
 ];
+
+// La carta que aparece cuando ella escribe las 3 palabras secretas del paquete.
+const CARTA_TESORO = {
+  saludo: 'Mi amor hermoso:',
+  parrafos: [
+    'Si estás leyendo esto, es porque la caja por fin llegó a tus manos y encontraste las tres palabras: miau, contigo y siempre. No sabes cuánto me hubiera gustado estar ahí para ver tu carita al abrir cada cosa. Como todavía no puedo, te dejo esta carta para que me sientas cerquita mientras la lees.',
+    'Todo lo que venía en esa caja lo escogí pensando en ti. Lo guardé con mucho cuidado y lo mandé con todo mi amor, sabiendo que iba a recorrer muchísimos kilómetros para llegar hasta donde estás. Yo no pude viajar adentro, pero cada cosa lleva un pedacito de mí.',
+    'Empiezo por el anillo, porque es el más pequeñito, pero el que guarda la promesa más grande. Espero de todo corazón que te guste muchísimo. No es solo un anillo: es mi promesa de quererte, de cuidarte, de respetarte y de elegirte todos los días, en los días bonitos y también en los difíciles. Cada vez que lo veas en tu mano, acuérdate de que aquí hay alguien que te ama con todo lo que es y que no va a descansar hasta que ya no haya distancia entre nosotros.',
+    'Luego está tu gatito. Lo escogí porque sé cuánto te gustan, y porque quería que tuvieras a alguien que te acompañe en esas noches en las que yo no puedo estar contigo. Abrázalo fuerte cuando me extrañes, cuando estés triste o cuando simplemente necesites un abrazo. Hazte de cuenta que soy yo, abrazándote y diciéndote al oído que todo va a estar bien. Y no se te olvide: en idioma gatito, «miau» significa «te amo». Así que cada vez que lo abraces, él te lo va a decir de mi parte.',
+    'La pulsera la hice yo mismo, con mis propias manos, nudo por nudo. Tal vez no es perfecta, pero tiene algo que ninguna otra pulsera en el mundo tiene: en cada nudo dejé un «te amo», un pensamiento tuyo y unas ganas enormes de estar a tu lado. Quiero que sea también una muestra de mi amor, de este amor sencillo y sincero que te tengo. Cuando la traigas puesta, imagina que te estoy tomando de la mano.',
+    'Y mi suéter… ese ya es tuyo. Espero que te cubra del frío en las mañanas y en las noches heladas, y que cada vez que te lo pongas te sientas abrazada por mí. Eso es lo que quiero que sea: un abrazo mío que puedas ponerte cuando quieras, aunque yo esté lejos. Ojalá te quede grandecito y calientito, justo como deben quedar los suéteres del novio.',
+    'Ningún regalo alcanza para decirte todo lo que siento, pero ojalá estos detalles te lo recuerden cada día: el anillo, para que nunca dudes de mi promesa; el gatito, para que nunca te falte un abrazo; la pulsera, para que sientas mi mano junto a la tuya; y el suéter, para que el frío nunca te gane mientras llega el día en que pueda abrazarte yo.',
+    'Gracias por estos cuatro meses tan bonitos, por tu paciencia, por tu cariño y por enseñarme que el amor de verdad no le tiene miedo a la distancia. Te amo hoy, te voy a amar mañana y te quiero seguir amando por toda la vida, Dios mediante.',
+    'Así que, con este anillo y con todo mi corazón, te pregunto: ¿aceptas seguir escribiendo esta historia conmigo, hoy, mañana y siempre? 💍',
+  ],
+  despedida: 'Tuyo hoy y siempre,',
+};
 
 const CARTA_FINAL = {
   saludo: 'Mi princesita hermosa:',
@@ -1514,19 +1535,23 @@ function candado() {
 function actualizarTesoro() { $('#btnVerFinale').hidden = !S.tesoro.every(Boolean); }
 $('#btnVerFinale').addEventListener('click', () => finale());
 function finale() {
-  const palabras = TESOROS.map((t, i) => esc(i ? t.palabra : t.palabra.charAt(0).toUpperCase() + t.palabra.slice(1))).join(',<br>') + '.';
+  const C = CARTA_TESORO;
+  const palabras = TESOROS.map(t => esc(t.palabra.charAt(0).toUpperCase() + t.palabra.slice(1))).join('. ') + '. 💞';
   const sellada = () => `
-    <p class="eyebrow">Promesa sellada</p>
-    <p class="finale-words">Te amo, ${esc(NOMBRE)}</p>
-    <p>Hoy, mañana y siempre. Gracias por aceptarme también de lejos.</p>
-    <button class="btn" type="button" data-go="final">Leer la última carta</button>`;
+    <div class="sellada">
+      <p class="eyebrow">Promesa sellada</p>
+      <p class="finale-words">Te amo, ${esc(NOMBRE)}</p>
+      <p>Hoy, mañana y siempre. Gracias por aceptarme también de lejos.</p>
+      <button class="btn" type="button" data-go="final">Leer la última carta</button>
+    </div>`;
   openModal(`
-    <p class="eyebrow">Encontraste los 3 tesoros</p>
-    <p class="finale-words">${palabras}</p>
-    <p>En idioma gatito, «miau» significa «te amo». Así que ya lo sabes: te amo. Contigo. Siempre.</p>
-    <p>Todo lo que venía en esa caja es una promesa: la de seguir eligiéndote todos los días, hasta que ya no haya kilómetros entre nosotros.</p>
+    <p class="eyebrow">Los 3 tesoros</p>
+    <h3>${palabras}</h3>
+    <p class="saludo">${esc(C.saludo)}</p>
+    ${C.parrafos.map(t => `<p>${esc(t)}</p>`).join('')}
+    <p class="firma"><span class="desp">${esc(C.despedida)}</span>${esc(FIRMA)} 💞</p>
     <div id="aceptoBox">${S.acepto ? '' : '<button class="btn" type="button" id="btnSiAcepto">Sí, acepto 💞</button>'}</div>
-    ${S.acepto ? sellada() : ''}`);
+    ${S.acepto ? sellada() : ''}`, { letter: true });
   confetti(4200, 160);
   const b = $('#btnSiAcepto');
   if (b) b.addEventListener('click', () => {

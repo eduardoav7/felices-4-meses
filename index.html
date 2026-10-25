@@ -8,7 +8,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=Nunito:wght@400;600;800&display=swap">
 <style>
 /* Concepto: un cuaderno cuadriculado (como el de tus dibujos) que un gatito recorre capítulo por capítulo; en el capítulo del cielo se apaga la luz. */
 :root {
@@ -456,6 +456,130 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ===== Una cartita para ti (carta azul en hojas, pantalla completa) ===== */
+.cartita {
+  --ca-noche: #0f1b46; --ca-noche-2: #1c2f6c; --ca-papel: #f5f9ff; --ca-tinta: #1d2a57; --ca-tinta-suave: #56658f;
+  --ca-azul: #3f6fd8; --ca-azul-claro: #a9c6f2; --ca-estrella: #ffe39a;
+  --ca-mano: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --ca-texto: 'Literata', Georgia, 'Times New Roman', serif;
+  --ca-ui: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  position: fixed; inset: 0; z-index: 65; overflow: hidden;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: radial-gradient(120% 80% at 50% 0%, var(--ca-noche-2) 0%, var(--ca-noche) 62%);
+  background-color: var(--ca-noche);
+  color: var(--ca-papel); font-family: var(--ca-texto); color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+}
+.cartita .ca-cielo { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cartita .ca-deck { position: relative; height: 100%; touch-action: pan-y; }
+.cartita .slide {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  padding-block: 14px calc(84px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  opacity: 0; visibility: hidden; transform: translateX(26px);
+  transition: opacity .55s ease, transform .55s ease, visibility 0s linear .55s;
+}
+.cartita .slide.antes { transform: translateX(-26px); }
+.cartita .slide.activa { opacity: 1; visibility: visible; transform: none; transition: opacity .55s ease, transform .55s ease, visibility 0s; }
+.cartita .hoja {
+  position: relative; width: 100%; max-width: 600px; max-height: 100%;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--ca-azul-claro) transparent;
+  background: var(--ca-papel); color: var(--ca-tinta); border-radius: 26px;
+  box-shadow: 0 26px 60px rgba(3, 8, 34, .55), 0 0 0 1px rgba(255, 255, 255, .07);
+}
+.cartita .hoja:focus { outline: none; }
+.cartita .escena { margin: 0; width: 100%; aspect-ratio: 360 / 210; max-width: 100%; background: var(--ca-azul-claro); border-bottom: 2px solid var(--ca-tinta); }
+.cartita .escena svg { display: block; width: 100%; height: 100%; }
+.cartita .texto { display: flex; flex-direction: column; gap: 12px; padding: 22px 24px 28px; }
+.cartita .ca-eyebrow { margin: 0; font: 800 11.5px/1.2 var(--ca-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--ca-azul); }
+.cartita h1, .cartita h2 { margin: 0; font-family: var(--ca-mano); font-weight: 700; color: var(--ca-azul); text-wrap: balance; }
+.cartita h1 { font-size: clamp(46px, 13vw, 66px); line-height: .95; }
+.cartita h2 { font-size: clamp(31px, 8.4vw, 42px); line-height: 1.02; }
+.cartita .carta { margin: 0; font-size: 17px; line-height: 1.78; text-wrap: pretty; color: var(--ca-tinta); }
+.cartita .carta::first-letter { float: left; font-family: var(--ca-mano); font-weight: 700; font-size: 3.4em; line-height: .78; color: var(--ca-azul); padding: 6px 8px 0 0; }
+.cartita .ca-sub { margin: 0; font-style: italic; font-size: 18px; color: var(--ca-tinta-suave); }
+.cartita .hoja-portada .texto, .cartita .hoja-separador .texto, .cartita .hoja-fin .texto { align-items: center; text-align: center; padding-block: 26px 30px; }
+.cartita .hoja-separador h2 { font-size: clamp(44px, 12vw, 60px); }
+.cartita .ca-firma { margin: 0; font-family: var(--ca-mano); font-weight: 700; font-size: 46px; line-height: 1; color: var(--ca-azul); }
+.cartita .ca-desp { margin: 0; font-size: 17px; color: var(--ca-tinta-suave); }
+.cartita .botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+.cartita .ca-btn {
+  appearance: none; border: 2px solid var(--ca-tinta); border-radius: 999px; cursor: pointer;
+  background: var(--ca-azul); color: var(--ca-papel); font: 800 16px/1 var(--ca-ui); padding: 15px 24px; min-height: 50px;
+  box-shadow: 0 4px 0 var(--ca-tinta); transition: transform .15s ease, box-shadow .15s ease;
+}
+.cartita .ca-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ca-tinta); }
+.cartita .ca-btn.ca-ghost { background: var(--ca-papel); color: var(--ca-tinta); }
+.cartita :focus-visible { outline: 3px solid var(--ca-estrella); outline-offset: 3px; }
+.cartita .seguir-wrap { position: sticky; bottom: 0; display: flex; justify-content: center; padding: 26px 0 14px; margin-top: -68px; background: linear-gradient(to bottom, rgba(245, 249, 255, 0), var(--ca-papel) 62%); pointer-events: none; opacity: 0; transition: opacity .3s ease; }
+.cartita .hoja.mas .seguir-wrap { opacity: 1; }
+.cartita .seguir { pointer-events: auto; appearance: none; border: 0; border-radius: 999px; cursor: pointer; background: var(--ca-tinta); color: var(--ca-papel); font: 800 13px/1 var(--ca-ui); padding: 9px 16px; box-shadow: 0 6px 16px rgba(29, 42, 87, .3); }
+.cartita .hoja:not(.mas) .seguir { visibility: hidden; }
+.cartita .barra {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.cartita .barra-in { max-width: 600px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+.cartita .redondo {
+  appearance: none; flex: none; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; padding: 0;
+  border: 1.5px solid rgba(214, 228, 255, .35); background: rgba(214, 228, 255, .1); color: var(--ca-papel);
+  display: grid; place-items: center; transition: opacity .3s ease;
+}
+.cartita .redondo:disabled { opacity: .3; cursor: default; }
+.cartita .sig {
+  appearance: none; flex: none; height: 46px; padding: 0 18px; border-radius: 999px; cursor: pointer;
+  border: 0; background: var(--ca-papel); color: var(--ca-tinta); font: 800 15px/1 var(--ca-ui);
+  display: flex; align-items: center; gap: 6px; transition: opacity .3s ease;
+}
+.cartita .progreso { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; transition: opacity .3s ease; }
+.cartita .en-portada .solo-hojas { opacity: 0; visibility: hidden; }
+.cartita .en-final .sig { opacity: 0; visibility: hidden; }
+.cartita .pista { position: relative; height: 6px; border-radius: 99px; background: rgba(214, 228, 255, .16); }
+.cartita .relleno { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--ca-azul), var(--ca-azul-claro)); transition: width .5s ease; }
+.cartita .patita { position: absolute; top: 50%; left: 0; width: 20px; height: 20px; margin: -10px 0 0 -10px; transition: left .5s ease; }
+.cartita .cuenta { font: 700 12px/1 var(--ca-ui); color: var(--ca-azul-claro); letter-spacing: .04em; font-variant-numeric: tabular-nums; text-align: center; }
+.cartita .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cartita .escena .titila { animation: ca-titila 3.4s ease-in-out infinite; }
+.cartita .escena .flota { animation: ca-flota 4.6s ease-in-out infinite; }
+.cartita .escena .sube { animation: ca-sube 3.8s ease-in infinite; opacity: 0; }
+.cartita .escena .late { transform-box: fill-box; transform-origin: center; animation: ca-late 2.6s ease-in-out infinite; }
+.cartita .escena .aro { transform-box: fill-box; transform-origin: center; animation: ca-aro 8s ease-in-out infinite; }
+.cartita .escena .lluvia { animation: ca-lluvia 1.2s linear infinite; }
+.cartita .escena .mece { transform-box: fill-box; transform-origin: center bottom; animation: ca-mece 3.8s ease-in-out infinite; }
+.cartita .escena .gira { transform-box: fill-box; transform-origin: center; animation: ca-gira 50s linear infinite; }
+.cartita .escena .d1 { animation-delay: .6s; } .cartita .escena .d2 { animation-delay: 1.2s; } .cartita .escena .d3 { animation-delay: 1.8s; } .cartita .escena .d4 { animation-delay: 2.4s; }
+@keyframes ca-titila { 50% { opacity: .3; } }
+@keyframes ca-flota { 50% { translate: 0 -6px; } }
+@keyframes ca-sube { 0% { opacity: 0; translate: 0 0; } 18% { opacity: 1; } 100% { opacity: 0; translate: 0 -48px; } }
+@keyframes ca-late { 50% { scale: 1.09; } }
+@keyframes ca-aro { 0%, 100% { scale: .84; } 50% { scale: 1.08; } }
+@keyframes ca-lluvia { from { translate: 2px -7px; } to { translate: -2px 7px; } }
+@keyframes ca-mece { 50% { rotate: 7deg; } }
+@keyframes ca-gira { to { rotate: 360deg; } }
+.cartita .slide:not(.activa) .escena * { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .cartita .escena * { animation: none !important; }
+  .cartita .escena .sube { opacity: 1; }
+  .cartita .slide, .cartita .slide.activa, .cartita .relleno, .cartita .patita { transition: none; }
+}
+@media (min-width: 720px) {
+  .cartita .texto { padding: 26px 34px 32px; }
+  .cartita .carta { font-size: 18px; }
+}
+@media (min-width: 900px) {
+  .cartita .hoja { max-width: 1060px; height: min(640px, 100%); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
+  .cartita .escena { aspect-ratio: auto; height: 100%; display: flex; align-items: flex-end; border-bottom: 0; border-right: 2px solid var(--ca-tinta); }
+  .cartita .escena svg { height: auto; }
+  .cartita .lado { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--ca-azul-claro) transparent; display: flex; flex-direction: column; }
+  .cartita .hoja-portada .texto, .cartita .hoja-separador .texto, .cartita .hoja-fin .texto { margin-block: auto; }
+  .cartita .texto { padding: 34px 38px 36px; }
+  .cartita .slide { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-height: 640px) { .cartita .escena { aspect-ratio: 360 / 170; } }
+/* Botón de la portada que abre la cartita */
+.btn-cartita { background: #3f6fd8; color: #ffffff; }
+.chip.chip-cartita .n { color: #3f6fd8; }
 </style>
 </head>
 <body>
@@ -504,6 +628,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="ticket"><strong id="diasPortada">122</strong><span>días juntos</span></div>
     <div class="btn-row">
       <button class="btn" type="button" id="btnEmpezar">Vamos 🐾</button>
+      <button class="btn btn-cartita" type="button" data-cartita>Una cartita para ti 💌</button>
       <button class="btn ghost" type="button" id="btnOtraVez" hidden>Empezar desde el principio</button>
       <button class="btn ghost" type="button" id="btnJuegosPortada" data-go="juegos" hidden>Nuestros juegos 🎮</button>
     </div>
@@ -815,6 +940,32 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     </div>
     <button class="adv-btn adv-summon" type="button" id="advInvocar" aria-label="Invocar al príncipe" disabled><span class="i" aria-hidden="true">👑</span><span id="advInvocarTxt">Invocar</span></button>
   </div>
+</div>
+
+<!-- UNA CARTITA PARA TI (carta azul en hojas) -->
+<div class="cartita" id="cartita" hidden role="dialog" aria-modal="true" aria-label="Una cartita para ti">
+  <canvas class="ca-cielo" id="caCielo" aria-hidden="true"></canvas>
+  <div class="ca-deck" id="caDeck" aria-roledescription="carta"></div>
+  <nav class="barra en-portada" id="caBarra" aria-label="Hojas de la carta">
+    <div class="barra-in">
+      <button class="redondo" type="button" id="caCerrar" aria-label="Cerrar la carta y volver a la página">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="redondo solo-hojas" type="button" id="caAtras" aria-label="Hoja anterior">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="progreso solo-hojas">
+        <div class="pista"><span class="relleno" id="caRelleno"></span>
+          <svg class="patita" id="caPatita" viewBox="-10 -10 20 20" aria-hidden="true"><g fill="#ffe39a" stroke="#1d2a57" stroke-width="1.2"><ellipse cx="0" cy="3" rx="5" ry="4"/><circle cx="-5" cy="-3.5" r="2.1"/><circle cx="0" cy="-5.6" r="2.1"/><circle cx="5" cy="-3.5" r="2.1"/></g></svg>
+        </div>
+        <span class="cuenta" id="caCuenta">1 / 1</span>
+      </div>
+      <button class="sig solo-hojas" type="button" id="caSig">Siguiente
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </nav>
+  <p class="sr" id="caAviso" aria-live="polite"></p>
 </div>
 
 <div class="modal" id="modal" hidden>
@@ -1617,6 +1768,7 @@ function confetti(dur, n) {
 $('#menuBtn').addEventListener('click', () => {
   const items = [
     ['♥', 'Portada', 'portada', ''],
+    ['💙', 'Una cartita para ti', 'cartita', 'nueva'],
     ['1', 'El camino', 'camino', S.camino >= PARADAS.length ? 'listo' : `${S.camino} de ${PARADAS.length}`],
     ['2', 'Nuestro cielo', 'cielo', S.estrellas.length >= RAZONES.length ? 'listo' : `${S.estrellas.length} de ${RAZONES.length}`],
     ['3', 'Mis promesas', 'promesas', S.promesas >= PROMESAS.length ? 'listo' : `${S.promesas} de ${PROMESAS.length}`],
@@ -1627,7 +1779,7 @@ $('#menuBtn').addEventListener('click', () => {
   ];
   openModal(`
     <h3>Índice</h3>
-    <ul class="menu-list">${items.map(([n, t, id, st]) => `<li><button class="chip" type="button" data-go="${id}"><span class="n">${n}</span><span class="t">${t}</span><span class="st ${st === 'listo' ? 'ok' : ''}">${st === 'listo' ? '✓ listo' : st}</span></button></li>`).join('')}</ul>
+    <ul class="menu-list">${items.map(([n, t, id, st]) => `<li><button class="chip${id === 'cartita' ? ' chip-cartita' : ''}" type="button" ${id === 'cartita' ? 'data-cartita' : `data-go="${id}"`}><span class="n">${n}</span><span class="t">${t}</span><span class="st ${st === 'listo' ? 'ok' : ''}">${st === 'listo' ? '✓ listo' : st}</span></button></li>`).join('')}</ul>
     <button class="btn ghost" type="button" id="btnIndiceOtraVez">Jugar otra vez 🐾</button>`);
   $('#btnIndiceOtraVez').addEventListener('click', reiniciarJuego);
 });
@@ -2814,10 +2966,525 @@ $('#btnPromesasOtraVez').addEventListener('click', () => {
 });
 $('#btnFinalOtraVez').addEventListener('click', reiniciarJuego);
 
+/* ---------- Una cartita para ti (carta azul en hojas) ---------- */
+const cartita = (() => {
+/* Ilustraciones originales: dos gatitos (él, azul grisáceo; ella, blanquita con su moño azul). */
+const K = {
+  ink: '#1d2a57', el: '#93a8dd', elP: '#dfe7fb', ella: '#fdfeff', ellaP: '#e6eefc',
+  rosa: '#f5a9c0', lazo: '#3f74e0', amarillo: '#ffe39a', cor: '#4f86ee', luna: '#fff4cc',
+  suelo: '#cfe0fa', sueloN: '#2a4283', azul: '#4f7fd9', azulC: '#8fb4ef', papel: '#f7fbff', verde: '#7fb59a'
+};
+const f1 = n => +n.toFixed(1);
+
+function semilla(n) { let s = n * 9301 + 49297; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; }
+
+function tubo(d, color, ancho) {
+  return `<path d="${d}" fill="none" stroke="${K.ink}" stroke-width="${ancho + 5.5}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${color}" stroke-width="${ancho}" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+function gato(o) {
+  const { x = 0, y = 0, s = 1, quien = 'el', ojos = 'abiertos', rot = 0, lazo = false, brazo = null, cola = 'der', clase = '' } = o;
+  const b = quien === 'el' ? K.el : K.ella, p = quien === 'el' ? K.elP : K.ellaP;
+  const ojo = cx => ojos === 'abiertos'
+    ? `<ellipse cx="${cx}" cy="-81" rx="3.9" ry="5.1" fill="${K.ink}"/><circle cx="${cx + 1.3}" cy="-83" r="1.4" fill="#fff"/>`
+    : ojos === 'felices'
+      ? `<path d="M${cx - 4.6} -79 Q${cx} -86 ${cx + 4.6} -79" fill="none" stroke="${K.ink}" stroke-width="2.6" stroke-linecap="round"/>`
+      : `<path d="M${cx - 4.6} -81 Q${cx} -76 ${cx + 4.6} -81" fill="none" stroke="${K.ink}" stroke-width="2.6" stroke-linecap="round"/>`;
+  const colaD = cola === 'izq' ? 'M-24 -6 C-50 -4 -58 -32 -44 -46' : 'M24 -6 C50 -4 58 -32 44 -46';
+  const brazoD = brazo ? `M12 -42 Q${f1((12 + brazo[0]) / 2 + 4)} ${f1(Math.min(-42, brazo[1]) - 14)} ${brazo[0]} ${brazo[1]}` : '';
+  return `<g class="${clase}" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">
+    ${cola ? tubo(colaD, b, 7) : ''}
+    <path d="M-30 0 C-37 -30 -27 -60 0 -62 C27 -60 37 -30 30 0 Z" fill="${b}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="0" cy="-25" rx="15" ry="19" fill="${p}"/>
+    <ellipse cx="-11" cy="-2" rx="9.5" ry="6.5" fill="${b}" stroke="${K.ink}" stroke-width="2.6"/>
+    <ellipse cx="11" cy="-2" rx="9.5" ry="6.5" fill="${b}" stroke="${K.ink}" stroke-width="2.6"/>
+    ${brazo ? tubo(brazoD, b, 8) : ''}
+    <path d="M-29 -86 L-25 -114 L-6 -100 Z" fill="${b}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M29 -86 L25 -114 L6 -100 Z" fill="${b}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-24 -92 L-22.5 -106 L-12 -99 Z" fill="${K.rosa}"/>
+    <path d="M24 -92 L22.5 -106 L12 -99 Z" fill="${K.rosa}"/>
+    <ellipse cx="0" cy="-80" rx="33" ry="27" fill="${b}" stroke="${K.ink}" stroke-width="3"/>
+    ${ojo(-11)}${ojo(11)}
+    <ellipse cx="-20" cy="-71" rx="5.5" ry="3.2" fill="${K.rosa}" opacity=".65"/>
+    <ellipse cx="20" cy="-71" rx="5.5" ry="3.2" fill="${K.rosa}" opacity=".65"/>
+    <path d="M-3 -75 L3 -75 L0 -71.5 Z" fill="${K.rosa}" stroke="${K.ink}" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M-5 -68.5 Q-2.5 -65.5 0 -68.5 Q2.5 -65.5 5 -68.5" fill="none" stroke="${K.ink}" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M-24 -75 L-40 -77 M-24 -71 L-39 -67 M24 -75 L40 -77 M24 -71 L39 -67" stroke="${K.ink}" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+    ${lazo ? moño(-18, -102, -18) : ''}
+  </g>`;
+}
+
+function moño(x, y, r) {
+  return `<g transform="translate(${x} ${y}) rotate(${r})">
+    <path d="M0 0 L-12 -8 L-12 8 Z" fill="${K.lazo}" stroke="${K.ink}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M0 0 L12 -8 L12 8 Z" fill="${K.lazo}" stroke="${K.ink}" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle r="3.4" fill="${K.lazo}" stroke="${K.ink}" stroke-width="1.6"/>
+  </g>`;
+}
+
+function gatoDormido(o) {
+  const { x = 0, y = 0, s = 1, quien = 'ella', flip = false, lazo = false } = o;
+  const b = quien === 'el' ? K.el : K.ella;
+  const ojoC = cx => `<path d="M${cx - 4.4} -40 Q${cx} -35.5 ${cx + 4.4} -40" fill="none" stroke="${K.ink}" stroke-width="2.4" stroke-linecap="round"/>`;
+  return `<g transform="translate(${x} ${y}) scale(${flip ? -s : s} ${s})">
+    <ellipse cx="8" cy="-23" rx="47" ry="24" fill="${b}" stroke="${K.ink}" stroke-width="3"/>
+    ${tubo('M52 -12 C60 6 22 6 -4 0', b, 7)}
+    <path d="M-53 -45 L-52 -72 L-36 -56 Z" fill="${b}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-24 -55 L-12 -74 L-9 -48 Z" fill="${b}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-49 -50 L-48.5 -64 L-40 -56 Z" fill="${K.rosa}"/>
+    <path d="M-20 -56 L-13.5 -67 L-12 -53 Z" fill="${K.rosa}"/>
+    <ellipse cx="-30" cy="-38" rx="27" ry="22" fill="${b}" stroke="${K.ink}" stroke-width="3"/>
+    ${ojoC(-40)}${ojoC(-21)}
+    <ellipse cx="-47" cy="-31" rx="4.6" ry="2.8" fill="${K.rosa}" opacity=".65"/>
+    <ellipse cx="-14" cy="-31" rx="4.6" ry="2.8" fill="${K.rosa}" opacity=".65"/>
+    <path d="M-33 -34 L-27.5 -34 L-30.2 -31 Z" fill="${K.rosa}" stroke="${K.ink}" stroke-width="1.1" stroke-linejoin="round"/>
+    <ellipse cx="-14" cy="-3" rx="10" ry="6" fill="${b}" stroke="${K.ink}" stroke-width="2.6"/>
+    ${lazo ? moño(-44, -60, -24) : ''}
+  </g>`;
+}
+
+function corazon(x, y, s = 1, clase = '', color = K.cor) {
+  return `<g class="${clase}"><g transform="translate(${x} ${y}) scale(${s})"><path d="M0 7 C-15 -3 -13 -16 -6 -16 C-2.5 -16 0 -13.5 0 -11 C0 -13.5 2.5 -16 6 -16 C13 -16 15 -3 0 7 Z" fill="${color}" stroke="${K.ink}" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><ellipse cx="-6" cy="-9" rx="2.6" ry="1.7" fill="#fff" opacity=".75" transform="rotate(-35 -6 -9)"/></g></g>`;
+}
+
+function estrella(x, y, r, clase = '', color = K.amarillo) {
+  let d = '';
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.46 : r;
+    d += (i ? 'L' : 'M') + f1(x + rr * Math.cos(a)) + ' ' + f1(y + rr * Math.sin(a));
+  }
+  return `<path class="${clase}" d="${d}Z" fill="${color}" stroke="${K.ink}" stroke-width="2" stroke-linejoin="round"/>`;
+}
+
+function destello(x, y, r, clase = 'titila', color = '#ffffff') {
+  return `<path class="${clase}" d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r} Z" fill="${color}"/>`;
+}
+
+function cieloEstrellado(n, sem, ymax = 120) {
+  const r = semilla(sem); let out = '';
+  for (let i = 0; i < n; i++) {
+    const x = f1(r() * 360), y = f1(r() * ymax), t = r();
+    out += t > 0.82 ? destello(x, y, 3 + r() * 3, 'titila d' + (i % 4)) : `<circle class="titila d${i % 4}" cx="${x}" cy="${y}" r="${f1(0.8 + r() * 1.3)}" fill="#e8f0ff"/>`;
+  }
+  return out;
+}
+
+function luna(x, y, r) {
+  return `<circle cx="${x}" cy="${y}" r="${r * 1.7}" fill="${K.luna}" opacity=".12"/><path d="M${x} ${y - r} A${r} ${r} 0 1 0 ${x} ${y + r} A${f1(r * 0.7)} ${r} 0 1 1 ${x} ${y - r} Z" fill="${K.luna}" stroke="${K.ink}" stroke-width="2.4" stroke-linejoin="round"/>`;
+}
+
+function sol(x, y, r, rayos = true) {
+  let ry = '';
+  if (rayos) for (let i = 0; i < 10; i++) {
+    const a = i * Math.PI / 5;
+    ry += `M${f1(x + Math.cos(a) * (r + 7))} ${f1(y + Math.sin(a) * (r + 7))} L${f1(x + Math.cos(a) * (r + 15))} ${f1(y + Math.sin(a) * (r + 15))} `;
+  }
+  return `<g class="gira"><path d="${ry}" stroke="#fff6d8" stroke-width="3" stroke-linecap="round"/></g><circle cx="${x}" cy="${y}" r="${r}" fill="#fff3c9" stroke="${K.ink}" stroke-width="2.2"/>`;
+}
+
+function nube(x, y, s = 1, color = '#ffffff') {
+  return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-34 10 C-46 10 -46 -6 -32 -6 C-32 -20 -12 -24 -6 -12 C0 -26 26 -22 24 -6 C40 -8 42 10 30 10 Z" fill="${color}" stroke="${K.ink}" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></g>`;
+}
+
+function huella(x, y, s = 1, rot = 0, color = K.azulC) {
+  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" fill="${color}"><ellipse cx="0" cy="3" rx="5" ry="4"/><circle cx="-5" cy="-3.5" r="2"/><circle cx="0" cy="-5.5" r="2"/><circle cx="5" cy="-3.5" r="2"/></g>`;
+}
+
+function casita(x, y, s = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="22" y="-102" width="14" height="28" fill="${K.azul}" stroke="${K.ink}" stroke-width="3"/>
+    <rect x="-46" y="-62" width="92" height="62" rx="3" fill="${K.papel}" stroke="${K.ink}" stroke-width="3"/>
+    <path d="M-58 -57 L0 -102 L58 -57 Z" fill="${K.azul}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-10 0 L-10 -28 Q0 -39 10 -28 L10 0 Z" fill="${K.azulC}" stroke="${K.ink}" stroke-width="2.5"/>
+    <rect x="-38" y="-46" width="20" height="18" rx="3" fill="#ffe9a8" stroke="${K.ink}" stroke-width="2.5"/>
+    <rect x="18" y="-46" width="20" height="18" rx="3" fill="#ffe9a8" stroke="${K.ink}" stroke-width="2.5"/>
+    <path d="M-28 -46 V-28 M-38 -37 H-18 M28 -46 V-28 M18 -37 H38" stroke="${K.ink}" stroke-width="1.6"/>
+    ${corazon(0, -72, 0.55, '', K.rosa)}
+  </g>`;
+}
+
+function flor(x, y, h, s = 1) {
+  let petalos = '';
+  for (let i = 0; i < 5; i++) {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / 5;
+    petalos += `<circle cx="${f1(Math.cos(a) * 6.2 * s)}" cy="${f1(Math.sin(a) * 6.2 * s)}" r="${f1(5 * s)}" fill="#6f9cf0" stroke="${K.ink}" stroke-width="1.5"/>`;
+  }
+  return `<path d="M${x} ${y} Q${x - 4} ${y - h / 2} ${x} ${y - h}" fill="none" stroke="${K.verde}" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="${x + 7}" cy="${y - h * 0.4}" rx="7" ry="3.2" fill="${K.verde}" transform="rotate(-25 ${x + 7} ${y - h * 0.4})"/>
+    <g class="mece"><g transform="translate(${x} ${y - h})">${petalos}<circle r="${f1(3.6 * s)}" fill="${K.amarillo}" stroke="${K.ink}" stroke-width="1.4"/></g></g>`;
+}
+function brote(x, y) {
+  return `<path d="M${x} ${y} L${x} ${y - 14}" stroke="${K.verde}" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="${x - 6}" cy="${y - 16}" rx="7" ry="3.6" fill="${K.verde}" transform="rotate(25 ${x - 6} ${y - 16})"/>
+    <ellipse cx="${x + 6}" cy="${y - 16}" rx="7" ry="3.6" fill="${K.verde}" transform="rotate(-25 ${x + 6} ${y - 16})"/>`;
+}
+function boton(x, y, h) {
+  return `<path d="M${x} ${y} Q${x + 3} ${y - h / 2} ${x} ${y - h}" fill="none" stroke="${K.verde}" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="${x - 7}" cy="${y - h * 0.45}" rx="7" ry="3.2" fill="${K.verde}" transform="rotate(25 ${x - 7} ${y - h * 0.45})"/>
+    <ellipse class="mece" cx="${x}" cy="${y - h - 5}" rx="5.5" ry="8" fill="#9dbdf5" stroke="${K.ink}" stroke-width="1.6"/>`;
+}
+
+function confeti(n, sem, ymax = 150) {
+  const r = semilla(sem), col = ['#4f86ee', '#ffe39a', '#f5a9c0', '#8fb4ef', '#ffffff']; let out = '';
+  for (let i = 0; i < n; i++) {
+    const x = f1(10 + r() * 340), y = f1(8 + r() * ymax), c = col[i % col.length];
+    out += `<rect class="flota d${i % 4}" x="${x}" y="${y}" width="6" height="3.4" rx="1.2" fill="${c}" transform="rotate(${Math.round(r() * 180)} ${x} ${y})"/>`;
+  }
+  return out;
+}
+
+function huellasCamino(p0, p1, p2, p3, n, s0, s1) {
+  let out = '';
+  for (let i = 1; i <= n; i++) {
+    const t = i / (n + 1), mt = 1 - t;
+    const x = mt ** 3 * p0[0] + 3 * mt * mt * t * p1[0] + 3 * mt * t * t * p2[0] + t ** 3 * p3[0];
+    const y = mt ** 3 * p0[1] + 3 * mt * mt * t * p1[1] + 3 * mt * t * t * p2[1] + t ** 3 * p3[1];
+    const dx = 3 * mt * mt * (p1[0] - p0[0]) + 6 * mt * t * (p2[0] - p1[0]) + 3 * t * t * (p3[0] - p2[0]);
+    const dy = 3 * mt * mt * (p1[1] - p0[1]) + 6 * mt * t * (p2[1] - p1[1]) + 3 * t * t * (p3[1] - p2[1]);
+    const ang = Math.atan2(dy, dx) * 180 / Math.PI + 90, lado = i % 2 ? -5 : 5;
+    const nx = -dy / Math.hypot(dx, dy) * lado, ny = dx / Math.hypot(dx, dy) * lado;
+    out += huella(f1(x + nx), f1(y + ny), f1(s0 + (s1 - s0) * t), Math.round(ang), '#7fa6ea');
+  }
+  return out;
+}
+
+const CIELOS = { noche: ['#16245a', '#35539d'], dia: ['#b8d3fb', '#eef5ff'], alba: ['#9dbcf0', '#f4e8f2'], tarde: ['#7f9de0', '#dbe6fb'], lluvia: ['#7389bf', '#c8d5ef'] };
+function lienzo(id, cielo, contenido) {
+  const g = CIELOS[cielo];
+  return `<svg viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><linearGradient id="ca-c-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient><radialGradient id="ca-r-${id}"><stop offset="0" stop-color="#fff6cf" stop-opacity=".95"/><stop offset="1" stop-color="#fff6cf" stop-opacity="0"/></radialGradient></defs><rect width="360" height="210" fill="url(#ca-c-${id})"/>${contenido}</svg>`;
+}
+
+const ESCENAS = {
+  portada: () => lienzo('portada', 'noche', `${cieloEstrellado(34, 3, 130)}${luna(292, 50, 24)}
+    <path d="M0 192 Q180 128 360 192 L360 210 L0 210 Z" fill="${K.sueloN}"/>
+    ${gato({ x: 152, y: 180, s: .78, rot: 7, ojos: 'felices', cola: 'izq' })}
+    ${gato({ x: 207, y: 182, s: .72, quien: 'ella', rot: -7, ojos: 'felices', lazo: true })}
+    ${corazon(180, 64, 1.5, 'flota')}${destello(140, 70, 5)}${destello(222, 58, 4, 'titila d2')}`),
+
+  ojos: () => lienzo('ojos', 'dia', `<path d="M0 190 Q180 176 360 190 L360 210 L0 210 Z" fill="${K.suelo}"/>
+    <path d="M248 166 L248 192 M228 192 H268" stroke="${K.ink}" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="248" cy="110" r="56" fill="#ffffff" stroke="${K.ink}" stroke-width="4"/>
+    <circle cx="248" cy="110" r="46" fill="url(#ca-r-ojos)" stroke="${K.azulC}" stroke-width="3"/>
+    ${corazon(248, 112, 2.3, 'late')}${destello(218, 84, 5, 'titila', K.amarillo)}${destello(280, 132, 4, 'titila d2', K.amarillo)}${destello(274, 80, 3, 'titila d3', K.amarillo)}
+    ${gato({ x: 120, y: 190, s: .9, quien: 'ella', lazo: true })}
+    ${destello(64, 96, 4, 'titila d1', '#ffffff')}`),
+
+  casita: () => lienzo('casita', 'alba', `${sol(66, 58, 22)}
+    <path d="M0 188 Q120 160 230 176 T360 170 L360 210 L0 210 Z" fill="#a9c6f2"/>
+    ${casita(262, 180, 1)}
+    ${corazon(291, 92, .5, 'sube')}${corazon(291, 92, .42, 'sube d2')}${corazon(291, 92, .36, 'sube d4')}
+    ${flor(196, 186, 18, .7)}${flor(330, 184, 16, .6)}
+    ${gato({ x: 88, y: 194, s: .74, ojos: 'felices', cola: 'izq' })}
+    ${gato({ x: 140, y: 195, s: .7, quien: 'ella', ojos: 'felices', lazo: true })}`),
+
+  pasito: () => lienzo('pasito', 'dia', `${sol(300, 62, 18)}
+    <path d="M0 192 Q180 150 360 136 L360 210 L0 210 Z" fill="${K.suelo}"/>
+    <path d="M30 214 C120 186 210 168 330 140" fill="none" stroke="#f3f8ff" stroke-width="20" stroke-linecap="round"/>
+    ${huellasCamino([60, 204], [140, 182], [220, 166], [330, 140], 9, 1.15, .55)}
+    ${gato({ x: 50, y: 198, s: .6, quien: 'ella', lazo: true, ojos: 'abiertos', cola: 'izq' })}
+    ${gato({ x: 98, y: 200, s: .62, ojos: 'felices' })}`),
+
+  refugio: () => lienzo('refugio', 'tarde', `<path d="M10 34 Q180 92 350 34" fill="none" stroke="${K.ink}" stroke-width="1.6"/>
+    ${[40, 76, 112, 148, 184, 220, 256, 292, 326].map((x, i) => { const t = (x - 10) / 340, y = f1((1 - t) * (1 - t) * 34 + 2 * (1 - t) * t * 92 + t * t * 34); return `<circle class="titila d${i % 4}" cx="${x}" cy="${y + 5}" r="4.4" fill="${i % 2 ? K.amarillo : '#cfe0ff'}" stroke="${K.ink}" stroke-width="1.4"/>`; }).join('')}
+    <rect x="0" y="186" width="360" height="24" fill="#b6cbf2"/>
+    <path d="M96 190 L180 66 L264 190 Z" fill="#eef4ff" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M180 92 L152 190 L208 190 Z" fill="#c6d7f6" stroke="${K.ink}" stroke-width="2.4" stroke-linejoin="round"/>
+    <ellipse cx="180" cy="188" rx="34" ry="7" fill="${K.azulC}" stroke="${K.ink}" stroke-width="2.4"/>
+    ${gato({ x: 180, y: 186, s: .54, quien: 'ella', lazo: true, cola: false })}
+    <path d="M232 70 h52 a12 12 0 0 1 12 12 v18 a12 12 0 0 1 -12 12 h-34 l-12 10 l2 -10 h-8 a12 12 0 0 1 -12 -12 v-18 a12 12 0 0 1 12 -12 Z" fill="#ffffff" stroke="${K.ink}" stroke-width="2.4" stroke-linejoin="round"/>
+    ${corazon(258, 94, .8, 'late')}`),
+
+  dormir: () => lienzo('dormir', 'noche', `${cieloEstrellado(30, 8, 120)}${luna(66, 50, 22)}
+    <ellipse cx="180" cy="186" rx="80" ry="14" fill="${K.azul}" stroke="${K.ink}" stroke-width="3"/>
+    ${gatoDormido({ x: 186, y: 182, s: 1.02, quien: 'ella', lazo: true })}
+    <g fill="#d6e4ff" font-family="Caveat, cursive" font-weight="700"><text class="flota" x="214" y="112" font-size="18">z</text><text class="flota d2" x="230" y="94" font-size="23">z</text><text class="flota d4" x="250" y="74" font-size="28">z</text></g>
+    <g transform="translate(300 188)"><path d="M-14 -24 H14 V-8 Q14 0 6 0 H-6 Q-14 0 -14 -8 Z" fill="#ffffff" stroke="${K.ink}" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 -19 Q24 -19 22 -11 Q20 -6 14 -8" fill="none" stroke="${K.ink}" stroke-width="2.4"/>${corazon(0, -12, .35, '', K.rosa)}<path class="flota" d="M-5 -30 q-4 -6 0 -12 M5 -30 q-4 -6 0 -12" fill="none" stroke="#d6e4ff" stroke-width="2" stroke-linecap="round"/></g>`),
+
+  flores: () => lienzo('flores', 'dia', `${sol(310, 52, 18)}
+    <path d="M0 190 Q180 178 360 190 L360 210 L0 210 Z" fill="${K.suelo}"/>
+    ${brote(196, 190)}${boton(232, 190, 26)}${flor(268, 190, 42, .95)}${flor(310, 190, 60, 1.2)}
+    ${gato({ x: 104, y: 192, s: .84, quien: 'ella', lazo: true, ojos: 'felices', cola: 'izq' })}
+    ${destello(150, 92, 4, 'titila', '#ffffff')}`),
+
+  sonrisa: () => lienzo('sonrisa', 'tarde', `<path d="M0 190 Q180 178 360 190 L360 210 L0 210 Z" fill="#b6cbf2"/>
+    ${nube(214, 54, .95, '#e3eaf8')}
+    <g class="lluvia">${[198, 212, 226, 240].map((x, i) => `<path d="M${x} ${70 + (i % 2) * 6} q-2 6 0 9 q2 -3 0 -9 Z" fill="#9fbcf0" stroke="${K.ink}" stroke-width="1"/>`).join('')}</g>
+    ${gato({ x: 214, y: 190, s: .8, quien: 'ella', lazo: true })}
+    ${gato({ x: 150, y: 190, s: .84, cola: 'izq', ojos: 'felices', brazo: [60, -62] })}
+    ${corazon(92, 104, .8, 'sube')}${corazon(100, 112, .6, 'sube d3')}`),
+
+  diosito: () => lienzo('diosito', 'noche', `${cieloEstrellado(26, 12, 140)}
+    <circle cx="180" cy="58" r="48" fill="url(#ca-r-diosito)"/>
+    ${estrella(180, 58, 20, 'late')}
+    <path d="M0 194 Q180 160 360 194 L360 210 L0 210 Z" fill="${K.sueloN}"/>
+    ${gato({ x: 180, y: 192, s: .9, ojos: 'cerrados' })}
+    ${corazon(180, 84, .55, 'sube', K.rosa)}${corazon(180, 84, .45, 'sube d3', K.rosa)}`),
+
+  juntitos: () => lienzo('juntitos', 'alba', `${sol(80, 52, 16, false)}
+    <path d="M150 160 Q260 112 360 138 L360 210 L150 210 Z" fill="#b8cff4"/>
+    ${casita(306, 132, .4)}
+    <path d="M118 214 C150 182 230 160 296 134" fill="none" stroke="#f6f9ff" stroke-width="14" stroke-linecap="round"/>
+    <path d="M0 196 Q180 180 360 198 L360 210 L0 210 Z" fill="#9dbcf0"/>
+    ${gato({ x: 158, y: 198, s: .72, quien: 'ella', lazo: true, ojos: 'felices' })}
+    ${gato({ x: 102, y: 198, s: .74, ojos: 'felices', cola: 'izq', brazo: [62, -26] })}
+    ${corazon(130, 96, 1, 'flota')}`),
+
+  paraguas: () => lienzo('paraguas', 'lluvia', `${nube(62, 36, 1.2, '#dfe6f5')}${nube(296, 30, 1, '#dfe6f5')}
+    <g class="lluvia">${(() => { const r = semilla(21); let o = ''; for (let i = 0; i < 46; i++) { const x = f1(r() * 360), y = f1(40 + r() * 150); if (x > 100 && x < 264 && y > 84) continue; o += `<path d="M${x} ${y} l-3 8" stroke="#eaf1ff" stroke-width="2" stroke-linecap="round"/>`; } return o; })()}</g>
+    <path d="M0 192 Q180 182 360 192 L360 210 L0 210 Z" fill="#a6bbe4"/>
+    <ellipse cx="78" cy="198" rx="26" ry="4" fill="#cddaf3"/><ellipse cx="300" cy="200" rx="22" ry="3.5" fill="#cddaf3"/>
+    <path d="M182 92 V146 Q182 154 175 154" fill="none" stroke="${K.ink}" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M108 104 Q182 26 256 104 Q238 95 219 104 Q200 95 182 104 Q164 95 145 104 Q126 95 108 104 Z" fill="${K.azul}" stroke="${K.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M182 48 V40" stroke="${K.ink}" stroke-width="3" stroke-linecap="round"/>
+    ${gato({ x: 220, y: 192, s: .76, quien: 'ella', lazo: true, ojos: 'felices' })}
+    ${gato({ x: 148, y: 192, s: .82, cola: 'izq', brazo: [40, -52] })}`),
+
+  respira: () => lienzo('respira', 'alba', `<circle class="aro" cx="180" cy="122" r="42" fill="none" stroke="#ffffff" stroke-width="3" opacity=".7"/>
+    <circle class="aro d2" cx="180" cy="122" r="64" fill="none" stroke="#ffffff" stroke-width="3" opacity=".45"/>
+    <circle class="aro d4" cx="180" cy="122" r="86" fill="none" stroke="#ffffff" stroke-width="3" opacity=".25"/>
+    <path d="M0 192 Q180 180 360 192 L360 210 L0 210 Z" fill="#a9c6f2"/>
+    ${gato({ x: 180, y: 192, s: .88, quien: 'ella', lazo: true, ojos: 'cerrados' })}
+    ${destello(110, 70, 4)}${destello(256, 84, 5, 'titila d2')}`),
+
+  besito: () => lienzo('besito', 'noche', `${cieloEstrellado(28, 30, 120)}${luna(300, 46, 20)}
+    <path d="M0 194 Q180 168 360 194 L360 210 L0 210 Z" fill="${K.sueloN}"/>
+    ${gato({ x: 214, y: 194, s: .74, quien: 'ella', lazo: true, ojos: 'felices' })}
+    ${gato({ x: 158, y: 194, s: .9, rot: 20, ojos: 'cerrados', cola: 'izq' })}
+    ${corazon(212, 92, .9, 'sube')}${corazon(222, 96, .55, 'sube d3', K.rosa)}`),
+
+  abrazo: () => lienzo('abrazo', 'alba', `${[[120, 60, .8, ''], [240, 52, .7, 'd2'], [180, 34, 1, 'd1'], [96, 92, .5, 'd3'], [266, 90, .55, 'd4']].map(([x, y, s, d]) => corazon(x, y, s, 'flota ' + d, d === 'd2' || d === 'd3' ? K.rosa : K.cor)).join('')}
+    <path d="M0 194 Q180 176 360 194 L360 210 L0 210 Z" fill="#9dbcf0"/>
+    ${gato({ x: 212, y: 194, s: .78, quien: 'ella', lazo: true, ojos: 'felices', rot: -8 })}
+    ${gato({ x: 150, y: 194, s: .82, ojos: 'felices', rot: 7, cola: 'izq', brazo: [70, -48] })}`),
+
+  estrella: () => lienzo('estrella', 'noche', `${cieloEstrellado(40, 44, 150)}
+    <circle cx="180" cy="62" r="56" fill="url(#ca-r-estrella)"/>
+    ${estrella(180, 62, 26, 'late')}
+    <path d="M70 214 Q180 140 290 214 Z" fill="${K.sueloN}"/>
+    ${gato({ x: 180, y: 190, s: .76, quien: 'ella', lazo: true })}`),
+
+  escalera: () => lienzo('escalera', 'dia', `<path d="M0 192 L360 192 L360 210 L0 210 Z" fill="${K.suelo}"/>
+    ${[0, 1, 2, 3].map(i => `<rect x="${126 + i * 52}" y="${192 - 24 * (i + 1)}" width="52" height="${24 * (i + 1)}" fill="${i % 2 ? '#e3edff' : '#f4f8ff'}" stroke="${K.ink}" stroke-width="2.5" stroke-linejoin="round"/>${huella(152 + i * 52, 192 - 24 * (i + 1) - 7, .8, 90, '#7fa6ea')}`).join('')}
+    <circle cx="308" cy="74" r="34" fill="url(#ca-r-escalera)"/>
+    ${estrella(308, 74, 18, 'late')}
+    ${gato({ x: 74, y: 192, s: .72, quien: 'ella', lazo: true })}
+    ${destello(250, 52, 4, 'titila', K.amarillo)}`),
+
+  porra: () => lienzo('porra', 'dia', `${confeti(26, 50, 130)}
+    <path d="M0 192 Q180 178 360 192 L360 210 L0 210 Z" fill="${K.suelo}"/>
+    <path d="M168 132 V58" stroke="${K.ink}" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M168 58 L220 72 L168 88 Z" fill="${K.azul}" stroke="${K.ink}" stroke-width="2.6" stroke-linejoin="round"/>
+    ${corazon(186, 74, .6, '', '#ffffff')}
+    ${gato({ x: 128, y: 192, s: .84, ojos: 'felices', cola: 'izq', brazo: [48, -84] })}
+    ${gato({ x: 246, y: 193, s: .76, quien: 'ella', lazo: true, ojos: 'felices' })}`),
+
+  medalla: () => lienzo('medalla', 'alba', `${confeti(22, 77, 120)}
+    <path d="M0 192 Q180 178 360 192 L360 210 L0 210 Z" fill="#a9c6f2"/>
+    ${gato({ x: 180, y: 192, s: .94, quien: 'ella', lazo: true, ojos: 'felices' })}
+    <path d="M168 128 L180 150 L192 128" fill="none" stroke="${K.azul}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="180" cy="157" r="11" fill="${K.amarillo}" stroke="${K.ink}" stroke-width="2.4"/>
+    ${estrella(180, 157.5, 6, '', '#fff7d6')}
+    ${destello(120, 70, 5, 'titila', '#ffffff')}${destello(242, 60, 6, 'titila d2', '#ffffff')}`),
+
+  amanecer: () => lienzo('amanecer', 'alba', `<circle cx="180" cy="168" r="96" fill="url(#ca-r-amanecer)"/>
+    ${sol(180, 168, 56)}
+    <path d="M0 168 Q180 160 360 168 L360 210 L0 210 Z" fill="#9dbcf0"/>
+    ${huellasCamino([180, 212], [182, 196], [178, 184], [180, 170], 4, 1.1, .7)}
+    ${gato({ x: 216, y: 204, s: .62, quien: 'ella', lazo: true, ojos: 'felices' })}
+    ${gato({ x: 150, y: 204, s: .66, ojos: 'felices', cola: 'izq', brazo: [70, -26] })}`),
+
+  fin: () => lienzo('fin', 'noche', `${cieloEstrellado(36, 61, 120)}${luna(180, 52, 26)}
+    <ellipse cx="180" cy="190" rx="116" ry="14" fill="${K.azul}" stroke="${K.ink}" stroke-width="3"/>
+    ${gatoDormido({ x: 128, y: 186, s: .86, quien: 'el', flip: true })}
+    ${gatoDormido({ x: 232, y: 186, s: .8, quien: 'ella', lazo: true })}
+    ${corazon(180, 116, 1, 'flota')}`),
+};
+
+
+  const HOJAS = [{"tipo": "portada", "escena": "portada", "titulo": "Mi amorcito bello"}, {"tipo": "carta", "parte": "Primera parte", "titulo": "A través de mis ojos", "escena": "ojos", "texto": "Mi amorcito bello, mi niña preciosa, quisiera que por un momentito pudieras mirar tu corazón a través de mis ojos, para que vieras lo increíblemente valiosa que eres y todo lo bonito que hay dentro de ti, incluso en esos días en los que tú misma no consigues verlo. Me duele saber que estás pasando por un momento tan difícil, que la escuela te está llenando de estrés y que tienes tantas dudas sobre lo que va a pasar cuando te gradúes. Quisiera poder estar ahí contigo, abrazarte muy fuerte, acomodarte entre mis brazos y dejar que descansaras un ratito de todo aquello que te preocupa. Quisiera poder darte un besito en tu frente y decirte despacito que no tienes que tener todas las respuestas ahora mismo, mi niña, que no tienes que saber exactamente qué vas a hacer con tu vida ni tener todo tu futuro resuelto para merecer sentirte tranquila. Estás creciendo, estás aprendiendo y estás llegando a una etapa nueva de tu vida, y entiendo que eso pueda darte miedo. Pero, mi amor, quiero que recuerdes algo muy importante. Tu valor no depende de que tengas un plan perfecto, de que sepas qué camino tomar o de que siempre seas fuerte. Tú sigues siendo esa niña maravillosa de la que me enamoré, esa personita que me hace soñar con tantas cosas bonitas y a la que quiero abrazar incluso en los días en los que ni siquiera ella sabe cómo sentirse mejor."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Lo que hay dentro de mi corazón", "escena": "casita", "texto": "Y, mi vida, quiero hablarte de nuestro futuro, pero no para que sientas que tienes que preocuparte por él, sino para que sepas lo que hay dentro de mi corazón. Cuando te digo que quiero casarme contigo, que sueño con tener una casita contigo y que quiero construir una vida a tu ladito, no te lo digo solamente porque suene bonito ni porque quiera hacerte sentir mejor por un ratito. Te lo digo porque, cuando pienso en mi futuro, me hace ilusión imaginarte en él. Me emociona pensar en el día en que podamos despertar juntitos, preparar nuestro desayunito, contarnos cómo nos fue y abrazarnos al final de un día cansado. Sueño con acompañarte mientras cumples tus metas, verte crecer, celebrar tus logros y recordarte lo orgulloso que estoy de ti. Y también quiero estar contigo cuando las cosas no salgan como esperabas, cuando tengas miedo, cuando te sientas perdida o cuando necesites detenerte un momento para respirar. Porque yo no solamente quiero compartir contigo los días bonitos, mi amorcito bello, también quiero aprender a acompañarte en los días difíciles."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Paso a pasito, a tu tiempo", "escena": "pasito", "texto": "Sé que te dije que yo me encargaría de nuestro futuro, y quiero que entiendas lo que realmente significa para mí. No quiero que sientas que tienes que depender de mí ni que tus sueños, tus decisiones o tu camino dejan de ser tuyos. Tampoco quiero que pienses que tienes que elegir rápidamente qué hacer con tu vida porque yo ya imagino una vida contigo. Quiero que tengas tus propias metas, que descubras lo que te apasiona, que te sientas orgullosa de la mujer en la que te estás convirtiendo y que nunca abandones tus sueños por miedo a no saber cómo cumplirlos. Cuando te digo que quiero construir un futuro contigo, quiero decirte que deseo ser tu compañero, que quiero que podamos apoyarnos mutuamente, esforzarnos juntos y encontrar soluciones cuando las cosas se pongan difíciles. No tienes que cargar tú solita con todas las preocupaciones, mi niña, pero tampoco tienes que resolverlas todas hoy. Vamos paso a pasito, a tu tiempo, sin exigirnos tener una vida entera planeada cuando todavía tenemos tantas cosas por descubrir."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Un lugar seguro", "escena": "refugio", "texto": "Y, mi amor, también quiero que sepas algo sobre lo que me dijiste de preferir estar solita porque tienes miedo de decirme algo que pueda lastimarme. No quiero que tengas miedo de hablar conmigo, mi niña preciosa. No quiero que sientas que tienes que esconder tus emociones, fingir que estás bien o guardar todo lo que llevas dentro para protegerme. Tus sentimientos también merecen un lugar seguro en nuestra relación. Si estás triste, puedes estar triste. Si estás estresada, puedes decirme que estás estresada. Si tienes miedo, puedes reconocerlo. Y si hay momentos en los que ni siquiera sabes cómo explicar lo que te pasa, tampoco tienes que encontrar las palabras perfectas. No voy a pedirte que me expliques todo cuando tú misma estás intentando comprender lo que sientes."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Tómate tu tiempo", "escena": "dormir", "texto": "Si ahora necesitas estar solita un ratito, mi amorcito bello, quiero respetarlo. No quiero presionarte para que hables ni hacerte sentir que tienes que estar bien solamente para que yo no me preocupe. Tómate tu tiempo, respira, descansa tu cabecita y date permiso de sentir lo que estás sintiendo. No tienes que responderme inmediatamente ni encontrar una solución a todo esta noche. Quiero que puedas tener tu espacio sin sentir que por eso me vas a perder. Y cuando te sientas preparada para hablar, aquí estaré dispuesto a escucharte con amor, sin exigirte que tengas todo claro y sin esperar que me digas únicamente cosas bonitas. Prefiero que podamos hablarnos con sinceridad y aprender a comprendernos, porque para mí lo que sientes importa, incluso cuando sea difícil de escuchar."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Cada persona tiene su propio tiempo", "escena": "flores", "texto": "Mi niña, ojalá pudiera explicarte cuánto deseo que seas feliz, no solamente conmigo, sino también contigo misma. Quiero que tengas días en los que te sientas orgullosa de ti, que descubras nuevas cosas que te hagan ilusión y que puedas mirar hacia atrás algún día y darte cuenta de que aquella etapa que tanto miedo te daba también fue una etapa que te ayudó a crecer. Y si las cosas no salen como las imaginabas, quiero que recuerdes que eso tampoco significa que hayas fracasado. La vida no siempre nos muestra el camino completo desde el principio. A veces solamente podemos dar un pasito, después otro, y poco a poco vamos descubriendo hacia dónde queremos ir. No tienes que compararte con nadie ni sentir que debes tener todo resuelto porque estás a punto de graduarte. Cada persona tiene su propio tiempo, y tú tienes derecho a descubrir el tuyo."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "No tienes que fingir una sonrisa conmigo", "escena": "sonrisa", "texto": "A veces quisiera poder quitarte todas las preocupaciones con un abrazo, mi amor, pero sé que no puedo solucionar mágicamente todo lo que te duele. Lo que sí puedo hacer es amarte con paciencia, escucharte cuando necesites desahogarte, apoyarte cuando quieras buscar soluciones y recordarte que no tienes que ser fuerte a cada segundo. No tienes que demostrarme que puedes con todo para que yo me sienta orgulloso de ti. También puedes cansarte, llorar, sentir miedo y necesitar que alguien te abrace sin hacerte preguntas. Y si algún día sientes que no puedes más con todas tus preocupaciones, quiero que sepas que no tienes que fingir una sonrisa conmigo."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Si pudiera pedirle algo a Diosito", "escena": "diosito", "texto": "Mi amorcito bello, si pudiera pedirle algo a Diosito por ti en este momento, le pediría que te regalara tranquilidad en tu cabecita, que aliviara ese peso que llevas en tu corazón y que te ayudara a ver todas las posibilidades bonitas que todavía existen delante de ti. Le pediría que te diera fuerzas cuando te sientas cansada, claridad cuando no sepas qué camino tomar y paz para que puedas descansar sin sentir que tienes que resolverlo todo de inmediato. También le pediría que me enseñara a amarte cada día mejor, a comprender tus silencios, a escuchar tus preocupaciones y a acompañarte de la manera en que tú necesitas ser acompañada."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Caminar juntitos", "escena": "juntitos", "texto": "Quiero que algún día, cuando recordemos esta etapa de nuestras vidas, podamos abrazarnos y decir que, aunque tuvimos miedo y hubo momentos en los que no sabíamos qué iba a pasar, aprendimos a caminar juntitos sin exigirnos tener todas las respuestas. Quiero que podamos mirar nuestra casita, recordar todo lo que vivimos para llegar hasta ahí y sentirnos orgullosos de cada pasito que dimos. Quiero verte cumplir tus sueños, mi niña, y quiero que tú también me veas cumplir los míos. Quiero que construyamos una vida en la que los dos podamos crecer, apoyarnos y sentir que tenemos a alguien a nuestro lado que cree en nosotros incluso cuando nosotros mismos dudamos."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "También cuando estás triste", "escena": "paraguas", "texto": "Y, sobre todas las cosas, quiero que recuerdes que no tienes que ganarte mi amor siendo una novia que siempre está feliz, que siempre tiene ganas de hablar o que nunca se siente abrumada. Eres mi amorcito bello también cuando estás triste, cuando estás cansada, cuando necesitas silencio y cuando no sabes qué hacer con tus pensamientos. No tienes que estar bien todo el tiempo para que yo quiera estar contigo. No tienes que tener tu futuro resuelto para que yo siga soñando con uno a tu ladito. Y no tienes que encontrar las palabras perfectas para que yo quiera escucharte."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Respira, mi niña", "escena": "respira", "texto": "Te amo muchísimo, mi princesa hermosa. No quiero que leas esto como otra cosa que tienes que resolver ni como una obligación de sentirte mejor inmediatamente. Quiero que lo guardes en tu corazoncito y que vuelvas a él cuando sientas que todo es demasiado. Respira, mi niña, ve un día a la vez y recuerda que todavía tienes tiempo para descubrir tantas cosas bonitas de ti misma y de la vida. Yo también tengo mucho que aprender y quiero seguir creciendo, tanto por mí como por la vida que sueño construir contigo. No puedo prometerte que todo será fácil ni que nunca tendremos preocupaciones, pero sí puedo decirte que mi intención es caminar a tu lado, aprender a escucharte y construir contigo una relación en la que ambos podamos sentirnos queridos y respetados."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "Un besito en tu frente", "escena": "besito", "texto": "Ojalá pudiera abrazarte ahora mismo, esconder tu carita en mi pecho y darte un besito en tu frente mientras te digo que no necesitas tener todas las respuestas, mi amor. Por ahora, recibe todo el cariño que puedo mandarte a través de estas palabras. Descansa tu cabecita, cuida tu corazoncito y no te olvides de cuidarte a ti misma. Eres muchísimo más que tus preocupaciones, más que tus dudas y más que cualquier miedo que puedas sentir en este momento. Eres una mujer maravillosa que todavía tiene muchísimas cosas por descubrir, y me siento muy afortunado de poder conocerte, amarte y soñar contigo."}, {"tipo": "carta", "parte": "Primera parte", "titulo": "El abrazo más fuerte", "escena": "abrazo", "texto": "Te amo, mi amorcito bello, mi niña preciosa, y quiero que nuestro amor sea un lugar donde puedas respirar, sentirte comprendida y recordar que no tienes que cargar con todo al mismo tiempo. No necesitas decidir hoy cómo será toda tu vida. Por ahora, vive este día, cuida de ti y date la oportunidad de descansar. Lo demás lo iremos descubriendo pasito a pasito, con paciencia, con esfuerzo y con mucho amor. Y cuando vuelvas a sentirte preparada para compartir conmigo lo que llevas dentro, quiero escucharte con todo mi corazón. Te mando el abrazo más fuerte que puedas imaginar, de esos que no te exigen decir nada y que simplemente te hacen sentir acompañada. Te amo muchísimo, mi futura esposita hermosa, y deseo de todo corazón que, poquito a poquito, vuelvas a encontrar esa tranquilidad que tanto necesitas. 💞"}, {"tipo": "separador", "parte": "Segunda parte", "titulo": "Yo creo en ti", "escena": "estrella"}, {"tipo": "carta", "parte": "Segunda parte", "titulo": "Lo que eres capaz de lograr", "escena": "escalera", "texto": "Y quiero que nunca olvides algo, mi amorcito bello, yo creo en ti, incluso en esos momentos en los que tú misma dudas de lo que eres capaz de lograr. Sé que a veces el miedo puede hacerte sentir que no sabes qué hacer, que el futuro es demasiado incierto o que no tienes la fuerza suficiente para afrontar todo lo que viene, pero yo veo en ti a una mujer maravillosa, inteligente, capaz y con un corazón precioso, que tiene muchísimo por descubrir y lograr en esta vida."}, {"tipo": "carta", "parte": "Segunda parte", "titulo": "Tú puedes, de verdad que puedes", "escena": "porra", "texto": "Mi niña, tú puedes, de verdad que puedes, y no te lo digo solamente porque te amo, sino porque confío en la personita que eres y en todo lo que puedes llegar a conseguir. No necesitas tener todas las respuestas ahora, ni saber exactamente qué camino tomar, solamente necesitas darte la oportunidad de avanzar poquito a poquito y confiar en ti tanto como yo confío en ti. Y si algún día sientes que tus fuerzas se terminan, quiero que recuerdes que un momento de duda no significa que seas incapaz, que sentir miedo no significa que vayas a fracasar y que no saber qué hacer hoy no significa que no puedas encontrar tu camino mañana."}, {"tipo": "carta", "parte": "Segunda parte", "titulo": "Estoy muy orgulloso de ti", "escena": "medalla", "texto": "Estoy muy orgulloso de ti, mi princesa, de todo lo que has hecho para llegar hasta aquí y de todo el esfuerzo que haces, incluso cuando sientes que ya no puedes más. Deseo que algún día puedas mirarte con los mismos ojos con los que yo te miro y reconocer lo valiosa, fuerte y capaz que eres. No quiero que vivas intentando demostrarle nada a nadie, mi amor, quiero que luches por tus sueños porque tú también mereces sentirte orgullosa de ti misma y disfrutar de todo lo bonito que puedes construir."}, {"tipo": "carta", "parte": "Segunda parte", "titulo": "El siguiente pasito", "escena": "amanecer", "texto": "Yo voy a estar aquí para celebrar cada uno de tus logros, por pequeñitos que parezcan, para recordarte lo mucho que vales cuando lo olvides y para darte la manita cuando necesites un poquito de ánimo. Confío en ti, en tu capacidad y en que, paso a paso, encontrarás tu camino. No tienes que poder con todo hoy, mi niña, solamente tienes que creer que eres capaz de dar el siguiente pasito. Y yo, mi amorcito bello, voy a seguir creyendo en ti mientras tú aprendes a creer cada vez más en ti misma. 💞"}, {"tipo": "fin", "escena": "fin"}];
+  const CLAVE = 'felices-4-meses-cartita-hoja';
+  const caja = document.getElementById('cartita'), deck = document.getElementById('caDeck');
+  const barra = document.getElementById('caBarra'), atras = document.getElementById('caAtras'), sig = document.getElementById('caSig');
+  const relleno = document.getElementById('caRelleno'), patita = document.getElementById('caPatita'), cuenta = document.getElementById('caCuenta'), aviso = document.getElementById('caAviso');
+  const total = HOJAS.length;
+  const ANCHA = window.matchMedia('(min-width: 900px)');
+  let actual = 0, abierta = false, construida = false, slides = [];
+
+  function nodo(tag, clase, texto) {
+    const e = document.createElement(tag);
+    if (clase) e.className = clase;
+    if (texto != null) e.textContent = texto;
+    return e;
+  }
+  function crearBoton(clase, texto, fn) { const b = nodo('button', clase, texto); b.type = 'button'; b.addEventListener('click', fn); return b; }
+  function rodillo(hoja) { return ANCHA.matches ? hoja.querySelector('.lado') : hoja; }
+  function revisarMas(hoja) { const r = rodillo(hoja); hoja.classList.toggle('mas', r.scrollTop + r.clientHeight < r.scrollHeight - 24); }
+
+  function construir() {
+    construida = true;
+    slides = HOJAS.map((h, i) => {
+      const sec = nodo('section', 'slide' + (i === 0 ? ' activa' : ''));
+      sec.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+      const hoja = nodo('article', 'hoja hoja-' + h.tipo);
+      hoja.tabIndex = -1;
+      const fig = nodo('figure', 'escena');
+      fig.innerHTML = ESCENAS[h.escena]();
+      const tope = fig.querySelector('stop');
+      if (tope) fig.style.backgroundColor = tope.getAttribute('stop-color');
+      hoja.append(fig);
+      const t = nodo('div', 'texto');
+      if (h.tipo === 'portada') {
+        t.append(nodo('h1', '', h.titulo), nodo('p', 'ca-sub', 'Una cartita para ti'));
+        const b = nodo('div', 'botones');
+        const seguir = crearBoton('ca-btn ca-ghost', '', () => {});
+        seguir.id = 'caSeguir'; seguir.hidden = true;
+        b.append(crearBoton('ca-btn', 'Abrir la carta', () => ir(1)), seguir);
+        t.append(b);
+      } else if (h.tipo === 'separador') {
+        t.append(nodo('p', 'ca-eyebrow', h.parte), nodo('h2', '', h.titulo));
+      } else if (h.tipo === 'fin') {
+        t.append(nodo('p', 'ca-desp', 'Con todo mi amor,'), nodo('p', 'ca-firma', FIRMA + ' 💞'));
+        const b = nodo('div', 'botones');
+        b.append(crearBoton('ca-btn ca-ghost', 'Leer otra vez desde el inicio', () => ir(1)), crearBoton('ca-btn', 'Volver a la página', cerrar));
+        t.append(b);
+      } else {
+        t.append(nodo('p', 'ca-eyebrow', h.parte), nodo('h2', '', h.titulo), nodo('p', 'carta', h.texto));
+      }
+      const lado = nodo('div', 'lado');
+      lado.append(t);
+      hoja.append(lado);
+      if (h.tipo === 'carta') {
+        const w = nodo('div', 'seguir-wrap');
+        w.append(crearBoton('seguir', 'Sigue leyendo ↓', () => { const r = rodillo(hoja); r.scrollBy({ top: r.clientHeight * 0.7, behavior: 'smooth' }); }));
+        lado.append(w);
+        hoja.addEventListener('scroll', () => revisarMas(hoja), { passive: true });
+        lado.addEventListener('scroll', () => revisarMas(hoja), { passive: true });
+      }
+      sec.append(hoja);
+      deck.append(sec);
+      return sec;
+    });
+  }
+
+  function pintarBarra() {
+    const p = actual / (total - 1);
+    relleno.style.width = (p * 100) + '%';
+    patita.style.left = (p * 100) + '%';
+    cuenta.textContent = `${actual} / ${total - 1}`;
+    barra.classList.toggle('en-portada', actual === 0);
+    barra.classList.toggle('en-final', actual >= total - 1);
+    atras.disabled = actual <= 1;
+  }
+  function ir(n, forzar) {
+    n = Math.max(0, Math.min(total - 1, n));
+    if (n === actual && !forzar) return;
+    slides.forEach((s, i) => {
+      s.classList.toggle('activa', i === n);
+      s.classList.toggle('antes', i < n);
+      s.setAttribute('aria-hidden', i === n ? 'false' : 'true');
+    });
+    actual = n;
+    const hoja = slides[n].querySelector('.hoja');
+    hoja.scrollTop = 0; hoja.querySelector('.lado').scrollTop = 0;
+    requestAnimationFrame(() => revisarMas(hoja));
+    pintarBarra();
+    aviso.textContent = n === 0 ? '' : `Hoja ${n} de ${total - 1}`;
+    hoja.focus({ preventScroll: true });
+    try { localStorage.setItem(CLAVE, String(n)); } catch (e) {}
+  }
+  function prepararSeguir() {
+    let n = 0;
+    try { n = parseInt(localStorage.getItem(CLAVE), 10) || 0; } catch (e) {}
+    const b = document.getElementById('caSeguir');
+    if (n > 1 && n < total - 1) {
+      b.textContent = `Seguir en la hoja ${n}`;
+      b.hidden = false;
+      b.onclick = () => ir(n);
+    } else b.hidden = true;
+  }
+
+  function abrir() {
+    if (!construida) construir();
+    closeModal();
+    caja.hidden = false; abierta = true;
+    document.body.style.overflow = 'hidden';
+    prepararSeguir();
+    ir(0, true);
+    try { history.replaceState(null, '', '#cartita'); } catch (e) {}
+    cielo.iniciar();
+    const b = slides[0].querySelector('.ca-btn');
+    if (b) b.focus({ preventScroll: true });
+  }
+  function cerrar() {
+    if (!abierta) return;
+    abierta = false; caja.hidden = true;
+    document.body.style.overflow = '';
+    cielo.parar();
+    try { history.replaceState(null, '', '#' + escena); } catch (e) {}
+  }
+
+  atras.addEventListener('click', () => ir(actual - 1));
+  sig.addEventListener('click', () => ir(actual + 1));
+  document.getElementById('caCerrar').addEventListener('click', cerrar);
+  document.addEventListener('keydown', e => {
+    if (!abierta) return;
+    if (e.key === 'Escape') { cerrar(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); ir(actual + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); if (actual > 1) ir(actual - 1); }
+  });
+  let x0 = null, y0 = null;
+  deck.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; x0 = e.clientX; y0 = e.clientY; });
+  deck.addEventListener('pointerup', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+    if (dx < 0) ir(actual + 1); else if (actual > 1) ir(actual - 1);
+  });
+  deck.addEventListener('pointercancel', () => { x0 = null; });
+  window.addEventListener('resize', () => { if (abierta) revisarMas(slides[actual].querySelector('.hoja')); });
+  document.addEventListener('click', e => { if (e.target.closest('[data-cartita]')) abrir(); });
+
+  const cielo = (() => {
+    const cv = document.getElementById('caCielo'), ctx = cv.getContext('2d');
+    let est = [], w = 0, h = 0, raf = 0, activo = false;
+    function medir() {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.round(w * h / 5200);
+      est = Array.from({ length: n }, () => ({ x: Math.random() * w, y: Math.random() * h, r: .4 + Math.random() * 1.3, f: Math.random() * 6.28, v: .4 + Math.random() * 1.2 }));
+    }
+    function pintar(t) {
+      ctx.clearRect(0, 0, w, h);
+      for (const s of est) {
+        ctx.globalAlpha = REDUCED ? .7 : .35 + .55 * (0.5 + 0.5 * Math.sin(t / 1000 * s.v + s.f));
+        ctx.fillStyle = '#dfe9ff';
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (activo && !REDUCED) raf = requestAnimationFrame(pintar);
+    }
+    window.addEventListener('resize', () => { if (activo) { medir(); if (REDUCED) pintar(0); } });
+    return {
+      iniciar() { activo = true; medir(); cancelAnimationFrame(raf); raf = requestAnimationFrame(pintar); },
+      parar() { activo = false; cancelAnimationFrame(raf); },
+    };
+  })();
+
+  return { abrir, cerrar };
+})();
+
 /* ---------- Arranque ---------- */
 portada();
-go((location.hash || '').replace('#', '') || 'portada');
-window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (h && h !== escena) { closeModal(); go(h); } });
+const hashInicial = (location.hash || '').replace('#', '');
+go(hashInicial && hashInicial !== 'cartita' ? hashInicial : 'portada');
+if (hashInicial === 'cartita') cartita.abrir();
+window.addEventListener('hashchange', () => {
+  const h = location.hash.replace('#', '');
+  if (h === 'cartita') { cartita.abrir(); return; }
+  if (h && h !== escena) { closeModal(); cartita.cerrar(); go(h); }
+});
 </script>
 </body>
 </html>

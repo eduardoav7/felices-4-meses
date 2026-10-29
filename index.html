@@ -607,17 +607,80 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 .mr3-accion.no { background: #e3e6ef; animation: none; }
 .mr3-accion:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 .mr3-carga { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 24px; text-align: center; font: 700 30px/1.2 var(--font-hand); color: var(--ink); background: #bfe0ff; }
-.mr-toast { position: absolute; left: 50%; top: calc(104px + env(safe-area-inset-top, 0px)); z-index: 4; transform: translateX(-50%); width: max-content; max-width: min(92%, 480px); padding: 9px 14px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; line-height: 1.35; text-align: center; pointer-events: none; box-shadow: 0 8px 18px var(--shadow); }
+.mr-toast { position: relative; width: max-content; max-width: min(100%, 480px); margin: 8px auto 0; padding: 9px 14px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; line-height: 1.35; text-align: center; box-shadow: 0 8px 18px var(--shadow); }
+.mr3-hud > .mr-toast { pointer-events: none; }
+.mr-dinero b.pop { animation: mrPop .35s ease-out; }
+@keyframes mrPop { 40% { scale: 1.18; color: #2fbf6a; } }
+/* Misión */
+.mr3-mision { position: relative; display: flex; align-items: center; gap: 7px; max-width: 620px; margin: 7px auto 0; padding: 7px 10px 10px; overflow: hidden;
+  background: rgba(255, 255, 255, .92); border: 2px solid var(--ink); border-radius: 12px 8px 12px 9px; box-shadow: 2px 3px 0 var(--ink); font: 800 12.5px/1.2 var(--font-body); }
+.mr3-mision:empty { display: none; }
+.mr3-mision .i { font-size: 17px; line-height: 1; }
+.mr3-mision .t { flex: 1; min-width: 0; }
+.mr3-mision .p { flex: none; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.mr3-mision .pr { flex: none; color: #23884c; background: #e3f8ea; border: 1.5px solid #23884c; border-radius: 99px; padding: 2px 7px; font-variant-numeric: tabular-nums; }
+.mr3-mision .bar, .mr3-evento .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(34, 38, 74, .12); }
+.mr3-mision .bar i { display: block; height: 100%; background: #7ee2a0; transition: width .25s; }
+.mr3-mision.hecha { animation: mrHecha .9s ease-out; }
+@keyframes mrHecha { 0% { background: #7ee2a0; scale: 1.04; } 100% { background: rgba(255, 255, 255, .92); scale: 1; } }
+/* Evento */
+.mr3-evento { position: relative; display: flex; align-items: center; gap: 7px; width: max-content; max-width: 100%; margin: 7px auto 0; padding: 6px 12px 9px; overflow: hidden;
+  color: #fff; background: #3f74e0; border: 2px solid var(--ink); border-radius: 99px; box-shadow: 2px 3px 0 var(--ink); font: 800 13px/1.2 var(--font-body); animation: mrEv 1.4s ease-in-out infinite; }
+.mr3-evento .i { font-size: 17px; line-height: 1; }
+.mr3-evento .s { font-variant-numeric: tabular-nums; opacity: .92; }
+.mr3-evento .bar { background: rgba(0, 0, 0, .15); }
+.mr3-evento .bar i { display: block; height: 100%; background: #ffe39a; }
+.mr3-evento.ev-tacos { background: #e8892a; } .mr3-evento.ev-pre { animation-duration: .6s; }
+.mr3-evento.ev-loca { background: #b45ee8; } .mr3-evento.ev-regalo { background: #e8507a; } .mr3-evento.ev-siesta { background: #56607d; } .mr3-evento.ev-turbo { background: #2a9d8f; }
+@keyframes mrEv { 50% { translate: 0 -2px; } }
+/* Saltar */
+.mr3-salto { position: absolute; z-index: 2; right: max(30px, calc(env(safe-area-inset-right, 0px) + 12px)); bottom: calc(146px + env(safe-area-inset-bottom, 0px)); width: 78px; height: 78px; border-radius: 50%; cursor: pointer; touch-action: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; background: #9ec5f5; color: var(--ink); border: 2.5px solid var(--ink); box-shadow: 3px 4px 0 var(--ink); }
+.mr3-salto .i { font: 800 26px/1 var(--font-body); }
+.mr3-salto .t { font: 800 11.5px/1 var(--font-body); }
+.mr3-salto:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+/* Tiendita */
+.mr-tienda { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.mr-mej { display: flex; align-items: center; gap: 10px; padding: 9px 10px; background: #fff; border: 2px solid var(--ink); border-radius: 12px 8px 12px 9px; }
+.mr-mej .ico { font-size: 26px; line-height: 1; }
+.mr-mej .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.mr-mej .tx b { font: 800 14px/1.15 var(--font-body); }
+.mr-mej .tx span { font-size: 12px; line-height: 1.3; color: var(--ink-soft); }
+.mr-mej .tx .nv { color: #9b55e0; font-weight: 800; letter-spacing: .02em; }
+.mr-mej .mr-mini { flex: none; min-width: 74px; }
+.mr-mej .mr-mini.ok { background: #7ee2a0; }
+.mr-mej .mr-mini.caro { opacity: .6; }
+.mr-mej .mr-mini:disabled { background: #fff3c4; box-shadow: none; cursor: default; }
+.mr-tienda-msg { font-weight: 800; color: #9b55e0; }
 .mr-cardwrap { z-index: 5; }
 .mr-sheet { max-width: 380px; -webkit-user-select: text; user-select: text; }
 .mr-sheet > p { margin: 0; }
 .mr-chip { display: inline-block; vertical-align: middle; font: 800 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: #8f96ad; border: 1.5px solid var(--ink); border-radius: 99px; padding: 4px 7px; white-space: nowrap; }
 .mr-chip.r-r { background: #3f74e0; } .mr-chip.r-e { background: #9b55e0; } .mr-chip.r-l { background: #e09a12; } .mr-chip.r-m { background: #e23d52; }
 .mr-chip.r-d { background: linear-gradient(90deg, #e23d52, #e09a12, #2f9e5b, #3f74e0, #9b55e0); } .mr-chip.r-s { background: #22264a; color: #ffe39a; }
+.mr-chip.r-x { background: linear-gradient(90deg, #16c1d6, #7b5cff, #ff4fa3); }
+.mr-chip.m-o { background: #ffc93c; color: var(--ink); } .mr-chip.m-d { background: #7fe3ff; color: var(--ink); } .mr-chip.m-a { background: linear-gradient(90deg, #ff7ad9, #ffd25e, #7ee2a0, #7fe3ff, #b48cff); color: var(--ink); }
+.mr-mut-o { filter: drop-shadow(0 0 10px #ffc93c) drop-shadow(0 0 4px #ffc93c); }
+.mr-mut-d { filter: drop-shadow(0 0 10px #7fe3ff) drop-shadow(0 0 4px #7fe3ff); }
+.mr-mut-a { filter: drop-shadow(0 0 10px #ff7ad9) drop-shadow(0 0 5px #7fe3ff); }
+.mr-chip.m-c { background: #ff9ad5; color: var(--ink); } .mr-chip.m-t { background: #ffb23d; color: var(--ink); } .mr-chip.m-l { background: linear-gradient(90deg, #ff2d2d, #ff8a1f); } .mr-chip.m-g { background: linear-gradient(90deg, #2a1f6b, #7b5cff, #2a1f6b); color: #fff; }
+.mr-mut-c { filter: drop-shadow(0 0 10px #ff9ad5) drop-shadow(0 0 4px #9ff0d0); }
+.mr-mut-t { filter: drop-shadow(0 0 10px #ffb23d) drop-shadow(0 0 4px #ffcf5c); }
+.mr-mut-l { filter: drop-shadow(0 0 10px #ff5a1f) drop-shadow(0 0 5px #ffb21f); }
+.mr-mut-g { filter: drop-shadow(0 0 12px #7b5cff) drop-shadow(0 0 5px #ff9ad5); }
+.mr-tacowrap { position: relative; width: 120px; margin: 14px auto 0; }
+.mr-tacowrap .mr-taco-mini { position: absolute; left: 50%; top: -26px; width: 58px; height: 58px; translate: -50% 0; rotate: -8deg; }
 .mr-grande { display: block; width: 120px; height: 120px; margin: 0 auto; }
 .mr-enorme { display: block; width: 180px; height: 180px; margin: 0 auto; animation: mrLate 1.6s ease-in-out infinite; }
 @keyframes mrLate { 50% { scale: 1.05; } }
 .mr-ficha-n { font: 700 30px/1 var(--font-hand); }
+.mr-sheet.mr-sheet-siempre { background: radial-gradient(circle at 50% 62%, #45308c, #1b1544 72%); color: #fff; border-color: #120e2e; box-shadow: 6px 8px 0 #120e2e; }
+.mr-sheet-siempre .mr-ficha-d { color: #ece8ff; }
+.mr-siempre { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.mr-siempre .t { font: 900 34px/1.02 var(--font-body); color: #fff; text-shadow: 0 3px 0 #120e2e; }
+.mr-siempre .s { font: 900 19px/1 var(--font-body); color: #ff8fc6; letter-spacing: .05em; text-transform: uppercase; }
+.mr-siempre .g { font: 900 31px/1 var(--font-body); color: #58f07a; text-shadow: 0 3px 0 #0c3b1a; font-variant-numeric: tabular-nums; }
+.mr-siempre-img { display: block; width: 230px; height: 230px; animation: mrLate 1.6s ease-in-out infinite; }
 .mr-ficha-d { font-size: 15px; line-height: 1.45; }
 .mr-ganan { font-weight: 800; color: #23884c; }
 .mr-tip { font-size: 13px; color: var(--ink-soft); }
@@ -627,6 +690,10 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 .mr-col-i svg { width: 62px; height: 62px; }
 .mr-col-i .n { min-height: 26px; font: 800 11px/1.15 var(--font-body); text-align: center; }
 .mr-col-i .g { font: 800 11px/1 var(--font-body); color: #23884c; }
+.mr-col-i .mm { font-size: 12px; line-height: 1; letter-spacing: 1px; }
+.mr-col-i.ex { background: linear-gradient(160deg, #e9fbff, #f6ecff 60%, #ffe9f4); border-color: #7b5cff; }
+.mr-col-i .pista { font: 700 10px/1.2 var(--font-body); color: var(--ink-soft); text-align: center; }
+.mr-col-i.falta.ex svg { opacity: .22; }
 .mr-col-i.falta svg, .mr-misterio { filter: brightness(0); opacity: .16; }
 .mr-vitrina { display: flex; justify-content: center; align-items: flex-end; gap: 4px; }
 .mr-vitrina svg { width: 76px; height: 76px; }
@@ -642,6 +709,10 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 }
 @media (min-width: 900px) {
   .mr3-joy { width: 140px; height: 140px; }
+}
+@media (max-width: 360px) {
+  .mr .mr-mini { padding: 7px 8px; font-size: 12px; }
+  .mr3-mision { font-size: 11.5px; }
 }
 </style>
 </head>
@@ -980,17 +1051,19 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <div class="head">
         <p class="eyebrow">Juego 7 de 7 · Nuevo</p>
         <h2><span class="mark">Roba un Michirot</span></h2>
-        <p class="lead">Un mundo en 3D: camina con tu gatita, compra los brainrots gatunos que pasan por la alfombra y róbale los mejores al Zombie Gruñón y a Michi Bandido.</p>
+        <p class="lead">Un mundo en 3D con música: camina con tu gatita, compra los brainrots gatunos que pasan por la alfombra y róbale los mejores al Zombie Gruñón y a Michi Bandido.</p>
       </div>
       <div class="mr-vitrina" id="mrVitrina"></div>
       <div class="card">
         <ul class="adv-how">
-          <li><span>🕹️</span><span>Camina con el joystick (o con las flechas en la compu).</span></li>
-          <li><span>🛒</span><span>Acércate a un michirot de la alfombra y presiona «Comprar».</span></li>
+          <li><span>🕹️</span><span>Camina con el joystick (o con las flechas en la compu) y salta con ⤴.</span></li>
+          <li><span>🛒</span><span>Acércate a un michirot de la alfombra y presiona «Comprar». Los mutados (dorados, de lava, galaxia…) ganan mucho más.</span></li>
+          <li><span>🌮</span><span>Cada 2 minutos llueven tacos: al michirot que le cae uno se vuelve Taco y gana ×4.</span></li>
           <li><span>💰</span><span>Tus michirots ganan dinero en tu base. Pasa junto a ellos para cobrar.</span></li>
           <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base antes de que el dueño te alcance.</span></li>
-          <li><span>🔒</span><span>Si Michi Bandido se lleva uno de los tuyos, alcánzalo. Con el candado no puede entrar.</span></li>
-          <li><span>✨</span><span>Junta 7 michirots distintos y pasará uno secreto muy especial…</span></li>
+          <li><span>🎯</span><span>Cumple misiones, agranda tu base en la tiendita y aprovecha las sorpresas: lluvia de monedas, hora loca y regalos.</span></li>
+          <li><span>💎</span><span>Hay más de 20 michirots, y 4 Exclusivos que solo salen en momentos especiales.</span></li>
+          <li><span>✨</span><span>Junta 7 michirots distintos y pasará uno secreto muy especial… y después, otro todavía más especial 💞</span></li>
         </ul>
       </div>
       <p class="game-msg" id="mrEstado" aria-live="polite"></p>
@@ -1038,12 +1111,17 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="mr3-botones">
       <button class="mr-mini" type="button" id="mrCandado">🔒 Cerrar</button>
       <button class="mr-mini" type="button" id="mrCol">📖 <b id="mrColN">0/12</b></button>
+      <button class="mr-mini" type="button" id="mrTienda" aria-label="Tiendita de mejoras">🛍️</button>
+      <button class="mr-mini" type="button" id="mrSonido" aria-label="Música y sonidos">🔊</button>
       <button class="mr-mini" type="button" id="mrAyuda" aria-label="Cómo jugar">❓</button>
     </div>
+    <div class="mr3-mision" id="mrMision" aria-live="polite"></div>
+    <div class="mr3-evento" id="mrEvento" hidden></div>
+    <div class="mr-toast" id="mrToast" role="status" hidden></div>
   </div>
   <div class="mr3-joy" id="mrJoy" aria-label="Joystick para caminar"><span class="mr3-perilla" id="mrPerilla"></span></div>
+  <button class="mr3-salto" type="button" id="mrSalto" aria-label="Saltar"><span class="i">⤴</span><span class="t">Saltar</span></button>
   <button class="mr3-accion" type="button" id="mrAccion" hidden><span class="i" id="mrAccIco">🛒</span><span class="t" id="mrAccTxt">Comprar</span></button>
-  <div class="mr-toast" id="mrToast" role="status" hidden></div>
   <div class="mr3-carga" id="mrCarga" hidden>Cargando el mundo 3D… 🐾</div>
   <div class="adv-card mr-cardwrap" id="mrCard" hidden></div>
 </div>
@@ -3051,6 +3129,7 @@ $('#advCarta').addEventListener('click', cartaPrincesa);
 /* Juego 7: Roba un Michirot (mundo 3D) */
 const michirot = (() => {
   /* ---- Arte: michirots originales (100×100) ---- */
+  const FOTO_SIEMPRE = 'data:image/png;base64,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';
   const T = '#22264a';
   const R = (n) => +n.toFixed(1);
   function cara(cx, cy, s = 1, o = {}) {
@@ -3191,6 +3270,147 @@ const michirot = (() => {
       <ellipse cx="38" cy="90" rx="5.5" ry="3.4" fill="#9ec0f7" ${S2}/><ellipse cx="62" cy="90" rx="5.5" ry="3.4" fill="#f5a9c0" ${S2}/>
       ${brillo(10, 20, 5)}${brillo(90, 16, 4)}${brillo(92, 70, 3.5)}${brillo(8, 74, 3.5)}
       <g class="mr-sube">${corazonito(50, 14, .55, '#e23d52')}</g>`,
+
+    calzino: () => `<path d="M30 52 L30 80 Q30 94 46 94 L76 94 Q89 94 89 84 Q89 74 76 74 L62 74 L62 52 Z" fill="#ffffff"/>
+      <path d="M30 61 H62 M30 70 H62" stroke="#5b8def" stroke-width="4.5"/>
+      <path d="M76 74 Q89 74 89 84 Q89 94 76 94 Z" fill="#5b8def"/><path d="M30 83 Q31 94 45 94 L45 85 Q36 86 30 83 Z" fill="#5b8def"/>
+      <path d="M30 52 L30 80 Q30 94 46 94 L76 94 Q89 94 89 84 Q89 74 76 74 L62 74 L62 52 Z" fill="none" ${S2}/>
+      ${cabeza(46, 38, .95, '#c9b0ff', { ojos: 'abiertos' })}
+      <rect x="26" y="47" width="40" height="9" rx="4" fill="#e23d52" ${S2}/>
+      <ellipse cx="38" cy="49" rx="5" ry="3.6" fill="#c9b0ff" ${S2}/><ellipse cx="54" cy="49" rx="5" ry="3.6" fill="#c9b0ff" ${S2}/>
+      ${corazonito(76, 30, .5, '#f5a9c0')}`,
+
+    croissantino: () => `${cabeza(50, 46, 1, '#fff1dc', { ojos: 'felices' })}
+      <path d="M7 74 Q15 57 30 61 Q40 53 50 55 Q60 53 70 61 Q85 57 93 74 Q87 90 71 88 Q61 95 50 93 Q39 95 29 88 Q13 90 7 74 Z" fill="#eaa44c" ${S2}/>
+      <path d="M30 61 Q35 75 29 88 M50 55 Q55 74 50 93 M70 61 Q65 75 71 88" fill="none" stroke="#b8732a" stroke-width="2" stroke-linecap="round"/>
+      <path d="M14 71 Q19 64 26 65 M37 62 Q42 59 46 60 M57 60 Q62 59 66 62" fill="none" stroke="#ffd79a" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="40" cy="59" rx="5" ry="3.6" fill="#fff1dc" ${S2}/><ellipse cx="60" cy="59" rx="5" ry="3.6" fill="#fff1dc" ${S2}/>
+      ${brillo(84, 30, 3.5, '#ffd25e')}${brillo(16, 40, 3, '#ffd25e')}`,
+
+    bubbletino: () => `<path d="M64 2 L57 44" stroke="${T}" stroke-width="7.5" stroke-linecap="round"/><path d="M64 2 L57 44" stroke="#ff8fab" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M22 44 L78 44 L71 93 L29 93 Z" fill="#f1d3ad" ${S2}/>
+      <path d="M24 58 L76 58" stroke="#ffffff" stroke-width="3" opacity=".55"/>
+      ${[[36, 84], [46, 87], [57, 85], [65, 80], [41, 78], [52, 79], [33, 89], [61, 89]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.6" fill="#3d2a24"/><circle cx="${x - 1}" cy="${y - 1.2}" r="1" fill="#fff" opacity=".6"/>`).join('')}
+      ${cabeza(50, 33, .85, '#b7e4c7', { ojos: 'abiertos' })}
+      <path d="M20 44 Q20 9 50 9 Q80 9 80 44 Z" fill="#ffffff" opacity=".28" ${S2}/>
+      <rect x="17" y="42" width="66" height="7" rx="3.5" fill="#ff8fab" ${S2}/>
+      <path d="M27 20 Q31 14 37 13" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>`,
+
+    pizzagatto: () => `<path d="M16 30 L84 30 L50 95 Z" fill="#ffcf5c" ${S2}/>
+      <path d="M22 37 L78 37 L50 89 Z" fill="#ffe08a"/>
+      <path d="M16 30 L84 30 L50 95 Z" fill="none" ${S2}/>
+      <path d="M20 26 L24 9 L36 21 Z M80 26 L76 9 L64 21 Z" fill="#d9893b" ${S2}/><path d="M24 22 L25.5 14 L31 20 Z M76 22 L74.5 14 L69 20 Z" fill="#f5a9c0"/>
+      <rect x="11" y="20" width="78" height="14" rx="7" fill="#d9893b" ${S2}/>
+      <path d="M20 25 Q24 22 28 24 M60 24 Q64 22 68 24" fill="none" stroke="#f3b36d" stroke-width="2" stroke-linecap="round"/>
+      ${cara(50, 50, 1)}
+      <circle cx="37" cy="70" r="5" fill="#e23d52" ${S2}/><circle cx="60" cy="72" r="4.5" fill="#e23d52" ${S2}/><circle cx="50" cy="83" r="3.6" fill="#e23d52" ${S2}/>
+      <path d="M70 44 Q74 38 79 41 Q75 47 70 44 Z" fill="#6cc08a" ${S2}/>`,
+
+    donutella: () => `<ellipse cx="50" cy="74" rx="42" ry="19" fill="#e6a15a" ${S2}/>
+      <path d="M12 72 Q14 58 50 57 Q86 58 88 72 Q84 76 80 73 Q76 80 70 75 Q64 82 58 77 Q50 84 43 77 Q36 82 30 75 Q24 80 20 73 Q15 77 12 72 Z" fill="#ff9ad5" ${S2}/>
+      ${[['#ffd25e', 22, 66, 30], ['#5b8def', 34, 62, -20], ['#7ed957', 68, 63, 40], ['#ffffff', 78, 68, -30], ['#ffd25e', 60, 61, 10], ['#5b8def', 28, 72, 60], ['#ffffff', 40, 70, -50], ['#7ed957', 72, 71, 15]].map(([c, x, y, r]) => `<rect x="${x}" y="${y}" width="5.5" height="2.2" rx="1.1" fill="${c}" transform="rotate(${r} ${x} ${y})"/>`).join('')}
+      <ellipse cx="50" cy="66" rx="13" ry="5.5" fill="#8a5530" ${S2}/>
+      <path d="M40 66 Q40 52 50 52 Q60 52 60 66 Z" fill="#ffd6a8"/>
+      ${cabeza(50, 40, .95, '#ffd6a8', { ojos: 'felices' })}
+      <ellipse cx="41" cy="60" rx="4.6" ry="3.4" fill="#ffd6a8" ${S2}/><ellipse cx="59" cy="60" rx="4.6" ry="3.4" fill="#ffd6a8" ${S2}/>`,
+
+    ramenino: () => `<path d="M14 9 Q20 14 16 22 M22 6 Q28 12 24 20" fill="none" stroke="#c5cee3" stroke-width="2.2" stroke-linecap="round"/>
+      ${cabeza(50, 41, .95, '#ffffff', { ojos: 'abiertos' })}
+      <path d="M36 28 Q40 40 36 52 M44 26 Q48 38 45 50" fill="none" stroke="${T}" stroke-width="4.6" stroke-linecap="round"/><path d="M36 28 Q40 40 36 52 M44 26 Q48 38 45 50" fill="none" stroke="#ffe08a" stroke-width="2.2" stroke-linecap="round"/>
+      <ellipse cx="50" cy="58" rx="39" ry="8" fill="#f6c78e" ${S2}/>
+      <path d="M18 57 q5 -4 10 0 t10 0 M62 57 q5 -4 10 0 t10 0" fill="none" stroke="#ffe08a" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="74" cy="56" rx="8" ry="5.5" fill="#ffffff" ${S2}/><circle cx="74" cy="56" r="3" fill="#ffb21f"/>
+      <circle cx="26" cy="56" r="6" fill="#ffffff" ${S2}/><path d="M26 56 m-3 0 a3 3 0 1 1 3 3" fill="none" stroke="#ff8fab" stroke-width="1.6"/>
+      <path d="M11 58 Q13 92 50 92 Q87 92 89 58 Q50 70 11 58 Z" fill="#e23d52" ${S2}/>
+      <path d="M24 74 Q30 70 36 74 Q42 78 48 74 Q54 70 60 74 Q66 78 72 74" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+      <path d="M70 6 L56 44 M80 10 L62 46" stroke="${T}" stroke-width="5" stroke-linecap="round"/><path d="M70 6 L56 44 M80 10 L62 46" stroke="#c98a4b" stroke-width="2.6" stroke-linecap="round"/>`,
+
+    cactusino: () => `<path d="M30 62 L16 62 Q10 62 10 55 L10 42 Q10 37 15 37 Q20 37 20 42 L20 53 L30 53 Z" fill="#6cc08a" ${S2}/>
+      <path d="M70 56 L84 56 Q90 56 90 49 L90 36 Q90 31 85 31 Q80 31 80 36 L80 47 L70 47 Z" fill="#6cc08a" ${S2}/>
+      <path d="M31 30 L33 13 L44 22 Z M69 30 L67 13 L56 22 Z" fill="#6cc08a" ${S2}/><path d="M34 25 L35 17 L40 22 Z M66 25 L65 17 L60 22 Z" fill="#f5a9c0"/>
+      <rect x="29" y="18" width="42" height="64" rx="20" fill="#6cc08a" ${S2}/>
+      <path d="M38 62 V74 M50 64 V78 M62 62 V74" stroke="#4e9e6a" stroke-width="2" stroke-linecap="round"/>
+      ${[[34, 52], [66, 52], [44, 68], [56, 68], [14, 47], [86, 41]].map(([x, y]) => `<path d="M${x - 2} ${y} H${x + 2} M${x} ${y - 2} V${y + 2}" stroke="#eaf7ee" stroke-width="1.3" stroke-linecap="round"/>`).join('')}
+      ${cara(50, 42, 1.05, { ojos: 'felices', bigotes: false })}
+      <circle cx="50" cy="16" r="4" fill="#ff8fab" ${S2}/><circle cx="44" cy="14" r="3.6" fill="#ff8fab" ${S2}/><circle cx="56" cy="14" r="3.6" fill="#ff8fab" ${S2}/><circle cx="50" cy="15" r="2.4" fill="#ffd25e"/>
+      <path d="M24 78 L76 78 L70 95 L30 95 Z" fill="#d9773b" ${S2}/><rect x="21" y="74" width="58" height="9" rx="3" fill="#e88c4f" ${S2}/>`,
+
+    astrogatto: () => `${estrellita(12, 14, 4)}${estrellita(88, 24, 3.5)}${brillo(14, 60, 3, '#ffd25e')}
+      <circle cx="84" cy="80" r="9" fill="#ff9ad5" ${S2}/><ellipse cx="84" cy="80" rx="15" ry="4" fill="none" stroke="${T}" stroke-width="2"/><ellipse cx="84" cy="80" rx="15" ry="4" fill="none" stroke="#ffd25e" stroke-width="1.2"/>
+      <rect x="28" y="64" width="44" height="30" rx="12" fill="#f3f6ff" ${S2}/>
+      <rect x="42" y="72" width="16" height="10" rx="3" fill="#9ec5f5" ${S2}/><circle cx="46" cy="77" r="1.8" fill="#e23d52"/><circle cx="54" cy="77" r="1.8" fill="#7ed957"/>
+      <circle cx="50" cy="40" r="29" fill="#e9f1ff" ${S2}/>
+      ${cabeza(50, 44, .9, '#f4b37e', { ojos: 'abiertos' })}
+      <circle cx="50" cy="40" r="29" fill="#9ec5f5" opacity=".18"/>
+      <path d="M30 26 Q36 17 46 15" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" opacity=".95"/>
+      <path d="M50 11 V3" stroke="${T}" stroke-width="2.2" stroke-linecap="round"/><circle cx="50" cy="3" r="3" fill="#e23d52" ${S2}/>`,
+
+    draghetto: () => `<path d="M30 52 L6 36 L12 50 L4 58 L16 60 L12 70 L30 64 Z" fill="#9b7be8" ${S2}/>
+      <path d="M70 52 L94 36 L88 50 L96 58 L84 60 L88 70 L70 64 Z" fill="#9b7be8" ${S2}/>
+      <path d="M66 80 Q86 88 88 72" fill="none" stroke="${T}" stroke-width="7" stroke-linecap="round"/><path d="M66 80 Q86 88 88 72" fill="none" stroke="#b9a2f5" stroke-width="4" stroke-linecap="round"/>
+      <path d="M88 72 L82 64 L95 66 Z" fill="#ff8fab" ${S2}/>
+      <ellipse cx="50" cy="74" rx="22" ry="19" fill="#b9a2f5" ${S2}/><ellipse cx="50" cy="78" rx="13" ry="12" fill="#ffe7b0"/>
+      <path d="M40 74 H60 M41 80 H59 M43 86 H57" stroke="#e8c98a" stroke-width="1.6" stroke-linecap="round"/>
+      ${cabeza(50, 42, 1, '#b9a2f5', { ojos: 'abiertos' })}
+      <path d="M41 28 L44 18 L47 28 Z M53 28 L56 18 L59 28 Z" fill="#ffe7b0" ${S2}/>
+      <path d="M68 48 Q78 44 82 50 Q78 56 70 52" fill="#ffb21f" stroke="${T}" stroke-width="1.6" stroke-linejoin="round"/><path d="M72 50 Q77 48 79 50" fill="none" stroke="#ff5a1f" stroke-width="1.6" stroke-linecap="round"/>
+      <ellipse cx="40" cy="92" rx="6" ry="3.5" fill="#b9a2f5" ${S2}/><ellipse cx="60" cy="92" rx="6" ry="3.5" fill="#b9a2f5" ${S2}/>`,
+
+    solecito: () => `<circle cx="50" cy="54" r="46" fill="#fff3c4" opacity=".6"/>
+      ${Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6, c = i % 2 ? '#ffb21f' : '#ffd25e'; const p = (r, d) => `${R(50 + r * Math.cos(a + d))} ${R(56 + r * Math.sin(a + d))}`; return `<path d="M${p(30, -.2)} L${p(46, 0)} L${p(30, .2)} Z" fill="${c}" ${S2}/>`; }).join('')}
+      <path d="M31 40 L30 22 L42 32 Z M69 40 L70 22 L58 32 Z" fill="#ffd25e" ${S2}/><path d="M33 35 L33 27 L39 32 Z M67 35 L67 27 L61 32 Z" fill="#f5a9c0"/>
+      <circle cx="50" cy="56" r="29" fill="#ffd25e" ${S2}/>
+      ${cara(50, 58, 1.15)}
+      <path d="M32 50 H68" stroke="${T}" stroke-width="2.6"/><rect x="32" y="47" width="15" height="10" rx="4.5" fill="${T}"/><rect x="53" y="47" width="15" height="10" rx="4.5" fill="${T}"/>
+      <path d="M35 50 L39 50" stroke="#9ec5f5" stroke-width="2" stroke-linecap="round"/><path d="M56 50 L60 50" stroke="#9ec5f5" stroke-width="2" stroke-linecap="round"/>`,
+
+    tacogatto: () => `<circle cx="50" cy="56" r="45" fill="#ffe7b0" opacity=".55"/>
+      <path d="M8 62 Q10 46 20 49 Q23 40 32 45 Q40 38 50 44 Q60 38 68 45 Q77 40 80 49 Q90 46 92 62 Z" fill="#7ed957" ${S2}/>
+      <circle cx="20" cy="54" r="4.6" fill="#ff5a5f" ${S2}/><circle cx="80" cy="54" r="4.6" fill="#ff5a5f" ${S2}/>
+      ${cabeza(50, 35, .95, '#f4b37e', { ojos: 'felices' })}
+      <path d="M37 17 L39 5 L45 12 L50 2 L55 12 L61 5 L63 17 Z" fill="#ffd25e" ${S2}/><circle cx="50" cy="10" r="2" fill="#e23d52"/><circle cx="42" cy="13" r="1.4" fill="#5b8def"/><circle cx="58" cy="13" r="1.4" fill="#5b8def"/>
+      <circle cx="30" cy="55" r="3.4" fill="#ffffff" ${S2}/><circle cx="70" cy="55" r="3.4" fill="#ffe08a" ${S2}/>
+      <path d="M6 60 A44 36 0 0 0 94 60 Z" fill="#ffcf5c" ${S2}/>
+      ${[[24, 72], [40, 84], [60, 86], [76, 72], [50, 74], [32, 66], [68, 66]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.2" fill="#e8a93a"/>`).join('')}
+      <ellipse cx="38" cy="62" rx="5" ry="3.6" fill="#f4b37e" ${S2}/><ellipse cx="62" cy="62" rx="5" ry="3.6" fill="#f4b37e" ${S2}/>
+      ${brillo(12, 22, 4, '#ffd25e')}${brillo(90, 30, 3.5, '#ffd25e')}`,
+
+    pinatino: () => `<path d="M50 2 V14" stroke="${T}" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M30 40 L28 16 L44 26 Z M70 40 L72 16 L56 26 Z" fill="#ff8fab" ${S2}/>
+      <path d="M22 40 Q22 24 50 24 Q78 24 78 40 L80 84 Q80 92 72 92 L28 92 Q20 92 20 84 Z" fill="#ff8fab" ${S2}/>
+      ${[['#ffd25e', 44], ['#5b8def', 56], ['#7ed957', 68], ['#ff9ad5', 80]].map(([c, y]) => `<path d="M21 ${y} L79 ${y} L79 ${y + 7} L74 ${y + 4} L69 ${y + 7} L64 ${y + 4} L59 ${y + 7} L54 ${y + 4} L49 ${y + 7} L44 ${y + 4} L39 ${y + 7} L34 ${y + 4} L29 ${y + 7} L24 ${y + 4} L21 ${y + 7} Z" fill="${c}"/>`).join('')}
+      <path d="M22 40 Q22 24 50 24 Q78 24 78 40 L80 84 Q80 92 72 92 L28 92 Q20 92 20 84 Z" fill="none" ${S2}/>
+      ${cara(50, 36, .95, { ojos: 'felices' })}
+      <path d="M80 70 L94 64 M80 76 L94 80" stroke="#ffd25e" stroke-width="3" stroke-linecap="round"/><path d="M20 70 L6 64 M20 76 L6 80" stroke="#5b8def" stroke-width="3" stroke-linecap="round"/>
+      <g class="mr-lluvia"><rect x="10" y="88" width="7" height="5" rx="2" fill="#e23d52" ${S2}/><rect x="84" y="90" width="7" height="5" rx="2" fill="#7ed957" ${S2}/></g>`,
+
+    mariachino: () => `<path d="M30 70 Q30 62 50 62 Q70 62 70 70 L72 94 L28 94 Z" fill="#2d2f45" ${S2}/>
+      <path d="M44 66 L50 72 L56 66 L56 76 L50 72 L44 76 Z" fill="#e23d52" ${S2}/>
+      ${[33, 38].map(x => `<circle cx="${x}" cy="84" r="1.6" fill="#ffd25e"/>`).join('')}
+      <path d="M62 66 L84 52" stroke="${T}" stroke-width="6" stroke-linecap="round"/><path d="M62 66 L84 52" stroke="#a8603b" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M84 52 L90 46" stroke="${T}" stroke-width="7" stroke-linecap="round"/>
+      <path d="M52 74 Q48 62 60 62 Q66 58 72 66 Q80 70 76 82 Q72 94 60 92 Q48 92 52 74 Z" fill="#e9a04f" ${S2}/><circle cx="63" cy="76" r="4" fill="${T}"/>
+      <path d="M58 86 H68" stroke="${T}" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="72" cy="61" rx="4.6" ry="3.4" fill="#e6e8f2" ${S2}/>
+      ${cabeza(50, 48, .95, '#e6e8f2', { ojos: 'felices' })}
+      <ellipse cx="50" cy="34" rx="46" ry="9" fill="#ffd25e" ${S2}/>
+      <path d="M30 34 Q30 8 50 8 Q70 8 70 34 Z" fill="#ffd25e" ${S2}/>
+      <path d="M31 28 Q50 34 69 28" fill="none" stroke="#e23d52" stroke-width="4"/>
+      ${[14, 26, 74, 86].map(x => `<circle cx="${x}" cy="34" r="2" fill="#e23d52"/>`).join('')}${[40, 50, 60].map(x => `<circle cx="${x}" cy="18" r="1.8" fill="#e23d52"/>`).join('')}
+      <ellipse cx="38" cy="60" rx="4.6" ry="3.4" fill="#e6e8f2" ${S2}/>`,
+
+    reginella: () => `<circle cx="50" cy="54" r="46" fill="#f3e3ff" opacity=".6"/>
+      <path d="M18 92 Q14 64 34 58 L66 58 Q86 64 82 92 Z" fill="#9b55e0" ${S2}/>
+      <path d="M26 92 Q24 70 38 62 L62 62 Q76 70 74 92" fill="none" stroke="#ffffff" stroke-width="6"/>
+      ${[[29, 82], [33, 70], [71, 82], [67, 70]].map(([x, y]) => `<path d="M${x} ${y - 2} L${x} ${y + 2}" stroke="${T}" stroke-width="1.8" stroke-linecap="round"/>`).join('')}
+      <path d="M84 30 L80 90" stroke="${T}" stroke-width="4.5" stroke-linecap="round"/><path d="M84 30 L80 90" stroke="#ffd25e" stroke-width="2.2" stroke-linecap="round"/>
+      ${corazonito(84, 30, .7, '#e23d52')}
+      ${cabeza(50, 44, 1, '#fdfeff', { ojos: 'felices' })}
+      <path d="M32 26 L34 10 L42 19 L50 6 L58 19 L66 10 L68 26 Z" fill="#ffd25e" ${S2}/>
+      <circle cx="50" cy="16" r="2.6" fill="#e23d52" ${S2}/><circle cx="38" cy="20" r="1.9" fill="#5b8def"/><circle cx="62" cy="20" r="1.9" fill="#5b8def"/>
+      ${brillo(14, 20, 4.5, '#ffd25e')}${brillo(88, 70, 3.5, '#ffffff')}${brillo(10, 66, 3.5, '#ffd25e')}
+      <ellipse cx="40" cy="60" rx="4.6" ry="3.4" fill="#fdfeff" ${S2}/><ellipse cx="60" cy="60" rx="4.6" ry="3.4" fill="#fdfeff" ${S2}/>`,
+    siempre: () => `<image href="${FOTO_SIEMPRE}" x="0" y="0" width="100" height="100"/>`,
   };
   const DUEÑOS = {
     zombie: () => `<ellipse cx="50" cy="52" rx="34" ry="30" fill="#9bd3a0" ${S2}/><path d="M28 34 L36 40 M40 28 L42 36 M58 28 L56 36" stroke="${T}" stroke-width="2.4" stroke-linecap="round"/>
@@ -3207,28 +3427,100 @@ const michirot = (() => {
   }
 
   /* ---------- Datos ---------- */
-  const RAREZAS = { c: 'Común', r: 'Raro', e: 'Épico', l: 'Legendario', m: 'Mítico', d: 'Brainrot Dios', s: 'Secreto' };
-  const COLOR_R = { c: '#b8bfd3', r: '#3f74e0', e: '#9b55e0', l: '#f2b01e', m: '#e23d52', d: '#2fbf8f', s: '#ff7aa8' };
+  const RAREZAS = { c: 'Común', r: 'Raro', e: 'Épico', l: 'Legendario', m: 'Mítico', d: 'Brainrot Dios', x: 'Exclusivo', s: 'Secreto' };
+  const COLOR_R = { c: '#b8bfd3', r: '#3f74e0', e: '#9b55e0', l: '#f2b01e', m: '#e23d52', d: '#2fbf8f', x: '#16c1d6', s: '#ff7aa8' };
   const CAT = [
     { id: 'spaghettino', n: 'Gattino Spaghettino', r: 'c', p: 25, g: 1, d: 'Se cayó en un plato de espagueti y decidió quedarse a vivir ahí.' },
     { id: 'ciabattino', n: 'Ciabattino Miagolino', r: 'c', p: 60, g: 2, d: 'Vive dentro de una pantufla. Si te la pones, ronronea.' },
+    { id: 'calzino', n: 'Calzino Gattino', r: 'c', p: 100, g: 3, d: 'Siempre se queda con el calcetín que se pierde en la lavadora.' },
+    { id: 'croissantino', n: 'Croissantino Miaulino', r: 'c', p: 150, g: 4, d: 'Duerme abrazado a un cuernito calientito. Huele a mantequilla.' },
     { id: 'fragolina', n: 'Fragolina Ronronina', r: 'r', p: 200, g: 6, d: 'Mitad fresa, mitad gatita. Huele a pastel y maúlla en rosa.' },
     { id: 'tostapane', n: 'Tostapane Miao', r: 'r', p: 380, g: 10, d: 'Tuesta panes con forma de orejitas. Nadie sabe cómo.' },
+    { id: 'bubbletino', n: 'Bubbletino Boba', r: 'r', p: 550, g: 13, d: 'Vive dentro de un té de burbujas y se come todas las bolitas.' },
+    { id: 'pizzagatto', n: 'Pizzagatto Margherita', r: 'r', p: 750, g: 16, d: 'Una rebanada de pizza con orejitas. Prefiere que no lo muerdas.' },
     { id: 'gelatino', n: 'Gelatino Gattolino', r: 'e', p: 1100, g: 24, d: 'Helado de mora azul con bigotes. No se derrite, se derrite de amor.' },
     { id: 'sushigatto', n: 'Sushigatto Samurai', r: 'e', p: 1800, g: 36, d: 'Protege su salmón con honor. Duerme sobre arroz.' },
+    { id: 'donutella', n: 'Donutella Ronronella', r: 'e', p: 2500, g: 45, d: 'Se asoma por el hoyito de su dona rosa llena de chispitas.' },
+    { id: 'ramenino', n: 'Ramenino Gattuccio', r: 'e', p: 3200, g: 55, d: 'Nada en caldito de ramen y se pone fideos de peluca.' },
     { id: 'pescegatto', n: 'Pescegatto Volante', r: 'l', p: 6000, g: 95, d: 'Pez con cara de gato y alas de paloma. Solo vuela los domingos.' },
     { id: 'tazzina', n: 'Tazzina Miaozzina', r: 'l', p: 9000, g: 130, d: 'Se esconde en tu chocolate caliente y sale cuando hace frío.' },
+    { id: 'cactusino', n: 'Cactusino Abbracciolo', r: 'l', p: 12000, g: 165, d: 'Un cactus que da abrazos. Sus espinitas son suavecitas, lo prometemos.' },
+    { id: 'astrogatto', n: 'Astrogatto Spaziale', r: 'l', p: 16000, g: 210, d: 'Fue a la luna a buscar queso y regresó con estrellitas.' },
     { id: 'nuvoletta', n: 'Nuvoletta Ronfoletta', r: 'm', p: 24000, g: 300, d: 'Una nube que ronronea. Cuando llora, llueven corazones.' },
     { id: 'pianoforte', n: 'Pianoforte Felino', r: 'm', p: 36000, g: 420, d: 'Se sabe una sola canción: «miau miau miau» en do mayor.' },
+    { id: 'draghetto', n: 'Draghetto Miaugon', r: 'm', p: 50000, g: 560, d: 'Un dragoncito que echa fueguito… pero solo para calentar tu cobija.' },
     { id: 'lunetta', n: 'Lunetta Gattoletta', r: 'd', p: 100000, g: 1000, d: 'Duerme sobre la luna y cuida tus sueños toda la noche.' },
+    { id: 'solecito', n: 'Solecito Gattosole', r: 'd', p: 140000, g: 1350, d: 'El sol con lentes oscuros. Sale todos los días solo para verte sonreír.' },
+    { id: 'tacogatto', n: 'Tacogatto Supremo', r: 'x', p: 220000, g: 2200, d: 'El rey de la lluvia de tacos. Viene con corona y con todo.', pista: 'Solo pasa durante la lluvia de tacos 🌮' },
+    { id: 'pinatino', n: 'Piñatino Fiestero', r: 'x', p: 300000, g: 2900, d: 'Una piñata gatuna. Si la quiebras, salen puros dulces y abrazos.', pista: 'Solo pasa durante la hora loca 🎉' },
+    { id: 'mariachino', n: 'Mariachino Miau', r: 'x', p: 400000, g: 3800, d: 'Te lleva serenata con su guitarrita a las tres de la mañana.', pista: 'Viene escondido en los regalos misteriosos 🎁' },
+    { id: 'reginella', n: 'Reginella Miau', r: 'x', p: 600000, g: 5500, d: 'La reina de todos los michirots. Casi nunca se deja ver.', pista: 'Pasa por la alfombra muy, muy de vez en cuando 👑' },
     { id: 'secreto', n: 'Brittanina Eduardino', r: 's', p: 150000, g: 5000, d: 'Dos gatitos tan enamorados que se fusionaron en un solo corazón. Solo existe uno en todo el universo, y es nuestro. 💞' },
+    { id: 'siempre', n: 'Por siempre, contigo', r: 's', p: 140626, g: 14062026, exacto: true, d: 'Tú y yo, de la mano. Cuesta $140626 y gana $14062026 por segundo, porque es la fecha de nuestro aniversario: 14 de junio de 2026. 💞', pista: 'Aparece después de encontrar a Brittanina Eduardino 💞' },
   ];
   const POR = Object.fromEntries(CAT.map(c => [c.id, c]));
   const PESOS = { c: 40, r: 27, e: 17, l: 9, m: 5, d: 2 };
   const PESOS_RIVAL = { r: 25, e: 40, l: 25, m: 9, d: 1 };
-  const CAZA = { c: 4.8, r: 5.0, e: 5.2, l: 5.4, m: 5.6, d: 5.8 };
+  const CAZA = { c: 4.8, r: 5.0, e: 5.2, l: 5.4, m: 5.6, d: 5.8, x: 6.0, s: 6.0 };
   const SLOTS = 8, PARA_SECRETO = 7;
   const DUEÑO = [{ id: 'zombie', n: 'Zombie Gruñón' }, { id: 'bandido', n: 'Michi Bandido' }];
+  // Mutaciones: ganan más y brillan
+  const MUT = {
+    o: { n: 'Dorado', ico: '🌟', x: 2, p: 1.6, color: '#ffc93c', chance: .09 },
+    d: { n: 'Diamante', ico: '💎', x: 3, p: 2.4, color: '#7fe3ff', chance: .035 },
+    c: { n: 'Dulce', ico: '🍬', x: 4, p: 2.8, color: '#ff9ad5', chance: .02 },
+    t: { n: 'Taco', ico: '🌮', x: 4, p: 2.8, color: '#ffb23d', chance: 0 },
+    l: { n: 'Lava', ico: '🔥', x: 5, p: 3.4, color: '#ff5a1f', chance: .012 },
+    a: { n: 'Arcoíris', ico: '🌈', x: 6, p: 4, color: '#ff7ad9', chance: .01 },
+    g: { n: 'Galaxia', ico: '🌌', x: 8, p: 5.2, color: '#7b5cff', chance: .004 },
+  };
+  const ORDEN_MUT = 'odctlag';
+  const multG = m => (m && MUT[m] ? MUT[m].x : 1);
+  const multP = m => (m && MUT[m] ? MUT[m].p : 1);
+  // Tiendita de mejoras
+  const IMAN = [1.25, 2.3, 3.6, 5.2, 9];
+  const CANDADO_S = [60, 80, 100, 130];
+  const MEJORAS = [
+    { id: 'vel', ico: '👟', n: 'Patitas veloces', d: 'Caminas más rápido.', costos: [150, 700, 3000, 12000, 45000], val: l => `${100 + l * 8}% de velocidad` },
+    { id: 'iman', ico: '🧲', n: 'Imán de monedas', d: 'Cobras a tus michirots desde más lejos.', costos: [250, 1500, 7000, 30000], val: l => ['alcance normal', 'alcance ×2', 'alcance ×3', 'alcance ×4', '¡toda la base!'][l] },
+    { id: 'candado', ico: '🔒', n: 'Candado reforzado', d: 'Tu base se queda cerrada más tiempo.', costos: [400, 3000, 15000], val: l => `${CANDADO_S[l]} s cerrada` },
+    { id: 'suerte', ico: '🍀', n: 'Trébol de la suerte', d: 'Salen más michirots mutados: dorados, de lava, galaxia…', costos: [800, 6000, 35000], val: l => (l ? `suerte ×${(1 + .5 * l).toFixed(1)}` : 'suerte normal') },
+  ];
+  // Agrandar la base: cada nivel suma una columna a cada lado (4 lugares)
+  const MEJORA_BASE = { id: 'base', ico: '🏠', n: 'Base más grande', d: 'Tu base crece y caben más michirots.', costos: [1500, 15000, 120000], val: l => `${SLOTS + 4 * l} lugares` };
+  MEJORAS.unshift(MEJORA_BASE);
+  const ANCHO_BASE = l => 12.4 + 6.1 * l;
+  const TACO_CADA = 120;
+  // Eventos sorpresa
+  const EVENTOS = {
+    lluvia: { n: '¡Lluvia de monedas!', ico: '🌧️', dur: 15, txt: '🌧️ ¡Lluvia de monedas! Atrapa todas las que puedas. Las que flotan, saltando 🪙' },
+    loca: { n: '¡Hora loca!', ico: '🎉', dur: 25, txt: '🎉 ¡Hora loca! Salen el doble de michirots y muchos más mutados ✨' },
+    regalo: { n: 'Regalo misterioso', ico: '🎁', dur: 45, txt: '🎁 ¡Apareció un regalo misterioso en el mapa! Búscalo antes de que desaparezca' },
+    tacos: { n: '¡Lluvia de tacos!', ico: '🌮', dur: 25, txt: '🌮 ¡Lluvia de tacos! Al michirot que le caiga un taco se vuelve TACO y gana ×4. Atrapa tacos para ganar dinero' },
+    siesta: { n: 'Siesta zombie', ico: '😴', dur: 30, txt: '😴 ¡El Zombie Gruñón se quedó dormido! Róbale sin que te persiga' },
+  };
+  // Misiones (las primeras van en orden; después salen al azar)
+  const MISIONES = [
+    { t: 'comprar', meta: 2, premio: 80 },
+    { t: 'cobrar', meta: 150, premio: 120 },
+    { t: 'saltar', meta: 5, premio: 60 },
+    { t: 'robar', meta: 1, premio: 300 },
+    { t: 'mejora', meta: 1, premio: 250 },
+    { t: 'base', meta: 5, premio: 500 },
+    { t: 'monedas', meta: 12, premio: 700, evento: 'lluvia' },
+    { t: 'tacos', meta: 8, premio: 800, evento: 'tacos' },
+    { t: 'mutado', meta: 1, premio: 900 },
+    { t: 'ingreso', meta: 60, premio: 1200 },
+    { t: 'regalo', meta: 1, premio: 1500, evento: 'regalo' },
+    { t: 'agrandar', meta: 1, premio: 2500 },
+    { t: 'robarRaro', meta: 1, premio: 3000 },
+    { t: 'coleccion', meta: 7, premio: 5000 },
+    { t: 'ingreso', meta: 300, premio: 9000 },
+    { t: 'atrapar', meta: 1, premio: 12000 },
+    { t: 'robar', meta: 3, premio: 15000 },
+    { t: 'ingreso', meta: 1000, premio: 40000 },
+  ];
+  const REGALO_SITIOS = [[-14, 6], [14, 6], [-14, -3], [14, -3], [0, -16], [-6, 4.5], [6, 4.5], [-13.5, 10.5], [13.5, 10.5], [0, -6], [-4, -14.5], [4, -14.5]];
 
   /* ---------- Mundo ---------- */
   const VEL = 6, VEL_CARGA = 4.6, RADIO = .45;
@@ -3238,6 +3530,8 @@ const michirot = (() => {
   const RIV = [{ cx: -9, cz: -10.6, w: 8.4, d: 6.4 }, { cx: 9, cz: -10.6, w: 8.4, d: 6.4 }];
   const PED_MIO = [];
   [9.0, 12.3].forEach(z => [-4.6, -1.55, 1.55, 4.6].forEach(x => PED_MIO.push({ x, z })));
+  [7.65, 10.7, 13.75].forEach(ax => [9.0, 12.3].forEach(z => [-ax, ax].forEach(x => PED_MIO.push({ x, z }))));
+  const MIA_MAX = { cx: 0, cz: 10.6, w: ANCHO_BASE(3), d: 8 };
   const PED_RIV = RIV.map(b => [[b.cx - 1.8, b.cz + .7], [b.cx + 1.8, b.cz + .7], [b.cx - 1.8, b.cz - 1.5], [b.cx + 1.8, b.cz - 1.5]].map(([x, z]) => ({ x, z })));
   const CASA = RIV.map(b => ({ x: b.cx, z: b.cz - 2.5 }));
 
@@ -3245,8 +3539,14 @@ const michirot = (() => {
     n = Math.max(0, Math.floor(n));
     if (n < 1000) return '$' + n;
     if (n < 1e6) return '$' + (n / 1e3).toFixed(n < 1e4 ? 1 : 0).replace(/\.0$/, '') + 'K';
-    return '$' + (n / 1e6).toFixed(n < 1e7 ? 2 : 1).replace(/\.?0+$/, '') + 'M';
+    if (n < 1e9) return '$' + (n / 1e6).toFixed(n < 1e7 ? 2 : 1).replace(/\.?0+$/, '') + 'M';
+    if (n < 1e12) return '$' + (n / 1e9).toFixed(n < 1e10 ? 2 : 1).replace(/\.?0+$/, '') + 'B';
+    return '$' + (n / 1e12).toFixed(1).replace(/\.?0+$/, '') + 'T';
   }
+  // Algunos números se muestran completos (son fechas 💞)
+  const fmtDe = (id, n) => (POR[id] && POR[id].exacto ? '$' + Math.round(n) : fmt(n));
+  const esSecreto = id => !!POR[id] && POR[id].r === 's';
+  const sinSecretos = l => l.filter(x => POR[x] && !esSecreto(x));
   function azar(pesos) {
     let t = Math.random() * Object.values(pesos).reduce((a, b) => a + b, 0);
     for (const k in pesos) { t -= pesos[k]; if (t <= 0) return k; }
@@ -3254,6 +3554,28 @@ const michirot = (() => {
   }
   function alAzar(r) { const l = CAT.filter(c => c.r === r); return l[Math.floor(Math.random() * l.length)].id; }
   function chip(r) { return `<span class="mr-chip r-${r}">${RAREZAS[r]}</span>`; }
+  function chipMut(m) { return m && MUT[m] ? `<span class="mr-chip m-${m}">${MUT[m].ico} ${MUT[m].n}</span>` : ''; }
+  function suerte() { return 1 + .5 * ((E && E.mej && E.mej.suerte) || 0); }
+  function mutAzar(extra = 1) {
+    const s = suerte() * extra, r = Math.random();
+    let acc = 0;
+    for (const k of ['g', 'a', 'l', 'c', 'd', 'o']) { acc += MUT[k].chance * s; if (r < acc) return k; }
+    return null;
+  }
+  function redondo(n) {
+    if (n < 100) return Math.max(5, Math.round(n / 5) * 5);
+    const p = Math.pow(10, Math.floor(Math.log10(n)) - 1);
+    return Math.round(n / p) * p;
+  }
+  // Exclusivos: cada uno sale solo en un momento especial
+  function exclusivoAzar() {
+    const s = suerte(), tipo = evento && evento.tipo;
+    if (tipo === 'tacos' && Math.random() < .08 * s) return 'tacogatto';
+    if (tipo === 'loca' && Math.random() < .07 * s) return 'pinatino';
+    if (Math.random() < .003 * s) return 'reginella';
+    return null;
+  }
+  function slotRival() { return { id: alAzar(azar(PESOS_RIVAL)), vuelve: 0, mut: mutAzar(.6) }; }
   function nuevo() {
     return {
       dinero: 100, total: 0, base: Array(SLOTS).fill(null), col: [], ganado: false, visto: false, t: 0, candado: 0, enfriar: 0,
@@ -3263,6 +3585,13 @@ const michirot = (() => {
   function estado() {
     let e = S.juegos.michirot;
     if (!e || typeof e !== 'object' || !Array.isArray(e.base) || !Array.isArray(e.riv)) e = S.juegos.michirot = nuevo();
+    // Campos nuevos (partidas guardadas antes también los reciben)
+    e.mej = Object.assign({ base: 0, vel: 0, iman: 0, candado: 0, suerte: 0 }, e.mej || {});
+    e.mej.base = Math.max(0, Math.min(MEJORA_BASE.costos.length, e.mej.base | 0));
+    while (e.base.length < SLOTS + 4 * e.mej.base) e.base.push(null);
+    if (typeof e.misN !== 'number') e.misN = 0;
+    if (typeof e.sonido !== 'number') e.sonido = 2;
+    if (!e.mutCol || typeof e.mutCol !== 'object') e.mutCol = {};
     return e;
   }
   const dentroDe = (b, x, z, m = 0) => x > b.cx - b.w / 2 + m && x < b.cx + b.w / 2 - m && z > b.cz - b.d / 2 + m && z < b.cz + b.d / 2 - m;
@@ -3278,8 +3607,93 @@ const michirot = (() => {
   let npc = [], ladronT = 90;
   const teclas = new Set(); let joy = { x: 0, z: 0, activo: false };
   const $m = id => document.getElementById(id);
+  // Diversión extra
+  let evento = null, eventoT = 50, monedas = [], monedaT = 0, regalo = null, particulas = [], sacudida = 0, turboT = 0;
+  let siempreT = 20, tacosCaen = [], tacoT = TACO_CADA, tacoLanzaT = 0, tacoAviso = false, tacosMios = 0, texTaco = null, grupoBase = null, murosBase = [], anchoHecho = 0;
+  let texChispa = null, texHalo = null, geoMoneda = null, matMoneda = null, geoSomMon = null, matSomMon = null, zzz = null;
+  let dineroPrev = 0, misionHTML = '', eventoHTML = '';
 
-  function ingreso() { return E.base.reduce((s, b) => s + (b ? POR[b.id].g : 0), 0); }
+  const ganaB = b => POR[b.id].g * multG(b.mut);
+  function ingreso() { return E.base.reduce((s, b) => s + (b ? ganaB(b) : 0), 0); }
+  function velocidad() { return VEL * (1 + .08 * E.mej.vel) * (turboT > 0 ? 1.6 : 1); }
+  function precio(it) { return Math.round(POR[it.id].p * multP(it.mut)); }
+
+  /* ---------- Sonido (sintetizado, sin archivos) ---------- */
+  let AC = null, master = null, musGain = null, musT = 0, musPaso = 0, musIv = 0;
+  const sfxUlt = {};
+  function audioListo() {
+    if (AC) { if (AC.state === 'suspended') AC.resume().catch(() => {}); return true; }
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return false;
+    try { AC = new C(); } catch (e) { return false; }
+    master = AC.createGain(); master.gain.value = .55; master.connect(AC.destination);
+    musGain = AC.createGain(); musGain.gain.value = 0; musGain.connect(master);
+    return true;
+  }
+  function nota(f, t0, dur, { tipo = 'triangle', vol = .2, hasta = 0, dest = master } = {}) {
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = tipo; o.frequency.setValueAtTime(f, t0);
+    if (hasta) o.frequency.exponentialRampToValueAtTime(hasta, t0 + dur);
+    g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + .012); g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+    o.connect(g); g.connect(dest); o.start(t0); o.stop(t0 + dur + .03);
+  }
+  const SFX = {
+    moneda: t => { nota(988, t, .08, { tipo: 'square', vol: .05 }); nota(1319, t + .07, .16, { tipo: 'square', vol: .05 }); },
+    comprar: t => [523, 659, 784, 1047].forEach((f, i) => nota(f, t + i * .06, .2, { vol: .16 })),
+    robar: t => { nota(330, t, .25, { tipo: 'sawtooth', vol: .05, hasta: 990 }); nota(1175, t + .22, .15, { vol: .12 }); },
+    llegar: t => [784, 988, 1175, 1568].forEach((f, i) => nota(f, t + i * .07, .24, { vol: .14 })),
+    atrapada: t => [392, 370, 349, 311].forEach((f, i) => nota(f, t + i * .2, i === 3 ? .6 : .22, { tipo: 'sawtooth', vol: .06 })),
+    alerta: t => [0, 1, 2].forEach(i => { nota(880, t + i * .24, .11, { tipo: 'square', vol: .045 }); nota(660, t + i * .24 + .12, .11, { tipo: 'square', vol: .045 }); }),
+    salto: t => nota(330, t, .18, { tipo: 'sine', vol: .16, hasta: 720 }),
+    evento: t => [523, 659, 784, 659, 784, 1047].forEach((f, i) => nota(f, t + i * .09, .22, { vol: .14 })),
+    mision: t => [784, 988, 1175, 1568, 1976].forEach((f, i) => nota(f, t + i * .075, .32, { tipo: 'sine', vol: .16 })),
+    mutado: t => [1568, 2093, 2637, 3136].forEach((f, i) => nota(f, t + i * .05, .28, { tipo: 'sine', vol: .07 })),
+    secreto: t => [523, 659, 784, 1047, 1319, 1568, 2093].forEach((f, i) => { nota(f, t + i * .11, .7, { tipo: 'sine', vol: .12 }); nota(f * 2, t + i * .11, .4, { tipo: 'sine', vol: .03 }); }),
+    no: t => nota(190, t, .2, { tipo: 'square', vol: .04, hasta: 140 }),
+    mejora: t => [659, 880, 1319].forEach((f, i) => nota(f, t + i * .08, .26, { vol: .15 })),
+    regalo: t => [1047, 1319, 1568, 2093].forEach((f, i) => nota(f, t + i * .06, .32, { tipo: 'sine', vol: .14 })),
+    nam: t => { nota(440, t, .07, { tipo: 'square', vol: .045, hasta: 520 }); nota(587, t + .08, .1, { tipo: 'square', vol: .045, hasta: 660 }); },
+    taco: t => [392, 523, 659, 784, 659, 784, 988].forEach((f, i) => nota(f, t + i * .085, .2, { tipo: i % 2 ? 'triangle' : 'square', vol: i % 2 ? .13 : .05 })),
+  };
+  function sonido(k) {
+    if (!E || E.sonido < 1 || !AC || AC.state !== 'running') return;
+    const ahora = AC.currentTime;
+    if (sfxUlt[k] && ahora - sfxUlt[k] < .09) return;
+    sfxUlt[k] = ahora;
+    try { SFX[k](ahora + .01); } catch (e) {}
+  }
+  // Musiquita: Do – La menor – Fa – Sol, en pentatónica
+  const MELODIA = [76, 79, 81, 79, 76, 74, 72, 74, 76, 0, 79, 0, 81, 79, 76, 0, 74, 76, 79, 76, 74, 72, 69, 72, 74, 0, 0, 76, 72, 0, 0, 0];
+  const BAJO = [48, 55, 52, 55, 45, 52, 48, 52, 41, 48, 45, 48, 43, 50, 47, 50];
+  const hz = n => 440 * Math.pow(2, (n - 69) / 12);
+  function cancionPagina() { try { return typeof audio !== 'undefined' && audio && !audio.paused; } catch (e) { return false; } }
+  function musica(on) {
+    clearInterval(musIv); musIv = 0;
+    if (!AC) return;
+    const quiere = on && E && E.sonido >= 2 && !cancionPagina();
+    musGain.gain.cancelScheduledValues(AC.currentTime);
+    musGain.gain.setTargetAtTime(quiere ? .5 : 0, AC.currentTime, .3);
+    if (!quiere) return;
+    musT = AC.currentTime + .1;
+    musIv = setInterval(() => {
+      if (!AC || AC.state !== 'running') return;
+      const paso = 60 / 104 / 2 / (evento && (evento.tipo === 'loca' || evento.tipo === 'tacos') ? 1.3 : 1);
+      while (musT < AC.currentTime + .45) {
+        const m = MELODIA[musPaso % 32];
+        if (m) nota(hz(m), musT, paso * 1.6, { vol: .045, dest: musGain });
+        if (musPaso % 2 === 0) nota(hz(BAJO[(musPaso / 2) % 16]), musT, paso * 1.8, { tipo: 'sine', vol: .07, dest: musGain });
+        musT += paso; musPaso = (musPaso + 1) % 64;
+      }
+    }, 120);
+  }
+  function cambiarSonido() {
+    audioListo();
+    E.sonido = (E.sonido + 2) % 3;
+    musica(abierto);
+    pintarSonido(); guardar();
+    aviso(['Silencio 🔇', 'Solo sonidos, sin música 🔉', 'Música y sonidos 🔊'][E.sonido], 1600);
+    sonido('mejora');
+  }
+  function pintarSonido() { $m('mrSonido').textContent = ['🔇', '🔉', '🔊'][E.sonido]; }
   function guardar() { E.t = Date.now(); save(); }
   function aviso(txt, ms = 2600) {
     const t = $m('mrToast'); t.textContent = txt; t.hidden = false;
@@ -3300,15 +3714,39 @@ const michirot = (() => {
     return new Promise(ok => {
       const f = ARTE[id] || DUEÑOS[id];
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 100 100">${f()}</svg>`;
-      const img = new Image();
+      const img = new Image(), tam = id === 'siempre' ? 384 : 256;
       img.onload = () => {
-        const c = document.createElement('canvas'); c.width = c.height = 256;
-        c.getContext('2d').drawImage(img, 0, 0, 256, 256);
+        const c = document.createElement('canvas'); c.width = c.height = tam;
+        c.getContext('2d').drawImage(img, 0, 0, tam, tam);
         const t = new T3.CanvasTexture(c); t.anisotropy = 2;
         texturas[id] = t; TEX.add(t); ok();
       };
       img.onerror = () => ok();
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+      img.src = id === 'siempre' ? FOTO_SIEMPRE : 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+  }
+
+  const TACO_SVG = `<g stroke="#22264a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M14 54 Q16 40 24 42 Q27 33 36 37 Q42 28 50 34 Q58 28 64 37 Q73 33 76 42 Q84 40 86 54 Z" fill="#7ed957"/>
+    <path d="M22 52 Q30 40 50 42 Q70 40 78 52 Z" fill="#a8603b"/>
+    <circle cx="34" cy="44" r="5" fill="#ff5a5f"/><circle cx="56" cy="40" r="5" fill="#ff5a5f"/><circle cx="69" cy="46" r="4" fill="#ffffff"/>
+    <path d="M44 46 l4 -6 l4 6" fill="#ffe08a"/>
+    <path d="M10 52 A40 34 0 0 0 90 52 Z" fill="#ffcf5c"/></g>
+    <g fill="#e8a93a"><circle cx="30" cy="64" r="2.4"/><circle cx="46" cy="74" r="2.4"/><circle cx="62" cy="66" r="2.4"/><circle cx="72" cy="58" r="2"/><circle cx="38" cy="58" r="2"/></g>
+    <path d="M18 58 Q50 70 82 58" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    <g fill="#22264a"><circle cx="41" cy="66" r="2.6"/><circle cx="59" cy="66" r="2.6"/></g>
+    <path d="M46 71 Q50 74 54 71" fill="none" stroke="#22264a" stroke-width="2.2" stroke-linecap="round"/>
+    <g fill="#f5a9c0" opacity=".8"><ellipse cx="34" cy="70" rx="3.6" ry="2.2"/><ellipse cx="66" cy="70" rx="3.6" ry="2.2"/></g>`;
+  function cargarTaco() {
+    return new Promise(ok => {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas'); c.width = c.height = 128;
+        c.getContext('2d').drawImage(img, 0, 0, 128, 128);
+        texTaco = new T3.CanvasTexture(c); TEX.add(texTaco); ok();
+      };
+      img.onerror = () => ok();
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 100 100">${TACO_SVG}</svg>`);
     });
   }
 
@@ -3328,7 +3766,64 @@ const michirot = (() => {
   }
   function spriteDe(id, tam = 1.5) {
     const s = new T3.Sprite(new T3.SpriteMaterial({ map: texturas[id] || null, transparent: true, depthWrite: false }));
-    s.scale.set(tam, tam, 1); s.center.set(.5, .08); return s;
+    s.scale.set(tam, tam, 1); s.center.set(.5, .08); s.renderOrder = 2; return s;
+  }
+  function texturasExtra() {
+    // Chispa de 4 puntas y halo suave (se pintan del color que toque)
+    let c = document.createElement('canvas'); c.width = c.height = 64;
+    let g = c.getContext('2d');
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 30); rg.addColorStop(0, 'rgba(255,255,255,.9)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+    g.fillStyle = '#fff'; g.beginPath();
+    g.moveTo(32, 2); g.quadraticCurveTo(36, 28, 62, 32); g.quadraticCurveTo(36, 36, 32, 62); g.quadraticCurveTo(28, 36, 2, 32); g.quadraticCurveTo(28, 28, 32, 2); g.fill();
+    texChispa = new T3.CanvasTexture(c); TEX.add(texChispa);
+    c = document.createElement('canvas'); c.width = c.height = 128; g = c.getContext('2d');
+    const h = g.createRadialGradient(64, 64, 8, 64, 64, 62); h.addColorStop(0, 'rgba(255,255,255,.95)'); h.addColorStop(.45, 'rgba(255,255,255,.55)'); h.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = h; g.fillRect(0, 0, 128, 128);
+    texHalo = new T3.CanvasTexture(c); TEX.add(texHalo);
+  }
+  function haloDe(tam = 2.1) {
+    const s = new T3.Sprite(new T3.SpriteMaterial({ map: texHalo, transparent: true, depthWrite: false, opacity: .85 }));
+    s.scale.set(tam, tam, 1); s.center.set(.5, .3); s.renderOrder = 1; s.visible = false; s.userData.tam = tam; return s;
+  }
+  function pintarHalo(h, mut, t = 0) {
+    h.visible = !!(mut && MUT[mut]);
+    if (!h.visible) return;
+    if (mut === 'a') h.material.color.setHSL((t * .25) % 1, .9, .62);
+    else if (mut === 'g') h.material.color.setHSL(.7 + Math.sin(t * 1.5) * .06, .85, .58);
+    else if (mut === 'l') h.material.color.setHSL(.04 + Math.sin(t * 9) * .025, 1, .55);
+    else h.material.color.set(MUT[mut].color);
+    const k = 1 + Math.sin(t * 4) * .06; h.scale.set(h.userData.tam * k, h.userData.tam * k, 1);
+  }
+  function chispas(x, y, z, color, n = 12, fuerza = 3.2, tam = .42) {
+    if (particulas.length > 180) return;
+    for (let i = 0; i < n; i++) {
+      const s = new T3.Sprite(new T3.SpriteMaterial({ map: texChispa, color, transparent: true, depthWrite: false }));
+      s.position.set(x, y, z); s.renderOrder = 4;
+      const a = Math.random() * Math.PI * 2, u = .35 + Math.random() * .65;
+      const v = { x: Math.cos(a) * fuerza * u * .8, y: fuerza * (.6 + Math.random() * .8), z: Math.sin(a) * fuerza * u * .8 };
+      const vida = .55 + Math.random() * .45, tm = tam * (.6 + Math.random() * .7);
+      s.scale.set(tm, tm, 1);
+      escena.add(s); particulas.push({ s, v, t: 0, vida, tm, color });
+    }
+  }
+  function arcoiris() { return new T3.Color().setHSL(Math.random(), .9, .62); }
+  const ALEATORIO = l => l[Math.floor(Math.random() * l.length)];
+  function colorMut(m) {
+    if (m === 'a') return arcoiris();
+    if (m === 'c') return ALEATORIO(['#ff9ad5', '#9ff0d0', '#c9b0ff', '#fff3a6']);
+    if (m === 'l') return ALEATORIO(['#ff5a1f', '#ffb21f', '#ff2d2d']);
+    if (m === 'g') return ALEATORIO(['#b48cff', '#7f9cff', '#ffffff', '#ff9ad5']);
+    if (m === 't') return ALEATORIO(['#ffcf5c', '#7ed957', '#ff5a5f']);
+    return MUT[m].color;
+  }
+  function sombreroTaco() {
+    const s = new T3.Sprite(new T3.SpriteMaterial({ map: texTaco, transparent: true, depthWrite: false }));
+    s.scale.set(.78, .78, 1); s.center.set(.5, .3); s.renderOrder = 3; s.visible = false; return s;
+  }
+  function chispaMut(m, x, y, z) {
+    if (m === 'l') chispas(x, y - .3, z, colorMut(m), 1, 1.4, .3);
+    else chispas(x, y, z, colorMut(m), 1, .9, m === 'g' ? .36 : .3);
   }
   function etiqueta(ancho = 2.2) {
     const c = document.createElement('canvas'); c.width = 256; c.height = 112;
@@ -3383,8 +3878,9 @@ const michirot = (() => {
       [-1, 1].forEach(sx => { const o = new T3.Mesh(new T3.SphereGeometry(.07, 12, 10), blanco); o.position.set(sx * .18, 1.47, .5); o.scale.z = .4; cuerpoG.add(o); const p = new T3.Mesh(new T3.SphereGeometry(.035, 8, 6), negro); p.position.set(sx * .18, 1.47, .53); cuerpoG.add(p); });
       const saco = new T3.Mesh(new T3.SphereGeometry(.3, 14, 12), mat('#c9a06b')); saco.position.set(.25, .95, -.5); cuerpoG.add(saco);
     }
-    g.add(cuerpoG, sombra(.55));
-    g.userData.cuerpo = cuerpoG;
+    const sh = sombra(.55);
+    g.add(cuerpoG, sh);
+    g.userData.cuerpo = cuerpoG; g.userData.sombra = sh;
     return g;
   }
   function zombie3D() {
@@ -3398,10 +3894,23 @@ const michirot = (() => {
     const pup = new T3.Mesh(new T3.SphereGeometry(.05, 8, 6), negro); pup.position.set(-.17, 1.78, .48); c.add(pup);
     [1, -1].forEach(r => { const x = new T3.Mesh(new T3.BoxGeometry(.2, .045, .04), negro); x.position.set(.18, 1.78, .42); x.rotation.z = r * .75; c.add(x); });
     const boca = new T3.Mesh(new T3.BoxGeometry(.3, .04, .04), negro); boca.position.set(0, 1.56, .42); c.add(boca);
-    g.add(c, sombra(.55)); g.userData.cuerpo = c;
+    const sh = sombra(.55);
+    g.add(c, sh); g.userData.cuerpo = c; g.userData.sombra = sh;
     return g;
   }
 
+  let hacerBase = null;
+  function construirBaseMia() {
+    MIA.w = ANCHO_BASE(E.mej.base);
+    if (grupoBase) { escena.remove(grupoBase); liberar(grupoBase); }
+    muros = muros.filter(m => !murosBase.includes(m));
+    grupoBase = new T3.Group(); escena.add(grupoBase);
+    const antes = muros.length;
+    laseres[0] = hacerBase(MIA, '#efe8ff', '#c9b8f5', -1, grupoBase);
+    murosBase = muros.slice(antes);
+    anchoHecho = MIA.w;
+    if (pedMio.length) pedMio.forEach((p, i) => { p.g.visible = i < E.base.length; });
+  }
   function construirMundo() {
     escena = new T3.Scene();
     escena.background = new T3.Color('#bfe0ff');
@@ -3412,6 +3921,9 @@ const michirot = (() => {
     cont = $m('mrLienzo'); cont.innerHTML = ''; cont.append(render.domElement);
     toonGrad = new T3.DataTexture(new Uint8Array([105, 175, 230]), 3, 1, T3.LuminanceFormat);
     toonGrad.minFilter = toonGrad.magFilter = T3.NearestFilter; toonGrad.needsUpdate = true;
+    texturasExtra();
+    geoMoneda = new T3.CylinderGeometry(.3, .3, .08, 20); matMoneda = mat('#ffc93c');
+    geoSomMon = new T3.CircleGeometry(.26, 14); matSomMon = new T3.MeshBasicMaterial({ color: 0x1d2a57, transparent: true, opacity: .16, depthWrite: false });
     escena.add(new T3.HemisphereLight(0xffffff, 0x9fb7a0, .5));
     const sol = new T3.DirectionalLight(0xffffff, .62); sol.position.set(6, 12, 8); escena.add(sol);
 
@@ -3424,8 +3936,8 @@ const michirot = (() => {
     alf.rotation.x = -Math.PI / 2; alf.position.set(0, .03, ALF.z); escena.add(alf);
     [-1, 1].forEach(s => { const b = new T3.Mesh(new T3.PlaneGeometry(ALF.x1 - ALF.x0 + 8, .32), mat('#ffd25e')); b.rotation.x = -Math.PI / 2; b.position.set(0, .04, ALF.z + s * 1.95); escena.add(b); });
     // Bases
-    const hacerBase = (b, piso, pared, frente) => {
-      const f = caja(b.w, .16, b.d, piso, b.cx, .08, b.cz); escena.add(f);
+    hacerBase = (b, piso, pared, frente, padre = escena) => {
+      const f = caja(b.w, .16, b.d, piso, b.cx, .08, b.cz); padre.add(f);
       const x0 = b.cx - b.w / 2, x1 = b.cx + b.w / 2, z0 = b.cz - b.d / 2, z1 = b.cz + b.d / 2, h = 1.25, e = .32;
       const atras = frente > 0 ? z0 : z1;
       const ms = [
@@ -3433,18 +3945,18 @@ const michirot = (() => {
         { x0: x0 - e / 2, x1: x0 + e / 2, z0, z1 },
         { x0: x1 - e / 2, x1: x1 + e / 2, z0, z1 },
       ];
-      ms.forEach(m => { const w = caja(m.x1 - m.x0, h, m.z1 - m.z0, pared, (m.x0 + m.x1) / 2, h / 2, (m.z0 + m.z1) / 2); escena.add(w); muros.push(m); });
+      ms.forEach(m => { const w = caja(m.x1 - m.x0, h, m.z1 - m.z0, pared, (m.x0 + m.x1) / 2, h / 2, (m.z0 + m.z1) / 2); padre.add(w); muros.push(m); });
       const zf = frente > 0 ? z1 : z0;
-      [x0, x1].forEach(x => { const poste = caja(.42, 1.6, .42, pared, x, .8, zf); escena.add(poste); borde(poste, 1.1); });
+      [x0, x1].forEach(x => { const poste = caja(.42, 1.6, .42, pared, x, .8, zf); padre.add(poste); borde(poste, 1.1); });
       const laser = new T3.Mesh(new T3.BoxGeometry(b.w, 1.3, .08), new T3.MeshBasicMaterial({ color: 0xff4d6d, transparent: true, opacity: .45, depthWrite: false }));
-      laser.position.set(b.cx, .7, zf); laser.visible = false; escena.add(laser);
+      laser.position.set(b.cx, .7, zf); laser.visible = false; padre.add(laser);
       return { malla: laser, caja: { x0, x1, z0: zf - .2, z1: zf + .2 } };
     };
-    laseres.push(hacerBase(MIA, '#efe8ff', '#c9b8f5', -1));
+    construirBaseMia();
     laseres.push(hacerBase(RIV[0], '#e4f4df', '#9fd1a0', 1));
     laseres.push(hacerBase(RIV[1], '#eceff6', '#aab4cc', 1));
     { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const g = c.getContext('2d'); g.font = '700 92px Caveat, cursive'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 10; g.strokeStyle = '#ffffff'; g.strokeText('Tu base', 256, 66); g.fillStyle = '#9b55e0'; g.fillText('Tu base', 256, 66);
-      const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); escena.add(piso); }
+      const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); piso.renderOrder = 1; escena.add(piso); }
     letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
     letrero('Michi Bandido', RIV[1].cx, 2.7, RIV[1].cz - RIV[1].d / 2 - .1, '#56607d');
     // Pedestales
@@ -3453,12 +3965,15 @@ const michirot = (() => {
       const pie = new T3.Mesh(new T3.CylinderGeometry(.62, .72, .42, 22), mat('#ffffff')); pie.position.y = .21; g.add(pie); borde(pie, 1.06);
       const aro = new T3.Mesh(new T3.CylinderGeometry(.66, .66, .09, 22), mat('#b8bfd3')); aro.position.y = .42; g.add(aro);
       const spr = spriteDe('spaghettino', 1.5); spr.position.y = .42; spr.visible = false; g.add(spr);
+      const halo = haloDe(2.1); halo.position.y = .42; g.add(halo);
+      const taco = sombreroTaco(); taco.position.y = 1.6; g.add(taco);
       let lab = null;
-      if (mio) { lab = etiqueta(1.9); lab.position.y = 2.3; g.add(lab); }
+      if (mio) { lab = etiqueta(1.9); lab.position.y = 2.45; g.add(lab); }
       escena.add(g);
-      return { g, aro, spr, lab, x: p.x, z: p.z, id: null };
+      return { g, aro, spr, halo, taco, lab, x: p.x, z: p.z, id: null, mut: null, rebote: 0, cobroT: 0, chispaT: Math.random() };
     };
     pedMio = PED_MIO.map(p => pedestal(p, true));
+    pedMio.forEach((p, i) => { p.g.visible = i < E.base.length; });
     pedRiv = PED_RIV.map(l => l.map(p => pedestal(p, false)));
     // Árboles y florecitas
     const arbol = (x, z, s = 1) => {
@@ -3466,14 +3981,14 @@ const michirot = (() => {
       const copa = new T3.Mesh(new T3.SphereGeometry(1.1 * s, 14, 12), mat(Math.random() < .5 ? '#6fbd7f' : '#84cc90')); copa.position.set(x, 1.9 * s, z); escena.add(copa); borde(copa, 1.05);
       const s2 = sombra(1.1 * s); s2.position.set(x, .02, z); escena.add(s2);
     };
-    [[-16, 14], [16, 15], [-17, -2], [17, 3], [-15, -16], [15, -16], [-4, -17], [4, 17.5], [0, -16.5], [-12, 5], [12, 6]].forEach(([x, z], i) => arbol(x, z, .85 + (i % 3) * .15));
+    [[-17.4, 17.2], [17.4, 17.6], [-17, -2], [17, 3], [-15, -16], [15, -16], [-4, -17], [4, 17.5], [0, -16.5], [-15.6, 3.6], [15.6, 4.2]].forEach(([x, z], i) => arbol(x, z, .85 + (i % 3) * .15));
     for (let i = 0; i < 40; i++) {
       const x = (Math.random() - .5) * 36, z = (Math.random() - .5) * 34;
-      if (Math.abs(z) < 2.4 || dentroDe(MIA, x, z, -1) || RIV.some(b => dentroDe(b, x, z, -1))) continue;
+      if (Math.abs(z) < 2.4 || dentroDe(MIA_MAX, x, z, -1) || RIV.some(b => dentroDe(b, x, z, -1))) continue;
       const f = new T3.Mesh(new T3.SphereGeometry(.11, 8, 6), mat(['#ffffff', '#f5a9c0', '#ffd25e', '#9ec5f5'][i % 4])); f.position.set(x, .12, z); escena.add(f);
     }
     // Jugadora y dueños
-    jugador = { g: gato3D({ lazo: true }), x: 0, z: 5, ang: Math.PI, paso: 0 };
+    jugador = { g: gato3D({ lazo: true }), x: 0, z: 5, y: 0, vy: 0, ang: Math.PI, paso: 0, aplasta: 0 };
     escena.add(jugador.g);
     const cargaSpr = spriteDe('spaghettino', 1.2); cargaSpr.position.y = 2.15; cargaSpr.visible = false; jugador.g.add(cargaSpr); jugador.carga = cargaSpr;
     npc = [zombie3D(), gato3D({ cuerpo: '#9aa3bd', mascara: true })].map((g, r) => {
@@ -3481,6 +3996,7 @@ const michirot = (() => {
       const cs = spriteDe('spaghettino', 1.1); cs.position.y = 2.2; cs.visible = false; g.add(cs);
       return { g, r, x: CASA[r].x, z: CASA[r].z, ang: 0, estado: 'casa', t: 0, ruta: [], carga: null, cargaSpr: cs, paso: 0 };
     });
+    zzz = etiqueta(2.5); zzz.position.set(.9, 2.45, 0); zzz.renderOrder = 7; zzz.userData.poner(['💤 Zzz…'], '#e9e4ff'); zzz.visible = false; npc[0].g.add(zzz);
     medir();
   }
   function medir() {
@@ -3500,67 +4016,111 @@ const michirot = (() => {
     camara.position.y += (ty - camara.position.y) * k;
     camara.position.z += (tz - camara.position.z) * k;
     camara.lookAt(camara.position.x, .8, camara.position.z - ret[1] - 1.2);
+    if (sacudida > .01 && !REDUCED) {
+      camara.position.x += (Math.random() - .5) * sacudida;
+      camara.position.y += (Math.random() - .5) * sacudida;
+      sacudida *= Math.pow(.015, dt);
+    } else sacudida = 0;
   }
 
   /* ---------- Pintar estado en el mundo ---------- */
-  function pintarPed(p, id) {
-    p.id = id;
+  function pintarPed(p, id, mut) {
+    p.id = id; p.mut = id ? mut || null : null; p.esc = id === 'siempre' ? 2.3 : 1.5;
+    p.spr.scale.set(p.esc, p.esc, 1);
+    if (p.lab) p.lab.position.y = id === 'siempre' ? 3.05 : 2.45;
     p.spr.visible = !!id;
     if (id) { p.spr.material.map = texturas[id] || null; p.spr.material.needsUpdate = true; }
     p.aro.material.color.set(id ? COLOR_R[POR[id].r] : '#b8bfd3');
+    pintarHalo(p.halo, p.mut);
+    p.taco.visible = p.mut === 't';
     if (p.lab && !id) p.lab.userData.poner([]);
   }
-  function pintarBase() { E.base.forEach((b, i) => pintarPed(pedMio[i], b ? b.id : null)); }
-  function pintarRivales() { E.riv.forEach((R, r) => R.slots.forEach((s, k) => pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null))); }
+  function pintarBase() {
+    pedMio.forEach((p, i) => { p.g.visible = i < E.base.length; });
+    E.base.forEach((b, i) => pintarPed(pedMio[i], b ? b.id : null, b && b.mut));
+  }
+  function registrarMut(id, m) { const l = E.mutCol[id] || (E.mutCol[id] = []); if (!l.includes(m)) l.push(m); }
+  function mutarAlfombra(it, m) {
+    it.mut = m;
+    if (!it.halo) { it.halo = haloDe(2.3); it.g.add(it.halo); }
+    pintarHalo(it.halo, m);
+    if (m === 't' && !it.taco) { it.taco = sombreroTaco(); it.g.add(it.taco); }
+    if (it.taco) it.taco.visible = m === 't';
+  }
+  function pintarRivales() { E.riv.forEach((R, r) => R.slots.forEach((s, k) => pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null, s.mut))); }
 
   /* ---------- Alfombra ---------- */
-  function spawnear(id, x0) {
-    const s = spriteDe(id, id === 'secreto' ? 1.9 : 1.55);
-    const lab = etiqueta(2.3); lab.position.y = id === 'secreto' ? 2.45 : 2.15;
+  function spawnear(id, x0, mut) {
+    if (mut === undefined) mut = esSecreto(id) ? null : mutAzar(evento && evento.tipo === 'loca' ? 3 : 1);
+    const especial = esSecreto(id) || POR[id].r === 'x';
+    const s = spriteDe(id, id === 'siempre' ? 3.1 : especial ? 1.9 : 1.55);
+    const lab = etiqueta(2.3); lab.position.y = id === 'siempre' ? 3.2 : especial ? 2.45 : 2.15;
     const g = new T3.Group(); g.add(s, lab, sombra(.5));
-    if (id === 'secreto') {
-      const haz = new T3.Mesh(new T3.CylinderGeometry(.8, .8, 9, 18, 1, true), new T3.MeshBasicMaterial({ color: 0xffd6ea, transparent: true, opacity: .28, depthWrite: false, side: T3.DoubleSide }));
+    let halo = null;
+    if (mut) { halo = haloDe(2.3); g.add(halo); pintarHalo(halo, mut); }
+    if (especial || mut === 'a' || mut === 'g') {
+      const haz = new T3.Mesh(new T3.CylinderGeometry(.8, .8, 9, 18, 1, true), new T3.MeshBasicMaterial({ color: esSecreto(id) ? 0xffd6ea : especial ? 0x9ff3ff : mut === 'g' ? 0xc9b8ff : 0xf3d6ff, transparent: true, opacity: .3, depthWrite: false, side: T3.DoubleSide }));
       haz.position.y = 4.5; g.add(haz);
     }
-    const it = { id, g, s, lab, x: x0 != null ? x0 : ALF.x0, fase: Math.random() * 6 };
+    const it = { id, mut, g, s, lab, halo, taco: null, x: x0 != null ? x0 : ALF.x0, fase: Math.random() * 6, chispaT: 0, ex: POR[id].r === 'x' };
     g.position.set(it.x, .03, ALF.z + (Math.random() - .5) * .8);
     escena.add(g); alfombra.push(it);
+    if (it.ex && x0 == null) {
+      aviso(`💎 ¡Un michirot EXCLUSIVO está pasando por la alfombra: ${POR[id].n}! ${E.col.includes(id) ? '' : '¡Todavía no lo tienes!'}`, 4200);
+      sonido('secreto'); confetti(1500, 40);
+    } else if (mut && x0 == null) {
+      const M = MUT[mut];
+      if (mut !== 'o') aviso(`${M.ico} ¡Un michirot ${M.n.toUpperCase()} está pasando por la alfombra! Gana ×${M.x}`, 3000);
+      sonido('mutado');
+    }
     return it;
   }
   function liberar(o) {
     o.traverse(x => {
-      if (x.isMesh) { x.geometry.dispose(); x.material.dispose(); }
+      if (x.isMesh) {
+        if (x.geometry !== geoMoneda && x.geometry !== geoSomMon) x.geometry.dispose();
+        if (x.material !== tintaAtras && x.material !== matMoneda && x.material !== matSomMon) { if (x.material.map && !TEX.has(x.material.map)) x.material.map.dispose(); x.material.dispose(); }
+      }
       else if (x.isSprite) { const mp = x.material.map; if (mp && !TEX.has(mp)) mp.dispose(); x.material.dispose(); }
     });
   }
   function quitar(it) { escena.remove(it.g); liberar(it.g); alfombra = alfombra.filter(x => x !== it); }
-  function secretoListo() { return !E.col.includes('secreto') && E.col.filter(x => x !== 'secreto').length >= PARA_SECRETO; }
+  function secretoListo() { return !E.col.includes('secreto') && sinSecretos(E.col).length >= PARA_SECRETO; }
+  function siempreListo() { return E.col.includes('secreto') && !E.col.includes('siempre'); }
 
   /* ---------- Acciones ---------- */
   function comprar(it) {
-    const c = POR[it.id];
-    if (E.dinero < c.p) { aviso(`Te faltan ${fmt(c.p - E.dinero)} para ${c.n} 😿`); return; }
+    const c = POR[it.id], p = precio(it);
+    if (E.dinero < p) { sonido('no'); aviso(`Te faltan ${fmt(p - E.dinero)} para ${c.n} 😿`); return; }
     const i = E.base.findIndex(b => !b);
-    if (i < 0) { aviso('Tu base está llena. Párate junto a un michirot tuyo y presiona «Ver» para venderlo.', 3600); return; }
-    E.dinero -= c.p;
-    E.base[i] = { id: it.id, banco: 0, llegando: true };
+    if (i < 0) { sonido('no'); aviso(E.mej.base < MEJORA_BASE.costos.length ? 'Tu base está llena. Agrándala en la tiendita 🛍️ o vende un michirot (párate junto a él y presiona «Ver»).' : 'Tu base está llena. Párate junto a un michirot tuyo y presiona «Ver» para venderlo.', 3800); return; }
+    E.dinero -= p;
+    E.base[i] = { id: it.id, banco: 0, llegando: true, mut: it.mut || null };
     const desde = it.g.position.clone(); quitar(it);
-    volar(it.id, desde, pedMio[i], () => colocar(i, it.id, 'compra'));
+    sonido('comprar'); chispas(desde.x, 1, desde.z, it.mut ? colorMut(it.mut) : '#ffd25e', 10);
+    progreso('comprar', 1);
+    volar(it.id, desde, pedMio[i], () => colocar(i, it.id, 'compra', it.mut));
   }
   function volar(id, desde, ped, fin) {
     const s = spriteDe(id, 1.5); s.position.copy(desde); escena.add(s);
     vuelos.push({ s, desde, hasta: new T3.Vector3(ped.x, .58, ped.z), t: 0, fin });
   }
-  function colocar(i, id, como) {
-    E.base[i] = { id, banco: 0 };
+  function colocar(i, id, como, mut) {
+    mut = mut || null;
+    E.base[i] = { id, banco: 0, mut };
     const nuevoEnCol = !E.col.includes(id);
     if (nuevoEnCol) E.col.push(id);
+    if (mut) { registrarMut(id, mut); progreso('mutado', 1); }
     pintarBase(); guardar(); confetti(900, 30);
-    if (id === 'secreto') { ganarSecreto(); return; }
-    const c = POR[id];
-    if (como === 'robo') aviso(`¡Robaste a ${c.n}! 😼`);
-    else aviso(nuevoEnCol ? `¡Nuevo en tu colección: ${c.n}! ✨` : `¡${c.n} llegó a tu base!`);
-    if (nuevoEnCol && E.col.filter(x => x !== 'secreto').length === PARA_SECRETO) {
+    const p = pedMio[i]; p.rebote = 1;
+    chispas(p.x, 1.1, p.z, mut ? colorMut(mut) : COLOR_R[POR[id].r], 14);
+    if (id === 'secreto') { sonido('secreto'); ganarSecreto(); return; }
+    if (id === 'siempre') { sonido('secreto'); ganarSiempre(); return; }
+    sonido(como === 'robo' ? 'llegar' : 'moneda');
+    const c = POR[id], nm = mut ? `${MUT[mut].ico} ${c.n}` : c.n;
+    if (como === 'robo') aviso(`¡Robaste a ${nm}! 😼`);
+    else aviso(nuevoEnCol ? `¡Nuevo en tu colección: ${nm}! ✨` : `¡${nm} llegó a tu base!`);
+    if (nuevoEnCol && !esSecreto(id) && sinSecretos(E.col).length === PARA_SECRETO) {
       secretoT = 6;
       setTimeout(() => { if (abierto) aviso('✨ Juntaste 7 michirots distintos… algo muy especial va a pasar por la alfombra.', 4200); }, 2700);
     }
@@ -3569,44 +4129,50 @@ const michirot = (() => {
     const b = E.base[i]; if (!b || b.llegando) return 0;
     const m = Math.floor(b.banco); if (m < 1) return 0;
     E.dinero += m; E.total += m; b.banco -= m;
-    flotar('+' + fmt(m), pedMio[i]);
+    const p = pedMio[i];
+    flotar('+' + fmt(m), p); p.rebote = .6; sonido('moneda');
+    chispas(p.x, 1, p.z, '#ffd25e', 4, 2.4, .32);
+    progreso('cobrar', m);
     return m;
   }
-  function flotar(txt, p) {
-    const l = etiqueta(1.9); l.userData.poner([txt], '#7ee2a0'); l.position.set(p.x, 2.2, p.z); escena.add(l);
+  function flotar(txt, p, fondo = '#7ee2a0', y = 2.2) {
+    const l = etiqueta(1.9); l.userData.poner([txt], fondo); l.position.set(p.x, y, p.z); escena.add(l);
     flotantes.push({ l, t: 0 });
   }
   function info(i) {
-    const b = E.base[i]; if (!b) return; const c = POR[b.id];
-    hoja(`${arte(c.id, 'mr-grande')}<p class="mr-ficha-n">${esc(c.n)}</p><p>${chip(c.r)}</p><p class="mr-ganan">Gana ${fmt(c.g)} por segundo</p><p class="mr-ficha-d">${esc(c.d)}</p>`
-      + (c.id === 'secreto' ? '<p class="mr-tip">Este no se vende. Es nuestro 💞</p>' : ''),
-      c.id === 'secreto' ? [['Cerrar', cerrarHoja]] : [['Vender por ' + fmt(c.p / 2), () => { vender(i); cerrarHoja(); }], ['Cerrar', cerrarHoja]]);
+    const b = E.base[i]; if (!b) return; const c = POR[b.id], venta = Math.floor(c.p * multP(b.mut) / 2);
+    const dibujo = arte(c.id, 'mr-grande' + (b.mut ? ' mr-mut-' + b.mut : ''));
+    hoja(`${b.mut === 't' ? `<div class="mr-tacowrap">${dibujo}<svg class="mr-taco-mini" viewBox="0 0 100 100" aria-hidden="true">${TACO_SVG}</svg></div>` : dibujo}<p class="mr-ficha-n">${esc(c.n)}</p><p>${chip(c.r)} ${chipMut(b.mut)}</p><p class="mr-ganan">Gana ${fmtDe(c.id, ganaB(b))} por segundo${b.mut ? ` (×${MUT[b.mut].x})` : ''}</p><p class="mr-ficha-d">${esc(c.d)}</p>`
+      + (esSecreto(c.id) ? '<p class="mr-tip">Este no se vende. Es nuestro 💞</p>' : ''),
+      esSecreto(c.id) ? [['Cerrar', cerrarHoja]] : [['Vender por ' + fmt(venta), () => { vender(i); cerrarHoja(); }], ['Cerrar', cerrarHoja]]);
   }
   function vender(i) {
-    const c = POR[E.base[i].id];
+    const b = E.base[i], c = POR[b.id], venta = Math.floor(c.p * multP(b.mut) / 2);
     cobrar(i);
-    E.dinero += Math.floor(c.p / 2); E.base[i] = null;
-    pintarBase(); guardar();
-    aviso(`Vendiste a ${c.n} por ${fmt(c.p / 2)}`);
+    E.dinero += venta; E.base[i] = null;
+    pintarBase(); guardar(); sonido('moneda');
+    aviso(`Vendiste a ${c.n} por ${fmt(venta)}`);
   }
   function candado() {
-    const ahora = Date.now();
+    const ahora = Date.now(), seg = CANDADO_S[E.mej.candado] || 60;
     if (E.candado > ahora) { aviso('Tu base ya está cerrada 🔒'); return; }
-    if (E.enfriar > ahora) { aviso(`El candado se está recargando: ${Math.ceil((E.enfriar - ahora) / 1000)} s`); return; }
-    E.candado = ahora + 60000; E.enfriar = ahora + 105000;
-    aviso('Base cerrada por 60 segundos. Michi Bandido no puede entrar 🔒');
+    if (E.enfriar > ahora) { sonido('no'); aviso(`El candado se está recargando: ${Math.ceil((E.enfriar - ahora) / 1000)} s`); return; }
+    E.candado = ahora + seg * 1000; E.enfriar = ahora + (seg + 45) * 1000;
+    sonido('mejora');
+    aviso(`Base cerrada por ${seg} segundos. Michi Bandido no puede entrar 🔒`);
     guardar();
   }
   function robar(r, k) {
     const R = E.riv[r], s = R.slots[k];
-    if (!E.base.some(b => !b)) { aviso('Tu base está llena. Vende un michirot antes de robar.', 3200); return; }
+    if (!E.base.some(b => !b)) { sonido('no'); aviso(E.mej.base < MEJORA_BASE.costos.length ? 'Tu base está llena. Agrándala en la tiendita 🛍️ o vende un michirot antes de robar.' : 'Tu base está llena. Vende un michirot antes de robar.', 3400); return; }
     s.robando = true;
-    cargando = { id: s.id, r, k };
+    cargando = { id: s.id, r, k, mut: s.mut || null };
     jugador.carga.material.map = texturas[s.id]; jugador.carga.material.needsUpdate = true; jugador.carga.visible = true;
-    pintarRivales();
+    pintarRivales(); sonido('robar');
     const n = npc[r];
+    if (n.dormido) { aviso(`Shhh… ${DUEÑO[r].n} está dormido 😴 ¡Llévalo a tu base!`, 3000); return; }
     if (n.estado === 'casa' || n.estado === 'regresa') { n.estado = 'caza'; n.t = 0; n.vel = CAZA[POR[s.id].r]; }
-    aviso(`¡Corre a tu base con ${POR[s.id].n}! ${DUEÑO[r].n} te persigue 🏃‍♀️`, 3000);
+    aviso(`¡Corre a tu base con ${POR[s.id].n}! ${DUEÑO[r].n} te persigue. Salta para esquivarlo 🏃‍♀️`, 3000);
   }
   function soltarRobo(atrapada) {
     const x = cargando; if (!x) return;
@@ -3614,14 +4180,380 @@ const michirot = (() => {
     const R = E.riv[x.r], s = R.slots[x.k];
     if (atrapada) {
       s.robando = false; R.cerrada = Date.now() + 15000;
+      sonido('atrapada'); sacudida = .5;
       aviso(`¡${DUEÑO[x.r].n} te atrapó! 😾 Te quitó a ${POR[x.id].n}.`);
     } else {
       R.slots[x.k] = { id: null, vuelve: Date.now() + 40000 };
-      R.cerrada = Date.now() + 20000;
+      R.cerrada = npc[x.r].dormido ? 0 : Date.now() + 20000;
       const i = E.base.findIndex(b => !b);
-      if (i >= 0) colocar(i, x.id, 'robo');
+      progreso('robar', 1);
+      if ('elmdx'.includes(POR[x.id].r)) progreso('robarRaro', 1);
+      if (i >= 0) colocar(i, x.id, 'robo', x.mut);
     }
     pintarRivales(); guardar();
+  }
+
+  /* ---------- Saltar ---------- */
+  function saltar() {
+    if (pausa || !abierto || jugador.y > .001) return;
+    jugador.vy = 7.4; sonido('salto');
+    chispas(jugador.x, .15, jugador.z, '#ffffff', 5, 1.6, .3);
+    progreso('saltar', 1);
+  }
+
+  /* ---------- Misiones ---------- */
+  function generarMision(prev) {
+    const ing = Math.max(4, ingreso());
+    const tipos = ['comprar', 'cobrar', 'robar', 'monedas', 'saltar', 'mutado', 'regalo', 'atrapar', 'robarRaro', 'tacos'].filter(t => t !== prev);
+    const t = tipos[Math.floor(Math.random() * tipos.length)];
+    const m = { t, meta: 1, prog: 0, premio: 0 };
+    if (t === 'comprar') m.meta = 2 + Math.floor(Math.random() * 3);
+    if (t === 'cobrar') m.meta = redondo(ing * 50);
+    if (t === 'robar') m.meta = 1 + Math.floor(Math.random() * 2);
+    if (t === 'monedas') { m.meta = 15; m.evento = 'lluvia'; }
+    if (t === 'saltar') m.meta = 10;
+    if (t === 'regalo') m.evento = 'regalo';
+    if (t === 'tacos') { m.meta = 10; m.evento = 'tacos'; }
+    m.premio = redondo(ing * ({ saltar: 15, comprar: 30, cobrar: 25 }[t] || 45) + 50);
+    return m;
+  }
+  function asegurarMision(prev) {
+    if (E.mision && E.mision.t) return;
+    const base = MISIONES[E.misN];
+    E.mision = base ? Object.assign({ prog: 0 }, base) : generarMision(prev);
+  }
+  function textoMision(m) {
+    switch (m.t) {
+      case 'comprar': return `Compra ${m.meta} michirots`;
+      case 'cobrar': return `Cobra ${fmt(m.meta)} en tu base`;
+      case 'saltar': return `Salta ${m.meta} veces`;
+      case 'robar': return m.meta > 1 ? `Roba ${m.meta} michirots` : 'Roba un michirot';
+      case 'mejora': return 'Compra una mejora en la tiendita 🛍️';
+      case 'base': return `Ten ${m.meta} michirots en tu base`;
+      case 'mutado': return 'Consigue un michirot mutado (dorado, taco, lava…)';
+      case 'tacos': return `Atrapa ${m.meta} tacos en la lluvia de tacos 🌮`;
+      case 'agrandar': return 'Agranda tu base en la tiendita 🏠';
+      case 'monedas': return `Atrapa ${m.meta} monedas de la lluvia`;
+      case 'ingreso': return `Llega a ganar ${fmt(m.meta)}/s`;
+      case 'regalo': return 'Abre un regalo misterioso 🎁';
+      case 'robarRaro': return 'Roba un michirot Épico o mejor';
+      case 'coleccion': return `Junta ${m.meta} michirots distintos`;
+      case 'atrapar': return 'Atrapa a Michi Bandido cuando venga';
+    }
+    return '';
+  }
+  function medidaMision(m) {
+    if (m.t === 'base') return E.base.filter(Boolean).length;
+    if (m.t === 'ingreso') return ingreso();
+    if (m.t === 'coleccion') return E.col.length;
+    return m.prog;
+  }
+  function progreso(t, n) {
+    const m = E && E.mision; if (!m || m.t !== t) return;
+    m.prog = (m.prog || 0) + n;
+    if (m.prog >= m.meta) completarMision();
+  }
+  function completarMision() {
+    const m = E.mision; if (!m || m.hecha) return;
+    m.hecha = true;
+    E.dinero += m.premio; E.total += m.premio;
+    E.misN++; E.mision = null; asegurarMision(m.t);
+    sonido('mision'); confetti(1400, 50);
+    chispas(jugador.x, 2, jugador.z, '#7ee2a0', 16, 4);
+    aviso(`🎯 ¡Misión cumplida! Ganaste ${fmt(m.premio)} 💰`, 3000);
+    const el = $m('mrMision'); el.classList.remove('hecha'); void el.offsetWidth; el.classList.add('hecha');
+    if (E.mision.t === 'atrapar') ladronT = Math.min(ladronT, 25);
+    if (E.mision.evento && E.mision.evento !== 'tacos' && !evento) eventoT = Math.min(eventoT, 18);
+    guardar();
+  }
+  function pintarMision() {
+    const m = E.mision; if (!m) return;
+    const v = Math.min(m.meta, medidaMision(m));
+    const dinero = m.t === 'cobrar' || m.t === 'ingreso';
+    const html = `<span class="i">🎯</span><span class="t">${esc(textoMision(m))}</span><span class="p">${dinero ? fmt(v) : Math.floor(v)}/${dinero ? fmt(m.meta) : m.meta}</span><span class="pr">🎁 ${fmt(m.premio)}</span><i class="bar"><i style="width:${(v / m.meta * 100).toFixed(1)}%"></i></i>`;
+    if (html !== misionHTML) { misionHTML = html; $m('mrMision').innerHTML = html; }
+    if ((m.t === 'base' || m.t === 'ingreso' || m.t === 'coleccion') && medidaMision(m) >= m.meta) completarMision();
+  }
+
+  /* ---------- Tiendita ---------- */
+  function tienda(msg = '') {
+    const fila = M => {
+      const l = E.mej[M.id], max = l >= M.costos.length, c = M.costos[l];
+      return `<div class="mr-mej"><span class="ico">${M.ico}</span><div class="tx"><b>${esc(M.n)}</b><span>${esc(M.d)}</span>`
+        + `<span class="nv">${'●'.repeat(l)}${'○'.repeat(M.costos.length - l)} · ${esc(M.val(l))}</span></div>`
+        + `<button class="mr-mini${max ? '' : E.dinero >= c ? ' ok' : ' caro'}" type="button" data-m="${M.id}"${max ? ' disabled' : ''}>${max ? 'Máximo ✨' : fmt(c)}</button></div>`;
+    };
+    hoja(`<p class="adv-sheet-t">Tiendita 🛍️</p><p class="mr-tip">Tienes <b class="mr-ganan">${fmt(E.dinero)}</b></p>`
+      + (msg ? `<p class="mr-tienda-msg">${esc(msg)}</p>` : '')
+      + `<div class="mr-tienda">${MEJORAS.map(fila).join('')}</div>`, [['Cerrar', cerrarHoja]]);
+    $m('mrCard').querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => comprarMejora(b.dataset.m)));
+  }
+  function comprarMejora(id) {
+    const M = MEJORAS.find(x => x.id === id), l = E.mej[id];
+    if (l >= M.costos.length) return;
+    const c = M.costos[l];
+    if (E.dinero < c) { sonido('no'); tienda(`Te faltan ${fmt(c - E.dinero)} para esa mejora 😿`); return; }
+    E.dinero -= c; E.mej[id]++;
+    if (id === 'base') { cerrarHoja(); agrandarBase(); progreso('mejora', 1); return; }
+    sonido('mejora'); guardar();
+    tienda(`¡${M.n} subió a nivel ${E.mej[id]}! ✨`);
+    progreso('mejora', 1);
+  }
+  function agrandarBase() {
+    const antes = E.base.length;
+    while (E.base.length < SLOTS + 4 * E.mej.base) E.base.push(null);
+    construirBaseMia(); pintarBase();
+    for (let i = antes; i < E.base.length; i++) { const p = pedMio[i]; chispas(p.x, .8, p.z, '#c9b8f5', 12, 3.4); chispas(p.x, .8, p.z, '#ffd25e', 6, 3); }
+    sonido('mision'); confetti(1800, 70); sacudida = .35;
+    aviso(`🏠 ¡Tu base creció! Ahora caben ${E.base.length} michirots ✨`, 3400);
+    progreso('agrandar', 1);
+    guardar();
+  }
+
+  /* ---------- Eventos sorpresa ---------- */
+  function iniciarEvento(tipo) {
+    if (evento) return;
+    if (!tipo) {
+      const m = E.mision && E.mision.evento;
+      tipo = m && m !== 'tacos' && Math.random() < .8 ? m : azar({ lluvia: 34, loca: 24, regalo: 26, siesta: npc[0].estado === 'casa' ? 16 : 0 });
+    }
+    if (tipo === 'siesta' && npc[0].estado !== 'casa') tipo = 'lluvia';
+    const D = EVENTOS[tipo];
+    evento = { tipo, t: D.dur, dur: D.dur };
+    if (tipo === 'lluvia') monedaT = 0;
+    if (tipo === 'loca') { escena.background.set('#f1dcff'); escena.fog.color.set('#f1dcff'); spawnT = Math.min(spawnT, .4); }
+    if (tipo === 'regalo') crearRegalo();
+    if (tipo === 'siesta') { npc[0].dormido = true; zzz.visible = true; E.riv[0].cerrada = 0; }
+    if (tipo === 'tacos') { tacoLanzaT = 0; tacosMios = 0; tacoT = TACO_CADA; tacoAviso = false; escena.background.set('#ffe9c4'); escena.fog.color.set('#ffe9c4'); }
+    sonido(tipo === 'tacos' ? 'taco' : 'evento'); musica(abierto);
+    aviso(D.txt, 3800);
+  }
+  function terminarEvento() {
+    const ev = evento; if (!ev) return;
+    evento = null;
+    // Ritmo: una lluvia de tacos cada 2 minutos y, entre una y otra, una sorpresa
+    eventoT = ev.tipo === 'tacos' ? 10 + Math.random() * 18 : 999;
+    if (ev.tipo === 'loca' || ev.tipo === 'tacos') { escena.background.set('#bfe0ff'); escena.fog.color.set('#bfe0ff'); }
+    if (ev.tipo === 'tacos' && abierto) aviso(tacosMios ? `🌮 Se acabó la lluvia de tacos. ¡${tacosMios === 1 ? 'Uno de tus michirots quedó' : tacosMios + ' de tus michirots quedaron'} Taco!` : '🌮 Se acabó la lluvia de tacos. La próxima es en 2 minutos', 3200);
+    if (ev.tipo === 'regalo' && regalo) { quitarRegalo(); if (abierto) aviso('El regalo misterioso desapareció… ¡a la próxima! 🎁'); }
+    if (ev.tipo === 'siesta') {
+      const n = npc[0]; n.dormido = false; zzz.visible = false;
+      if (cargando && cargando.r === 0 && n.estado === 'casa') { n.estado = 'caza'; n.t = 0; n.vel = CAZA[POR[cargando.id].r]; aviso('¡El Zombie Gruñón se despertó! ¡Corre! 🧟', 2600); sonido('alerta'); }
+    }
+    musica(abierto);
+  }
+  function soltarMoneda() {
+    // alrededor de ella, sin caer pegadas a la cámara
+    const x = Math.max(-LIM.x, Math.min(LIM.x, jugador.x + (Math.random() - .5) * 13)), z = Math.max(-LIM.z, Math.min(LIM.z, jugador.z - 6.5 + Math.random() * 10));
+    const grande = Math.random() < .1, alta = Math.random() < .22;
+    const g = new T3.Group();
+    const m = new T3.Mesh(geoMoneda, matMoneda); m.rotation.x = Math.PI / 2; g.add(m); borde(m, 1.18);
+    if (grande) g.scale.setScalar(1.6);
+    const sh = new T3.Mesh(geoSomMon, matSomMon); sh.rotation.x = -Math.PI / 2; sh.position.set(x, .025, z);
+    const suelo = alta ? 2.75 : .42;
+    g.position.set(x, suelo + 4 + Math.random() * 2, z);
+    escena.add(g, sh);
+    monedas.push({ g, sh, x, z, suelo, vy: -3, en: false, vida: 6.5, grande, alta });
+  }
+  function actualizarMonedas(dt, t) {
+    monedas = monedas.filter(c => {
+      if (!c.en) {
+        c.g.position.y += c.vy * dt; c.vy -= 9 * dt;
+        if (c.g.position.y <= c.suelo) { c.g.position.y = c.suelo; c.en = true; }
+      } else {
+        c.vida -= dt;
+        c.g.position.y = c.suelo + Math.sin(t * 4 + c.x) * .08;
+        c.g.visible = c.vida > 1.5 || Math.floor(c.vida * 8) % 2 === 0;
+      }
+      c.g.rotation.y += dt * 4;
+      const cerca = Math.hypot(c.x - jugador.x, c.z - jugador.z) < (c.grande ? 1.1 : .9);
+      const alto = Math.abs(c.g.position.y - (jugador.y + 1)) < 1.3;
+      if (cerca && alto) {
+        const v = Math.max(5, Math.round(Math.max(4, ingreso()) * 1.2)) * (c.grande ? 5 : 1) * (c.alta ? 2 : 1);
+        E.dinero += v; E.total += v;
+        flotar('+' + fmt(v), { x: c.x, z: c.z }, '#ffe39a', c.g.position.y + 1);
+        chispas(c.x, c.g.position.y, c.z, '#ffc93c', c.grande ? 10 : 5, 2.6, .34);
+        sonido('moneda'); progreso('monedas', 1);
+        escena.remove(c.g, c.sh); return false;
+      }
+      if (c.vida <= 0) { escena.remove(c.g, c.sh); return false; }
+      return true;
+    });
+  }
+  /* ---------- Lluvia de tacos ---------- */
+  function elegirBlanco() {
+    const op = [];
+    alfombra.forEach(it => { if (!esSecreto(it.id) && it.x > ALF.x0 + 4 && it.x < ALF.x1 - 7) op.push([3, { tipo: 'alf', it }]); });
+    E.base.forEach((b, i) => { if (b && !b.llegando && !esSecreto(b.id)) op.push([1, { tipo: 'mio', i }]); });
+    E.riv.forEach((R, r) => R.slots.forEach((sl, k) => { if (sl.id && !sl.robando) op.push([1, { tipo: 'riv', r, k }]); }));
+    if (!op.length) return null;
+    let w = Math.random() * op.reduce((a, o) => a + o[0], 0);
+    for (const [p, o] of op) { w -= p; if (w <= 0) return o; }
+    return op[0][1];
+  }
+  function dondeBlanco(o) {
+    if (o.tipo === 'alf') return alfombra.includes(o.it) ? { x: o.it.x, z: o.it.g.position.z, y: 1.05 } : null;
+    const p = o.tipo === 'mio' ? pedMio[o.i] : pedRiv[o.r][o.k];
+    return { x: p.x, z: p.z, y: 1.35 };
+  }
+  function soltarTaco() {
+    const blanco = Math.random() < .24 ? elegirBlanco() : null, pos = blanco && dondeBlanco(blanco);
+    const s = new T3.Sprite(new T3.SpriteMaterial({ map: texTaco, transparent: true, depthWrite: false }));
+    s.scale.set(.85, .85, 1); s.renderOrder = 3;
+    let x, z, suelo;
+    if (pos) { x = pos.x; z = pos.z; suelo = pos.y; }
+    else {
+      x = Math.max(-LIM.x, Math.min(LIM.x, jugador.x + (Math.random() - .5) * 14));
+      z = Math.max(-LIM.z, Math.min(LIM.z, jugador.z - 7 + Math.random() * 10.5));
+      suelo = .45;
+    }
+    s.position.set(x, suelo + 4.5 + Math.random() * 2.5, z);
+    let sh = null;
+    if (!pos) { sh = new T3.Mesh(geoSomMon, matSomMon); sh.rotation.x = -Math.PI / 2; sh.position.set(x, .025, z); escena.add(sh); }
+    escena.add(s);
+    tacosCaen.push({ s, sh, x, z, suelo, vy: -2, en: false, vida: 4.5, blanco: pos ? blanco : null, giro: (Math.random() - .5) * 7 });
+  }
+  function golpeTaco(c) {
+    const o = c.blanco;
+    chispas(c.x, c.suelo, c.z, '#ffcf5c', 6, 2.6, .34); chispas(c.x, c.suelo, c.z, '#7ed957', 3, 2.2, .3);
+    const mejora = m => multG(m) < MUT.t.x;
+    if (o.tipo === 'alf') {
+      const it = o.it;
+      if (alfombra.includes(it) && mejora(it.mut) && Math.random() < .6) { mutarAlfombra(it, 't'); chispas(it.x, 1.2, it.g.position.z, '#ffb23d', 10, 3); sonido('mutado'); }
+    } else if (o.tipo === 'mio') {
+      const b = E.base[o.i];
+      if (b && !b.llegando && !esSecreto(b.id) && mejora(b.mut) && tacosMios < 3 && Math.random() < .3) {
+        b.mut = 't'; registrarMut(b.id, 't'); tacosMios++;
+        pintarBase(); pedMio[o.i].rebote = 1;
+        chispas(c.x, 1.4, c.z, '#ffb23d', 16, 3.6);
+        sonido('mutado'); sacudida = .15;
+        aviso(`🌮 ¡Un taco le cayó a tu ${POR[b.id].n}! Ahora es TACO y gana ×${MUT.t.x}`, 3400);
+        progreso('mutado', 1); guardar();
+      }
+    } else {
+      const sl = E.riv[o.r].slots[o.k];
+      if (sl.id && !sl.robando && mejora(sl.mut) && Math.random() < .5) { sl.mut = 't'; pintarRivales(); chispas(c.x, 1.4, c.z, '#ffb23d', 8, 3); }
+    }
+  }
+  function actualizarTacos(dt) {
+    if (evento && evento.tipo === 'tacos') { tacoLanzaT -= dt; while (tacoLanzaT <= 0) { tacoLanzaT += .14; soltarTaco(); } }
+    tacosCaen = tacosCaen.filter(c => {
+      if (!c.en) {
+        if (c.blanco) { const pos = dondeBlanco(c.blanco); if (pos) { c.x = pos.x; c.z = pos.z; } else { c.blanco = null; c.suelo = .45; } }
+        c.vy -= 11 * dt; c.s.position.set(c.x, c.s.position.y + c.vy * dt, c.z);
+        c.s.material.rotation += c.giro * dt;
+        if (c.s.position.y <= c.suelo) {
+          if (c.blanco) { golpeTaco(c); escena.remove(c.s); c.s.material.dispose(); return false; }
+          c.s.position.y = c.suelo; c.en = true; c.s.material.rotation = 0;
+          chispas(c.x, .3, c.z, '#ffffff', 2, 1.2, .26);
+        }
+      } else {
+        c.vida -= dt;
+        c.s.visible = c.vida > 1.2 || Math.floor(c.vida * 8) % 2 === 0;
+        if (Math.hypot(c.x - jugador.x, c.z - jugador.z) < .95 && jugador.y < 1) {
+          const v = Math.max(5, Math.round(Math.max(4, ingreso()) * .7));
+          E.dinero += v; E.total += v;
+          flotar('+' + fmt(v), { x: c.x, z: c.z }, '#ffe39a', 1.6);
+          chispas(c.x, .6, c.z, '#ffcf5c', 5, 2.2, .3);
+          sonido('nam'); progreso('tacos', 1);
+          c.vida = 0;
+        }
+        if (c.vida <= 0) { escena.remove(c.s); c.s.material.dispose(); if (c.sh) escena.remove(c.sh); return false; }
+      }
+      return true;
+    });
+  }
+  function crearRegalo() {
+    const libres = REGALO_SITIOS.filter(([x, z]) => Math.hypot(x - jugador.x, z - jugador.z) > 6 && !dentroDe(MIA, x, z, -1.2));
+    const [x, z] = libres[Math.floor(Math.random() * libres.length)] || REGALO_SITIOS[0];
+    const g = new T3.Group(), c = new T3.Group(); g.add(c);
+    const caj = caja(.9, .78, .9, '#ff6f91', 0, .39, 0); c.add(caj); borde(caj, 1.08);
+    const tapa = caja(1.02, .22, 1.02, '#ff8fab', 0, .86, 0); c.add(tapa); borde(tapa, 1.08);
+    c.add(caja(.2, .8, .94, '#ffd25e', 0, .4, 0), caja(.94, .8, .2, '#ffd25e', 0, .4, 0), caja(.2, .24, 1.05, '#ffd25e', 0, .86, 0), caja(1.05, .24, .2, '#ffd25e', 0, .86, 0));
+    [-1, 1].forEach(sx => { const l = new T3.Mesh(new T3.SphereGeometry(.17, 12, 10), mat('#ffd25e')); l.scale.set(1.3, .8, .7); l.position.set(sx * .17, 1.06, 0); l.rotation.z = sx * .5; c.add(l); });
+    const haz = new T3.Mesh(new T3.CylinderGeometry(.75, .75, 10, 18, 1, true), new T3.MeshBasicMaterial({ color: 0xffd25e, transparent: true, opacity: .25, depthWrite: false, side: T3.DoubleSide }));
+    haz.position.y = 5; g.add(haz, sombra(.65));
+    const lab = etiqueta(2.2); lab.position.y = 2.1; lab.userData.poner(['🎁 ¡Ábreme!'], '#ffd3dc'); g.add(lab);
+    g.position.set(x, 0, z); escena.add(g);
+    regalo = { g, c, x, z };
+  }
+  function quitarRegalo() { if (!regalo) return; escena.remove(regalo.g); liberar(regalo.g); regalo = null; }
+  function abrirRegalo() {
+    const { x, z } = regalo; quitarRegalo();
+    sonido('regalo'); confetti(1600, 60); sacudida = .25;
+    chispas(x, 1, z, '#ff8fab', 18, 4.2); chispas(x, 1, z, '#ffd25e', 12, 3.6);
+    progreso('regalo', 1);
+    const libre = E.base.findIndex(b => !b), r = Math.random();
+    if (r < .36 && libre >= 0) {
+      const mari = Math.random() < .25 * suerte();
+      const id = mari ? 'mariachino' : alAzar(azar({ r: 45, e: 35, l: 16, m: 4 })), mut = mari ? null : Math.random() < .5 ? 'o' : mutAzar(2);
+      E.base[libre] = { id, banco: 0, llegando: true, mut };
+      volar(id, new T3.Vector3(x, 1, z), pedMio[libre], () => colocar(libre, id, 'regalo', mut));
+      if (mari) { sonido('secreto'); confetti(2400, 90); }
+      aviso(mari ? '🎁🎸 ¡Adentro venía el EXCLUSIVO Mariachino Miau! Ya va volando a tu base' : `🎁 ¡Adentro venía ${mut ? MUT[mut].ico + ' ' : ''}${POR[id].n}! Ya va volando a tu base`, 3800);
+    } else if (r < .62) {
+      turboT = 20; sonido('mejora');
+      aviso('🎁 ¡Turbo de patitas! Corres súper rápido por 20 segundos ⚡', 3200);
+    } else {
+      const v = redondo(Math.max(150, ingreso() * 40));
+      E.dinero += v; E.total += v;
+      flotar('+' + fmt(v), { x, z }, '#ffe39a', 2.4);
+      aviso(`🎁 ¡Adentro había ${fmt(v)}! 💰`, 3000);
+    }
+    if (evento && evento.tipo === 'regalo') terminarEvento();
+    guardar();
+  }
+  function actualizarEvento(dt, t) {
+    tacoT -= dt;
+    if (!(evento && evento.tipo === 'tacos')) {
+      if (tacoT <= 10 && !tacoAviso) { tacoAviso = true; aviso('🌮 ¡En 10 segundos empieza la lluvia de tacos!', 2600); }
+      if (tacoT <= 0) { if (evento) terminarEvento(); iniciarEvento('tacos'); return; }
+    }
+    if (!evento) {
+      eventoT -= dt;
+      if (eventoT <= 0 && !cargando && E.base.some(Boolean)) {
+        if (tacoT >= 50) iniciarEvento(); else eventoT = 999;
+      }
+      return;
+    }
+    evento.t -= dt;
+    if (evento.tipo === 'lluvia') { monedaT -= dt; while (monedaT <= 0) { monedaT += .2; soltarMoneda(); } }
+    if (evento.tipo === 'loca' && Math.random() < dt * 12) {
+      const a = Math.random() * Math.PI * 2, r = 1.5 + Math.random() * 6;
+      chispas(jugador.x + Math.cos(a) * r, 2 + Math.random() * 2.5, jugador.z + Math.sin(a) * r * .7, arcoiris(), 2, 1.4, .5);
+    }
+    if (evento.tipo === 'regalo' && regalo) {
+      regalo.c.rotation.y += dt * 1.6; regalo.c.position.y = Math.abs(Math.sin(t * 3)) * .25;
+      if (dist(regalo, jugador) < 1.2) { abrirRegalo(); return; }
+    }
+    if (evento.t <= 0) terminarEvento();
+  }
+  function flecha(dx, dz) {
+    const a = Math.atan2(dx, -dz), k = Math.round(a / (Math.PI / 4));
+    return { 0: '⬆️', 1: '↗️', 2: '➡️', 3: '↘️', 4: '⬇️', '-4': '⬇️', '-3': '↙️', '-2': '⬅️', '-1': '↖️' }[k];
+  }
+  function pintarEvento() {
+    const el = $m('mrEvento');
+    let html = '';
+    if (evento) {
+      const D = EVENTOS[evento.tipo];
+      let extra = `${Math.ceil(evento.t)} s`;
+      if (evento.tipo === 'regalo' && regalo) { const d = Math.hypot(regalo.x - jugador.x, regalo.z - jugador.z); extra = `${flecha(regalo.x - jugador.x, regalo.z - jugador.z)} a ${Math.round(d)} pasos · ${extra}`; }
+      html = `<span class="i">${D.ico}</span><b>${esc(D.n)}</b><span class="s">${extra}</span><i class="bar"><i style="width:${(evento.t / evento.dur * 100).toFixed(1)}%"></i></i>`;
+    } else if (turboT > 0) html = `<span class="i">⚡</span><b>Turbo de patitas</b><span class="s">${Math.ceil(turboT)} s</span><i class="bar"><i style="width:${(turboT / 20 * 100).toFixed(1)}%"></i></i>`;
+    else if (tacoT <= 15) html = `<span class="i">🌮</span><b>Lluvia de tacos en</b><span class="s">${Math.max(0, Math.ceil(tacoT))} s</span><i class="bar"><i style="width:${(Math.max(0, tacoT) / 15 * 100).toFixed(1)}%"></i></i>`;
+    el.hidden = !html;
+    const clase = 'mr3-evento ' + (evento ? 'ev-' + evento.tipo : turboT > 0 ? 'ev-turbo' : 'ev-tacos ev-pre');
+    if (html !== eventoHTML) { eventoHTML = html; el.innerHTML = html; el.className = clase; }
+  }
+  function limpiarDiversion() {
+    if (evento) { evento = null; if (escena) { escena.background.set('#bfe0ff'); escena.fog.color.set('#bfe0ff'); } }
+    tacosCaen.forEach(c => { escena.remove(c.s); c.s.material.dispose(); if (c.sh) escena.remove(c.sh); }); tacosCaen = [];
+    if (npc.length) { npc[0].dormido = false; if (zzz) zzz.visible = false; }
+    quitarRegalo();
+    monedas.forEach(c => escena.remove(c.g, c.sh)); monedas = [];
+    particulas.forEach(p => { escena.remove(p.s); p.s.material.dispose(); }); particulas = [];
+    turboT = 0; sacudida = 0;
   }
 
   /* ---------- Hojitas ---------- */
@@ -3638,28 +4570,46 @@ const michirot = (() => {
     hoja(`<p class="adv-sheet-t">Tu colección</p><p class="mr-tip">${E.col.length} de ${CAT.length} michirots</p>
       <div class="mr-col">${CAT.map(c => {
         const t = E.col.includes(c.id);
-        return `<div class="mr-col-i${t ? '' : ' falta'}">${arte(c.id)}<span class="n">${t ? esc(c.n) : '???'}</span>${chip(c.r)}${t ? `<span class="g">${fmt(c.g)}/s</span>` : ''}</div>`;
-      }).join('')}</div>`, [['Cerrar', cerrarHoja]]);
+        const mm = (E.mutCol[c.id] || []).filter(m => MUT[m]).sort((a, b) => ORDEN_MUT.indexOf(a) - ORDEN_MUT.indexOf(b)).map(m => MUT[m].ico).join('');
+        return `<div class="mr-col-i${t ? '' : ' falta'}${c.r === 'x' ? ' ex' : ''}">${arte(c.id)}<span class="n">${t ? esc(c.n) : '???'}</span>${chip(c.r)}${t ? `<span class="g">${fmtDe(c.id, c.g)}/s</span>` : c.pista ? `<span class="pista">${esc(c.pista)}</span>` : ''}${mm ? `<span class="mm" title="Mutaciones que tienes">${mm}</span>` : ''}</div>`;
+      }).join('')}</div>
+      <p class="mr-tip">${ORDEN_MUT.split('').map(m => `${MUT[m].ico} ${MUT[m].n} ×${MUT[m].x}`).join(' · ')}</p>`, [['Cerrar', cerrarHoja]]);
   }
   function ayuda() {
     hoja(`<p class="adv-sheet-t">¿Cómo se juega?</p>
       <ul class="adv-how mr-how">
-        <li><span>🕹️</span><span>Camina con el joystick (o con las flechas).</span></li>
+        <li><span>🕹️</span><span>Camina con el joystick (o con las flechas). Salta con el botón ⤴ (o con Espacio).</span></li>
         <li><span>🛒</span><span>Acércate a un michirot de la alfombra azul y presiona «Comprar».</span></li>
         <li><span>💰</span><span>Tus michirots ganan dinero. Pasa junto a ellos en tu base para cobrar.</span></li>
-        <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base antes de que el dueño te alcance.</span></li>
+        <li><span>🌟</span><span>A veces pasan michirots mutados que brillan y ganan más: Dorado ×2, Diamante ×3, Dulce ×4, Lava ×5, Arcoíris ×6 y Galaxia ×8.</span></li>
+        <li><span>🌮</span><span>Cada 2 minutos hay lluvia de tacos: al michirot que le cae un taco se vuelve Taco (×4), ¡hasta los de tu base!</span></li>
+        <li><span>🏠</span><span>Cuando se llene tu base, agrándala en la tiendita: puede llegar a 20 lugares.</span></li>
+        <li><span>💎</span><span>Hay ${CAT.length} michirots que coleccionar. Los Exclusivos solo salen en momentos especiales: en la lluvia de tacos, en la hora loca, en los regalos… y una reina que casi nunca pasa.</span></li>
+        <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base. Si el dueño te alcanza, ¡salta para esquivarlo!</span></li>
         <li><span>🔒</span><span>Si Michi Bandido se lleva uno de los tuyos, alcánzalo. Con el candado no puede entrar a tu base.</span></li>
+        <li><span>🎯</span><span>Cumple misiones para ganar premios, y gasta en la tiendita 🛍️ para mejorar a tu gatita.</span></li>
+        <li><span>🎉</span><span>Hay sorpresas: lluvia de monedas, hora loca, regalos misteriosos y siestas zombie.</span></li>
         <li><span>✨</span><span>Junta 7 michirots distintos y pasará uno secreto muy especial…</span></li>
       </ul>`, [['¡A jugar! 🐾', cerrarHoja]]);
   }
   function ganarSecreto() {
-    E.ganado = true; guardar();
+    E.ganado = true; siempreT = 25; guardar();
     confetti(5200, 200);
     const c = POR.secreto;
     hoja(`<p class="mr-tip">✨ Michirot secreto ✨</p>${arte('secreto', 'mr-enorme')}
       <p class="adv-sheet-t">${esc(c.n)}</p><p>${chip('s')}</p>
       <p class="mr-ficha-d">${esc(c.d)}</p>
-      <p class="mr-ganan">Gana ${fmt(c.g)} por segundo… y amor infinito.</p>`, [['Seguir jugando 🐾', cerrarHoja]]);
+      <p class="mr-ganan">Gana ${fmt(c.g)} por segundo… y amor infinito.</p>
+      <p class="mr-tip">Y ahora que lo encontraste… algo todavía más especial va a pasar por la alfombra 💞</p>`, [['Seguir jugando 🐾', cerrarHoja]]);
+  }
+  function ganarSiempre() {
+    guardar();
+    confetti(7000, 260); sacudida = .3;
+    const c = POR.siempre;
+    hoja(`<div class="mr-siempre"><p class="t">Por siempre,<br>contigo</p><p class="s">Secreto</p><p class="g">$14062026/s</p>
+      ${arte('siempre', 'mr-siempre-img')}</div>
+      <p class="mr-ficha-d">${esc(c.d)}</p>`, [['Seguir jugando 💞', cerrarHoja]]);
+    $m('mrCard').querySelector('.mr-sheet').classList.add('mr-sheet-siempre');
   }
 
   /* ---------- Movimiento ---------- */
@@ -3683,22 +4633,29 @@ const michirot = (() => {
     return d - p < .05;
   }
   function animarFigura(o, movio, dt) {
-    const c = o.g.userData.cuerpo;
-    o.g.position.set(o.x, 0, o.z);
+    const c = o.g.userData.cuerpo, y = o.y || 0;
+    o.g.position.set(o.x, y, o.z);
     let da = o.ang - o.g.rotation.y; da = Math.atan2(Math.sin(da), Math.cos(da));
     o.g.rotation.y += da * Math.min(1, dt * 12);
-    c.position.y = movio ? Math.abs(Math.sin(o.paso)) * .12 : 0;
-    c.rotation.z = movio ? Math.sin(o.paso) * .08 : 0;
+    c.position.y = movio && y < .01 ? Math.abs(Math.sin(o.paso)) * .12 : 0;
+    c.rotation.z = movio && y < .01 ? Math.sin(o.paso) * .08 : 0;
+    const sh = o.g.userData.sombra;
+    if (sh) { sh.position.y = .02 - y; const k = Math.max(.45, 1 - y * .35); sh.scale.set(k, k, k); }
+    // estirar en el aire y aplastar al caer
+    if (o.aplasta > 0) { o.aplasta = Math.max(0, o.aplasta - dt); const k = o.aplasta / .16; c.scale.set(1 + k * .18, 1 - k * .24, 1 + k * .18); }
+    else if (y > .01) c.scale.set(.95, 1.08, .95);
+    else c.scale.set(1, 1, 1);
   }
 
   /* ---------- NPCs ---------- */
   function iniciarLadron() {
     const n = npc[1];
-    const eleg = E.base.map((b, i) => (b && b.id !== 'secreto' && !b.llegando ? i : -1)).filter(i => i >= 0);
+    const eleg = E.base.map((b, i) => (b && !esSecreto(b.id) && !b.llegando ? i : -1)).filter(i => i >= 0);
     if (eleg.length < 3 || n.estado !== 'casa' || cargando) { ladronT = 30; return; }
     const i = eleg[Math.floor(Math.random() * eleg.length)], p = PED_MIO[i];
     n.estado = 'va'; n.objetivo = i; n.t = 0;
     n.ruta = [{ x: RIV[1].cx, z: RIV[1].cz + RIV[1].d / 2 + 1.2 }, { x: p.x, z: MIA.cz - MIA.d / 2 - 1 }, { x: p.x, z: p.z - 1.05 }];
+    sonido('alerta');
     aviso(`¡Michi Bandido va por tu ${POR[E.base[i].id].n}! Alcánzalo antes de que llegue a su base 😾`, 3600);
   }
   function actualizarNPC(n, dt) {
@@ -3707,7 +4664,7 @@ const michirot = (() => {
     if (n.estado === 'caza') {
       n.t += dt;
       if (n.t > .7) { movio = true; moverHacia(n, jugador.x, jugador.z, n.vel, dt); }
-      if (cargando && cargando.r === n.r && dist(n, jugador) < 1) { soltarRobo(true); n.estado = 'regresa'; }
+      if (cargando && cargando.r === n.r && dist(n, jugador) < 1 && jugador.y < .55) { soltarRobo(true); n.estado = 'regresa'; }
       else if (!cargando || cargando.r !== n.r || n.t > 4.2) { n.estado = 'regresa'; if (cargando && cargando.r === n.r) aviso(`${DUEÑO[n.r].n} se cansó de perseguirte 😮‍💨 ¡Llévalo a tu base!`); }
     } else if (n.estado === 'regresa' || n.estado === 'huye') {
       movio = true;
@@ -3723,10 +4680,11 @@ const michirot = (() => {
           if (!n.ruta.length) {
             if (n.estado === 'va') {
               const b = E.base[n.objetivo];
-              if (!b || b.id === 'secreto') { n.estado = 'regresa'; }
+              if (!b || esSecreto(b.id)) { n.estado = 'regresa'; }
               else {
                 E.dinero += Math.floor(b.banco); E.base[n.objetivo] = null; pintarBase();
-                n.carga = { id: b.id, de: n.objetivo }; n.cargaSpr.material.map = texturas[b.id]; n.cargaSpr.material.needsUpdate = true; n.cargaSpr.visible = true;
+                n.carga = { id: b.id, de: n.objetivo, mut: b.mut || null }; n.cargaSpr.material.map = texturas[b.id]; n.cargaSpr.material.needsUpdate = true; n.cargaSpr.visible = true;
+                sonido('alerta');
                 n.estado = 'vuelve';
                 const R = E.riv[1]; let k = R.slots.findIndex(s => !s.id && !s.robando);
                 if (k < 0) k = R.slots.reduce((m, s, j) => (s.robando ? m : (POR[s.id].g < POR[R.slots[m].id || 'spaghettino'].g ? j : m)), 0);
@@ -3737,7 +4695,7 @@ const michirot = (() => {
               }
             } else {
               const R = E.riv[1], k = n.destino;
-              R.slots[k] = { id: n.carga.id, vuelve: 0 };
+              R.slots[k] = { id: n.carga.id, vuelve: 0, mut: n.carga.mut || null };
               n.carga = null; n.cargaSpr.visible = false; n.estado = 'regresa';
               pintarRivales(); guardar();
               aviso('Michi Bandido guardó tu michirot en su base. ¡Ve a robarlo de vuelta! 😼', 3400);
@@ -3750,24 +4708,41 @@ const michirot = (() => {
         E.dinero += premio; E.total += premio;
         if (n.carga) {
           const de = n.carga.de, i = E.base[de] ? E.base.findIndex(b => !b) : de;
-          if (i >= 0) E.base[i] = { id: n.carga.id, banco: 0 };
+          if (i >= 0) E.base[i] = { id: n.carga.id, banco: 0, mut: n.carga.mut || null };
           n.carga = null; n.cargaSpr.visible = false; pintarBase();
           aviso(`¡Lo atrapaste! Michi Bandido devolvió tu michirot y soltó ${fmt(premio)} 💰`, 3200);
         } else aviso(`¡Lo asustaste! Michi Bandido soltó ${fmt(premio)} 💰`);
+        sonido('llegar'); sacudida = .3;
+        chispas(n.x, 1.2, n.z, '#ffd25e', 14, 3.6);
+        flotar('+' + fmt(premio), n, '#ffe39a', 2.6);
+        progreso('atrapar', 1);
         n.estado = 'huye'; guardar();
       }
     } else if (n.estado === 'casa') {
       n.ang = 0;
     }
     animarFigura(n, movio, dt);
+    if (n.dormido) { const c = n.g.userData.cuerpo; c.rotation.z = .32; c.position.y = Math.sin(performance.now() / 600) * .03; }
   }
 
   /* ---------- Bucle ---------- */
   function ganarAusente(seg) {
     const g = ingreso() * seg * .5;
     if (g < 1) return 0;
-    E.base.forEach(b => { if (b) b.banco += POR[b.id].g * seg * .5; });
+    E.base.forEach(b => { if (b) b.banco += ganaB(b) * seg * .5; });
     return g;
+  }
+  function actualizarParticulas(dt) {
+    particulas = particulas.filter(p => {
+      p.t += dt;
+      p.v.y -= 7 * dt;
+      p.s.position.x += p.v.x * dt; p.s.position.y += p.v.y * dt; p.s.position.z += p.v.z * dt;
+      const u = p.t / p.vida, k = p.tm * (1 - u * .6);
+      p.s.scale.set(k, k, 1); p.s.material.opacity = 1 - u * u;
+      p.s.material.rotation += dt * 3;
+      if (p.t >= p.vida) { escena.remove(p.s); p.s.material.dispose(); return false; }
+      return true;
+    });
   }
   function loop(now) {
     if (!abierto) return;
@@ -3780,7 +4755,8 @@ const michirot = (() => {
   }
   function actualizar(dt, t) {
     const ahora = Date.now();
-    E.base.forEach(b => { if (b && !b.llegando) b.banco += POR[b.id].g * dt; });
+    E.base.forEach(b => { if (b && !b.llegando) b.banco += ganaB(b) * dt; });
+    actualizarParticulas(dt);
     laseres[0].malla.visible = E.candado > ahora;
     E.riv.forEach((R, r) => { laseres[r + 1].malla.visible = R.cerrada > ahora; });
     laseres.forEach(l => { if (l.malla.visible) l.malla.material.opacity = .35 + Math.sin(t * 6) * .12; });
@@ -3802,15 +4778,27 @@ const michirot = (() => {
       if (teclas.has('ArrowDown') || teclas.has('s')) iz += 1;
       const mag = Math.hypot(ix, iz);
       if (mag > .12) {
-        const v = (cargando ? VEL_CARGA : VEL) * Math.min(1, mag);
-        const nx = jugador.x + ix / mag * v * dt, nz = jugador.z + iz / mag * v * dt;
+        const v = velocidad() * (cargando ? VEL_CARGA / VEL : 1) * Math.min(1, mag);
         const extra = E.riv.map((R, r) => (R.cerrada > ahora && !dentroDe(RIV[r], jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
-        [jugador.x, jugador.z] = choca(nx, nz, extra);
+        // en pasitos, para no atravesar paredes aunque el celular vaya lento
+        const largo = v * dt, n = Math.max(1, Math.ceil(largo / .18));
+        for (let k = 0; k < n; k++) [jugador.x, jugador.z] = choca(jugador.x + ix / mag * largo / n, jugador.z + iz / mag * largo / n, extra);
         jugador.ang = Math.atan2(ix, iz); jugador.paso += dt * 12; movio = true;
+        if (turboT > 0 && Math.random() < dt * 14) chispas(jugador.x, .2, jugador.z, '#9ec5f5', 1, 1.2, .3);
       }
+      // salto
+      if (jugador.y > 0 || jugador.vy > 0) {
+        jugador.vy -= 22 * dt; jugador.y += jugador.vy * dt;
+        if (jugador.y <= 0) { jugador.y = 0; jugador.vy = 0; jugador.aplasta = .16; chispas(jugador.x, .1, jugador.z, '#ffffff', 4, 1.3, .26); }
+      }
+      if (turboT > 0) turboT = Math.max(0, turboT - dt);
+      // eventos y monedas
+      actualizarEvento(dt, t);
+      actualizarMonedas(dt, t);
+      actualizarTacos(dt);
       // alfombra
       spawnT -= dt;
-      if (spawnT <= 0) { spawnT = 2.6 + Math.random() * 1.2; spawnear(alAzar(azar(PESOS))); }
+      if (spawnT <= 0) { spawnT = (2.6 + Math.random() * 1.2) / (evento && evento.tipo === 'loca' ? 2.3 : 1); spawnear(exclusivoAzar() || alAzar(azar(PESOS))); }
       if (secretoListo()) {
         secretoT -= dt;
         if (secretoT <= 0 && !alfombra.some(x => x.id === 'secreto')) {
@@ -3818,16 +4806,34 @@ const michirot = (() => {
           aviso('✨ ¡Un michirot SECRETO está pasando por la alfombra! ✨', 4200);
         }
       }
+      if (siempreListo()) {
+        siempreT -= dt;
+        if (siempreT <= 0 && !alfombra.some(x => x.id === 'siempre')) {
+          spawnear('siempre'); siempreT = 35; confetti(2200, 80);
+          aviso('💞 ¡«Por siempre, contigo» está pasando por la alfombra! Cuesta $140626', 4600);
+        }
+      }
       alfombra.slice().forEach(it => {
-        it.x += ALF.vel * (it.id === 'secreto' ? .75 : 1) * dt;
+        it.x += ALF.vel * (esSecreto(it.id) || it.ex ? .75 : 1) * dt;
         if (it.x > ALF.x1) { quitar(it); return; }
         it.g.position.x = it.x;
         it.s.position.y = Math.abs(Math.sin(t * 5 + it.fase)) * .14;
-        const c = POR[it.id], puede = E.dinero >= c.p;
-        it.lab.userData.poner(dist(it.g.position, jugador) < 5 ? [fmt(c.p), c.n] : [fmt(c.p)], puede ? '#7ee2a0' : '#ffffff');
+        const c = POR[it.id], p = precio(it), puede = E.dinero >= p, M = it.mut && MUT[it.mut];
+        const cerca = dist(it.g.position, jugador) < 5;
+        it.lab.userData.poner(cerca ? [fmtDe(it.id, p), M ? `${M.n} ×${M.x} · ${c.n}` : it.ex ? `💎 ${c.n}` : c.n] : [M ? `${M.ico} ${fmt(p)}` : it.ex ? `💎 ${fmt(p)}` : esSecreto(it.id) ? `💞 ${fmtDe(it.id, p)}` : fmt(p)], puede ? '#7ee2a0' : it.ex ? '#bff6fb' : esSecreto(it.id) ? '#ffd3e6' : M ? '#fff3c4' : '#ffffff');
+        if (it.halo && it.mut) {
+          pintarHalo(it.halo, it.mut, t + it.fase); it.halo.position.y = it.s.position.y;
+          if (it.taco) it.taco.position.y = it.s.position.y + 1.25;
+          it.chispaT -= dt;
+          if (it.chispaT <= 0) { it.chispaT = .3 + Math.random() * .3; chispaMut(it.mut, it.x + (Math.random() - .5) * 1.2, .6 + Math.random() * 1.1, it.g.position.z); }
+        }
       });
-      // cobrar al pasar
-      E.base.forEach((b, i) => { if (b && dist(PED_MIO[i], jugador) < 1.25) cobrar(i); });
+      // cobrar al pasar (con el imán, desde más lejos)
+      const alcance = IMAN[E.mej.iman] || 1.25;
+      E.base.forEach((b, i) => {
+        const p = pedMio[i]; p.cobroT -= dt;
+        if (b && p.cobroT <= 0 && dist(PED_MIO[i], jugador) < alcance && cobrar(i)) p.cobroT = .5;
+      });
       // robo: llegar a la base
       if (cargando && dentroDe(MIA, jugador.x, jugador.z, .3)) soltarRobo(false);
       // NPCs
@@ -3835,15 +4841,26 @@ const michirot = (() => {
       npc.forEach(n => actualizarNPC(n, dt));
       // rellenar rivales
       let cambio = false;
-      E.riv.forEach(R => R.slots.forEach((s, k) => { if (!s.id && !s.robando && s.vuelve <= ahora) { R.slots[k] = { id: alAzar(azar(PESOS_RIVAL)), vuelve: 0 }; cambio = true; } }));
+      E.riv.forEach(R => R.slots.forEach((s, k) => { if (!s.id && !s.robando && s.vuelve <= ahora) { R.slots[k] = slotRival(); cambio = true; } }));
       if (cambio) pintarRivales();
     }
     animarFigura(jugador, movio, dt);
     pedMio.forEach((p, i) => {
-      if (p.spr.visible) p.spr.position.y = .42 + Math.sin(t * 2 + i) * .05;
+      if (p.spr.visible) {
+        p.spr.position.y = .42 + Math.sin(t * 2 + i) * .05;
+        if (p.rebote > 0) p.rebote = Math.max(0, p.rebote - dt * 3.5);
+        const k = (p.esc || 1.5) * (1 + Math.sin(p.rebote * Math.PI) * .22); p.spr.scale.set(k, k, 1);
+      }
+      if (p.halo.visible && i < E.base.length) {
+        pintarHalo(p.halo, p.mut, t + i); p.halo.position.y = p.spr.position.y;
+        if (p.taco.visible) p.taco.position.y = p.spr.position.y + 1.2;
+        p.chispaT -= dt;
+        if (p.chispaT <= 0 && !pausa) { p.chispaT = .5 + Math.random() * .5; chispaMut(p.mut, p.x + (Math.random() - .5) * 1.1, 1 + Math.random(), p.z); }
+      }
       const b = E.base[i];
       if (p.lab) p.lab.userData.poner(b && !b.llegando && b.banco >= 1 ? [fmt(b.banco)] : [], '#2f9e5b', '#ffffff');
     });
+    pedRiv.forEach((l, r) => l.forEach((p, k) => { if (p.halo.visible) { pintarHalo(p.halo, p.mut, t + k + r * 4); if (p.taco.visible) p.taco.position.y = p.spr.position.y + 1.2; } }));
     camaraSigue(dt);
     elegirAccion();
     uiT -= dt;
@@ -3856,7 +4873,7 @@ const michirot = (() => {
     if (!pausa && !cargando) {
       let mejor = null, dmin = 2.1;
       alfombra.forEach(it => { const d = dist(it.g.position, jugador); if (d < dmin) { dmin = d; mejor = it; } });
-      if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmt(POR[mejor.id].p)}`, ico: '🛒', ok: E.dinero >= POR[mejor.id].p };
+      if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmtDe(mejor.id, precio(mejor))}`, ico: mejor.mut ? MUT[mejor.mut].ico : '🛒', ok: E.dinero >= precio(mejor) };
       if (!a) E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
         if (a || !s.id || s.robando) return;
         if (dist(PED_RIV[r][k], jugador) < 1.45 && dentroDe(RIV[r], jugador.x, jugador.z)) a = { tipo: 'robar', r, k, txt: 'Robar', ico: '😼', ok: true };
@@ -3878,7 +4895,11 @@ const michirot = (() => {
     else if (a.tipo === 'ver') info(a.i);
   }
   function uiHud() {
-    $m('mrDinero').textContent = fmt(E.dinero);
+    const d = $m('mrDinero');
+    d.textContent = fmt(E.dinero);
+    if (Math.floor(E.dinero) > dineroPrev + .5) { d.classList.remove('pop'); void d.offsetWidth; d.classList.add('pop'); }
+    dineroPrev = Math.floor(E.dinero);
+    pintarMision(); pintarEvento();
     $m('mrIngreso').textContent = `+${fmt(ingreso())}/s`;
     $m('mrColN').textContent = `${E.col.length}/${CAT.length}`;
     const ahora = Date.now(), b = $m('mrCandado');
@@ -3907,9 +4928,14 @@ const michirot = (() => {
     const fin = e => { if (e.pointerId !== id) return; id = null; joy = { x: 0, z: 0, activo: false }; per.style.transform = ''; };
     zona.addEventListener('pointerup', fin); zona.addEventListener('pointercancel', fin);
     $m('mrAccion').addEventListener('click', hacerAccion);
+    const salto = $m('mrSalto');
+    salto.addEventListener('pointerdown', e => { e.preventDefault(); saltar(); });
+    salto.addEventListener('click', e => { if (e.detail === 0) saltar(); });
     $m('mrX').addEventListener('click', cerrar);
     $m('mrCandado').addEventListener('click', candado);
     $m('mrCol').addEventListener('click', coleccion);
+    $m('mrTienda').addEventListener('click', () => tienda());
+    $m('mrSonido').addEventListener('click', cambiarSonido);
     $m('mrAyuda').addEventListener('click', ayuda);
     document.addEventListener('keydown', e => {
       if (!abierto) return;
@@ -3917,11 +4943,16 @@ const michirot = (() => {
       if (!$m('mrCard').hidden) return;
       const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'a', 'd', 'w', 's'].includes(k)) { e.preventDefault(); teclas.add(k); }
-      if (k === 'e' || k === ' ' || k === 'Enter') { e.preventDefault(); hacerAccion(); }
+      if (k === ' ') { e.preventDefault(); if (!e.repeat) saltar(); }
+      if (k === 'e' || k === 'Enter') { e.preventDefault(); hacerAccion(); }
     });
     document.addEventListener('keyup', e => { teclas.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key); });
     window.addEventListener('resize', medir);
-    document.addEventListener('visibilitychange', () => { if (abierto && document.hidden) guardar(); });
+    document.addEventListener('visibilitychange', () => {
+      if (!abierto) return;
+      if (document.hidden) { guardar(); if (AC) AC.suspend().catch(() => {}); }
+      else if (AC) AC.resume().catch(() => {});
+    });
   }
 
   /* ---------- Abrir y cerrar ---------- */
@@ -3930,13 +4961,15 @@ const michirot = (() => {
     if (preparado) return preparado;
     preparado = cargarThree().then(() => {
       T3 = window.THREE;
-      return Promise.all(Object.keys(ARTE).map(texturaDe));
+      return Promise.all(Object.keys(ARTE).map(texturaDe).concat(cargarTaco()));
     }).then(() => { construirMundo(); controles(); listo = true; });
     preparado.catch(() => { preparado = null; });
     return preparado;
   }
   function abrir() {
     E = estado();
+    MIA.w = ANCHO_BASE(E.mej.base);
+    audioListo();
     $m('mr').hidden = false; abierto = true; pausa = false;
     document.body.style.overflow = 'hidden';
     $m('mrCarga').hidden = false; $m('mrCarga').textContent = 'Cargando el mundo 3D… 🐾';
@@ -3948,14 +4981,22 @@ const michirot = (() => {
       cargando = null; jugador.carga.visible = false;
       E.base.forEach(b => { if (b) delete b.llegando; });
       E.riv.forEach(R => R.slots.forEach(s => { if (s.robando) s.robando = false; }));
-      jugador.x = 0; jugador.z = 4.6; jugador.ang = Math.PI;
+      jugador.x = 0; jugador.z = 4.6; jugador.ang = Math.PI; jugador.y = 0; jugador.vy = 0;
       npc.forEach(n => { n.x = CASA[n.r].x; n.z = CASA[n.r].z; n.estado = 'casa'; n.carga = null; n.cargaSpr.visible = false; });
-      pintarBase(); pintarRivales();
+      limpiarDiversion();
+      if (anchoHecho !== ANCHO_BASE(E.mej.base)) construirBaseMia();
+      asegurarMision(); misionHTML = ''; eventoHTML = '';
+      pintarBase(); pintarRivales(); pintarSonido();
       for (let x = ALF.x0 + 4; x < ALF.x1 - 2; x += 7.5) spawnear(alAzar(azar({ c: 60, r: 30, e: 10 })), x + Math.random() * 2);
-      spawnT = 2; secretoT = 5; ladronT = 85 + Math.random() * 30;
+      spawnT = 2; secretoT = 5; siempreT = 8; ladronT = 85 + Math.random() * 30;
+      eventoT = (E.mision && E.mision.evento && E.mision.evento !== 'tacos' ? 20 : 40) + Math.random() * 20;
+      tacoT = TACO_CADA; tacoAviso = false;
+      if (E.mision && E.mision.t === 'atrapar') ladronT = 25;
       const ganado = E.t ? ganarAusente(Math.min(7200, Math.max(0, (Date.now() - E.t) / 1000))) : 0;
       pared = Date.now(); last = performance.now();
+      dineroPrev = Math.floor(E.dinero);
       camaraSigue(0, true); uiHud();
+      musica(true);
       cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
       if (!E.visto) { E.visto = true; ayuda(); }
       else if (ganado >= 1) aviso(`Mientras no estabas, tus michirots ganaron ${fmt(ganado)} 💰`, 3600);
@@ -3971,6 +5012,8 @@ const michirot = (() => {
     if (npc.length && npc[1].carga) { const R = E.riv[1]; const k = npc[1].destino; R.slots[k] = { id: npc[1].carga.id, vuelve: 0 }; npc[1].carga = null; }
     vuelos.forEach(v => { escena.remove(v.s); liberar(v.s); v.fin(); }); vuelos = [];
     E.base.forEach(b => { if (b) delete b.llegando; });
+    if (escena) limpiarDiversion();
+    musica(false);
     guardar();
     if (!$m('mrCard').hidden) cerrarHoja();
     teclas.clear(); joy = { x: 0, z: 0, activo: false };
@@ -3979,8 +5022,9 @@ const michirot = (() => {
   }
   function panel() {
     const e = S.juegos.michirot && Array.isArray(S.juegos.michirot.base) ? S.juegos.michirot : null;
-    $m('mrVitrina').innerHTML = ['spaghettino', 'gelatino', 'lunetta'].map(id => arte(id)).join('') + arte('secreto', e && e.col.includes('secreto') ? '' : 'mr-misterio');
-    $m('mrEstado').textContent = !e ? '' : e.ganado ? `¡Ya encontraste el michirot secreto! 💞 Tienes ${e.col.length} de ${CAT.length}.` : `Tienes ${e.col.length} de ${CAT.length} michirots y ${fmt(e.dinero)}.`;
+    const tiene = id => !!(e && e.col.includes(id));
+    $m('mrVitrina').innerHTML = ['astrogatto', 'solecito'].map(id => arte(id)).join('') + arte('secreto', tiene('secreto') ? '' : 'mr-misterio') + arte('siempre', tiene('siempre') ? '' : 'mr-misterio');
+    $m('mrEstado').textContent = !e ? '' : tiene('siempre') ? `¡Tienes a «Por siempre, contigo»! 💞 Tienes ${e.col.length} de ${CAT.length}.` : e.ganado ? `¡Ya encontraste el michirot secreto! 💞 Tienes ${e.col.length} de ${CAT.length}.` : `Tienes ${e.col.length} de ${CAT.length} michirots y ${fmt(e.dinero)}.`;
     $m('mrJugar').textContent = e ? 'Seguir jugando 🐾' : 'Jugar 🐾';
   }
   $m('mrJugar').addEventListener('click', abrir);

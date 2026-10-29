@@ -5046,16 +5046,7 @@ const michirot = (() => {
   let red = null, letreroBandido = null, envioT = 0, baseT = 0;
   const enLinea = () => !!(red && red.listo);
   const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-  const idSala = c => 'brittmichi-' + c;
   const aMio = (x, z) => ({ x: 9 - x, z: -z });           // su mundo → el mío (su base cae en la de Bandido)
-  function cargarPeer() {
-    if (window.Peer) return Promise.resolve();
-    const fuentes = ['https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js', 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js'];
-    return fuentes.reduce((pr, src) => pr.catch(() => new Promise((ok, mal) => {
-      const sc = document.createElement('script'); sc.src = src; sc.onload = () => (window.Peer ? ok() : mal()); sc.onerror = mal; document.head.append(sc);
-    })), Promise.reject());
-  }
-  function opcionesPeer() { return Object.assign({ debug: 0 }, window.__PEER_OPTS || {}); }
   function nombreMio() { return (E.nombre || '').trim() || 'Jugador'; }
   function sala(msg = '') {
     const conectado = enLinea();
@@ -5069,7 +5060,7 @@ const michirot = (() => {
       html += `<p class="mr-tip">Conectando a la sala ${esc(red.codigo)}…</p>`;
     } else {
       html += `<label class="mr-campo"><span>Tu nombre</span><input id="mrNombre" maxlength="16" value="${esc(E.nombre || '')}" placeholder="Cómo te verá"></label>
-        <p class="mr-tip">Uno crea la sala y le pasa el código al otro. Los dos necesitan internet.</p>
+        <p class="mr-tip">Uno crea la sala y le pasa el código al otro. Funciona con wifi o con datos.</p>
         <div class="mr-sala-btns"><button class="btn" type="button" id="mrCrear">Crear sala</button></div>
         <label class="mr-campo"><span>¿Te pasaron un código?</span><input id="mrCodigo" maxlength="4" autocapitalize="characters" placeholder="ABCD"></label>
         <div class="mr-sala-btns"><button class="btn ghost" type="button" id="mrUnirme">Unirme</button></div>`;
@@ -5082,57 +5073,73 @@ const michirot = (() => {
     if (c) c.addEventListener('click', () => { guardaNombre(); crearSala(); });
     if (u) u.addEventListener('click', () => { guardaNombre(); const v = ($m('mrCodigo').value || '').toUpperCase().replace(/[^A-Z]/g, ''); if (v.length !== 4) { sala('El código tiene 4 letras 🙂'); return; } unirmeSala(v); });
   }
-  function crearSala(intento = 0) {
+  // Transporte: mensajes por un servidor público MQTT (funciona con datos móviles y wifi)
+  const TOP = c => `brittmichi/v1/${c}/`;
+  function cargarMqtt() {
+    if (window.mqtt) return Promise.resolve();
+    const fuentes = ['https://cdn.jsdelivr.net/npm/mqtt@5.10.4/dist/mqtt.min.js', 'https://unpkg.com/mqtt@5.10.4/dist/mqtt.min.js'];
+    return fuentes.reduce((pr, src) => pr.catch(() => new Promise((ok, mal) => {
+      const sc = document.createElement('script'); sc.src = src; sc.onload = () => (window.mqtt ? ok() : mal()); sc.onerror = mal; document.head.append(sc);
+    })), Promise.reject());
+  }
+  function conectarBroker() {
+    const urls = window.__MQTT_URLS || ['wss://broker.emqx.io:8084/mqtt', 'wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt'];
+    return urls.reduce((pr, url) => pr.catch(() => new Promise((ok, mal) => {
+      let c;
+      try { c = window.mqtt.connect(url, { clientId: 'bm_' + Math.random().toString(36).slice(2, 10), clean: true, connectTimeout: 7000, reconnectPeriod: 2500, keepalive: 30 }); } catch (e) { mal(e); return; }
+      const to = setTimeout(() => { try { c.end(true); } catch (e) {} mal(new Error('timeout')); }, 8000);
+      c.once('connect', () => { clearTimeout(to); ok(c); });
+    })), Promise.reject());
+  }
+  function nuevoId() { return Math.random().toString(36).slice(2, 10); }
+  function iniciarCliente(rolTopic, alListo) {
+    const r = red;
+    cargarMqtt().then(conectarBroker).then(client => {
+      if (red !== r) { try { client.end(true); } catch (e) {} return; }
+      r.client = client;
+      client.on('message', (topic, payload) => { if (red !== r) return; let m; try { m = JSON.parse(payload.toString()); } catch (e) { return; } if (!m || m.de === r.id) return; r.ultimo = Date.now(); recibir(m); });
+      client.subscribe(TOP(r.codigo) + rolTopic, { qos: 0 }, err => { if (err) { salirSala(); sala('No se pudo conectar. Intenta otra vez.'); return; } alListo(); });
+    }).catch(() => { if (red === r) { salirSala(); sala('No pude conectar con el servidor de salas. Revisa tu internet e intenta otra vez.'); } });
+  }
+  function crearSala() {
     let codigo = ''; for (let i = 0; i < 4; i++) codigo += LETRAS[Math.floor(Math.random() * LETRAS.length)];
-    red = { rol: 'host', codigo, listo: false, otro: null };
+    red = { rol: 'host', codigo, listo: false, otro: null, id: nuevoId(), destino: TOP(codigo) + 'g' };
     sala();
-    cargarPeer().then(() => {
-      if (!red || red.codigo !== codigo) return;
-      const peer = new Peer(idSala(codigo), opcionesPeer());
-      red.peer = peer;
-      peer.on('connection', conn => {
-        if (red && red.conn) { conn.on('open', () => { conn.send({ t: 'llena' }); setTimeout(() => conn.close(), 300); }); return; }
-        prepararConn(conn);
-      });
-      peer.on('error', e => {
-        if (e && e.type === 'unavailable-id' && intento < 3) { salirSala(); crearSala(intento + 1); return; }
-        if (red && !red.listo) { salirSala(); sala('No se pudo crear la sala. Revisa tu internet e intenta otra vez.'); }
-      });
-    }).catch(() => { salirSala(); sala('No pude cargar la conexión. Revisa tu internet.'); });
+    iniciarCliente('h', () => {});
   }
   function unirmeSala(codigo) {
-    red = { rol: 'guest', codigo, listo: false, otro: null };
+    red = { rol: 'guest', codigo, listo: false, otro: null, id: nuevoId(), destino: TOP(codigo) + 'h' };
+    const r = red;
     sala();
-    cargarPeer().then(() => {
-      if (!red || red.codigo !== codigo) return;
-      const peer = new Peer(opcionesPeer());
-      red.peer = peer;
-      peer.on('open', () => { if (red && red.peer === peer) prepararConn(peer.connect(idSala(codigo), { reliable: true })); });
-      peer.on('error', e => {
-        const m = e && e.type === 'peer-unavailable' ? `No encontré la sala ${codigo}. Revisa el código 🙂` : 'No se pudo conectar. Revisa tu internet e intenta otra vez.';
-        if (red && !red.listo) { salirSala(); sala(m); }
-      });
-      setTimeout(() => { if (red && red.codigo === codigo && !red.listo) { salirSala(); if (abierto) sala('No se pudo conectar. A veces con datos del celular falla; prueben con wifi.'); } }, 20000);
-    }).catch(() => { salirSala(); sala('No pude cargar la conexión. Revisa tu internet.'); });
+    iniciarCliente('g', () => {
+      let n = 0;
+      const tocar = () => {
+        if (red !== r || r.listo) return;
+        if (n++ >= 6) { salirSala(); sala(`No encontré la sala ${codigo}. Revisa el código y que la otra persona tenga la sala abierta 🙂`); return; }
+        mandar({ t: 'unir', nombre: nombreMio() });
+        setTimeout(tocar, 2000);
+      };
+      tocar();
+    });
   }
-  function prepararConn(conn) {
-    red.conn = conn;
-    conn.on('open', () => { mandar({ t: 'hola', nombre: nombreMio() }); });
-    conn.on('data', recibir);
-    conn.on('close', () => { if (red && red.conn === conn) salirSala(`${red.otro ? red.otro.nombre : 'La otra persona'} salió de la sala.`); });
-    conn.on('error', () => {});
-  }
-  function mandar(m) { try { if (red && red.conn && red.conn.open) red.conn.send(m); } catch (e) {} }
+  function mandar(m) { mandarA(red, m); }
   function recibir(m) {
     if (!red || !m || typeof m !== 'object') return;
-    if (m.t === 'llena') { salirSala('Esa sala ya tiene a dos jugadores.'); return; }
-    if (m.t === 'hola') {
-      const ya = red.listo;
-      red.otro = Object.assign(red.otro || { x: 9, z: -12, y: 0, ang: 0, base: [], candado: false }, { nombre: String(m.nombre || 'Jugador').slice(0, 16) });
-      if (!ya) { mandar({ t: 'hola', nombre: nombreMio() }); conectado(); }
+    const ponerOtro = () => { red.otro = Object.assign(red.otro || { x: 9, z: -12, y: 0, ang: 0, base: [], candado: false }, { nombre: String(m.nombre || 'Jugador').slice(0, 16) }); };
+    if (red.rol === 'host' && m.t === 'unir') {
+      if (red.listo && m.de !== red.par) return;           // la sala ya tiene a dos
+      red.par = m.de; ponerOtro();
+      mandar({ t: 'hola', nombre: nombreMio() });
+      if (!red.listo) conectado(); else mandarBase();
       return;
     }
-    if (!red.listo) return;
+    if (red.rol === 'guest' && m.t === 'hola') {
+      if (red.listo && m.de !== red.par) return;
+      red.par = m.de; ponerOtro();
+      if (!red.listo) conectado();
+      return;
+    }
+    if (!red.listo || m.de !== red.par) return;
     const o = red.otro;
     if (m.t === 'adios') { salirSala(`${o.nombre} salió de la sala.`); return; }
     if (m.t === 'pos') { const p = aMio(m.x, m.z); o.tx = p.x; o.tz = p.z; o.y = m.y || 0; o.ang = (m.ang || 0) + Math.PI; o.carga = m.carga || null; o.cargaMut = m.mut || null; return; }
@@ -5176,8 +5183,7 @@ const michirot = (() => {
     mandarA(r, { t: 'adios' });
     if (r.meRoban) { const b = E.base[r.meRoban.bi]; if (b) delete b.robando; pintarBase(); }
     if (cargando && cargando.remoto) { cargando = null; if (jugador) jugador.carga.visible = false; }
-    try { if (r.conn) r.conn.close(); } catch (e) {}
-    try { if (r.peer) r.peer.destroy(); } catch (e) {}
+    try { if (r.client) setTimeout(() => { try { r.client.end(true); } catch (e) {} }, 150); } catch (e) {}
     if (r.avatar) { escena.remove(r.avatar.g); liberar(r.avatar.g); }
     if (npc.length) npc[1].g.visible = true;
     if (letreroBandido) letreroBandido.userData.poner(['Michi Bandido'], '#56607d', '#ffffff');
@@ -5185,7 +5191,7 @@ const michirot = (() => {
     if (escena) pintarRivales();
     if (msg && r.listo && abierto) aviso(msg, 3200);
   }
-  function mandarA(r, m) { try { if (r && r.conn && r.conn.open) r.conn.send(m); } catch (e) {} }
+  function mandarA(r, m) { try { if (r && r.client && r.client.connected) r.client.publish(r.destino, JSON.stringify(Object.assign({ de: r.id }, m)), { qos: 0 }); } catch (e) {} }
   function visiblesMios() {
     return E.base.map((b, i) => ({ b, i })).filter(({ b }) => b && !b.llegando && !esSecreto(b.id) && !b.robando)
       .sort((a, c) => ganaB(c.b) - ganaB(a.b)).slice(0, 4).map(({ b, i }) => ({ bi: i, id: b.id, mut: b.mut || null }));
@@ -5233,8 +5239,9 @@ const michirot = (() => {
   function actualizarRed(dt) {
     if (!enLinea()) return;
     const o = red.otro, a = red.avatar;
+    if (Date.now() - (red.ultimo || Date.now()) > 15000) { salirSala(`Se perdió la conexión con ${o.nombre} 😿`); return; }
     envioT -= dt; baseT -= dt;
-    if (envioT <= 0) { envioT = .1; mandar({ t: 'pos', x: +jugador.x.toFixed(2), z: +jugador.z.toFixed(2), y: +jugador.y.toFixed(2), ang: +jugador.ang.toFixed(2), carga: cargando ? cargando.id : null }); }
+    if (envioT <= 0) { envioT = .12; mandar({ t: 'pos', x: +jugador.x.toFixed(2), z: +jugador.z.toFixed(2), y: +jugador.y.toFixed(2), ang: +jugador.ang.toFixed(2), carga: cargando ? cargando.id : null }); }
     if (baseT <= 0) { baseT = 1; mandarBase(); }
     if (a) {
       const dx = (o.tx ?? a.x) - a.x, dz = (o.tz ?? a.z) - a.z, d = Math.hypot(dx, dz);

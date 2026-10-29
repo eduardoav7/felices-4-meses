@@ -580,6 +580,69 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 /* Botón de la portada que abre la cartita */
 .btn-cartita { background: #3f6fd8; color: #ffffff; }
 .chip.chip-cartita .n { color: #3f6fd8; }
+
+/* Juego 7: Roba un Michirot (3D) */
+.mr { position: fixed; inset: 0; z-index: 55; overflow: hidden; background: #bfe0ff; color: var(--ink); touch-action: none; -webkit-user-select: none; user-select: none; }
+.mr3-lienzo { position: absolute; inset: 0; }
+.mr3-lienzo canvas { display: block; width: 100%; height: 100%; }
+.mr3-hud { position: absolute; left: 0; right: 0; top: 0; z-index: 2; pointer-events: none;
+  padding: env(safe-area-inset-top, 0px) max(8px, env(safe-area-inset-right, 0px)) 0 max(8px, env(safe-area-inset-left, 0px)); }
+.mr3-hud > * { pointer-events: auto; }
+.mr .mr-top { display: flex; align-items: center; gap: 10px; padding: 8px 2px 6px; max-width: 620px; margin: 0 auto; }
+.mr .adv-title span { text-shadow: 0 1px 0 #fff, 0 0 6px #fff; }
+.mr-dinero { flex: none; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.05; background: rgba(255, 255, 255, .9); border: 2px solid var(--ink); border-radius: 12px 8px 12px 9px; box-shadow: 2px 3px 0 var(--ink); padding: 5px 9px; }
+.mr-dinero b { font: 800 22px/1 var(--font-body); color: #23884c; font-variant-numeric: tabular-nums; }
+.mr-dinero span { font: 800 11.5px/1.3 var(--font-body); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.mr3-botones { display: flex; justify-content: flex-end; gap: 6px; max-width: 620px; margin: 0 auto; padding: 0 2px; }
+.mr-mini { appearance: none; cursor: pointer; white-space: nowrap; font: 800 12.5px/1 var(--font-body); color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 10px 6px 11px 7px; box-shadow: 2px 2px 0 var(--ink); padding: 8px 10px; font-variant-numeric: tabular-nums; }
+.mr-mini:active { transform: translate(1px, 2px); box-shadow: 0 0 0 var(--ink); }
+.mr-mini.activo { background: #ffd3dc; }
+.mr-mini b { color: var(--marker); }
+.mr3-joy { position: absolute; z-index: 2; left: max(18px, env(safe-area-inset-left, 0px)); bottom: calc(22px + env(safe-area-inset-bottom, 0px)); width: 124px; height: 124px; border-radius: 50%; background: rgba(255, 255, 255, .45); border: 2.5px solid rgba(34, 38, 74, .55); display: grid; place-items: center; touch-action: none; }
+.mr3-perilla { width: 56px; height: 56px; border-radius: 50%; background: var(--white); border: 2.5px solid var(--ink); box-shadow: 2px 3px 0 var(--ink); pointer-events: none; }
+.mr3-accion { position: absolute; z-index: 2; right: max(18px, env(safe-area-inset-right, 0px)); bottom: calc(30px + env(safe-area-inset-bottom, 0px)); min-width: 104px; height: 104px; padding: 8px 12px; border-radius: 30px 18px 32px 20px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: #7ee2a0; color: var(--ink); border: 2.5px solid var(--ink); box-shadow: 3px 4px 0 var(--ink); animation: pulso 1.1s ease-in-out infinite; }
+.mr3-accion .i { font-size: 30px; line-height: 1; }
+.mr3-accion .t { font: 800 14px/1.1 var(--font-body); max-width: 120px; text-align: center; }
+.mr3-accion.no { background: #e3e6ef; animation: none; }
+.mr3-accion:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.mr3-carga { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 24px; text-align: center; font: 700 30px/1.2 var(--font-hand); color: var(--ink); background: #bfe0ff; }
+.mr-toast { position: absolute; left: 50%; top: calc(104px + env(safe-area-inset-top, 0px)); z-index: 4; transform: translateX(-50%); width: max-content; max-width: min(92%, 480px); padding: 9px 14px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; line-height: 1.35; text-align: center; pointer-events: none; box-shadow: 0 8px 18px var(--shadow); }
+.mr-cardwrap { z-index: 5; }
+.mr-sheet { max-width: 380px; -webkit-user-select: text; user-select: text; }
+.mr-sheet > p { margin: 0; }
+.mr-chip { display: inline-block; vertical-align: middle; font: 800 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: #8f96ad; border: 1.5px solid var(--ink); border-radius: 99px; padding: 4px 7px; white-space: nowrap; }
+.mr-chip.r-r { background: #3f74e0; } .mr-chip.r-e { background: #9b55e0; } .mr-chip.r-l { background: #e09a12; } .mr-chip.r-m { background: #e23d52; }
+.mr-chip.r-d { background: linear-gradient(90deg, #e23d52, #e09a12, #2f9e5b, #3f74e0, #9b55e0); } .mr-chip.r-s { background: #22264a; color: #ffe39a; }
+.mr-grande { display: block; width: 120px; height: 120px; margin: 0 auto; }
+.mr-enorme { display: block; width: 180px; height: 180px; margin: 0 auto; animation: mrLate 1.6s ease-in-out infinite; }
+@keyframes mrLate { 50% { scale: 1.05; } }
+.mr-ficha-n { font: 700 30px/1 var(--font-hand); }
+.mr-ficha-d { font-size: 15px; line-height: 1.45; }
+.mr-ganan { font-weight: 800; color: #23884c; }
+.mr-tip { font-size: 13px; color: var(--ink-soft); }
+.mr-how { text-align: left; }
+.mr-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-height: 52vh; overflow-y: auto; padding: 2px; }
+.mr-col-i { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 4px 8px; background: #fff; border: 2px solid var(--ink); border-radius: 10px; }
+.mr-col-i svg { width: 62px; height: 62px; }
+.mr-col-i .n { min-height: 26px; font: 800 11px/1.15 var(--font-body); text-align: center; }
+.mr-col-i .g { font: 800 11px/1 var(--font-body); color: #23884c; }
+.mr-col-i.falta svg, .mr-misterio { filter: brightness(0); opacity: .16; }
+.mr-vitrina { display: flex; justify-content: center; align-items: flex-end; gap: 4px; }
+.mr-vitrina svg { width: 76px; height: 76px; }
+.mr .mr-sube { animation: mrSube 3s ease-in infinite; }
+.mr .mr-flota { animation: mrFlotaArte 3.6s ease-in-out infinite; }
+.mr .mr-lluvia { animation: mrLluvia 1.8s ease-in-out infinite; }
+.mr .d2 { animation-delay: 1.2s; }
+@keyframes mrSube { 0% { translate: 0 6px; opacity: 0; } 25% { opacity: 1; } 100% { translate: 0 -10px; opacity: 0; } }
+@keyframes mrFlotaArte { 50% { translate: 0 -3px; } }
+@keyframes mrLluvia { 50% { translate: 0 3px; } }
+@media (prefers-reduced-motion: reduce) {
+  .mr *, .mr-vitrina * { animation: none !important; }
+}
+@media (min-width: 900px) {
+  .mr3-joy { width: 140px; height: 140px; }
+}
 </style>
 </head>
 <body>
@@ -808,7 +871,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <div class="head">
         <p class="eyebrow">Bonus</p>
         <h2><span class="mark">Nuestros juegos</span></h2>
-        <p class="lead">Seis jueguitos que hice para ti. Juégalos las veces que quieras.</p>
+        <p class="lead">Siete jueguitos que hice para ti. Juégalos las veces que quieras.</p>
       </div>
       <div class="games" id="gamesList"></div>
       <div class="btn-row"><button class="btn ghost" type="button" data-go="final">Volver a la última carta</button></div>
@@ -817,7 +880,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-corazones" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 1 de 6</p>
+        <p class="eyebrow">Juego 1 de 7</p>
         <h2><span class="mark">Mishi atrapa corazones</span></h2>
         <p class="lead">Desliza el dedo para mover a Mishi. Atrapa 14 corazones y esquiva las nubes grises.</p>
       </div>
@@ -835,7 +898,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-memorama" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 2 de 6</p>
+        <p class="eyebrow">Juego 2 de 7</p>
         <h2><span class="mark">Memorama de nosotros</span></h2>
         <p class="lead">Voltea dos cartas a la vez y encuentra los 8 pares.</p>
       </div>
@@ -848,7 +911,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-vales" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 3 de 6</p>
+        <p class="eyebrow">Juego 3 de 7</p>
         <h2><span class="mark">Rasca y gana</span></h2>
         <p class="lead">Raspa cada tarjeta con el dedo para descubrir tu premio. Son vales de verdad: tómales captura y cóbramelos cuando quieras.</p>
       </div>
@@ -859,7 +922,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-rompe" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 4 de 6</p>
+        <p class="eyebrow">Juego 4 de 7</p>
         <h2><span class="mark">Rompecabezas</span></h2>
         <p class="lead">Toca dos piezas para cambiarlas de lugar hasta armar el dibujo.</p>
       </div>
@@ -872,7 +935,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-laberinto" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 5 de 6</p>
+        <p class="eyebrow">Juego 5 de 7</p>
         <h2><span class="mark">El laberinto de los kilómetros</span></h2>
         <p class="lead">Lleva a Mishi hasta el corazón. Usa las flechas o desliza el dedo sobre el laberinto.</p>
       </div>
@@ -891,7 +954,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="game" id="g-aventura" hidden>
       <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
       <div class="head">
-        <p class="eyebrow">Juego 6 de 6 · Aventura</p>
+        <p class="eyebrow">Juego 6 de 7 · Aventura</p>
         <h2><span class="mark">La princesa y los zombies</span></h2>
         <p class="lead">Unos zombies muy gruñones quieren atrapar a la princesa. Resuelve los acertijos de cada nivel, junta 4 corazones e invoca al príncipe para que los derrote.</p>
       </div>
@@ -911,6 +974,27 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
         <button class="btn ghost" type="button" id="advDesdeCero" hidden>Empezar desde el nivel 1</button>
         <button class="btn ghost" type="button" id="advCarta" hidden>Leer la carta 💌</button>
       </div>
+    </div>
+    <div class="game" id="g-michirot" hidden>
+      <button class="linkish back" type="button" data-volver>← Volver a los juegos</button>
+      <div class="head">
+        <p class="eyebrow">Juego 7 de 7 · Nuevo</p>
+        <h2><span class="mark">Roba un Michirot</span></h2>
+        <p class="lead">Un mundo en 3D: camina con tu gatita, compra los brainrots gatunos que pasan por la alfombra y róbale los mejores al Zombie Gruñón y a Michi Bandido.</p>
+      </div>
+      <div class="mr-vitrina" id="mrVitrina"></div>
+      <div class="card">
+        <ul class="adv-how">
+          <li><span>🕹️</span><span>Camina con el joystick (o con las flechas en la compu).</span></li>
+          <li><span>🛒</span><span>Acércate a un michirot de la alfombra y presiona «Comprar».</span></li>
+          <li><span>💰</span><span>Tus michirots ganan dinero en tu base. Pasa junto a ellos para cobrar.</span></li>
+          <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base antes de que el dueño te alcance.</span></li>
+          <li><span>🔒</span><span>Si Michi Bandido se lleva uno de los tuyos, alcánzalo. Con el candado no puede entrar.</span></li>
+          <li><span>✨</span><span>Junta 7 michirots distintos y pasará uno secreto muy especial…</span></li>
+        </ul>
+      </div>
+      <p class="game-msg" id="mrEstado" aria-live="polite"></p>
+      <div class="btn-row"><button class="btn" type="button" id="mrJugar">Jugar 🐾</button></div>
     </div>
   </section>
 
@@ -940,6 +1024,28 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     </div>
     <button class="adv-btn adv-summon" type="button" id="advInvocar" aria-label="Invocar al príncipe" disabled><span class="i" aria-hidden="true">👑</span><span id="advInvocarTxt">Invocar</span></button>
   </div>
+</div>
+
+<!-- JUEGO 7: ROBA UN MICHIROT (3D) -->
+<div class="mr" id="mr" hidden role="dialog" aria-modal="true" aria-label="Roba un Michirot">
+  <div class="mr3-lienzo" id="mrLienzo"></div>
+  <div class="mr3-hud">
+    <div class="mr-top">
+      <button class="adv-x" type="button" id="mrX" aria-label="Salir del juego">✕</button>
+      <div class="adv-title"><b>Juego 7</b><span>Roba un Michirot</span></div>
+      <div class="mr-dinero"><b id="mrDinero">$100</b><span id="mrIngreso">+$0/s</span></div>
+    </div>
+    <div class="mr3-botones">
+      <button class="mr-mini" type="button" id="mrCandado">🔒 Cerrar</button>
+      <button class="mr-mini" type="button" id="mrCol">📖 <b id="mrColN">0/12</b></button>
+      <button class="mr-mini" type="button" id="mrAyuda" aria-label="Cómo jugar">❓</button>
+    </div>
+  </div>
+  <div class="mr3-joy" id="mrJoy" aria-label="Joystick para caminar"><span class="mr3-perilla" id="mrPerilla"></span></div>
+  <button class="mr3-accion" type="button" id="mrAccion" hidden><span class="i" id="mrAccIco">🛒</span><span class="t" id="mrAccTxt">Comprar</span></button>
+  <div class="mr-toast" id="mrToast" role="status" hidden></div>
+  <div class="mr3-carga" id="mrCarga" hidden>Cargando el mundo 3D… 🐾</div>
+  <div class="adv-card mr-cardwrap" id="mrCard" hidden></div>
 </div>
 
 <!-- UNA CARTITA PARA TI (carta azul en hojas) -->
@@ -1792,13 +1898,18 @@ const JUEGOS = [
   { id: 'rompe', ico: '🧩', t: 'Rompecabezas', d: 'Arma otra vez uno de mis dibujos.' },
   { id: 'laberinto', ico: '🗺️', t: 'El laberinto de los kilómetros', d: 'Ayuda a Mishi a llevarte un abrazo.' },
   { id: 'aventura', ico: '👑', t: 'La princesa y los zombies', d: 'Una aventura de 5 niveles con un premio especial al final.' },
+  { id: 'michirot', ico: '🐱', t: 'Roba un Michirot', d: 'Un mundo en 3D: compra, colecciona y roba brainrots gatunos. Hay uno secreto…' },
 ];
-const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false, aventura: { nivel: 1, ganado: false } });
+const JUEGOS_VACIO = () => ({ corazones: false, memorama: false, vales: [], rompe: false, laberinto: false, aventura: { nivel: 1, ganado: false }, michirot: null });
 if (!S.juegos || typeof S.juegos !== 'object') S.juegos = JUEGOS_VACIO();
 if (!S.juegos.aventura || typeof S.juegos.aventura !== 'object') S.juegos.aventura = { nivel: 1, ganado: false };
 let juegoActual = null;
 
 function estadoJuego(id) {
+  if (id === 'michirot') {
+    const m = S.juegos.michirot;
+    return m && m.ganado ? { ok: true, txt: '✓ Ganado' } : { ok: false, txt: m && Array.isArray(m.col) ? `${m.col.length} de 12` : 'Nuevo' };
+  }
   if (id === 'aventura') {
     const a = S.juegos.aventura;
     return a.ganado ? { ok: true, txt: '✓ Ganado' } : { ok: false, txt: a.nivel > 1 ? `Nivel ${a.nivel} de 5` : 'Jugar' };
@@ -2937,7 +3048,946 @@ $('#advJugar').addEventListener('click', () => { const av = S.juegos.aventura; a
 $('#advDesdeCero').addEventListener('click', () => aventura.abrir(0));
 $('#advCarta').addEventListener('click', cartaPrincesa);
 
-const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar, aventura: pintarPanelAventura };
+/* Juego 7: Roba un Michirot (mundo 3D) */
+const michirot = (() => {
+  /* ---- Arte: michirots originales (100×100) ---- */
+  const T = '#22264a';
+  const R = (n) => +n.toFixed(1);
+  function cara(cx, cy, s = 1, o = {}) {
+    const ojos = o.ojos || 'abiertos', ey = cy - 2 * s;
+    const ojo = x => ojos === 'abiertos'
+      ? `<ellipse cx="${R(x)}" cy="${R(ey)}" rx="${R(2.3 * s)}" ry="${R(3 * s)}" fill="${T}"/><circle cx="${R(x + .8 * s)}" cy="${R(ey - 1.1 * s)}" r="${R(.9 * s)}" fill="#fff"/>`
+      : ojos === 'felices'
+        ? `<path d="M${R(x - 2.8 * s)} ${R(ey + .8 * s)} Q${R(x)} ${R(ey - 3.4 * s)} ${R(x + 2.8 * s)} ${R(ey + .8 * s)}" fill="none" stroke="${T}" stroke-width="${R(1.8 * s)}" stroke-linecap="round"/>`
+        : `<path d="M${R(x - 2.8 * s)} ${R(ey - .6 * s)} Q${R(x)} ${R(ey + 2.4 * s)} ${R(x + 2.8 * s)} ${R(ey - .6 * s)}" fill="none" stroke="${T}" stroke-width="${R(1.8 * s)}" stroke-linecap="round"/>`;
+    const big = o.bigotes === false ? '' : `<path d="M${R(cx - 13 * s)} ${R(cy + 1.5 * s)} L${R(cx - 22 * s)} ${R(cy)} M${R(cx - 13 * s)} ${R(cy + 4 * s)} L${R(cx - 21 * s)} ${R(cy + 6 * s)} M${R(cx + 13 * s)} ${R(cy + 1.5 * s)} L${R(cx + 22 * s)} ${R(cy)} M${R(cx + 13 * s)} ${R(cy + 4 * s)} L${R(cx + 21 * s)} ${R(cy + 6 * s)}" stroke="${T}" stroke-width="${R(.9 * s)}" stroke-linecap="round" opacity=".55"/>`;
+    return ojo(cx - 7 * s) + ojo(cx + 7 * s)
+      + `<ellipse cx="${R(cx - 12 * s)}" cy="${R(cy + 3 * s)}" rx="${R(3.4 * s)}" ry="${R(2 * s)}" fill="#f5a9c0" opacity=".75"/><ellipse cx="${R(cx + 12 * s)}" cy="${R(cy + 3 * s)}" rx="${R(3.4 * s)}" ry="${R(2 * s)}" fill="#f5a9c0" opacity=".75"/>`
+      + `<path d="M${R(cx - 1.8 * s)} ${R(cy + 1.4 * s)} L${R(cx + 1.8 * s)} ${R(cy + 1.4 * s)} L${R(cx)} ${R(cy + 3.6 * s)} Z" fill="#f5a9c0" stroke="${T}" stroke-width="${R(.9 * s)}" stroke-linejoin="round"/>`
+      + `<path d="M${R(cx - 3 * s)} ${R(cy + 5 * s)} Q${R(cx - 1.5 * s)} ${R(cy + 6.8 * s)} ${R(cx)} ${R(cy + 5 * s)} Q${R(cx + 1.5 * s)} ${R(cy + 6.8 * s)} ${R(cx + 3 * s)} ${R(cy + 5 * s)}" fill="none" stroke="${T}" stroke-width="${R(1.2 * s)}" stroke-linecap="round"/>`
+      + big;
+  }
+  function moñito(x, y, s = 1, r = -16, color = '#3f74e0') {
+    return `<g transform="translate(${R(x)} ${R(y)}) rotate(${r}) scale(${s})"><path d="M0 0 L-7 -5 L-7 5 Z M0 0 L7 -5 L7 5 Z" fill="${color}" stroke="${T}" stroke-width="1.3" stroke-linejoin="round"/><circle r="2.1" fill="${color}" stroke="${T}" stroke-width="1.1"/></g>`;
+  }
+  function cabeza(cx, cy, s, color, o = {}) {
+    const P = (dx, dy) => `${R(cx + dx * s)} ${R(cy + dy * s)}`;
+    return `<path d="M${P(-17, -6)} L${P(-14, -22)} L${P(-4, -14)} Z M${P(17, -6)} L${P(14, -22)} L${P(4, -14)} Z" fill="${color}" stroke="${T}" stroke-width="2.3" stroke-linejoin="round"/>`
+      + `<path d="M${P(-14, -10)} L${P(-12.6, -18.5)} L${P(-7, -14)} Z M${P(14, -10)} L${P(12.6, -18.5)} L${P(7, -14)} Z" fill="#f5a9c0"/>`
+      + `<ellipse cx="${R(cx)}" cy="${R(cy)}" rx="${R(19 * s)}" ry="${R(15.5 * s)}" fill="${color}" stroke="${T}" stroke-width="2.3"/>`
+      + cara(cx, cy + 1 * s, s, o)
+      + (o.lazo ? moñito(cx - 11 * s, cy - 14 * s, s * 1.05) : '');
+  }
+  function corazonito(x, y, s = 1, color = '#e23d52') {
+    return `<path transform="translate(${R(x)} ${R(y)}) scale(${s})" d="M0 5 C-10 -2 -8.5 -11 -4 -11 C-1.7 -11 0 -9.3 0 -7.5 C0 -9.3 1.7 -11 4 -11 C8.5 -11 10 -2 0 5 Z" fill="${color}" stroke="${T}" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  }
+  function estrellita(x, y, r, color = '#ffd25e') {
+    let d = '';
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r; d += (i ? 'L' : 'M') + R(x + rr * Math.cos(a)) + ' ' + R(y + rr * Math.sin(a)); }
+    return `<path d="${d}Z" fill="${color}" stroke="${T}" stroke-width="1.3" stroke-linejoin="round"/>`;
+  }
+  function brillo(x, y, r, color = '#ffffff') {
+    return `<path d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r} Z" fill="${color}"/>`;
+  }
+  const S2 = `stroke="${T}" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"`;
+
+  const ARTE = {
+    spaghettino: () => `<ellipse cx="50" cy="88" rx="41" ry="8" fill="#fff" ${S2}/><ellipse cx="50" cy="86.5" rx="29" ry="4.6" fill="#e9eef9"/>
+      <path d="M19 85 Q21 64 50 61 Q79 64 81 85 Z" fill="#f6d36b" ${S2}/>
+      <path d="M26 80 q6 -7 12 0 t12 0 t12 0 t12 0 M30 72 q5 -6 10 0 t10 0 t10 0 t10 0" fill="none" stroke="#d6a43a" stroke-width="2" stroke-linecap="round"/>
+      ${cabeza(50, 50, 1, '#f4b37e', { ojos: 'felices' })}
+      <path d="M33 42 q-6 10 1 20" fill="none" stroke="${T}" stroke-width="5" stroke-linecap="round"/><path d="M33 42 q-6 10 1 20" fill="none" stroke="#f6d36b" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M67 40 q7 9 0 19" fill="none" stroke="${T}" stroke-width="5" stroke-linecap="round"/><path d="M67 40 q7 9 0 19" fill="none" stroke="#f6d36b" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="50" cy="31" r="6.5" fill="#a2603a" ${S2}/><circle cx="48" cy="29" r="1.6" fill="#fff" opacity=".6"/>
+      <path d="M84 70 L92 34 M88 33 L90 25 M92 34 L94 26 M96 35 L98 27" fill="none" stroke="${T}" stroke-width="2.2" stroke-linecap="round"/>`,
+
+    ciabattino: () => `<path d="M12 84 Q10 66 32 64 L70 59 Q91 57 91 75 Q91 91 70 91 L25 91 Q12 91 12 84 Z" fill="#f7a8c4" ${S2}/>
+      <ellipse cx="60" cy="63" rx="22" ry="7" fill="#d47aa0" ${S2}/>
+      ${cabeza(60, 49, .95, '#e6e8f2', { ojos: 'felices' })}
+      <path d="M37 63 Q60 74 83 62 L84 69 Q60 82 36 70 Z" fill="#f7a8c4" ${S2}/>
+      <ellipse cx="52" cy="66" rx="5" ry="3.6" fill="#e6e8f2" ${S2}/><ellipse cx="68" cy="65" rx="5" ry="3.6" fill="#e6e8f2" ${S2}/>
+      <circle cx="20" cy="74" r="6" fill="#fff" ${S2}/><circle cx="26" cy="70" r="5" fill="#fff" ${S2}/><circle cx="25" cy="78" r="5" fill="#fff" ${S2}/>`,
+
+    fragolina: () => `<path d="M24 44 L27 20 L41 33 Z M76 44 L73 20 L59 33 Z" fill="#ef4b5f" ${S2}/><path d="M27 38 L28.5 26 L36 33 Z M73 38 L71.5 26 L64 33 Z" fill="#f5a9c0"/>
+      <path d="M50 93 C29 81 15 61 19 43 C23 27 40 25 50 31 C60 25 77 27 81 43 C85 61 71 81 50 93 Z" fill="#ef4b5f" ${S2}/>
+      ${[[30, 66], [40, 78], [60, 78], [70, 66], [36, 52], [64, 52], [50, 84]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.4" ry="2.2" fill="#ffe08a"/>`).join('')}
+      <path d="M36 30 L42 20 L49 27 L56 19 L64 30 Q50 37 36 30 Z" fill="#6cc08a" ${S2}/>
+      ${cara(50, 56, 1.15)}
+      <ellipse cx="41" cy="92" rx="5" ry="3" fill="#ef4b5f" ${S2}/><ellipse cx="59" cy="92" rx="5" ry="3" fill="#ef4b5f" ${S2}/>`,
+
+    tostapane: () => `<path d="M28 44 L28 24 Q28 14 37 15 L46 22 L46 44 Z" fill="#e9b56f" ${S2}/><path d="M54 44 L54 22 L63 15 Q72 14 72 24 L72 44 Z" fill="#e9b56f" ${S2}/>
+      <path d="M31 40 L31 25 Q31 18 37 19 L43 24 L43 40 Z M57 40 L57 24 L63 19 Q69 18 69 25 L69 40 Z" fill="#f6d39e"/>
+      <rect x="14" y="40" width="72" height="46" rx="13" fill="#cfd6e6" ${S2}/>
+      <rect x="25" y="43" width="22" height="5" rx="2.5" fill="#56607d"/><rect x="53" y="43" width="22" height="5" rx="2.5" fill="#56607d"/>
+      <path d="M20 54 Q20 48 26 48" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+      <rect x="86" y="56" width="7" height="14" rx="3" fill="#e23d52" ${S2}/>
+      ${cara(50, 64, 1.2)}
+      <rect x="24" y="85" width="8" height="7" rx="2" fill="#9aa3bd" ${S2}/><rect x="68" y="85" width="8" height="7" rx="2" fill="#9aa3bd" ${S2}/>`,
+
+    gelatino: () => `<path d="M34 57 L50 95 L66 57 Z" fill="#e7b77a" ${S2}/>
+      <path d="M39 64 L56 80 M44 60 L60 72 M38 72 L50 84 M61 64 L44 80 M56 60 L40 72 M62 72 L50 84" stroke="#b9853f" stroke-width="1.4"/>
+      ${cabeza(50, 44, 1.15, '#9ec5f5', { ojos: 'felices' })}
+      <path d="M33 56 q2 8 5 0 M60 57 q2 9 5 0" fill="#9ec5f5" stroke="${T}" stroke-width="1.8" stroke-linejoin="round"/>
+      ${[['#e23d52', 40, 36, 20], ['#ffd25e', 59, 35, -25], ['#6cc08a', 47, 31, 60], ['#f5a9c0', 55, 41, 10]].map(([c, x, y, r]) => `<rect x="${x}" y="${y}" width="5" height="2" rx="1" fill="${c}" transform="rotate(${r} ${x} ${y})"/>`).join('')}
+      <path d="M52 19 Q54 12 59 10" fill="none" stroke="${T}" stroke-width="1.8" stroke-linecap="round"/><circle cx="51" cy="22" r="5" fill="#e23d52" ${S2}/><circle cx="49.5" cy="20.5" r="1.3" fill="#fff" opacity=".7"/>`,
+
+    sushigatto: () => `<rect x="17" y="62" width="66" height="27" rx="13" fill="#ffffff" ${S2}/>
+      ${[[28, 74], [38, 80], [50, 75], [62, 81], [72, 73], [44, 84], [58, 70]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="2.4" ry="1.4" fill="#e6e9f3"/>`).join('')}
+      ${cabeza(50, 41, 1, '#f59a6b', { ojos: 'abiertos' })}
+      <path d="M13 67 Q15 51 50 50 Q85 51 87 67 Q50 60 13 67 Z" fill="#f59a6b" ${S2}/>
+      <path d="M24 61 Q30 55 36 59 M44 57 Q50 53 56 57 M64 59 Q70 55 76 61" fill="none" stroke="#ffe1cf" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M31 31 Q50 23 69 31" fill="none" stroke="${T}" stroke-width="6.5" stroke-linecap="round"/><path d="M31 31 Q50 23 69 31" fill="none" stroke="#e23d52" stroke-width="3.6" stroke-linecap="round"/>
+      <circle cx="50" cy="27" r="3" fill="#fff" stroke="${T}" stroke-width="1"/>
+      <path d="M69 31 L79 27 M69 31 L78 37" stroke="#e23d52" stroke-width="3" stroke-linecap="round"/>`,
+
+    pescegatto: () => `<path d="M45 50 Q38 22 58 16 Q55 30 66 36 Q57 42 55 50 Z" fill="#ffffff" ${S2}/><path d="M50 40 Q54 34 58 33 M48 33 Q52 27 56 25" fill="none" stroke="#c5cee3" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M80 60 L96 45 Q93 60 96 76 Z" fill="#3f6fd8" ${S2}/>
+      <ellipse cx="60" cy="62" rx="27" ry="18" fill="#5b8def" ${S2}/>
+      <path d="M58 56 q4 4 0 8 M66 55 q4 4 0 8 M74 57 q3 4 0 8" fill="none" stroke="#9ec0f7" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M55 79 L60 88 L66 79" fill="#3f6fd8" ${S2}/>
+      ${cabeza(33, 58, .95, '#8fb4ef', { ojos: 'abiertos' })}
+      <path d="M4 50 H12 M2 60 H9 M5 70 H12" stroke="#9ec0f7" stroke-width="2" stroke-linecap="round" opacity=".8"/>`,
+
+    tazzina: () => `<ellipse cx="50" cy="90" rx="41" ry="7" fill="#ffffff" ${S2}/>
+      <ellipse cx="50" cy="58" rx="30" ry="8" fill="#a2603a" ${S2}/>
+      ${cabeza(50, 46, 1, '#f3e3c8', { ojos: 'felices' })}
+      <path d="M20 58 Q22 87 50 88 Q78 87 80 58 Q50 67 20 58 Z" fill="#ffffff" ${S2}/>
+      <path d="M80 63 Q95 63 93 74 Q91 83 77 80" fill="none" stroke="${T}" stroke-width="3" stroke-linecap="round"/>
+      ${corazonito(38, 76, .55, '#5b8def')}${corazonito(62, 76, .55, '#5b8def')}${corazonito(50, 80, .45, '#f5a9c0')}
+      <ellipse cx="40" cy="61" rx="5" ry="3.4" fill="#f3e3c8" ${S2}/><ellipse cx="60" cy="61" rx="5" ry="3.4" fill="#f3e3c8" ${S2}/>
+      <g class="mr-sube">${corazonito(26, 26, .5, '#f5a9c0')}</g><g class="mr-sube d2">${corazonito(74, 24, .45, '#f5a9c0')}</g>`,
+
+    nuvoletta: () => `<path d="M30 42 L32 22 L44 34 Z M70 42 L68 22 L56 34 Z" fill="#eef2ff" ${S2}/><path d="M32 37 L33 27 L39 33 Z M68 37 L67 27 L61 33 Z" fill="#f5a9c0"/>
+      <path d="M22 72 Q8 72 10 59 Q12 46 27 49 Q28 31 50 32 Q70 30 74 47 Q91 45 91 60 Q91 73 76 73 Z" fill="#f3f6ff" ${S2}/>
+      ${cara(50, 56, 1.15, { ojos: 'cerrados' })}
+      <g class="mr-lluvia">${corazonito(32, 86, .45, '#f5a9c0')}${corazonito(50, 92, .5, '#5b8def')}${corazonito(68, 86, .45, '#f5a9c0')}</g>`,
+
+    pianoforte: () => `<rect x="15" y="42" width="70" height="44" rx="4" fill="#2d2f45" ${S2}/>
+      <rect x="20" y="64" width="60" height="14" rx="2" fill="#ffffff" ${S2}/>
+      ${[26, 34, 46, 54, 62, 74].map(x => `<rect x="${x - 2}" y="64" width="4" height="8" fill="#2d2f45"/>`).join('')}
+      ${[28, 36, 44, 52, 60, 68].map(x => `<path d="M${x + 2} 72 V78" stroke="#c5cbe0" stroke-width="1"/>`).join('')}
+      <rect x="20" y="86" width="5" height="7" fill="#2d2f45" ${S2}/><rect x="75" y="86" width="5" height="7" fill="#2d2f45" ${S2}/>
+      ${cabeza(50, 30, .95, '#c7b3ef', { ojos: 'felices' })}
+      <rect x="11" y="40" width="78" height="7" rx="3" fill="#45486a" ${S2}/>
+      <ellipse cx="41" cy="45" rx="4.6" ry="3.2" fill="#c7b3ef" ${S2}/><ellipse cx="59" cy="45" rx="4.6" ry="3.2" fill="#c7b3ef" ${S2}/>
+      <g class="mr-flota"><path d="M82 26 V12 L90 10 V22" fill="none" stroke="${T}" stroke-width="2" stroke-linecap="round"/><ellipse cx="80" cy="26" rx="3.4" ry="2.6" fill="${T}"/><ellipse cx="88" cy="22" rx="3.4" ry="2.6" fill="${T}"/></g>
+      <g class="mr-flota d2"><path d="M16 22 V10" stroke="${T}" stroke-width="2" stroke-linecap="round"/><ellipse cx="14" cy="22" rx="3.4" ry="2.6" fill="${T}"/></g>`,
+
+    lunetta: () => `<circle cx="50" cy="54" r="44" fill="#fff3c4" opacity=".55"/>
+      ${estrellita(14, 18, 5)}${estrellita(86, 20, 4)}${estrellita(84, 86, 3.5)}${brillo(18, 80, 3.5, '#ffd25e')}
+      ${cabeza(50, 52, 1, '#e8ecfb', { ojos: 'cerrados' })}
+      <path d="M50 30 Q60 14 80 22 L74 32 Q64 28 58 36 Z" fill="#5b8def" ${S2}/><circle cx="81" cy="22" r="4" fill="#ffffff" ${S2}/>
+      <g transform="rotate(-90 50 58)"><path d="M50 22 A36 36 0 1 0 50 94 A21.6 36 0 1 1 50 22 Z" fill="#ffd25e" ${S2}/></g>
+      <ellipse cx="38" cy="68" rx="4.6" ry="3.2" fill="#e8ecfb" ${S2}/><ellipse cx="62" cy="68" rx="4.6" ry="3.2" fill="#e8ecfb" ${S2}/>
+      <text x="70" y="44" font-family="Caveat, cursive" font-weight="700" font-size="11" fill="${T}" class="mr-flota">z</text>`,
+
+    secreto: () => `<circle cx="50" cy="56" r="46" fill="#f8d9e8" opacity=".55"/><circle cx="50" cy="56" r="34" fill="#dfe8ff" opacity=".7"/>
+      <path d="M50 95 C24 79 9 63 13 48 C17 34 35 32 50 44 C65 32 83 34 87 48 C91 63 76 79 50 95 Z" fill="#f5a9c0" ${S2}/>
+      <path d="M50 95 C24 79 9 63 13 48 C17 34 35 32 50 44 Z" fill="#9ec0f7"/>
+      <path d="M50 95 C24 79 9 63 13 48 C17 34 35 32 50 44 C65 32 83 34 87 48 C91 63 76 79 50 95 Z" fill="none" ${S2}/>
+      <g transform="rotate(-8 33 36)">${cabeza(33, 36, .92, '#93a8dd', { ojos: 'felices' })}</g>
+      <g transform="rotate(8 67 36)">${cabeza(67, 36, .92, '#fdfeff', { ojos: 'felices', lazo: true })}</g>
+      ${corazonito(50, 64, 1.05, '#e23d52')}
+      <ellipse cx="38" cy="90" rx="5.5" ry="3.4" fill="#9ec0f7" ${S2}/><ellipse cx="62" cy="90" rx="5.5" ry="3.4" fill="#f5a9c0" ${S2}/>
+      ${brillo(10, 20, 5)}${brillo(90, 16, 4)}${brillo(92, 70, 3.5)}${brillo(8, 74, 3.5)}
+      <g class="mr-sube">${corazonito(50, 14, .55, '#e23d52')}</g>`,
+  };
+  const DUEÑOS = {
+    zombie: () => `<ellipse cx="50" cy="52" rx="34" ry="30" fill="#9bd3a0" ${S2}/><path d="M28 34 L36 40 M40 28 L42 36 M58 28 L56 36" stroke="${T}" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="38" cy="50" r="5" fill="#fff" ${S2}/><circle cx="38" cy="50" r="2" fill="${T}"/><path d="M58 45 L68 55 M68 45 L58 55" stroke="${T}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M38 68 L62 68" stroke="${T}" stroke-width="2.5" stroke-linecap="round"/><path d="M42 64 V72 M50 64 V72 M58 64 V72" stroke="${T}" stroke-width="1.6"/>`,
+    bandido: () => `${cabeza(50, 56, 1.55, '#9aa3bd', { ojos: 'abiertos' })}
+      <path d="M22 50 Q50 42 78 50 L76 60 Q50 54 24 60 Z" fill="${T}"/>
+      <ellipse cx="39" cy="54" rx="4" ry="3.6" fill="#fff"/><ellipse cx="61" cy="54" rx="4" ry="3.6" fill="#fff"/><circle cx="39.5" cy="54" r="2" fill="${T}"/><circle cx="61.5" cy="54" r="2" fill="${T}"/>
+      <path d="M78 52 L90 46 M78 56 L90 60" stroke="${T}" stroke-width="3" stroke-linecap="round"/>`,
+  };
+  function arte(id, clase = '') {
+    const f = ARTE[id] || DUEÑOS[id];
+    return `<svg class="${clase}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${f()}</svg>`;
+  }
+
+  /* ---------- Datos ---------- */
+  const RAREZAS = { c: 'Común', r: 'Raro', e: 'Épico', l: 'Legendario', m: 'Mítico', d: 'Brainrot Dios', s: 'Secreto' };
+  const COLOR_R = { c: '#b8bfd3', r: '#3f74e0', e: '#9b55e0', l: '#f2b01e', m: '#e23d52', d: '#2fbf8f', s: '#ff7aa8' };
+  const CAT = [
+    { id: 'spaghettino', n: 'Gattino Spaghettino', r: 'c', p: 25, g: 1, d: 'Se cayó en un plato de espagueti y decidió quedarse a vivir ahí.' },
+    { id: 'ciabattino', n: 'Ciabattino Miagolino', r: 'c', p: 60, g: 2, d: 'Vive dentro de una pantufla. Si te la pones, ronronea.' },
+    { id: 'fragolina', n: 'Fragolina Ronronina', r: 'r', p: 200, g: 6, d: 'Mitad fresa, mitad gatita. Huele a pastel y maúlla en rosa.' },
+    { id: 'tostapane', n: 'Tostapane Miao', r: 'r', p: 380, g: 10, d: 'Tuesta panes con forma de orejitas. Nadie sabe cómo.' },
+    { id: 'gelatino', n: 'Gelatino Gattolino', r: 'e', p: 1100, g: 24, d: 'Helado de mora azul con bigotes. No se derrite, se derrite de amor.' },
+    { id: 'sushigatto', n: 'Sushigatto Samurai', r: 'e', p: 1800, g: 36, d: 'Protege su salmón con honor. Duerme sobre arroz.' },
+    { id: 'pescegatto', n: 'Pescegatto Volante', r: 'l', p: 6000, g: 95, d: 'Pez con cara de gato y alas de paloma. Solo vuela los domingos.' },
+    { id: 'tazzina', n: 'Tazzina Miaozzina', r: 'l', p: 9000, g: 130, d: 'Se esconde en tu chocolate caliente y sale cuando hace frío.' },
+    { id: 'nuvoletta', n: 'Nuvoletta Ronfoletta', r: 'm', p: 24000, g: 300, d: 'Una nube que ronronea. Cuando llora, llueven corazones.' },
+    { id: 'pianoforte', n: 'Pianoforte Felino', r: 'm', p: 36000, g: 420, d: 'Se sabe una sola canción: «miau miau miau» en do mayor.' },
+    { id: 'lunetta', n: 'Lunetta Gattoletta', r: 'd', p: 100000, g: 1000, d: 'Duerme sobre la luna y cuida tus sueños toda la noche.' },
+    { id: 'secreto', n: 'Brittanina Eduardino', r: 's', p: 150000, g: 5000, d: 'Dos gatitos tan enamorados que se fusionaron en un solo corazón. Solo existe uno en todo el universo, y es nuestro. 💞' },
+  ];
+  const POR = Object.fromEntries(CAT.map(c => [c.id, c]));
+  const PESOS = { c: 40, r: 27, e: 17, l: 9, m: 5, d: 2 };
+  const PESOS_RIVAL = { r: 25, e: 40, l: 25, m: 9, d: 1 };
+  const CAZA = { c: 4.8, r: 5.0, e: 5.2, l: 5.4, m: 5.6, d: 5.8 };
+  const SLOTS = 8, PARA_SECRETO = 7;
+  const DUEÑO = [{ id: 'zombie', n: 'Zombie Gruñón' }, { id: 'bandido', n: 'Michi Bandido' }];
+
+  /* ---------- Mundo ---------- */
+  const VEL = 6, VEL_CARGA = 4.6, RADIO = .45;
+  const LIM = { x: 17.5, z: 16 };
+  const ALF = { z: 0, x0: -23, x1: 23, vel: 2.1 };
+  const MIA = { cx: 0, cz: 10.6, w: 12.4, d: 8 };
+  const RIV = [{ cx: -9, cz: -10.6, w: 8.4, d: 6.4 }, { cx: 9, cz: -10.6, w: 8.4, d: 6.4 }];
+  const PED_MIO = [];
+  [9.0, 12.3].forEach(z => [-4.6, -1.55, 1.55, 4.6].forEach(x => PED_MIO.push({ x, z })));
+  const PED_RIV = RIV.map(b => [[b.cx - 1.8, b.cz + .7], [b.cx + 1.8, b.cz + .7], [b.cx - 1.8, b.cz - 1.5], [b.cx + 1.8, b.cz - 1.5]].map(([x, z]) => ({ x, z })));
+  const CASA = RIV.map(b => ({ x: b.cx, z: b.cz - 2.5 }));
+
+  function fmt(n) {
+    n = Math.max(0, Math.floor(n));
+    if (n < 1000) return '$' + n;
+    if (n < 1e6) return '$' + (n / 1e3).toFixed(n < 1e4 ? 1 : 0).replace(/\.0$/, '') + 'K';
+    return '$' + (n / 1e6).toFixed(n < 1e7 ? 2 : 1).replace(/\.?0+$/, '') + 'M';
+  }
+  function azar(pesos) {
+    let t = Math.random() * Object.values(pesos).reduce((a, b) => a + b, 0);
+    for (const k in pesos) { t -= pesos[k]; if (t <= 0) return k; }
+    return Object.keys(pesos)[0];
+  }
+  function alAzar(r) { const l = CAT.filter(c => c.r === r); return l[Math.floor(Math.random() * l.length)].id; }
+  function chip(r) { return `<span class="mr-chip r-${r}">${RAREZAS[r]}</span>`; }
+  function nuevo() {
+    return {
+      dinero: 100, total: 0, base: Array(SLOTS).fill(null), col: [], ganado: false, visto: false, t: 0, candado: 0, enfriar: 0,
+      riv: DUEÑO.map(() => ({ cerrada: 0, slots: [0, 1, 2, 3].map(() => ({ id: alAzar(azar(PESOS_RIVAL)), vuelve: 0 })) })),
+    };
+  }
+  function estado() {
+    let e = S.juegos.michirot;
+    if (!e || typeof e !== 'object' || !Array.isArray(e.base) || !Array.isArray(e.riv)) e = S.juegos.michirot = nuevo();
+    return e;
+  }
+  const dentroDe = (b, x, z, m = 0) => x > b.cx - b.w / 2 + m && x < b.cx + b.w / 2 - m && z > b.cz - b.d / 2 + m && z < b.cz + b.d / 2 - m;
+  const dist = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
+
+  /* ---------- Estado de la partida ---------- */
+  let E = null, abierto = false, listo = false, pausa = false, raf = 0, last = 0, pared = 0, uiT = 0, guardaT = 0, avisoT = 0;
+  let T3, escena, camara, render, cont, texturas = {}, toonGrad;
+  const TEX = new Set();
+  let jugador, cargando = null, accion = null;
+  let alfombra = [], spawnT = 0, secretoT = 4, vuelos = [], flotantes = [];
+  let pedMio = [], pedRiv = [[], []], laseres = [], muros = [];
+  let npc = [], ladronT = 90;
+  const teclas = new Set(); let joy = { x: 0, z: 0, activo: false };
+  const $m = id => document.getElementById(id);
+
+  function ingreso() { return E.base.reduce((s, b) => s + (b ? POR[b.id].g : 0), 0); }
+  function guardar() { E.t = Date.now(); save(); }
+  function aviso(txt, ms = 2600) {
+    const t = $m('mrToast'); t.textContent = txt; t.hidden = false;
+    clearTimeout(avisoT); avisoT = setTimeout(() => { t.hidden = true; }, ms);
+  }
+
+  /* ---------- Carga ---------- */
+  function cargarThree() {
+    if (window.THREE) return Promise.resolve();
+    return new Promise((ok, mal) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      s.onload = ok; s.onerror = mal;
+      document.head.append(s);
+    });
+  }
+  function texturaDe(id) {
+    return new Promise(ok => {
+      const f = ARTE[id] || DUEÑOS[id];
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 100 100">${f()}</svg>`;
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas'); c.width = c.height = 256;
+        c.getContext('2d').drawImage(img, 0, 0, 256, 256);
+        const t = new T3.CanvasTexture(c); t.anisotropy = 2;
+        texturas[id] = t; TEX.add(t); ok();
+      };
+      img.onerror = () => ok();
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+  }
+
+  /* ---------- Piezas 3D ---------- */
+  function mat(color) { return new T3.MeshToonMaterial({ color, gradientMap: toonGrad }); }
+  let tintaAtras = null;
+  function borde(m, k = 1.07) {
+    if (!tintaAtras) tintaAtras = new T3.MeshBasicMaterial({ color: 0x22264a, side: T3.BackSide });
+    const o = new T3.Mesh(m.geometry, tintaAtras);
+    o.position.copy(m.position); o.rotation.copy(m.rotation); o.scale.copy(m.scale).multiplyScalar(k);
+    m.parent.add(o); return m;
+  }
+  function caja(w, h, d, color, x, y, z) { const m = new T3.Mesh(new T3.BoxGeometry(w, h, d), mat(color)); m.position.set(x, y, z); return m; }
+  function sombra(r = .6) {
+    const m = new T3.Mesh(new T3.CircleGeometry(r, 20), new T3.MeshBasicMaterial({ color: 0x1d2a57, transparent: true, opacity: .16, depthWrite: false }));
+    m.rotation.x = -Math.PI / 2; m.position.y = .02; return m;
+  }
+  function spriteDe(id, tam = 1.5) {
+    const s = new T3.Sprite(new T3.SpriteMaterial({ map: texturas[id] || null, transparent: true, depthWrite: false }));
+    s.scale.set(tam, tam, 1); s.center.set(.5, .08); return s;
+  }
+  function etiqueta(ancho = 2.2) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 112;
+    const t = new T3.CanvasTexture(c);
+    const s = new T3.Sprite(new T3.SpriteMaterial({ map: t, transparent: true, depthWrite: false, depthTest: false }));
+    s.scale.set(ancho, ancho * 112 / 256, 1); s.renderOrder = 5;
+    let previo = '';
+    s.userData.poner = (lineas, fondo = '#ffffff', tinta = '#22264a') => {
+      const k = JSON.stringify([lineas, fondo, tinta]); if (k === previo) return; previo = k;
+      const g = c.getContext('2d'); g.clearRect(0, 0, 256, 112);
+      if (!lineas.length) { t.needsUpdate = true; return; }
+      g.font = '800 30px Nunito, system-ui, sans-serif';
+      const anchos = lineas.map((l, i) => { g.font = i === 0 ? '800 30px Nunito, system-ui, sans-serif' : '800 21px Nunito, system-ui, sans-serif'; return g.measureText(l).width; });
+      const w = Math.min(248, Math.max(...anchos) + 28), h = lineas.length > 1 ? 74 : 46, x = (256 - w) / 2, y = 112 - h - 4;
+      g.fillStyle = fondo; g.strokeStyle = '#22264a'; g.lineWidth = 4;
+      g.beginPath(); g.roundRect ? g.roundRect(x, y, w, h, 20) : g.rect(x, y, w, h); g.fill(); g.stroke();
+      g.fillStyle = tinta; g.textAlign = 'center'; g.textBaseline = 'middle';
+      lineas.forEach((l, i) => { g.font = i === 0 ? '800 30px Nunito, system-ui, sans-serif' : '800 21px Nunito, system-ui, sans-serif'; g.fillText(l, 128, y + (lineas.length > 1 ? (i === 0 ? 25 : 56) : h / 2 + 1), 236); });
+      t.needsUpdate = true;
+    };
+    return s;
+  }
+  function letrero(txt, x, y, z, color) {
+    const s = etiqueta(4.2); s.position.set(x, y, z); s.userData.poner([txt], color, '#ffffff'); escena.add(s); return s;
+  }
+
+  function gato3D({ cuerpo = '#fdfeff', lazo = false, mascara = false } = {}) {
+    const g = new T3.Group(), cuerpoG = new T3.Group();
+    const m = mat(cuerpo), rosa = mat('#f5a9c0'), negro = new T3.MeshBasicMaterial({ color: 0x22264a }), blanco = new T3.MeshBasicMaterial({ color: 0xffffff });
+    const tronco = new T3.Mesh(new T3.SphereGeometry(.5, 20, 16), m); tronco.scale.set(1, 1.08, .9); tronco.position.y = .62; cuerpoG.add(tronco); borde(tronco, 1.06);
+    const panza = new T3.Mesh(new T3.SphereGeometry(.3, 16, 12), mat(cuerpo === '#fdfeff' ? '#e6eefc' : '#d9dff0')); panza.position.set(0, .58, .3); panza.scale.set(1, 1.2, .6); cuerpoG.add(panza);
+    const cabeza = new T3.Mesh(new T3.SphereGeometry(.48, 22, 18), m); cabeza.scale.set(1.12, .95, 1); cabeza.position.y = 1.42; cuerpoG.add(cabeza); borde(cabeza, 1.06);
+    [-1, 1].forEach(sx => {
+      const oreja = new T3.Mesh(new T3.ConeGeometry(.17, .36, 12), m); oreja.position.set(sx * .3, 1.86, 0); oreja.rotation.z = -sx * .35; cuerpoG.add(oreja); borde(oreja, 1.16);
+      const int = new T3.Mesh(new T3.ConeGeometry(.09, .2, 10), rosa); int.position.set(sx * .29, 1.83, .1); int.rotation.z = -sx * .35; cuerpoG.add(int);
+      const ojo = new T3.Mesh(new T3.SphereGeometry(.068, 12, 10), negro); ojo.position.set(sx * .18, 1.47, .44); ojo.scale.z = .5; cuerpoG.add(ojo);
+      const bri = new T3.Mesh(new T3.SphereGeometry(.024, 8, 6), blanco); bri.position.set(sx * .18 + .025, 1.5, .475); cuerpoG.add(bri);
+      const mej = new T3.Mesh(new T3.CircleGeometry(.08, 14), new T3.MeshBasicMaterial({ color: 0xf5a9c0, transparent: true, opacity: .75 })); mej.position.set(sx * .31, 1.36, .4); mej.rotation.y = sx * .45; cuerpoG.add(mej);
+      const pata = new T3.Mesh(new T3.SphereGeometry(.15, 12, 10), m); pata.position.set(sx * .2, .12, .3); pata.scale.set(1, .7, 1.2); cuerpoG.add(pata); borde(pata, 1.15);
+    });
+    const nariz = new T3.Mesh(new T3.SphereGeometry(.05, 10, 8), rosa); nariz.position.set(0, 1.38, .48); cuerpoG.add(nariz);
+    const cola = new T3.Mesh(new T3.TubeGeometry(new T3.CatmullRomCurve3([new T3.Vector3(0, .45, -.38), new T3.Vector3(0, .65, -.75), new T3.Vector3(.05, 1.05, -.85), new T3.Vector3(.1, 1.3, -.7)]), 16, .075, 8), m);
+    cuerpoG.add(cola);
+    cuerpoG.add(new T3.Mesh(new T3.TubeGeometry(cola.geometry.parameters.path, 16, .105, 8), new T3.MeshBasicMaterial({ color: 0x22264a, side: T3.BackSide })));
+    if (lazo) {
+      const azul = mat('#3f74e0');
+      [-1, 1].forEach(sx => { const a = new T3.Mesh(new T3.ConeGeometry(.12, .24, 10), azul); a.position.set(-.28 + sx * .13, 1.93, .12); a.rotation.z = sx * Math.PI / 2; cuerpoG.add(a); });
+      const n = new T3.Mesh(new T3.SphereGeometry(.07, 10, 8), azul); n.position.set(-.28, 1.93, .12); cuerpoG.add(n);
+    }
+    if (mascara) {
+      const banda = new T3.Mesh(new T3.CylinderGeometry(.545, .545, .2, 24, 1, true), new T3.MeshBasicMaterial({ color: 0x22264a, side: T3.DoubleSide })); banda.position.y = 1.47; banda.scale.set(1.0, 1, .93); cuerpoG.add(banda);
+      [-1, 1].forEach(sx => { const o = new T3.Mesh(new T3.SphereGeometry(.07, 12, 10), blanco); o.position.set(sx * .18, 1.47, .5); o.scale.z = .4; cuerpoG.add(o); const p = new T3.Mesh(new T3.SphereGeometry(.035, 8, 6), negro); p.position.set(sx * .18, 1.47, .53); cuerpoG.add(p); });
+      const saco = new T3.Mesh(new T3.SphereGeometry(.3, 14, 12), mat('#c9a06b')); saco.position.set(.25, .95, -.5); cuerpoG.add(saco);
+    }
+    g.add(cuerpoG, sombra(.55));
+    g.userData.cuerpo = cuerpoG;
+    return g;
+  }
+  function zombie3D() {
+    const g = new T3.Group(), c = new T3.Group();
+    const piel = mat('#9bd3a0'), negro = new T3.MeshBasicMaterial({ color: 0x22264a }), blanco = new T3.MeshBasicMaterial({ color: 0xffffff });
+    [-1, 1].forEach(sx => { const l = caja(.28, .55, .3, '#5b6aa8', sx * .2, .28, 0); c.add(l); borde(l, 1.1); });
+    const tr = caja(.8, .8, .5, '#8c7bd6', 0, .95, 0); c.add(tr); borde(tr, 1.07);
+    [-1, 1].forEach(sx => { const b = caja(.2, .2, .75, '#9bd3a0', sx * .48, 1.15, .35); c.add(b); borde(b, 1.14); });
+    const cab = new T3.Mesh(new T3.SphereGeometry(.45, 20, 16), piel); cab.position.y = 1.72; c.add(cab); borde(cab, 1.06);
+    const ojo = new T3.Mesh(new T3.SphereGeometry(.11, 12, 10), blanco); ojo.position.set(-.17, 1.78, .38); c.add(ojo);
+    const pup = new T3.Mesh(new T3.SphereGeometry(.05, 8, 6), negro); pup.position.set(-.17, 1.78, .48); c.add(pup);
+    [1, -1].forEach(r => { const x = new T3.Mesh(new T3.BoxGeometry(.2, .045, .04), negro); x.position.set(.18, 1.78, .42); x.rotation.z = r * .75; c.add(x); });
+    const boca = new T3.Mesh(new T3.BoxGeometry(.3, .04, .04), negro); boca.position.set(0, 1.56, .42); c.add(boca);
+    g.add(c, sombra(.55)); g.userData.cuerpo = c;
+    return g;
+  }
+
+  function construirMundo() {
+    escena = new T3.Scene();
+    escena.background = new T3.Color('#bfe0ff');
+    escena.fog = new T3.Fog('#bfe0ff', 34, 70);
+    camara = new T3.PerspectiveCamera(50, 1, .1, 200);
+    render = new T3.WebGLRenderer({ antialias: true });
+    render.setPixelRatio(Math.min(1.75, window.devicePixelRatio || 1));
+    cont = $m('mrLienzo'); cont.innerHTML = ''; cont.append(render.domElement);
+    toonGrad = new T3.DataTexture(new Uint8Array([105, 175, 230]), 3, 1, T3.LuminanceFormat);
+    toonGrad.minFilter = toonGrad.magFilter = T3.NearestFilter; toonGrad.needsUpdate = true;
+    escena.add(new T3.HemisphereLight(0xffffff, 0x9fb7a0, .5));
+    const sol = new T3.DirectionalLight(0xffffff, .62); sol.position.set(6, 12, 8); escena.add(sol);
+
+    const pasto = new T3.Mesh(new T3.PlaneGeometry(120, 120), mat('#a6db96')); pasto.rotation.x = -Math.PI / 2; escena.add(pasto);
+    // Alfombra
+    const tc = document.createElement('canvas'); tc.width = 128; tc.height = 64;
+    const g2 = tc.getContext('2d'); g2.fillStyle = '#3f6fd8'; g2.fillRect(0, 0, 128, 64); g2.fillStyle = '#4b7ce2'; g2.fillRect(64, 0, 64, 64);
+    const ta = new T3.CanvasTexture(tc); ta.wrapS = ta.wrapT = T3.RepeatWrapping; ta.repeat.set(23, 1);
+    const alf = new T3.Mesh(new T3.PlaneGeometry(ALF.x1 - ALF.x0 + 8, 3.6), new T3.MeshToonMaterial({ map: ta, gradientMap: toonGrad }));
+    alf.rotation.x = -Math.PI / 2; alf.position.set(0, .03, ALF.z); escena.add(alf);
+    [-1, 1].forEach(s => { const b = new T3.Mesh(new T3.PlaneGeometry(ALF.x1 - ALF.x0 + 8, .32), mat('#ffd25e')); b.rotation.x = -Math.PI / 2; b.position.set(0, .04, ALF.z + s * 1.95); escena.add(b); });
+    // Bases
+    const hacerBase = (b, piso, pared, frente) => {
+      const f = caja(b.w, .16, b.d, piso, b.cx, .08, b.cz); escena.add(f);
+      const x0 = b.cx - b.w / 2, x1 = b.cx + b.w / 2, z0 = b.cz - b.d / 2, z1 = b.cz + b.d / 2, h = 1.25, e = .32;
+      const atras = frente > 0 ? z0 : z1;
+      const ms = [
+        { x0, x1, z0: atras - e / 2, z1: atras + e / 2 },
+        { x0: x0 - e / 2, x1: x0 + e / 2, z0, z1 },
+        { x0: x1 - e / 2, x1: x1 + e / 2, z0, z1 },
+      ];
+      ms.forEach(m => { const w = caja(m.x1 - m.x0, h, m.z1 - m.z0, pared, (m.x0 + m.x1) / 2, h / 2, (m.z0 + m.z1) / 2); escena.add(w); muros.push(m); });
+      const zf = frente > 0 ? z1 : z0;
+      [x0, x1].forEach(x => { const poste = caja(.42, 1.6, .42, pared, x, .8, zf); escena.add(poste); borde(poste, 1.1); });
+      const laser = new T3.Mesh(new T3.BoxGeometry(b.w, 1.3, .08), new T3.MeshBasicMaterial({ color: 0xff4d6d, transparent: true, opacity: .45, depthWrite: false }));
+      laser.position.set(b.cx, .7, zf); laser.visible = false; escena.add(laser);
+      return { malla: laser, caja: { x0, x1, z0: zf - .2, z1: zf + .2 } };
+    };
+    laseres.push(hacerBase(MIA, '#efe8ff', '#c9b8f5', -1));
+    laseres.push(hacerBase(RIV[0], '#e4f4df', '#9fd1a0', 1));
+    laseres.push(hacerBase(RIV[1], '#eceff6', '#aab4cc', 1));
+    { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const g = c.getContext('2d'); g.font = '700 92px Caveat, cursive'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 10; g.strokeStyle = '#ffffff'; g.strokeText('Tu base', 256, 66); g.fillStyle = '#9b55e0'; g.fillText('Tu base', 256, 66);
+      const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); escena.add(piso); }
+    letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
+    letrero('Michi Bandido', RIV[1].cx, 2.7, RIV[1].cz - RIV[1].d / 2 - .1, '#56607d');
+    // Pedestales
+    const pedestal = (p, mio) => {
+      const g = new T3.Group(); g.position.set(p.x, .16, p.z);
+      const pie = new T3.Mesh(new T3.CylinderGeometry(.62, .72, .42, 22), mat('#ffffff')); pie.position.y = .21; g.add(pie); borde(pie, 1.06);
+      const aro = new T3.Mesh(new T3.CylinderGeometry(.66, .66, .09, 22), mat('#b8bfd3')); aro.position.y = .42; g.add(aro);
+      const spr = spriteDe('spaghettino', 1.5); spr.position.y = .42; spr.visible = false; g.add(spr);
+      let lab = null;
+      if (mio) { lab = etiqueta(1.9); lab.position.y = 2.3; g.add(lab); }
+      escena.add(g);
+      return { g, aro, spr, lab, x: p.x, z: p.z, id: null };
+    };
+    pedMio = PED_MIO.map(p => pedestal(p, true));
+    pedRiv = PED_RIV.map(l => l.map(p => pedestal(p, false)));
+    // Árboles y florecitas
+    const arbol = (x, z, s = 1) => {
+      escena.add(caja(.35 * s, 1.2 * s, .35 * s, '#a2603a', x, .6 * s, z));
+      const copa = new T3.Mesh(new T3.SphereGeometry(1.1 * s, 14, 12), mat(Math.random() < .5 ? '#6fbd7f' : '#84cc90')); copa.position.set(x, 1.9 * s, z); escena.add(copa); borde(copa, 1.05);
+      const s2 = sombra(1.1 * s); s2.position.set(x, .02, z); escena.add(s2);
+    };
+    [[-16, 14], [16, 15], [-17, -2], [17, 3], [-15, -16], [15, -16], [-4, -17], [4, 17.5], [0, -16.5], [-12, 5], [12, 6]].forEach(([x, z], i) => arbol(x, z, .85 + (i % 3) * .15));
+    for (let i = 0; i < 40; i++) {
+      const x = (Math.random() - .5) * 36, z = (Math.random() - .5) * 34;
+      if (Math.abs(z) < 2.4 || dentroDe(MIA, x, z, -1) || RIV.some(b => dentroDe(b, x, z, -1))) continue;
+      const f = new T3.Mesh(new T3.SphereGeometry(.11, 8, 6), mat(['#ffffff', '#f5a9c0', '#ffd25e', '#9ec5f5'][i % 4])); f.position.set(x, .12, z); escena.add(f);
+    }
+    // Jugadora y dueños
+    jugador = { g: gato3D({ lazo: true }), x: 0, z: 5, ang: Math.PI, paso: 0 };
+    escena.add(jugador.g);
+    const cargaSpr = spriteDe('spaghettino', 1.2); cargaSpr.position.y = 2.15; cargaSpr.visible = false; jugador.g.add(cargaSpr); jugador.carga = cargaSpr;
+    npc = [zombie3D(), gato3D({ cuerpo: '#9aa3bd', mascara: true })].map((g, r) => {
+      g.position.set(CASA[r].x, 0, CASA[r].z); escena.add(g);
+      const cs = spriteDe('spaghettino', 1.1); cs.position.y = 2.2; cs.visible = false; g.add(cs);
+      return { g, r, x: CASA[r].x, z: CASA[r].z, ang: 0, estado: 'casa', t: 0, ruta: [], carga: null, cargaSpr: cs, paso: 0 };
+    });
+    medir();
+  }
+  function medir() {
+    if (!render) return;
+    const w = cont.clientWidth || innerWidth, h = cont.clientHeight || innerHeight;
+    render.setSize(w, h, false);
+    render.domElement.style.width = '100%'; render.domElement.style.height = '100%';
+    camara.aspect = w / h;
+    camara.fov = w / h < .8 ? 60 : 48;
+    camara.updateProjectionMatrix();
+  }
+  function camaraSigue(dt, inmediato) {
+    const ret = camara.aspect < .8 ? [11, 10.5] : [9, 9.5];
+    const tx = jugador.x, ty = ret[0], tz = jugador.z + ret[1];
+    const k = inmediato ? 1 : 1 - Math.pow(.002, dt);
+    camara.position.x += (tx - camara.position.x) * k;
+    camara.position.y += (ty - camara.position.y) * k;
+    camara.position.z += (tz - camara.position.z) * k;
+    camara.lookAt(camara.position.x, .8, camara.position.z - ret[1] - 1.2);
+  }
+
+  /* ---------- Pintar estado en el mundo ---------- */
+  function pintarPed(p, id) {
+    p.id = id;
+    p.spr.visible = !!id;
+    if (id) { p.spr.material.map = texturas[id] || null; p.spr.material.needsUpdate = true; }
+    p.aro.material.color.set(id ? COLOR_R[POR[id].r] : '#b8bfd3');
+    if (p.lab && !id) p.lab.userData.poner([]);
+  }
+  function pintarBase() { E.base.forEach((b, i) => pintarPed(pedMio[i], b ? b.id : null)); }
+  function pintarRivales() { E.riv.forEach((R, r) => R.slots.forEach((s, k) => pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null))); }
+
+  /* ---------- Alfombra ---------- */
+  function spawnear(id, x0) {
+    const s = spriteDe(id, id === 'secreto' ? 1.9 : 1.55);
+    const lab = etiqueta(2.3); lab.position.y = id === 'secreto' ? 2.45 : 2.15;
+    const g = new T3.Group(); g.add(s, lab, sombra(.5));
+    if (id === 'secreto') {
+      const haz = new T3.Mesh(new T3.CylinderGeometry(.8, .8, 9, 18, 1, true), new T3.MeshBasicMaterial({ color: 0xffd6ea, transparent: true, opacity: .28, depthWrite: false, side: T3.DoubleSide }));
+      haz.position.y = 4.5; g.add(haz);
+    }
+    const it = { id, g, s, lab, x: x0 != null ? x0 : ALF.x0, fase: Math.random() * 6 };
+    g.position.set(it.x, .03, ALF.z + (Math.random() - .5) * .8);
+    escena.add(g); alfombra.push(it);
+    return it;
+  }
+  function liberar(o) {
+    o.traverse(x => {
+      if (x.isMesh) { x.geometry.dispose(); x.material.dispose(); }
+      else if (x.isSprite) { const mp = x.material.map; if (mp && !TEX.has(mp)) mp.dispose(); x.material.dispose(); }
+    });
+  }
+  function quitar(it) { escena.remove(it.g); liberar(it.g); alfombra = alfombra.filter(x => x !== it); }
+  function secretoListo() { return !E.col.includes('secreto') && E.col.filter(x => x !== 'secreto').length >= PARA_SECRETO; }
+
+  /* ---------- Acciones ---------- */
+  function comprar(it) {
+    const c = POR[it.id];
+    if (E.dinero < c.p) { aviso(`Te faltan ${fmt(c.p - E.dinero)} para ${c.n} 😿`); return; }
+    const i = E.base.findIndex(b => !b);
+    if (i < 0) { aviso('Tu base está llena. Párate junto a un michirot tuyo y presiona «Ver» para venderlo.', 3600); return; }
+    E.dinero -= c.p;
+    E.base[i] = { id: it.id, banco: 0, llegando: true };
+    const desde = it.g.position.clone(); quitar(it);
+    volar(it.id, desde, pedMio[i], () => colocar(i, it.id, 'compra'));
+  }
+  function volar(id, desde, ped, fin) {
+    const s = spriteDe(id, 1.5); s.position.copy(desde); escena.add(s);
+    vuelos.push({ s, desde, hasta: new T3.Vector3(ped.x, .58, ped.z), t: 0, fin });
+  }
+  function colocar(i, id, como) {
+    E.base[i] = { id, banco: 0 };
+    const nuevoEnCol = !E.col.includes(id);
+    if (nuevoEnCol) E.col.push(id);
+    pintarBase(); guardar(); confetti(900, 30);
+    if (id === 'secreto') { ganarSecreto(); return; }
+    const c = POR[id];
+    if (como === 'robo') aviso(`¡Robaste a ${c.n}! 😼`);
+    else aviso(nuevoEnCol ? `¡Nuevo en tu colección: ${c.n}! ✨` : `¡${c.n} llegó a tu base!`);
+    if (nuevoEnCol && E.col.filter(x => x !== 'secreto').length === PARA_SECRETO) {
+      secretoT = 6;
+      setTimeout(() => { if (abierto) aviso('✨ Juntaste 7 michirots distintos… algo muy especial va a pasar por la alfombra.', 4200); }, 2700);
+    }
+  }
+  function cobrar(i) {
+    const b = E.base[i]; if (!b || b.llegando) return 0;
+    const m = Math.floor(b.banco); if (m < 1) return 0;
+    E.dinero += m; E.total += m; b.banco -= m;
+    flotar('+' + fmt(m), pedMio[i]);
+    return m;
+  }
+  function flotar(txt, p) {
+    const l = etiqueta(1.9); l.userData.poner([txt], '#7ee2a0'); l.position.set(p.x, 2.2, p.z); escena.add(l);
+    flotantes.push({ l, t: 0 });
+  }
+  function info(i) {
+    const b = E.base[i]; if (!b) return; const c = POR[b.id];
+    hoja(`${arte(c.id, 'mr-grande')}<p class="mr-ficha-n">${esc(c.n)}</p><p>${chip(c.r)}</p><p class="mr-ganan">Gana ${fmt(c.g)} por segundo</p><p class="mr-ficha-d">${esc(c.d)}</p>`
+      + (c.id === 'secreto' ? '<p class="mr-tip">Este no se vende. Es nuestro 💞</p>' : ''),
+      c.id === 'secreto' ? [['Cerrar', cerrarHoja]] : [['Vender por ' + fmt(c.p / 2), () => { vender(i); cerrarHoja(); }], ['Cerrar', cerrarHoja]]);
+  }
+  function vender(i) {
+    const c = POR[E.base[i].id];
+    cobrar(i);
+    E.dinero += Math.floor(c.p / 2); E.base[i] = null;
+    pintarBase(); guardar();
+    aviso(`Vendiste a ${c.n} por ${fmt(c.p / 2)}`);
+  }
+  function candado() {
+    const ahora = Date.now();
+    if (E.candado > ahora) { aviso('Tu base ya está cerrada 🔒'); return; }
+    if (E.enfriar > ahora) { aviso(`El candado se está recargando: ${Math.ceil((E.enfriar - ahora) / 1000)} s`); return; }
+    E.candado = ahora + 60000; E.enfriar = ahora + 105000;
+    aviso('Base cerrada por 60 segundos. Michi Bandido no puede entrar 🔒');
+    guardar();
+  }
+  function robar(r, k) {
+    const R = E.riv[r], s = R.slots[k];
+    if (!E.base.some(b => !b)) { aviso('Tu base está llena. Vende un michirot antes de robar.', 3200); return; }
+    s.robando = true;
+    cargando = { id: s.id, r, k };
+    jugador.carga.material.map = texturas[s.id]; jugador.carga.material.needsUpdate = true; jugador.carga.visible = true;
+    pintarRivales();
+    const n = npc[r];
+    if (n.estado === 'casa' || n.estado === 'regresa') { n.estado = 'caza'; n.t = 0; n.vel = CAZA[POR[s.id].r]; }
+    aviso(`¡Corre a tu base con ${POR[s.id].n}! ${DUEÑO[r].n} te persigue 🏃‍♀️`, 3000);
+  }
+  function soltarRobo(atrapada) {
+    const x = cargando; if (!x) return;
+    cargando = null; jugador.carga.visible = false;
+    const R = E.riv[x.r], s = R.slots[x.k];
+    if (atrapada) {
+      s.robando = false; R.cerrada = Date.now() + 15000;
+      aviso(`¡${DUEÑO[x.r].n} te atrapó! 😾 Te quitó a ${POR[x.id].n}.`);
+    } else {
+      R.slots[x.k] = { id: null, vuelve: Date.now() + 40000 };
+      R.cerrada = Date.now() + 20000;
+      const i = E.base.findIndex(b => !b);
+      if (i >= 0) colocar(i, x.id, 'robo');
+    }
+    pintarRivales(); guardar();
+  }
+
+  /* ---------- Hojitas ---------- */
+  function hoja(html, botones) {
+    pausa = true; joy = { x: 0, z: 0, activo: false }; $m('mrPerilla').style.transform = '';
+    const carta = $m('mrCard');
+    carta.innerHTML = `<div class="adv-sheet mr-sheet">${html}<div class="btn-row">${botones.map((b, i) => `<button class="btn${i ? ' ghost' : ''}" type="button" data-i="${i}">${esc(b[0])}</button>`).join('')}</div></div>`;
+    carta.querySelectorAll('[data-i]').forEach(btn => btn.addEventListener('click', () => botones[+btn.dataset.i][1]()));
+    carta.hidden = false;
+    const f = carta.querySelector('.btn'); if (f) f.focus({ preventScroll: true });
+  }
+  function cerrarHoja() { const c = $m('mrCard'); c.hidden = true; c.innerHTML = ''; pausa = false; last = performance.now(); }
+  function coleccion() {
+    hoja(`<p class="adv-sheet-t">Tu colección</p><p class="mr-tip">${E.col.length} de ${CAT.length} michirots</p>
+      <div class="mr-col">${CAT.map(c => {
+        const t = E.col.includes(c.id);
+        return `<div class="mr-col-i${t ? '' : ' falta'}">${arte(c.id)}<span class="n">${t ? esc(c.n) : '???'}</span>${chip(c.r)}${t ? `<span class="g">${fmt(c.g)}/s</span>` : ''}</div>`;
+      }).join('')}</div>`, [['Cerrar', cerrarHoja]]);
+  }
+  function ayuda() {
+    hoja(`<p class="adv-sheet-t">¿Cómo se juega?</p>
+      <ul class="adv-how mr-how">
+        <li><span>🕹️</span><span>Camina con el joystick (o con las flechas).</span></li>
+        <li><span>🛒</span><span>Acércate a un michirot de la alfombra azul y presiona «Comprar».</span></li>
+        <li><span>💰</span><span>Tus michirots ganan dinero. Pasa junto a ellos en tu base para cobrar.</span></li>
+        <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base antes de que el dueño te alcance.</span></li>
+        <li><span>🔒</span><span>Si Michi Bandido se lleva uno de los tuyos, alcánzalo. Con el candado no puede entrar a tu base.</span></li>
+        <li><span>✨</span><span>Junta 7 michirots distintos y pasará uno secreto muy especial…</span></li>
+      </ul>`, [['¡A jugar! 🐾', cerrarHoja]]);
+  }
+  function ganarSecreto() {
+    E.ganado = true; guardar();
+    confetti(5200, 200);
+    const c = POR.secreto;
+    hoja(`<p class="mr-tip">✨ Michirot secreto ✨</p>${arte('secreto', 'mr-enorme')}
+      <p class="adv-sheet-t">${esc(c.n)}</p><p>${chip('s')}</p>
+      <p class="mr-ficha-d">${esc(c.d)}</p>
+      <p class="mr-ganan">Gana ${fmt(c.g)} por segundo… y amor infinito.</p>`, [['Seguir jugando 🐾', cerrarHoja]]);
+  }
+
+  /* ---------- Movimiento ---------- */
+  function choca(x, z, extra) {
+    const cajas = muros.concat(extra);
+    for (const m of cajas) {
+      const cx = Math.max(m.x0, Math.min(x, m.x1)), cz = Math.max(m.z0, Math.min(z, m.z1));
+      const dx = x - cx, dz = z - cz, d = Math.hypot(dx, dz);
+      if (d < RADIO) {
+        if (d > 1e-4) { x = cx + dx / d * RADIO; z = cz + dz / d * RADIO; }
+        else { z += RADIO; }
+      }
+    }
+    return [Math.max(-LIM.x, Math.min(LIM.x, x)), Math.max(-LIM.z, Math.min(LIM.z, z))];
+  }
+  function moverHacia(o, x, z, v, dt) {
+    const dx = x - o.x, dz = z - o.z, d = Math.hypot(dx, dz);
+    if (d < .05) return true;
+    const p = Math.min(d, v * dt);
+    o.x += dx / d * p; o.z += dz / d * p; o.ang = Math.atan2(dx, dz); o.paso += dt * 10;
+    return d - p < .05;
+  }
+  function animarFigura(o, movio, dt) {
+    const c = o.g.userData.cuerpo;
+    o.g.position.set(o.x, 0, o.z);
+    let da = o.ang - o.g.rotation.y; da = Math.atan2(Math.sin(da), Math.cos(da));
+    o.g.rotation.y += da * Math.min(1, dt * 12);
+    c.position.y = movio ? Math.abs(Math.sin(o.paso)) * .12 : 0;
+    c.rotation.z = movio ? Math.sin(o.paso) * .08 : 0;
+  }
+
+  /* ---------- NPCs ---------- */
+  function iniciarLadron() {
+    const n = npc[1];
+    const eleg = E.base.map((b, i) => (b && b.id !== 'secreto' && !b.llegando ? i : -1)).filter(i => i >= 0);
+    if (eleg.length < 3 || n.estado !== 'casa' || cargando) { ladronT = 30; return; }
+    const i = eleg[Math.floor(Math.random() * eleg.length)], p = PED_MIO[i];
+    n.estado = 'va'; n.objetivo = i; n.t = 0;
+    n.ruta = [{ x: RIV[1].cx, z: RIV[1].cz + RIV[1].d / 2 + 1.2 }, { x: p.x, z: MIA.cz - MIA.d / 2 - 1 }, { x: p.x, z: p.z - 1.05 }];
+    aviso(`¡Michi Bandido va por tu ${POR[E.base[i].id].n}! Alcánzalo antes de que llegue a su base 😾`, 3600);
+  }
+  function actualizarNPC(n, dt) {
+    let movio = false;
+    const ahora = Date.now();
+    if (n.estado === 'caza') {
+      n.t += dt;
+      if (n.t > .7) { movio = true; moverHacia(n, jugador.x, jugador.z, n.vel, dt); }
+      if (cargando && cargando.r === n.r && dist(n, jugador) < 1) { soltarRobo(true); n.estado = 'regresa'; }
+      else if (!cargando || cargando.r !== n.r || n.t > 4.2) { n.estado = 'regresa'; if (cargando && cargando.r === n.r) aviso(`${DUEÑO[n.r].n} se cansó de perseguirte 😮‍💨 ¡Llévalo a tu base!`); }
+    } else if (n.estado === 'regresa' || n.estado === 'huye') {
+      movio = true;
+      if (moverHacia(n, CASA[n.r].x, CASA[n.r].z, n.estado === 'huye' ? 5.5 : 3.6, dt)) { n.estado = 'casa'; n.ang = 0; if (n.r === 1) ladronT = 80 + Math.random() * 40; }
+    } else if (n.estado === 'va' || n.estado === 'vuelve') {
+      movio = true;
+      if (n.estado === 'va' && E.candado > ahora && n.ruta.length <= 2 && n.z > MIA.cz - MIA.d / 2 - 1.6) {
+        n.estado = 'regresa'; aviso('Michi Bandido chocó con tu candado y se fue 🔒😾');
+      } else {
+        const w = n.ruta[0];
+        if (moverHacia(n, w.x, w.z, 3.3, dt)) {
+          n.ruta.shift();
+          if (!n.ruta.length) {
+            if (n.estado === 'va') {
+              const b = E.base[n.objetivo];
+              if (!b || b.id === 'secreto') { n.estado = 'regresa'; }
+              else {
+                E.dinero += Math.floor(b.banco); E.base[n.objetivo] = null; pintarBase();
+                n.carga = { id: b.id, de: n.objetivo }; n.cargaSpr.material.map = texturas[b.id]; n.cargaSpr.material.needsUpdate = true; n.cargaSpr.visible = true;
+                n.estado = 'vuelve';
+                const R = E.riv[1]; let k = R.slots.findIndex(s => !s.id && !s.robando);
+                if (k < 0) k = R.slots.reduce((m, s, j) => (s.robando ? m : (POR[s.id].g < POR[R.slots[m].id || 'spaghettino'].g ? j : m)), 0);
+                n.destino = k;
+                n.ruta = [{ x: PED_MIO[n.objetivo].x, z: MIA.cz - MIA.d / 2 - 1 }, { x: RIV[1].cx, z: RIV[1].cz + RIV[1].d / 2 + 1.2 }, { x: PED_RIV[1][k].x, z: PED_RIV[1][k].z + 1.05 }];
+                aviso(`¡Michi Bandido se llevó a tu ${POR[b.id].n}! Corre a quitárselo 😿`, 3200);
+                guardar();
+              }
+            } else {
+              const R = E.riv[1], k = n.destino;
+              R.slots[k] = { id: n.carga.id, vuelve: 0 };
+              n.carga = null; n.cargaSpr.visible = false; n.estado = 'regresa';
+              pintarRivales(); guardar();
+              aviso('Michi Bandido guardó tu michirot en su base. ¡Ve a robarlo de vuelta! 😼', 3400);
+            }
+          }
+        }
+      }
+      if ((n.estado === 'va' || n.estado === 'vuelve') && dist(n, jugador) < 1.15) {
+        const premio = Math.max(20, Math.round(ingreso() * 6));
+        E.dinero += premio; E.total += premio;
+        if (n.carga) {
+          const de = n.carga.de, i = E.base[de] ? E.base.findIndex(b => !b) : de;
+          if (i >= 0) E.base[i] = { id: n.carga.id, banco: 0 };
+          n.carga = null; n.cargaSpr.visible = false; pintarBase();
+          aviso(`¡Lo atrapaste! Michi Bandido devolvió tu michirot y soltó ${fmt(premio)} 💰`, 3200);
+        } else aviso(`¡Lo asustaste! Michi Bandido soltó ${fmt(premio)} 💰`);
+        n.estado = 'huye'; guardar();
+      }
+    } else if (n.estado === 'casa') {
+      n.ang = 0;
+    }
+    animarFigura(n, movio, dt);
+  }
+
+  /* ---------- Bucle ---------- */
+  function ganarAusente(seg) {
+    const g = ingreso() * seg * .5;
+    if (g < 1) return 0;
+    E.base.forEach(b => { if (b) b.banco += POR[b.id].g * seg * .5; });
+    return g;
+  }
+  function loop(now) {
+    if (!abierto) return;
+    const dt = Math.min(.1, (now - last) / 1000); last = now;
+    const reloj = Date.now(), hueco = (reloj - pared) / 1000; pared = reloj;
+    if (hueco > 2) ganarAusente(Math.min(7200, hueco));
+    actualizar(dt, now / 1000);
+    render.render(escena, camara);
+    raf = requestAnimationFrame(loop);
+  }
+  function actualizar(dt, t) {
+    const ahora = Date.now();
+    E.base.forEach(b => { if (b && !b.llegando) b.banco += POR[b.id].g * dt; });
+    laseres[0].malla.visible = E.candado > ahora;
+    E.riv.forEach((R, r) => { laseres[r + 1].malla.visible = R.cerrada > ahora; });
+    laseres.forEach(l => { if (l.malla.visible) l.malla.material.opacity = .35 + Math.sin(t * 6) * .12; });
+    // vuelos y flotantes
+    vuelos = vuelos.filter(v => {
+      v.t += dt / .75; const u = Math.min(1, v.t);
+      v.s.position.lerpVectors(v.desde, v.hasta, u); v.s.position.y += Math.sin(u * Math.PI) * 3.2;
+      if (u >= 1) { escena.remove(v.s); liberar(v.s); v.fin(); return false; }
+      return true;
+    });
+    flotantes = flotantes.filter(f => { f.t += dt; f.l.position.y += dt * 1.6; f.l.material.opacity = 1 - f.t / .9; if (f.t >= .9) { escena.remove(f.l); liberar(f.l); return false; } return true; });
+    let movio = false;
+    if (!pausa) {
+      // jugadora
+      let ix = joy.x, iz = joy.z;
+      if (teclas.has('ArrowLeft') || teclas.has('a')) ix -= 1;
+      if (teclas.has('ArrowRight') || teclas.has('d')) ix += 1;
+      if (teclas.has('ArrowUp') || teclas.has('w')) iz -= 1;
+      if (teclas.has('ArrowDown') || teclas.has('s')) iz += 1;
+      const mag = Math.hypot(ix, iz);
+      if (mag > .12) {
+        const v = (cargando ? VEL_CARGA : VEL) * Math.min(1, mag);
+        const nx = jugador.x + ix / mag * v * dt, nz = jugador.z + iz / mag * v * dt;
+        const extra = E.riv.map((R, r) => (R.cerrada > ahora && !dentroDe(RIV[r], jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
+        [jugador.x, jugador.z] = choca(nx, nz, extra);
+        jugador.ang = Math.atan2(ix, iz); jugador.paso += dt * 12; movio = true;
+      }
+      // alfombra
+      spawnT -= dt;
+      if (spawnT <= 0) { spawnT = 2.6 + Math.random() * 1.2; spawnear(alAzar(azar(PESOS))); }
+      if (secretoListo()) {
+        secretoT -= dt;
+        if (secretoT <= 0 && !alfombra.some(x => x.id === 'secreto')) {
+          spawnear('secreto'); secretoT = 40;
+          aviso('✨ ¡Un michirot SECRETO está pasando por la alfombra! ✨', 4200);
+        }
+      }
+      alfombra.slice().forEach(it => {
+        it.x += ALF.vel * (it.id === 'secreto' ? .75 : 1) * dt;
+        if (it.x > ALF.x1) { quitar(it); return; }
+        it.g.position.x = it.x;
+        it.s.position.y = Math.abs(Math.sin(t * 5 + it.fase)) * .14;
+        const c = POR[it.id], puede = E.dinero >= c.p;
+        it.lab.userData.poner(dist(it.g.position, jugador) < 5 ? [fmt(c.p), c.n] : [fmt(c.p)], puede ? '#7ee2a0' : '#ffffff');
+      });
+      // cobrar al pasar
+      E.base.forEach((b, i) => { if (b && dist(PED_MIO[i], jugador) < 1.25) cobrar(i); });
+      // robo: llegar a la base
+      if (cargando && dentroDe(MIA, jugador.x, jugador.z, .3)) soltarRobo(false);
+      // NPCs
+      if (npc[1].estado === 'casa' && !cargando) { ladronT -= dt; if (ladronT <= 0) iniciarLadron(); }
+      npc.forEach(n => actualizarNPC(n, dt));
+      // rellenar rivales
+      let cambio = false;
+      E.riv.forEach(R => R.slots.forEach((s, k) => { if (!s.id && !s.robando && s.vuelve <= ahora) { R.slots[k] = { id: alAzar(azar(PESOS_RIVAL)), vuelve: 0 }; cambio = true; } }));
+      if (cambio) pintarRivales();
+    }
+    animarFigura(jugador, movio, dt);
+    pedMio.forEach((p, i) => {
+      if (p.spr.visible) p.spr.position.y = .42 + Math.sin(t * 2 + i) * .05;
+      const b = E.base[i];
+      if (p.lab) p.lab.userData.poner(b && !b.llegando && b.banco >= 1 ? [fmt(b.banco)] : [], '#2f9e5b', '#ffffff');
+    });
+    camaraSigue(dt);
+    elegirAccion();
+    uiT -= dt;
+    if (uiT <= 0) { uiT = .2; uiHud(); }
+    guardaT -= dt;
+    if (guardaT <= 0) { guardaT = 5; guardar(); }
+  }
+  function elegirAccion() {
+    let a = null;
+    if (!pausa && !cargando) {
+      let mejor = null, dmin = 2.1;
+      alfombra.forEach(it => { const d = dist(it.g.position, jugador); if (d < dmin) { dmin = d; mejor = it; } });
+      if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmt(POR[mejor.id].p)}`, ico: '🛒', ok: E.dinero >= POR[mejor.id].p };
+      if (!a) E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
+        if (a || !s.id || s.robando) return;
+        if (dist(PED_RIV[r][k], jugador) < 1.45 && dentroDe(RIV[r], jugador.x, jugador.z)) a = { tipo: 'robar', r, k, txt: 'Robar', ico: '😼', ok: true };
+      }));
+      if (!a) E.base.forEach((b, i) => { if (!a && b && !b.llegando && dist(PED_MIO[i], jugador) < 1.4) a = { tipo: 'ver', i, txt: 'Ver / vender', ico: '🔍', ok: true }; });
+    }
+    accion = a;
+    const btn = $m('mrAccion');
+    btn.hidden = !a;
+    if (a) {
+      const k = a.tipo + a.txt + a.ok;
+      if (btn.dataset.k !== k) { btn.dataset.k = k; $m('mrAccIco').textContent = a.ico; $m('mrAccTxt').textContent = a.txt; btn.classList.toggle('no', !a.ok); }
+    }
+  }
+  function hacerAccion() {
+    const a = accion; if (!a || pausa) return;
+    if (a.tipo === 'comprar') comprar(a.it);
+    else if (a.tipo === 'robar') robar(a.r, a.k);
+    else if (a.tipo === 'ver') info(a.i);
+  }
+  function uiHud() {
+    $m('mrDinero').textContent = fmt(E.dinero);
+    $m('mrIngreso').textContent = `+${fmt(ingreso())}/s`;
+    $m('mrColN').textContent = `${E.col.length}/${CAT.length}`;
+    const ahora = Date.now(), b = $m('mrCandado');
+    const mmss = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+    if (E.candado > ahora) { b.textContent = '🔒 ' + mmss(E.candado - ahora); b.classList.add('activo'); }
+    else if (E.enfriar > ahora) { b.textContent = '⏳ ' + mmss(E.enfriar - ahora); b.classList.remove('activo'); }
+    else { b.textContent = '🔒 Cerrar'; b.classList.remove('activo'); }
+  }
+
+  /* ---------- Controles ---------- */
+  function controles() {
+    const zona = $m('mrJoy'), per = $m('mrPerilla');
+    let id = null, cx = 0, cy = 0;
+    const R = 46;
+    const mover = e => {
+      let dx = e.clientX - cx, dy = e.clientY - cy; const d = Math.hypot(dx, dy);
+      if (d > R) { dx = dx / d * R; dy = dy / d * R; }
+      per.style.transform = `translate(${dx}px, ${dy}px)`;
+      joy = { x: dx / R, z: dy / R, activo: true };
+    };
+    zona.addEventListener('pointerdown', e => {
+      e.preventDefault(); id = e.pointerId; zona.setPointerCapture(id);
+      const r = zona.getBoundingClientRect(); cx = r.left + r.width / 2; cy = r.top + r.height / 2; mover(e);
+    });
+    zona.addEventListener('pointermove', e => { if (e.pointerId === id) mover(e); });
+    const fin = e => { if (e.pointerId !== id) return; id = null; joy = { x: 0, z: 0, activo: false }; per.style.transform = ''; };
+    zona.addEventListener('pointerup', fin); zona.addEventListener('pointercancel', fin);
+    $m('mrAccion').addEventListener('click', hacerAccion);
+    $m('mrX').addEventListener('click', cerrar);
+    $m('mrCandado').addEventListener('click', candado);
+    $m('mrCol').addEventListener('click', coleccion);
+    $m('mrAyuda').addEventListener('click', ayuda);
+    document.addEventListener('keydown', e => {
+      if (!abierto) return;
+      if (e.key === 'Escape') { e.preventDefault(); if (!$m('mrCard').hidden) cerrarHoja(); else cerrar(); return; }
+      if (!$m('mrCard').hidden) return;
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'a', 'd', 'w', 's'].includes(k)) { e.preventDefault(); teclas.add(k); }
+      if (k === 'e' || k === ' ' || k === 'Enter') { e.preventDefault(); hacerAccion(); }
+    });
+    document.addEventListener('keyup', e => { teclas.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key); });
+    window.addEventListener('resize', medir);
+    document.addEventListener('visibilitychange', () => { if (abierto && document.hidden) guardar(); });
+  }
+
+  /* ---------- Abrir y cerrar ---------- */
+  let preparado = null;
+  function preparar() {
+    if (preparado) return preparado;
+    preparado = cargarThree().then(() => {
+      T3 = window.THREE;
+      return Promise.all(Object.keys(ARTE).map(texturaDe));
+    }).then(() => { construirMundo(); controles(); listo = true; });
+    preparado.catch(() => { preparado = null; });
+    return preparado;
+  }
+  function abrir() {
+    E = estado();
+    $m('mr').hidden = false; abierto = true; pausa = false;
+    document.body.style.overflow = 'hidden';
+    $m('mrCarga').hidden = false; $m('mrCarga').textContent = 'Cargando el mundo 3D… 🐾';
+    preparar().then(() => {
+      if (!abierto) return;
+      $m('mrCarga').hidden = true;
+      medir();
+      alfombra.slice().forEach(quitar);
+      cargando = null; jugador.carga.visible = false;
+      E.base.forEach(b => { if (b) delete b.llegando; });
+      E.riv.forEach(R => R.slots.forEach(s => { if (s.robando) s.robando = false; }));
+      jugador.x = 0; jugador.z = 4.6; jugador.ang = Math.PI;
+      npc.forEach(n => { n.x = CASA[n.r].x; n.z = CASA[n.r].z; n.estado = 'casa'; n.carga = null; n.cargaSpr.visible = false; });
+      pintarBase(); pintarRivales();
+      for (let x = ALF.x0 + 4; x < ALF.x1 - 2; x += 7.5) spawnear(alAzar(azar({ c: 60, r: 30, e: 10 })), x + Math.random() * 2);
+      spawnT = 2; secretoT = 5; ladronT = 85 + Math.random() * 30;
+      const ganado = E.t ? ganarAusente(Math.min(7200, Math.max(0, (Date.now() - E.t) / 1000))) : 0;
+      pared = Date.now(); last = performance.now();
+      camaraSigue(0, true); uiHud();
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+      if (!E.visto) { E.visto = true; ayuda(); }
+      else if (ganado >= 1) aviso(`Mientras no estabas, tus michirots ganaron ${fmt(ganado)} 💰`, 3600);
+      guardar();
+    }).catch(() => {
+      $m('mrCarga').textContent = 'No se pudo cargar el mundo 3D. Revisa tu internet e intenta de nuevo 🐾';
+    });
+  }
+  function cerrar() {
+    if (!abierto) return;
+    abierto = false; cancelAnimationFrame(raf);
+    if (cargando) { const R = E.riv[cargando.r]; R.slots[cargando.k].robando = false; cargando = null; if (jugador) jugador.carga.visible = false; }
+    if (npc.length && npc[1].carga) { const R = E.riv[1]; const k = npc[1].destino; R.slots[k] = { id: npc[1].carga.id, vuelve: 0 }; npc[1].carga = null; }
+    vuelos.forEach(v => { escena.remove(v.s); liberar(v.s); v.fin(); }); vuelos = [];
+    E.base.forEach(b => { if (b) delete b.llegando; });
+    guardar();
+    if (!$m('mrCard').hidden) cerrarHoja();
+    teclas.clear(); joy = { x: 0, z: 0, activo: false };
+    $m('mr').hidden = true; document.body.style.overflow = '';
+    panel();
+  }
+  function panel() {
+    const e = S.juegos.michirot && Array.isArray(S.juegos.michirot.base) ? S.juegos.michirot : null;
+    $m('mrVitrina').innerHTML = ['spaghettino', 'gelatino', 'lunetta'].map(id => arte(id)).join('') + arte('secreto', e && e.col.includes('secreto') ? '' : 'mr-misterio');
+    $m('mrEstado').textContent = !e ? '' : e.ganado ? `¡Ya encontraste el michirot secreto! 💞 Tienes ${e.col.length} de ${CAT.length}.` : `Tienes ${e.col.length} de ${CAT.length} michirots y ${fmt(e.dinero)}.`;
+    $m('mrJugar').textContent = e ? 'Seguir jugando 🐾' : 'Jugar 🐾';
+  }
+  $m('mrJugar').addEventListener('click', abrir);
+  return { abrir, cerrar, panel, total: CAT.length };
+})();
+
+const INICIAR = { corazones: hc.iniciar, memorama: mem.iniciar, vales: vales.iniciar, rompe: puz.iniciar, laberinto: lab.iniciar, aventura: pintarPanelAventura, michirot: michirot.panel };
 document.addEventListener('keydown', e => {
   if (escena !== 'juegos' || !modal.hidden) return;
   const dir = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' }[e.key];

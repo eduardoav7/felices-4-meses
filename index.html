@@ -652,6 +652,16 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 .mr-mej .mr-mini.caro { opacity: .6; }
 .mr-mej .mr-mini:disabled { background: #fff3c4; box-shadow: none; cursor: default; }
 .mr-tienda-msg { font-weight: 800; color: #9b55e0; }
+/* Jugar juntos */
+.mr-campo { display: flex; flex-direction: column; gap: 4px; text-align: left; font: 800 12.5px/1.2 var(--font-body); color: var(--ink-soft); }
+.mr-campo input { font: 700 17px/1.2 var(--font-body); color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 10px; padding: 9px 11px; }
+#mrCodigo { text-transform: uppercase; letter-spacing: .3em; text-align: center; font-size: 22px; }
+.mr-sala-btns { display: flex; justify-content: center; }
+.mr-codigo { font: 900 46px/1 var(--font-body); letter-spacing: .18em; color: #9b55e0; background: #fff; border: 2.5px dashed #9b55e0; border-radius: 14px; padding: 12px 6px 10px; user-select: all; -webkit-user-select: all; }
+.mr-sala-ok { font-weight: 800; font-size: 17px; color: #23884c; }
+.mr3-corazon { position: absolute; z-index: 2; right: max(118px, calc(env(safe-area-inset-right, 0px) + 100px)); bottom: calc(160px + env(safe-area-inset-bottom, 0px)); width: 56px; height: 56px; border-radius: 50%; cursor: pointer; font-size: 26px; line-height: 1;
+  background: #ffd3dc; border: 2.5px solid var(--ink); box-shadow: 2px 3px 0 var(--ink); }
+.mr3-corazon:active { transform: translate(1px, 2px); box-shadow: 0 0 0 var(--ink); }
 .mr-cardwrap { z-index: 5; }
 .mr-sheet { max-width: 380px; -webkit-user-select: text; user-select: text; }
 .mr-sheet > p { margin: 0; }
@@ -709,6 +719,9 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 }
 @media (min-width: 900px) {
   .mr3-joy { width: 140px; height: 140px; }
+}
+@media (max-width: 400px) {
+  .mr .mr-mini { padding: 8px 8px; }
 }
 @media (max-width: 360px) {
   .mr .mr-mini { padding: 7px 8px; font-size: 12px; }
@@ -1113,6 +1126,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
       <button class="mr-mini" type="button" id="mrCol">📖 <b id="mrColN">0/12</b></button>
       <button class="mr-mini" type="button" id="mrTienda" aria-label="Tiendita de mejoras">🛍️</button>
       <button class="mr-mini" type="button" id="mrSonido" aria-label="Música y sonidos">🔊</button>
+      <button class="mr-mini" type="button" id="mrJuntos" aria-label="Jugar juntos">👥</button>
       <button class="mr-mini" type="button" id="mrAyuda" aria-label="Cómo jugar">❓</button>
     </div>
     <div class="mr3-mision" id="mrMision" aria-live="polite"></div>
@@ -1120,6 +1134,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="mr-toast" id="mrToast" role="status" hidden></div>
   </div>
   <div class="mr3-joy" id="mrJoy" aria-label="Joystick para caminar"><span class="mr3-perilla" id="mrPerilla"></span></div>
+  <button class="mr3-corazon" type="button" id="mrCorazon" aria-label="Mandar un corazón" hidden>💗</button>
   <button class="mr3-salto" type="button" id="mrSalto" aria-label="Saltar"><span class="i">⤴</span><span class="t">Saltar</span></button>
   <button class="mr3-accion" type="button" id="mrAccion" hidden><span class="i" id="mrAccIco">🛒</span><span class="t" id="mrAccTxt">Comprar</span></button>
   <div class="mr3-carga" id="mrCarga" hidden>Cargando el mundo 3D… 🐾</div>
@@ -3168,6 +3183,14 @@ const michirot = (() => {
   function brillo(x, y, r, color = '#ffffff') {
     return `<path d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r} Z" fill="${color}"/>`;
   }
+  function bloqueArte(arriba, izq, der, signo) {
+    const q = (tx, sk) => `<g transform="translate(${tx} 64) skewY(${sk})"><text x="0" y="10" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="30" text-anchor="middle" fill="#ffffff" stroke="${T}" stroke-width="2.2" paint-order="stroke">${signo}</text></g>`;
+    return `<path d="M50 8 L89 26 L50 44 L11 26 Z" fill="${arriba}" stroke="${T}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M11 26 L50 44 L50 93 L11 75 Z" fill="${izq}" stroke="${T}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M89 26 L50 44 L50 93 L89 75 Z" fill="${der}" stroke="${T}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M17 33 L44 46 M56 46 L83 33" stroke="#ffffff" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+      ${q(30.5, 25)}${q(69.5, -25)}`;
+  }
   const S2 = `stroke="${T}" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"`;
 
   const ARTE = {
@@ -3411,6 +3434,9 @@ const michirot = (() => {
       ${brillo(14, 20, 4.5, '#ffd25e')}${brillo(88, 70, 3.5, '#ffffff')}${brillo(10, 66, 3.5, '#ffd25e')}
       <ellipse cx="40" cy="60" rx="4.6" ry="3.4" fill="#fdfeff" ${S2}/><ellipse cx="60" cy="60" rx="4.6" ry="3.4" fill="#fdfeff" ${S2}/>`,
     siempre: () => `<image href="${FOTO_SIEMPRE}" x="0" y="0" width="100" height="100"/>`,
+    bloque: () => bloqueArte('#ffe27a', '#ffc93c', '#f2a91e', '?'),
+    bloqueMitico: () => bloqueArte('#ff8fab', '#e23d52', '#b8233b', '?'),
+    bloqueEx: () => `<defs><linearGradient id="grBqA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7ad9"/><stop offset=".35" stop-color="#ffd25e"/><stop offset=".7" stop-color="#7ee2a0"/><stop offset="1" stop-color="#7fe3ff"/></linearGradient><linearGradient id="grBqB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset="1" stop-color="#ff4fa3"/></linearGradient></defs>` + bloqueArte('url(#grBqA)', 'url(#grBqB)', '#4b2fb5', '?') + `${brillo(10, 14, 5, '#ffd25e')}${brillo(90, 20, 4, '#ffffff')}`,
   };
   const DUEÑOS = {
     zombie: () => `<ellipse cx="50" cy="52" rx="34" ry="30" fill="#9bd3a0" ${S2}/><path d="M28 34 L36 40 M40 28 L42 36 M58 28 L56 36" stroke="${T}" stroke-width="2.4" stroke-linecap="round"/>
@@ -3427,8 +3453,8 @@ const michirot = (() => {
   }
 
   /* ---------- Datos ---------- */
-  const RAREZAS = { c: 'Común', r: 'Raro', e: 'Épico', l: 'Legendario', m: 'Mítico', d: 'Brainrot Dios', x: 'Exclusivo', s: 'Secreto' };
-  const COLOR_R = { c: '#b8bfd3', r: '#3f74e0', e: '#9b55e0', l: '#f2b01e', m: '#e23d52', d: '#2fbf8f', x: '#16c1d6', s: '#ff7aa8' };
+  const RAREZAS = { c: 'Común', r: 'Raro', e: 'Épico', l: 'Legendario', m: 'Mítico', d: 'Brainrot Dios', x: 'Exclusivo', s: 'Secreto', b: 'Bloque de suerte' };
+  const COLOR_R = { c: '#b8bfd3', r: '#3f74e0', e: '#9b55e0', l: '#f2b01e', m: '#e23d52', d: '#2fbf8f', x: '#16c1d6', s: '#ff7aa8', b: '#ffb800' };
   const CAT = [
     { id: 'spaghettino', n: 'Gattino Spaghettino', r: 'c', p: 25, g: 1, d: 'Se cayó en un plato de espagueti y decidió quedarse a vivir ahí.' },
     { id: 'ciabattino', n: 'Ciabattino Miagolino', r: 'c', p: 60, g: 2, d: 'Vive dentro de una pantufla. Si te la pones, ronronea.' },
@@ -3451,14 +3477,22 @@ const michirot = (() => {
     { id: 'draghetto', n: 'Draghetto Miaugon', r: 'm', p: 50000, g: 560, d: 'Un dragoncito que echa fueguito… pero solo para calentar tu cobija.' },
     { id: 'lunetta', n: 'Lunetta Gattoletta', r: 'd', p: 100000, g: 1000, d: 'Duerme sobre la luna y cuida tus sueños toda la noche.' },
     { id: 'solecito', n: 'Solecito Gattosole', r: 'd', p: 140000, g: 1350, d: 'El sol con lentes oscuros. Sale todos los días solo para verte sonreír.' },
-    { id: 'tacogatto', n: 'Tacogatto Supremo', r: 'x', p: 220000, g: 2200, d: 'El rey de la lluvia de tacos. Viene con corona y con todo.', pista: 'Solo pasa durante la lluvia de tacos 🌮' },
-    { id: 'pinatino', n: 'Piñatino Fiestero', r: 'x', p: 300000, g: 2900, d: 'Una piñata gatuna. Si la quiebras, salen puros dulces y abrazos.', pista: 'Solo pasa durante la hora loca 🎉' },
-    { id: 'mariachino', n: 'Mariachino Miau', r: 'x', p: 400000, g: 3800, d: 'Te lleva serenata con su guitarrita a las tres de la mañana.', pista: 'Viene escondido en los regalos misteriosos 🎁' },
-    { id: 'reginella', n: 'Reginella Miau', r: 'x', p: 600000, g: 5500, d: 'La reina de todos los michirots. Casi nunca se deja ver.', pista: 'Pasa por la alfombra muy, muy de vez en cuando 👑' },
+    { id: 'tacogatto', n: 'Tacogatto Supremo', r: 'x', p: 220000, g: 2200, d: 'El rey de la lluvia de tacos. Viene con corona y con todo.', pista: 'Pasa en la lluvia de tacos 🌮 o sale de un Bloque de suerte 🎲' },
+    { id: 'pinatino', n: 'Piñatino Fiestero', r: 'x', p: 300000, g: 2900, d: 'Una piñata gatuna. Si la quiebras, salen puros dulces y abrazos.', pista: 'Pasa en la hora loca 🎉 o sale de un Bloque de suerte 🎲' },
+    { id: 'mariachino', n: 'Mariachino Miau', r: 'x', p: 400000, g: 3800, d: 'Te lleva serenata con su guitarrita a las tres de la mañana.', pista: 'Viene en los regalos misteriosos 🎁 o en un Bloque de suerte 🎲' },
+    { id: 'reginella', n: 'Reginella Miau', r: 'x', p: 600000, g: 5500, d: 'La reina de todos los michirots. Casi nunca se deja ver.', pista: 'Casi nunca pasa por la alfombra 👑; mejor busca un Bloque Exclusivo 🎲' },
     { id: 'secreto', n: 'Brittanina Eduardino', r: 's', p: 150000, g: 5000, d: 'Dos gatitos tan enamorados que se fusionaron en un solo corazón. Solo existe uno en todo el universo, y es nuestro. 💞' },
     { id: 'siempre', n: 'Por siempre, contigo', r: 's', p: 140626, g: 14062026, exacto: true, d: 'Tú y yo, de la mano. Cuesta $140626 y gana $14062026 por segundo, porque es la fecha de nuestro aniversario: 14 de junio de 2026. 💞', pista: 'Aparece después de encontrar a Brittanina Eduardino 💞' },
   ];
   const POR = Object.fromEntries(CAT.map(c => [c.id, c]));
+  // Bloques de suerte: se compran en la alfombra y al llegar a tu base se abren
+  const BLOQUES = {
+    bloque: { id: 'bloque', n: 'Bloque de suerte', r: 'b', p: 6000, g: 0, bloque: true, tabla: { e: 45, l: 33, m: 15, d: 4, x: 3 } },
+    bloqueMitico: { id: 'bloqueMitico', n: 'Bloque Mítico', r: 'b', p: 45000, g: 0, bloque: true, tabla: { l: 30, m: 38, d: 20, x: 12 } },
+    bloqueEx: { id: 'bloqueEx', n: 'Bloque Exclusivo', r: 'b', p: 250000, g: 0, bloque: true, tabla: { d: 35, x: 65 } },
+  };
+  Object.assign(POR, BLOQUES);
+  const esBloque = id => !!(POR[id] && POR[id].bloque);
   const PESOS = { c: 40, r: 27, e: 17, l: 9, m: 5, d: 2 };
   const PESOS_RIVAL = { r: 25, e: 40, l: 25, m: 9, d: 1 };
   const CAZA = { c: 4.8, r: 5.0, e: 5.2, l: 5.4, m: 5.6, d: 5.8, x: 6.0, s: 6.0 };
@@ -3513,6 +3547,7 @@ const michirot = (() => {
     { t: 'ingreso', meta: 60, premio: 1200 },
     { t: 'regalo', meta: 1, premio: 1500, evento: 'regalo' },
     { t: 'agrandar', meta: 1, premio: 2500 },
+    { t: 'bloque', meta: 1, premio: 4000 },
     { t: 'robarRaro', meta: 1, premio: 3000 },
     { t: 'coleccion', meta: 7, premio: 5000 },
     { t: 'ingreso', meta: 300, premio: 9000 },
@@ -3575,6 +3610,11 @@ const michirot = (() => {
     if (Math.random() < .003 * s) return 'reginella';
     return null;
   }
+  function bloqueAzar() {
+    const s = suerte() * (evento && evento.tipo === 'loca' ? 2 : 1);
+    if (Math.random() > .055 * s) return null;
+    return azar({ bloque: 72, bloqueMitico: 23, bloqueEx: 5 });
+  }
   function slotRival() { return { id: alAzar(azar(PESOS_RIVAL)), vuelve: 0, mut: mutAzar(.6) }; }
   function nuevo() {
     return {
@@ -3592,6 +3632,7 @@ const michirot = (() => {
     if (typeof e.misN !== 'number') e.misN = 0;
     if (typeof e.sonido !== 'number') e.sonido = 2;
     if (!e.mutCol || typeof e.mutCol !== 'object') e.mutCol = {};
+    e.base.forEach(b => { if (b) delete b.robando; });
     return e;
   }
   const dentroDe = (b, x, z, m = 0) => x > b.cx - b.w / 2 + m && x < b.cx + b.w / 2 - m && z > b.cz - b.d / 2 + m && z < b.cz + b.d / 2 - m;
@@ -3958,7 +3999,7 @@ const michirot = (() => {
     { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const g = c.getContext('2d'); g.font = '700 92px Caveat, cursive'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 10; g.strokeStyle = '#ffffff'; g.strokeText('Tu base', 256, 66); g.fillStyle = '#9b55e0'; g.fillText('Tu base', 256, 66);
       const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); piso.renderOrder = 1; escena.add(piso); }
     letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
-    letrero('Michi Bandido', RIV[1].cx, 2.7, RIV[1].cz - RIV[1].d / 2 - .1, '#56607d');
+    letreroBandido = letrero('Michi Bandido', RIV[1].cx, 2.7, RIV[1].cz - RIV[1].d / 2 - .1, '#56607d');
     // Pedestales
     const pedestal = (p, mio) => {
       const g = new T3.Group(); g.position.set(p.x, .16, p.z);
@@ -4037,7 +4078,7 @@ const michirot = (() => {
   }
   function pintarBase() {
     pedMio.forEach((p, i) => { p.g.visible = i < E.base.length; });
-    E.base.forEach((b, i) => pintarPed(pedMio[i], b ? b.id : null, b && b.mut));
+    E.base.forEach((b, i) => pintarPed(pedMio[i], b && !b.robando ? b.id : null, b && b.mut));
   }
   function registrarMut(id, m) { const l = E.mutCol[id] || (E.mutCol[id] = []); if (!l.includes(m)) l.push(m); }
   function mutarAlfombra(it, m) {
@@ -4047,12 +4088,22 @@ const michirot = (() => {
     if (m === 't' && !it.taco) { it.taco = sombreroTaco(); it.g.add(it.taco); }
     if (it.taco) it.taco.visible = m === 't';
   }
-  function pintarRivales() { E.riv.forEach((R, r) => R.slots.forEach((s, k) => pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null, s.mut))); }
+  function cerradaRiv(r, ahora) { return r === 1 && enLinea() ? !!red.otro.candado : E.riv[r].cerrada > ahora; }
+  function pintarRivales() {
+    E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
+      if (r === 1 && enLinea()) {
+        const o = red.otro.base[k], oculto = o && cargando && cargando.remoto && cargando.bi === o.bi;
+        pintarPed(pedRiv[1][k], o && !oculto && POR[o.id] ? o.id : null, o && o.mut);
+      } else pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null, s.mut);
+    }));
+  }
 
   /* ---------- Alfombra ---------- */
   function spawnear(id, x0, mut) {
-    if (mut === undefined) mut = esSecreto(id) ? null : mutAzar(evento && evento.tipo === 'loca' ? 3 : 1);
-    const especial = esSecreto(id) || POR[id].r === 'x';
+    const bq = esBloque(id);
+    if (mut === undefined) mut = esSecreto(id) || bq ? null : mutAzar(evento && evento.tipo === 'loca' ? 3 : 1);
+    if (bq) mut = null;
+    const especial = esSecreto(id) || POR[id].r === 'x' || id === 'bloqueEx' || id === 'bloqueMitico';
     const s = spriteDe(id, id === 'siempre' ? 3.1 : especial ? 1.9 : 1.55);
     const lab = etiqueta(2.3); lab.position.y = id === 'siempre' ? 3.2 : especial ? 2.45 : 2.15;
     const g = new T3.Group(); g.add(s, lab, sombra(.5));
@@ -4062,10 +4113,13 @@ const michirot = (() => {
       const haz = new T3.Mesh(new T3.CylinderGeometry(.8, .8, 9, 18, 1, true), new T3.MeshBasicMaterial({ color: esSecreto(id) ? 0xffd6ea : especial ? 0x9ff3ff : mut === 'g' ? 0xc9b8ff : 0xf3d6ff, transparent: true, opacity: .3, depthWrite: false, side: T3.DoubleSide }));
       haz.position.y = 4.5; g.add(haz);
     }
-    const it = { id, mut, g, s, lab, halo, taco: null, x: x0 != null ? x0 : ALF.x0, fase: Math.random() * 6, chispaT: 0, ex: POR[id].r === 'x' };
+    const it = { id, mut, g, s, lab, halo, taco: null, x: x0 != null ? x0 : ALF.x0, fase: Math.random() * 6, chispaT: 0, ex: POR[id].r === 'x', bq };
     g.position.set(it.x, .03, ALF.z + (Math.random() - .5) * .8);
     escena.add(g); alfombra.push(it);
-    if (it.ex && x0 == null) {
+    if (bq && x0 == null) {
+      if (id !== 'bloque') { aviso(`🎲 ¡Está pasando un ${POR[id].n.toUpperCase()}! Adentro puede venir un Exclusivo`, 3800); sonido('secreto'); }
+      else { aviso('🎲 ¡Un Bloque de suerte está pasando por la alfombra!', 2600); sonido('mutado'); }
+    } else if (it.ex && x0 == null) {
       aviso(`💎 ¡Un michirot EXCLUSIVO está pasando por la alfombra: ${POR[id].n}! ${E.col.includes(id) ? '' : '¡Todavía no lo tienes!'}`, 4200);
       sonido('secreto'); confetti(1500, 40);
     } else if (mut && x0 == null) {
@@ -4095,14 +4149,36 @@ const michirot = (() => {
     const i = E.base.findIndex(b => !b);
     if (i < 0) { sonido('no'); aviso(E.mej.base < MEJORA_BASE.costos.length ? 'Tu base está llena. Agrándala en la tiendita 🛍️ o vende un michirot (párate junto a él y presiona «Ver»).' : 'Tu base está llena. Párate junto a un michirot tuyo y presiona «Ver» para venderlo.', 3800); return; }
     E.dinero -= p;
+    if (it.bq) { comprarBloque(it, i); return; }
     E.base[i] = { id: it.id, banco: 0, llegando: true, mut: it.mut || null };
     const desde = it.g.position.clone(); quitar(it);
     sonido('comprar'); chispas(desde.x, 1, desde.z, it.mut ? colorMut(it.mut) : '#ffd25e', 10);
     progreso('comprar', 1);
     volar(it.id, desde, pedMio[i], () => colocar(i, it.id, 'compra', it.mut));
   }
-  function volar(id, desde, ped, fin) {
-    const s = spriteDe(id, 1.5); s.position.copy(desde); escena.add(s);
+  function comprarBloque(it, i) {
+    const B = POR[it.id], premio = alAzar(azar(B.tabla)), mut = mutAzar(1.5);
+    E.base[i] = { id: premio, banco: 0, llegando: true, mut };
+    const desde = it.g.position.clone(); quitar(it);
+    sonido('comprar'); chispas(desde.x, 1, desde.z, '#ffd25e', 12);
+    progreso('comprar', 1);
+    aviso(`🎲 ¡Compraste un ${B.n}! Va a tu base a abrirse…`, 2400);
+    guardar();
+    volar(it.id, desde, pedMio[i], () => abrirBloque(i, B, premio, mut), 1.3);
+  }
+  function abrirBloque(i, B, premio, mut) {
+    const p = pedMio[i], c = POR[premio], ex = c.r === 'x';
+    ['#ffd25e', '#ff8fab', '#7fe3ff', '#7ee2a0'].forEach(col => chispas(p.x, 1, p.z, col, 8, 4.2));
+    sacudida = ex ? .45 : .25;
+    colocar(i, premio, 'bloque', mut);
+    sonido(ex ? 'secreto' : 'regalo');
+    if (ex) confetti(3000, 120);
+    aviso(`🎲 ¡Del ${B.n} salió ${ex ? 'el EXCLUSIVO ' : ''}${mut ? MUT[mut].ico + ' ' : ''}${c.n}! ${chipTexto(c.r)}`, 4200);
+    progreso('bloque', 1);
+  }
+  const chipTexto = r => ({ e: '(Épico)', l: '(Legendario)', m: '(Mítico)', d: '(Brainrot Dios)', x: '💎' }[r] || '');
+  function volar(id, desde, ped, fin, tam = 1.5) {
+    const s = spriteDe(id, tam); s.position.copy(desde); escena.add(s);
     vuelos.push({ s, desde, hasta: new T3.Vector3(ped.x, .58, ped.z), t: 0, fin });
   }
   function colocar(i, id, como, mut) {
@@ -4231,6 +4307,7 @@ const michirot = (() => {
       case 'mejora': return 'Compra una mejora en la tiendita 🛍️';
       case 'base': return `Ten ${m.meta} michirots en tu base`;
       case 'mutado': return 'Consigue un michirot mutado (dorado, taco, lava…)';
+      case 'bloque': return 'Abre un Bloque de suerte 🎲';
       case 'tacos': return `Atrapa ${m.meta} tacos en la lluvia de tacos 🌮`;
       case 'agrandar': return 'Agranda tu base en la tiendita 🏠';
       case 'monedas': return `Atrapa ${m.meta} monedas de la lluvia`;
@@ -4383,7 +4460,7 @@ const michirot = (() => {
   /* ---------- Lluvia de tacos ---------- */
   function elegirBlanco() {
     const op = [];
-    alfombra.forEach(it => { if (!esSecreto(it.id) && it.x > ALF.x0 + 4 && it.x < ALF.x1 - 7) op.push([3, { tipo: 'alf', it }]); });
+    alfombra.forEach(it => { if (!esSecreto(it.id) && !it.bq && it.x > ALF.x0 + 4 && it.x < ALF.x1 - 7) op.push([3, { tipo: 'alf', it }]); });
     E.base.forEach((b, i) => { if (b && !b.llegando && !esSecreto(b.id)) op.push([1, { tipo: 'mio', i }]); });
     E.riv.forEach((R, r) => R.slots.forEach((sl, k) => { if (sl.id && !sl.robando) op.push([1, { tipo: 'riv', r, k }]); }));
     if (!op.length) return null;
@@ -4584,6 +4661,7 @@ const michirot = (() => {
         <li><span>🌟</span><span>A veces pasan michirots mutados que brillan y ganan más: Dorado ×2, Diamante ×3, Dulce ×4, Lava ×5, Arcoíris ×6 y Galaxia ×8.</span></li>
         <li><span>🌮</span><span>Cada 2 minutos hay lluvia de tacos: al michirot que le cae un taco se vuelve Taco (×4), ¡hasta los de tu base!</span></li>
         <li><span>🏠</span><span>Cuando se llene tu base, agrándala en la tiendita: puede llegar a 20 lugares.</span></li>
+        <li><span>🎲</span><span>A veces pasan Bloques de suerte. Cómpralos y se abren en tu base: de ahí salen los más exclusivos.</span></li>
         <li><span>💎</span><span>Hay ${CAT.length} michirots que coleccionar. Los Exclusivos solo salen en momentos especiales: en la lluvia de tacos, en la hora loca, en los regalos… y una reina que casi nunca pasa.</span></li>
         <li><span>😼</span><span>Entra a una base rival, presiona «Robar» y corre a tu base. Si el dueño te alcanza, ¡salta para esquivarlo!</span></li>
         <li><span>🔒</span><span>Si Michi Bandido se lleva uno de los tuyos, alcánzalo. Con el candado no puede entrar a tu base.</span></li>
@@ -4757,8 +4835,9 @@ const michirot = (() => {
     const ahora = Date.now();
     E.base.forEach(b => { if (b && !b.llegando) b.banco += ganaB(b) * dt; });
     actualizarParticulas(dt);
+    actualizarRed(dt);
     laseres[0].malla.visible = E.candado > ahora;
-    E.riv.forEach((R, r) => { laseres[r + 1].malla.visible = R.cerrada > ahora; });
+    E.riv.forEach((R, r) => { laseres[r + 1].malla.visible = cerradaRiv(r, ahora); });
     laseres.forEach(l => { if (l.malla.visible) l.malla.material.opacity = .35 + Math.sin(t * 6) * .12; });
     // vuelos y flotantes
     vuelos = vuelos.filter(v => {
@@ -4779,7 +4858,7 @@ const michirot = (() => {
       const mag = Math.hypot(ix, iz);
       if (mag > .12) {
         const v = velocidad() * (cargando ? VEL_CARGA / VEL : 1) * Math.min(1, mag);
-        const extra = E.riv.map((R, r) => (R.cerrada > ahora && !dentroDe(RIV[r], jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
+        const extra = E.riv.map((R, r) => (cerradaRiv(r, ahora) && !dentroDe(RIV[r], jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
         // en pasitos, para no atravesar paredes aunque el celular vaya lento
         const largo = v * dt, n = Math.max(1, Math.ceil(largo / .18));
         for (let k = 0; k < n; k++) [jugador.x, jugador.z] = choca(jugador.x + ix / mag * largo / n, jugador.z + iz / mag * largo / n, extra);
@@ -4798,7 +4877,7 @@ const michirot = (() => {
       actualizarTacos(dt);
       // alfombra
       spawnT -= dt;
-      if (spawnT <= 0) { spawnT = (2.6 + Math.random() * 1.2) / (evento && evento.tipo === 'loca' ? 2.3 : 1); spawnear(exclusivoAzar() || alAzar(azar(PESOS))); }
+      if (spawnT <= 0) { spawnT = (2.6 + Math.random() * 1.2) / (evento && evento.tipo === 'loca' ? 2.3 : 1); spawnear(exclusivoAzar() || bloqueAzar() || alAzar(azar(PESOS))); }
       if (secretoListo()) {
         secretoT -= dt;
         if (secretoT <= 0 && !alfombra.some(x => x.id === 'secreto')) {
@@ -4814,13 +4893,14 @@ const michirot = (() => {
         }
       }
       alfombra.slice().forEach(it => {
-        it.x += ALF.vel * (esSecreto(it.id) || it.ex ? .75 : 1) * dt;
+        it.x += ALF.vel * (esSecreto(it.id) || it.ex || it.bq ? .75 : 1) * dt;
+        if (it.bq) it.s.material.rotation = Math.sin(t * 3 + it.fase) * .12;
         if (it.x > ALF.x1) { quitar(it); return; }
         it.g.position.x = it.x;
         it.s.position.y = Math.abs(Math.sin(t * 5 + it.fase)) * .14;
         const c = POR[it.id], p = precio(it), puede = E.dinero >= p, M = it.mut && MUT[it.mut];
         const cerca = dist(it.g.position, jugador) < 5;
-        it.lab.userData.poner(cerca ? [fmtDe(it.id, p), M ? `${M.n} ×${M.x} · ${c.n}` : it.ex ? `💎 ${c.n}` : c.n] : [M ? `${M.ico} ${fmt(p)}` : it.ex ? `💎 ${fmt(p)}` : esSecreto(it.id) ? `💞 ${fmtDe(it.id, p)}` : fmt(p)], puede ? '#7ee2a0' : it.ex ? '#bff6fb' : esSecreto(it.id) ? '#ffd3e6' : M ? '#fff3c4' : '#ffffff');
+        it.lab.userData.poner(cerca ? [fmtDe(it.id, p), M ? `${M.n} ×${M.x} · ${c.n}` : it.ex ? `💎 ${c.n}` : it.bq ? `🎲 ${c.n}` : c.n] : [M ? `${M.ico} ${fmt(p)}` : it.ex ? `💎 ${fmt(p)}` : esSecreto(it.id) ? `💞 ${fmtDe(it.id, p)}` : it.bq ? `🎲 ${fmt(p)}` : fmt(p)], puede ? '#7ee2a0' : it.bq ? '#ffe9a8' : it.ex ? '#bff6fb' : esSecreto(it.id) ? '#ffd3e6' : M ? '#fff3c4' : '#ffffff');
         if (it.halo && it.mut) {
           pintarHalo(it.halo, it.mut, t + it.fase); it.halo.position.y = it.s.position.y;
           if (it.taco) it.taco.position.y = it.s.position.y + 1.25;
@@ -4835,10 +4915,10 @@ const michirot = (() => {
         if (b && p.cobroT <= 0 && dist(PED_MIO[i], jugador) < alcance && cobrar(i)) p.cobroT = .5;
       });
       // robo: llegar a la base
-      if (cargando && dentroDe(MIA, jugador.x, jugador.z, .3)) soltarRobo(false);
+      if (cargando && dentroDe(MIA, jugador.x, jugador.z, .3)) { if (cargando.remoto) llegarRoboRemoto(); else soltarRobo(false); }
       // NPCs
-      if (npc[1].estado === 'casa' && !cargando) { ladronT -= dt; if (ladronT <= 0) iniciarLadron(); }
-      npc.forEach(n => actualizarNPC(n, dt));
+      if (npc[1].estado === 'casa' && !cargando && !enLinea()) { ladronT -= dt; if (ladronT <= 0) iniciarLadron(); }
+      npc.forEach(n => { if (!(n.r === 1 && enLinea())) actualizarNPC(n, dt); });
       // rellenar rivales
       let cambio = false;
       E.riv.forEach(R => R.slots.forEach((s, k) => { if (!s.id && !s.robando && s.vuelve <= ahora) { R.slots[k] = slotRival(); cambio = true; } }));
@@ -4873,12 +4953,15 @@ const michirot = (() => {
     if (!pausa && !cargando) {
       let mejor = null, dmin = 2.1;
       alfombra.forEach(it => { const d = dist(it.g.position, jugador); if (d < dmin) { dmin = d; mejor = it; } });
-      if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmtDe(mejor.id, precio(mejor))}`, ico: mejor.mut ? MUT[mejor.mut].ico : '🛒', ok: E.dinero >= precio(mejor) };
+      if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmtDe(mejor.id, precio(mejor))}`, ico: mejor.mut ? MUT[mejor.mut].ico : mejor.bq ? '🎲' : '🛒', ok: E.dinero >= precio(mejor) };
+      if (!a && enLinea() && dentroDe(RIV[1], jugador.x, jugador.z)) red.otro.base.forEach((o, k) => {
+        if (!a && o && POR[o.id] && dist(PED_RIV[1][k], jugador) < 1.45) a = { tipo: 'robarRemoto', k, txt: `Robar a ${red.otro.nombre}`, ico: '😼', ok: !red.pidiendo };
+      });
       if (!a) E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
-        if (a || !s.id || s.robando) return;
+        if (a || !s.id || s.robando || (r === 1 && enLinea())) return;
         if (dist(PED_RIV[r][k], jugador) < 1.45 && dentroDe(RIV[r], jugador.x, jugador.z)) a = { tipo: 'robar', r, k, txt: 'Robar', ico: '😼', ok: true };
       }));
-      if (!a) E.base.forEach((b, i) => { if (!a && b && !b.llegando && dist(PED_MIO[i], jugador) < 1.4) a = { tipo: 'ver', i, txt: 'Ver / vender', ico: '🔍', ok: true }; });
+      if (!a) E.base.forEach((b, i) => { if (!a && b && !b.llegando && !b.robando && dist(PED_MIO[i], jugador) < 1.4) a = { tipo: 'ver', i, txt: 'Ver / vender', ico: '🔍', ok: true }; });
     }
     accion = a;
     const btn = $m('mrAccion');
@@ -4892,6 +4975,7 @@ const michirot = (() => {
     const a = accion; if (!a || pausa) return;
     if (a.tipo === 'comprar') comprar(a.it);
     else if (a.tipo === 'robar') robar(a.r, a.k);
+    else if (a.tipo === 'robarRemoto') pedirRobo(a.k);
     else if (a.tipo === 'ver') info(a.i);
   }
   function uiHud() {
@@ -4937,6 +5021,8 @@ const michirot = (() => {
     $m('mrTienda').addEventListener('click', () => tienda());
     $m('mrSonido').addEventListener('click', cambiarSonido);
     $m('mrAyuda').addEventListener('click', ayuda);
+    $m('mrJuntos').addEventListener('click', () => sala());
+    $m('mrCorazon').addEventListener('click', mandarCorazon);
     document.addEventListener('keydown', e => {
       if (!abierto) return;
       if (e.key === 'Escape') { e.preventDefault(); if (!$m('mrCard').hidden) cerrarHoja(); else cerrar(); return; }
@@ -4953,6 +5039,222 @@ const michirot = (() => {
       if (document.hidden) { guardar(); if (AC) AC.suspend().catch(() => {}); }
       else if (AC) AC.resume().catch(() => {});
     });
+  }
+
+  /* ---------- Jugar juntos (sala con código, sin cuentas) ---------- */
+  // Cada quien juega en su celular. La base del otro aparece donde estaba la de Michi Bandido.
+  let red = null, letreroBandido = null, envioT = 0, baseT = 0;
+  const enLinea = () => !!(red && red.listo);
+  const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+  const idSala = c => 'brittmichi-' + c;
+  const aMio = (x, z) => ({ x: 9 - x, z: -z });           // su mundo → el mío (su base cae en la de Bandido)
+  function cargarPeer() {
+    if (window.Peer) return Promise.resolve();
+    const fuentes = ['https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js', 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js'];
+    return fuentes.reduce((pr, src) => pr.catch(() => new Promise((ok, mal) => {
+      const sc = document.createElement('script'); sc.src = src; sc.onload = () => (window.Peer ? ok() : mal()); sc.onerror = mal; document.head.append(sc);
+    })), Promise.reject());
+  }
+  function opcionesPeer() { return Object.assign({ debug: 0 }, window.__PEER_OPTS || {}); }
+  function nombreMio() { return (E.nombre || '').trim() || 'Jugador'; }
+  function sala(msg = '') {
+    const conectado = enLinea();
+    let html = `<p class="adv-sheet-t">Jugar juntos 👥</p>`;
+    if (conectado) {
+      html += `<p class="mr-sala-ok">💞 Conectado con <b>${esc(red.otro.nombre)}</b></p>
+        <p class="mr-tip">Su base es la de la derecha, donde antes vivía Michi Bandido. Pueden robarse michirots… y atraparse.</p>`;
+    } else if (red && red.rol === 'host') {
+      html += `<p class="mr-tip">Pásale este código para que se una:</p><p class="mr-codigo">${esc(red.codigo)}</p><p class="mr-tip">Esperando a que se conecte… 🐾</p>`;
+    } else if (red && red.rol === 'guest') {
+      html += `<p class="mr-tip">Conectando a la sala ${esc(red.codigo)}…</p>`;
+    } else {
+      html += `<label class="mr-campo"><span>Tu nombre</span><input id="mrNombre" maxlength="16" value="${esc(E.nombre || '')}" placeholder="Cómo te verá"></label>
+        <p class="mr-tip">Uno crea la sala y le pasa el código al otro. Los dos necesitan internet.</p>
+        <div class="mr-sala-btns"><button class="btn" type="button" id="mrCrear">Crear sala</button></div>
+        <label class="mr-campo"><span>¿Te pasaron un código?</span><input id="mrCodigo" maxlength="4" autocapitalize="characters" placeholder="ABCD"></label>
+        <div class="mr-sala-btns"><button class="btn ghost" type="button" id="mrUnirme">Unirme</button></div>`;
+    }
+    if (msg) html += `<p class="mr-tienda-msg">${esc(msg)}</p>`;
+    const botones = red ? [[conectado ? 'Seguir jugando 🐾' : 'Ocultar', cerrarHoja], ['Salir de la sala', () => { salirSala('Saliste de la sala.'); sala(); }]] : [['Cerrar', cerrarHoja]];
+    hoja(html, botones);
+    const guardaNombre = () => { const n = $m('mrNombre'); if (n) { E.nombre = n.value.trim().slice(0, 16); guardar(); } };
+    const c = $m('mrCrear'), u = $m('mrUnirme');
+    if (c) c.addEventListener('click', () => { guardaNombre(); crearSala(); });
+    if (u) u.addEventListener('click', () => { guardaNombre(); const v = ($m('mrCodigo').value || '').toUpperCase().replace(/[^A-Z]/g, ''); if (v.length !== 4) { sala('El código tiene 4 letras 🙂'); return; } unirmeSala(v); });
+  }
+  function crearSala(intento = 0) {
+    let codigo = ''; for (let i = 0; i < 4; i++) codigo += LETRAS[Math.floor(Math.random() * LETRAS.length)];
+    red = { rol: 'host', codigo, listo: false, otro: null };
+    sala();
+    cargarPeer().then(() => {
+      if (!red || red.codigo !== codigo) return;
+      const peer = new Peer(idSala(codigo), opcionesPeer());
+      red.peer = peer;
+      peer.on('connection', conn => {
+        if (red && red.conn) { conn.on('open', () => { conn.send({ t: 'llena' }); setTimeout(() => conn.close(), 300); }); return; }
+        prepararConn(conn);
+      });
+      peer.on('error', e => {
+        if (e && e.type === 'unavailable-id' && intento < 3) { salirSala(); crearSala(intento + 1); return; }
+        if (red && !red.listo) { salirSala(); sala('No se pudo crear la sala. Revisa tu internet e intenta otra vez.'); }
+      });
+    }).catch(() => { salirSala(); sala('No pude cargar la conexión. Revisa tu internet.'); });
+  }
+  function unirmeSala(codigo) {
+    red = { rol: 'guest', codigo, listo: false, otro: null };
+    sala();
+    cargarPeer().then(() => {
+      if (!red || red.codigo !== codigo) return;
+      const peer = new Peer(opcionesPeer());
+      red.peer = peer;
+      peer.on('open', () => { if (red && red.peer === peer) prepararConn(peer.connect(idSala(codigo), { reliable: true })); });
+      peer.on('error', e => {
+        const m = e && e.type === 'peer-unavailable' ? `No encontré la sala ${codigo}. Revisa el código 🙂` : 'No se pudo conectar. Revisa tu internet e intenta otra vez.';
+        if (red && !red.listo) { salirSala(); sala(m); }
+      });
+      setTimeout(() => { if (red && red.codigo === codigo && !red.listo) { salirSala(); if (abierto) sala('No se pudo conectar. A veces con datos del celular falla; prueben con wifi.'); } }, 20000);
+    }).catch(() => { salirSala(); sala('No pude cargar la conexión. Revisa tu internet.'); });
+  }
+  function prepararConn(conn) {
+    red.conn = conn;
+    conn.on('open', () => { mandar({ t: 'hola', nombre: nombreMio() }); });
+    conn.on('data', recibir);
+    conn.on('close', () => { if (red && red.conn === conn) salirSala(`${red.otro ? red.otro.nombre : 'La otra persona'} salió de la sala.`); });
+    conn.on('error', () => {});
+  }
+  function mandar(m) { try { if (red && red.conn && red.conn.open) red.conn.send(m); } catch (e) {} }
+  function recibir(m) {
+    if (!red || !m || typeof m !== 'object') return;
+    if (m.t === 'llena') { salirSala('Esa sala ya tiene a dos jugadores.'); return; }
+    if (m.t === 'hola') {
+      const ya = red.listo;
+      red.otro = Object.assign(red.otro || { x: 9, z: -12, y: 0, ang: 0, base: [], candado: false }, { nombre: String(m.nombre || 'Jugador').slice(0, 16) });
+      if (!ya) { mandar({ t: 'hola', nombre: nombreMio() }); conectado(); }
+      return;
+    }
+    if (!red.listo) return;
+    const o = red.otro;
+    if (m.t === 'adios') { salirSala(`${o.nombre} salió de la sala.`); return; }
+    if (m.t === 'pos') { const p = aMio(m.x, m.z); o.tx = p.x; o.tz = p.z; o.y = m.y || 0; o.ang = (m.ang || 0) + Math.PI; o.carga = m.carga || null; o.cargaMut = m.mut || null; return; }
+    if (m.t === 'base') { o.base = Array.isArray(m.slots) ? m.slots.slice(0, 4) : []; o.candado = !!m.candado; pintarRivales(); return; }
+    if (m.t === 'robo') { recibirRobo(m); return; }
+    if (m.t === 'roboOk') { if (red.pidiendo && red.pidiendo.bi === m.bi) empezarRoboRemoto(m); return; }
+    if (m.t === 'roboNo') { red.pidiendo = null; sonido('no'); aviso(m.motivo === 'candado' ? `${o.nombre} cerró su base con candado 🔒` : 'Ese michirot ya no está 😿'); return; }
+    if (m.t === 'robado') { const b = E.base[m.bi]; if (b && b.robando) { E.base[m.bi] = null; red.meRoban = null; pintarBase(); guardar(); aviso(`😿 ${o.nombre} se llevó a tu ${POR[b.id].n}… ¡ve a robárselo de vuelta!`, 3600); mandarBase(); } return; }
+    if (m.t === 'atrapado') { if (cargando && cargando.remoto) { cargando = null; jugador.carga.visible = false; pintarRivales(); sonido('atrapada'); sacudida = .5; aviso(`¡${o.nombre} te atrapó! 😾 Se quedó con su michirot.`, 3200); } return; }
+    if (m.t === 'corazon') { const p = { x: o.x, z: o.z }; for (let i = 0; i < 3; i++) chispas(p.x, 2.4, p.z, ['#ff8fab', '#ff4f7a', '#ffd3dc'][i], 6, 2.6, .5); flotar('💗', p, '#ffd3dc', 3); sonido('regalo'); aviso(`💗 ${o.nombre} te mandó un corazón`, 2400); return; }
+  }
+  function conectado() {
+    red.listo = true;
+    // Michi Bandido se va de vacaciones mientras juegan juntos
+    const n = npc[1];
+    if (n.carga) { const R = E.riv[1]; R.slots[n.destino] = { id: n.carga.id, vuelve: 0, mut: n.carga.mut || null }; n.carga = null; n.cargaSpr.visible = false; }
+    n.estado = 'casa'; n.x = CASA[1].x; n.z = CASA[1].z; n.g.visible = false;
+    if (cargando && !cargando.remoto && cargando.r === 1) { E.riv[1].slots[cargando.k].robando = false; cargando = null; jugador.carga.visible = false; }
+    crearAvatar();
+    if (letreroBandido) letreroBandido.userData.poner([red.otro.nombre], '#9b55e0', '#ffffff');
+    $m('mrCorazon').hidden = false;
+    mandarBase(); envioT = 0;
+    pintarRivales();
+    sonido('mision'); confetti(1500, 60);
+    aviso(`💞 ¡Conectado con ${red.otro.nombre}! Su base es la de la derecha`, 3600);
+    if (!$m('mrCard').hidden) sala();
+  }
+  function crearAvatar() {
+    if (red.avatar) return;
+    const g = gato3D({ cuerpo: '#4a5070' });
+    const lab = etiqueta(2.4); lab.position.y = 2.75; lab.userData.poner([red.otro.nombre], '#9b55e0', '#ffffff'); g.add(lab);
+    const cs = spriteDe('spaghettino', 1.2); cs.position.y = 2.15; cs.visible = false; g.add(cs);
+    const p = aMio(0, 4.6);
+    red.avatar = { g, lab, cs, x: p.x, z: p.z, y: 0, ang: 0, paso: 0 };
+    Object.assign(red.otro, { tx: p.x, tz: p.z, x: p.x, z: p.z });
+    g.position.set(p.x, 0, p.z); escena.add(g);
+  }
+  function salirSala(msg) {
+    if (!red) return;
+    const r = red; red = null;
+    mandarA(r, { t: 'adios' });
+    if (r.meRoban) { const b = E.base[r.meRoban.bi]; if (b) delete b.robando; pintarBase(); }
+    if (cargando && cargando.remoto) { cargando = null; if (jugador) jugador.carga.visible = false; }
+    try { if (r.conn) r.conn.close(); } catch (e) {}
+    try { if (r.peer) r.peer.destroy(); } catch (e) {}
+    if (r.avatar) { escena.remove(r.avatar.g); liberar(r.avatar.g); }
+    if (npc.length) npc[1].g.visible = true;
+    if (letreroBandido) letreroBandido.userData.poner(['Michi Bandido'], '#56607d', '#ffffff');
+    const bc = $m('mrCorazon'); if (bc) bc.hidden = true;
+    if (escena) pintarRivales();
+    if (msg && r.listo && abierto) aviso(msg, 3200);
+  }
+  function mandarA(r, m) { try { if (r && r.conn && r.conn.open) r.conn.send(m); } catch (e) {} }
+  function visiblesMios() {
+    return E.base.map((b, i) => ({ b, i })).filter(({ b }) => b && !b.llegando && !esSecreto(b.id) && !b.robando)
+      .sort((a, c) => ganaB(c.b) - ganaB(a.b)).slice(0, 4).map(({ b, i }) => ({ bi: i, id: b.id, mut: b.mut || null }));
+  }
+  function mandarBase() { if (enLinea()) mandar({ t: 'base', slots: visiblesMios(), candado: E.candado > Date.now() }); }
+  function recibirRobo(m) {
+    const b = E.base[m.bi];
+    if (E.candado > Date.now()) { mandar({ t: 'roboNo', bi: m.bi, motivo: 'candado' }); return; }
+    if (!b || b.id !== m.id || b.robando || b.llegando || esSecreto(b.id) || red.meRoban) { mandar({ t: 'roboNo', bi: m.bi }); return; }
+    b.robando = true; red.meRoban = { bi: m.bi, id: b.id, t: 0 };
+    pintarBase(); mandarBase();
+    mandar({ t: 'roboOk', bi: m.bi, id: b.id, mut: b.mut || null });
+    sonido('alerta');
+    aviso(`😼 ¡${red.otro.nombre} te está robando a ${POR[b.id].n}! Alcánzalo antes de que llegue a su base`, 3600);
+  }
+  function pedirRobo(k) {
+    const o = red.otro.base[k]; if (!o || red.pidiendo) return;
+    if (!E.base.some(b => !b)) { sonido('no'); aviso('Tu base está llena. Vende un michirot antes de robar.', 3000); return; }
+    red.pidiendo = { bi: o.bi, k };
+    mandar({ t: 'robo', bi: o.bi, id: o.id });
+    setTimeout(() => { if (red && red.pidiendo && red.pidiendo.bi === o.bi) red.pidiendo = null; }, 4000);
+  }
+  function empezarRoboRemoto(m) {
+    const k = red.pidiendo.k; red.pidiendo = null;
+    cargando = { id: m.id, r: 1, k, remoto: true, bi: m.bi, mut: m.mut || null };
+    jugador.carga.material.map = texturas[m.id]; jugador.carga.material.needsUpdate = true; jugador.carga.visible = true;
+    pintarRivales(); sonido('robar');
+    aviso(`¡Corre a tu base con ${POR[m.id].n}! ${red.otro.nombre} te puede atrapar. Salta para esquivar 🏃‍♀️`, 3200);
+  }
+  function llegarRoboRemoto() {
+    const x = cargando; cargando = null; jugador.carga.visible = false;
+    mandar({ t: 'robado', bi: x.bi });
+    const i = E.base.findIndex(b => !b);
+    progreso('robar', 1);
+    if ('elmdx'.includes(POR[x.id].r)) progreso('robarRaro', 1);
+    if (i >= 0) colocar(i, x.id, 'robo', x.mut);
+    pintarRivales(); guardar(); mandarBase();
+  }
+  function mandarCorazon() {
+    if (!enLinea()) return;
+    mandar({ t: 'corazon' });
+    for (let i = 0; i < 3; i++) chispas(jugador.x, 2.4, jugador.z, ['#ff8fab', '#ff4f7a', '#ffd3dc'][i], 6, 2.6, .5);
+    sonido('salto');
+  }
+  function actualizarRed(dt) {
+    if (!enLinea()) return;
+    const o = red.otro, a = red.avatar;
+    envioT -= dt; baseT -= dt;
+    if (envioT <= 0) { envioT = .1; mandar({ t: 'pos', x: +jugador.x.toFixed(2), z: +jugador.z.toFixed(2), y: +jugador.y.toFixed(2), ang: +jugador.ang.toFixed(2), carga: cargando ? cargando.id : null }); }
+    if (baseT <= 0) { baseT = 1; mandarBase(); }
+    if (a) {
+      const dx = (o.tx ?? a.x) - a.x, dz = (o.tz ?? a.z) - a.z, d = Math.hypot(dx, dz);
+      const k = Math.min(1, dt * 10);
+      a.x += dx * k; a.z += dz * k; a.y = o.y || 0; a.ang = o.ang || 0;
+      if (d > .02) a.paso += dt * 12;
+      o.x = a.x; o.z = a.z;
+      animarFigura(a, d > .03, dt);
+      a.cs.visible = !!o.carga;
+      if (o.carga && texturas[o.carga] && a.cs.material.map !== texturas[o.carga]) { a.cs.material.map = texturas[o.carga]; a.cs.material.needsUpdate = true; }
+    }
+    // Si me está robando, puedo atraparlo tocándolo (si no va saltando)
+    if (red.meRoban && a && !pausa && dist(a, jugador) < 1.05 && (o.y || 0) < .55) {
+      const b = E.base[red.meRoban.bi]; if (b) delete b.robando;
+      red.meRoban = null; mandar({ t: 'atrapado' });
+      pintarBase(); mandarBase(); sonido('llegar'); sacudida = .3;
+      chispas(a.x, 1.2, a.z, '#ffd25e', 14, 3.6);
+      aviso(`¡Atrapaste a ${o.nombre}! 😼 Tu michirot regresó a tu base`, 3000);
+      progreso('atrapar', 1);
+    }
   }
 
   /* ---------- Abrir y cerrar ---------- */
@@ -5007,6 +5309,7 @@ const michirot = (() => {
   }
   function cerrar() {
     if (!abierto) return;
+    salirSala();
     abierto = false; cancelAnimationFrame(raf);
     if (cargando) { const R = E.riv[cargando.r]; R.slots[cargando.k].robando = false; cargando = null; if (jugador) jugador.carga.visible = false; }
     if (npc.length && npc[1].carga) { const R = E.riv[1]; const k = npc[1].destino; R.slots[k] = { id: npc[1].carga.id, vuelve: 0 }; npc[1].carga = null; }

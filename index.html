@@ -3569,6 +3569,10 @@ const michirot = (() => {
   const MIA_MAX = { cx: 0, cz: 10.6, w: ANCHO_BASE(3), d: 8 };
   const PED_RIV = RIV.map(b => [[b.cx - 1.8, b.cz + .7], [b.cx + 1.8, b.cz + .7], [b.cx - 1.8, b.cz - 1.5], [b.cx + 1.8, b.cz - 1.5]].map(([x, z]) => ({ x, z })));
   const CASA = RIV.map(b => ({ x: b.cx, z: b.cz - 2.5 }));
+  // Base del otro jugador (cuando juegan juntos): más grande, cabe su base completa (hasta 20)
+  const R2 = { cx: 9.4, cz: -10.6, w: 14.4, d: 9.6 };
+  const PED_R2 = [];
+  [-7.4, -9.7, -12.0, -14.3].forEach(z => [3.64, 6.52, 9.4, 12.28, 15.16].forEach(x => PED_R2.push({ x, z })));
 
   function fmt(n) {
     n = Math.max(0, Math.floor(n));
@@ -3645,6 +3649,7 @@ const michirot = (() => {
   let jugador, cargando = null, accion = null;
   let alfombra = [], spawnT = 0, secretoT = 4, vuelos = [], flotantes = [];
   let pedMio = [], pedRiv = [[], []], laseres = [], muros = [];
+  let pedR2 = [], grupoRiv1 = null, grupoR2 = null, murosRiv1 = [], murosR2 = [], laserRiv1 = null, laserR2 = null;
   let npc = [], ladronT = 90;
   const teclas = new Set(); let joy = { x: 0, z: 0, activo: false };
   const $m = id => document.getElementById(id);
@@ -3995,7 +4000,10 @@ const michirot = (() => {
     };
     construirBaseMia();
     laseres.push(hacerBase(RIV[0], '#e4f4df', '#9fd1a0', 1));
-    laseres.push(hacerBase(RIV[1], '#eceff6', '#aab4cc', 1));
+    grupoRiv1 = new T3.Group(); escena.add(grupoRiv1);
+    { const n0 = muros.length; laserRiv1 = hacerBase(RIV[1], '#eceff6', '#aab4cc', 1, grupoRiv1); murosRiv1 = muros.slice(n0); laseres.push(laserRiv1); }
+    grupoR2 = new T3.Group(); grupoR2.visible = false; escena.add(grupoR2);
+    { const n0 = muros.length; laserR2 = hacerBase(R2, '#f3e8ff', '#c9b8f5', 1, grupoR2); murosR2 = muros.slice(n0); muros.length = n0; }
     { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const g = c.getContext('2d'); g.font = '700 92px Caveat, cursive'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 10; g.strokeStyle = '#ffffff'; g.strokeText('Tu base', 256, 66); g.fillStyle = '#9b55e0'; g.fillText('Tu base', 256, 66);
       const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); piso.renderOrder = 1; escena.add(piso); }
     letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
@@ -4016,6 +4024,7 @@ const michirot = (() => {
     pedMio = PED_MIO.map(p => pedestal(p, true));
     pedMio.forEach((p, i) => { p.g.visible = i < E.base.length; });
     pedRiv = PED_RIV.map(l => l.map(p => pedestal(p, false)));
+    pedR2 = PED_R2.map(p => { const q = pedestal(p, false); q.g.visible = false; return q; });
     // Árboles y florecitas
     const arbol = (x, z, s = 1) => {
       escena.add(caja(.35 * s, 1.2 * s, .35 * s, '#a2603a', x, .6 * s, z));
@@ -4088,12 +4097,22 @@ const michirot = (() => {
     if (m === 't' && !it.taco) { it.taco = sombreroTaco(); it.g.add(it.taco); }
     if (it.taco) it.taco.visible = m === 't';
   }
+  function modoRemoto(on) {
+    if (!grupoRiv1) return;
+    grupoRiv1.visible = !on; grupoR2.visible = on;
+    pedRiv[1].forEach(p => { p.g.visible = !on; });
+    pedR2.forEach(p => { p.g.visible = on; if (!on) pintarPed(p, null); });
+    muros = muros.filter(m => !murosRiv1.includes(m) && !murosR2.includes(m)).concat(on ? murosR2 : murosRiv1);
+    laserRiv1.malla.visible = false; laserR2.malla.visible = false;
+    laseres[2] = on ? laserR2 : laserRiv1;
+    if (letreroBandido) { const b = on ? R2 : RIV[1]; letreroBandido.position.set(b.cx, 2.7, b.cz - b.d / 2 - .1); }
+  }
+  const rivBox = r => (r === 1 && enLinea() ? R2 : RIV[r]);
   function cerradaRiv(r, ahora) { return r === 1 && enLinea() ? !!red.otro.candado : E.riv[r].cerrada > ahora; }
   function pintarRivales() {
     E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
       if (r === 1 && enLinea()) {
-        const o = red.otro.base[k], oculto = o && cargando && cargando.remoto && cargando.bi === o.bi;
-        pintarPed(pedRiv[1][k], o && !oculto && POR[o.id] ? o.id : null, o && o.mut);
+        if (k === 0) pedR2.forEach((p, j) => { const q = red.otro.base[j], esc = q && cargando && cargando.remoto && cargando.bi === q.bi; pintarPed(p, q && !esc && POR[q.id] ? q.id : null, q && q.mut); });
       } else pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null, s.mut);
     }));
   }
@@ -4541,7 +4560,7 @@ const michirot = (() => {
     });
   }
   function crearRegalo() {
-    const libres = REGALO_SITIOS.filter(([x, z]) => Math.hypot(x - jugador.x, z - jugador.z) > 6 && !dentroDe(MIA, x, z, -1.2));
+    const libres = REGALO_SITIOS.filter(([x, z]) => Math.hypot(x - jugador.x, z - jugador.z) > 6 && !dentroDe(MIA, x, z, -1.2) && !(enLinea() && dentroDe(R2, x, z, -1.2)));
     const [x, z] = libres[Math.floor(Math.random() * libres.length)] || REGALO_SITIOS[0];
     const g = new T3.Group(), c = new T3.Group(); g.add(c);
     const caj = caja(.9, .78, .9, '#ff6f91', 0, .39, 0); c.add(caj); borde(caj, 1.08);
@@ -4858,7 +4877,7 @@ const michirot = (() => {
       const mag = Math.hypot(ix, iz);
       if (mag > .12) {
         const v = velocidad() * (cargando ? VEL_CARGA / VEL : 1) * Math.min(1, mag);
-        const extra = E.riv.map((R, r) => (cerradaRiv(r, ahora) && !dentroDe(RIV[r], jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
+        const extra = E.riv.map((R, r) => (cerradaRiv(r, ahora) && !dentroDe(rivBox(r), jugador.x, jugador.z) ? laseres[r + 1].caja : null)).filter(Boolean);
         // en pasitos, para no atravesar paredes aunque el celular vaya lento
         const largo = v * dt, n = Math.max(1, Math.ceil(largo / .18));
         for (let k = 0; k < n; k++) [jugador.x, jugador.z] = choca(jugador.x + ix / mag * largo / n, jugador.z + iz / mag * largo / n, extra);
@@ -4940,6 +4959,7 @@ const michirot = (() => {
       const b = E.base[i];
       if (p.lab) p.lab.userData.poner(b && !b.llegando && b.banco >= 1 ? [fmt(b.banco)] : [], '#2f9e5b', '#ffffff');
     });
+    if (enLinea()) pedR2.forEach((p, k) => { if (p.halo.visible) { pintarHalo(p.halo, p.mut, t + k); if (p.taco.visible) p.taco.position.y = p.spr.position.y + 1.2; } });
     pedRiv.forEach((l, r) => l.forEach((p, k) => { if (p.halo.visible) { pintarHalo(p.halo, p.mut, t + k + r * 4); if (p.taco.visible) p.taco.position.y = p.spr.position.y + 1.2; } }));
     camaraSigue(dt);
     elegirAccion();
@@ -4954,8 +4974,8 @@ const michirot = (() => {
       let mejor = null, dmin = 2.1;
       alfombra.forEach(it => { const d = dist(it.g.position, jugador); if (d < dmin) { dmin = d; mejor = it; } });
       if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmtDe(mejor.id, precio(mejor))}`, ico: mejor.mut ? MUT[mejor.mut].ico : mejor.bq ? '🎲' : '🛒', ok: E.dinero >= precio(mejor) };
-      if (!a && enLinea() && dentroDe(RIV[1], jugador.x, jugador.z)) red.otro.base.forEach((o, k) => {
-        if (!a && o && POR[o.id] && dist(PED_RIV[1][k], jugador) < 1.45) a = { tipo: 'robarRemoto', k, txt: `Robar a ${red.otro.nombre}`, ico: '😼', ok: !red.pidiendo };
+      if (!a && enLinea() && dentroDe(R2, jugador.x, jugador.z)) red.otro.base.forEach((o, k) => {
+        if (!a && o && POR[o.id] && PED_R2[k] && dist(PED_R2[k], jugador) < 1.4) a = { tipo: 'robarRemoto', k, txt: `Robar a ${red.otro.nombre}`, ico: '😼', ok: !red.pidiendo };
       });
       if (!a) E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
         if (a || !s.id || s.robando || (r === 1 && enLinea())) return;
@@ -5046,7 +5066,19 @@ const michirot = (() => {
   let red = null, letreroBandido = null, envioT = 0, baseT = 0;
   const enLinea = () => !!(red && red.listo);
   const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-  const aMio = (x, z) => ({ x: 9 - x, z: -z });           // su mundo → el mío (su base cae en la de Bandido)
+  // Su mundo → el mío: su base cae en la base grande de la derecha; fuera de su base, girado 180°
+  function aMio(x, z) {
+    const w = (red && red.otro && red.otro.w) || 12.4;
+    if (x > -w / 2 - .5 && x < w / 2 + .5 && z > 6.1 && z < 15.1) {
+      const u = Math.max(0, Math.min(1, (x + w / 2) / w)), v = Math.max(0, Math.min(1, (z - 6.6) / 8));
+      return { x: R2.cx + R2.w / 2 - .6 - u * (R2.w - 1.2), z: R2.cz + R2.d / 2 - .4 - v * (R2.d - .8) };
+    }
+    if (dentroDe(R2, x, z, -.5)) {   // está en MI base (que en su mapa es la grande): la pongo dentro de la mía
+      const u = Math.max(0, Math.min(1, (R2.cx + R2.w / 2 - .6 - x) / (R2.w - 1.2))), v = Math.max(0, Math.min(1, (R2.cz + R2.d / 2 - .4 - z) / (R2.d - .8)));
+      return { x: MIA.cx - MIA.w / 2 + .6 + u * (MIA.w - 1.2), z: MIA.cz - MIA.d / 2 + .4 + v * (MIA.d - .8) };
+    }
+    return { x: R2.cx - x, z: -z };
+  }
   function nombreMio() { return (E.nombre || '').trim() || 'Jugador'; }
   function sala(msg = '') {
     const conectado = enLinea();
@@ -5143,7 +5175,7 @@ const michirot = (() => {
     const o = red.otro;
     if (m.t === 'adios') { salirSala(`${o.nombre} salió de la sala.`); return; }
     if (m.t === 'pos') { const p = aMio(m.x, m.z); o.tx = p.x; o.tz = p.z; o.y = m.y || 0; o.ang = (m.ang || 0) + Math.PI; o.carga = m.carga || null; o.cargaMut = m.mut || null; return; }
-    if (m.t === 'base') { o.base = Array.isArray(m.slots) ? m.slots.slice(0, 4) : []; o.candado = !!m.candado; pintarRivales(); return; }
+    if (m.t === 'base') { o.base = Array.isArray(m.slots) ? m.slots.slice(0, 20) : []; o.candado = !!m.candado; if (m.w) o.w = +m.w; pintarRivales(); return; }
     if (m.t === 'robo') { recibirRobo(m); return; }
     if (m.t === 'roboOk') { if (red.pidiendo && red.pidiendo.bi === m.bi) empezarRoboRemoto(m); return; }
     if (m.t === 'roboNo') { red.pidiendo = null; sonido('no'); aviso(m.motivo === 'candado' ? `${o.nombre} cerró su base con candado 🔒` : 'Ese michirot ya no está 😿'); return; }
@@ -5158,6 +5190,7 @@ const michirot = (() => {
     if (n.carga) { const R = E.riv[1]; R.slots[n.destino] = { id: n.carga.id, vuelve: 0, mut: n.carga.mut || null }; n.carga = null; n.cargaSpr.visible = false; }
     n.estado = 'casa'; n.x = CASA[1].x; n.z = CASA[1].z; n.g.visible = false;
     if (cargando && !cargando.remoto && cargando.r === 1) { E.riv[1].slots[cargando.k].robando = false; cargando = null; jugador.carga.visible = false; }
+    modoRemoto(true);
     crearAvatar();
     if (letreroBandido) letreroBandido.userData.poner([red.otro.nombre], '#9b55e0', '#ffffff');
     $m('mrCorazon').hidden = false;
@@ -5186,6 +5219,7 @@ const michirot = (() => {
     try { if (r.client) setTimeout(() => { try { r.client.end(true); } catch (e) {} }, 150); } catch (e) {}
     if (r.avatar) { escena.remove(r.avatar.g); liberar(r.avatar.g); }
     if (npc.length) npc[1].g.visible = true;
+    modoRemoto(false);
     if (letreroBandido) letreroBandido.userData.poner(['Michi Bandido'], '#56607d', '#ffffff');
     const bc = $m('mrCorazon'); if (bc) bc.hidden = true;
     if (escena) pintarRivales();
@@ -5194,9 +5228,9 @@ const michirot = (() => {
   function mandarA(r, m) { try { if (r && r.client && r.client.connected) r.client.publish(r.destino, JSON.stringify(Object.assign({ de: r.id }, m)), { qos: 0 }); } catch (e) {} }
   function visiblesMios() {
     return E.base.map((b, i) => ({ b, i })).filter(({ b }) => b && !b.llegando && !esSecreto(b.id) && !b.robando)
-      .sort((a, c) => ganaB(c.b) - ganaB(a.b)).slice(0, 4).map(({ b, i }) => ({ bi: i, id: b.id, mut: b.mut || null }));
+      .sort((a, c) => ganaB(c.b) - ganaB(a.b)).slice(0, 20).map(({ b, i }) => ({ bi: i, id: b.id, mut: b.mut || null }));
   }
-  function mandarBase() { if (enLinea()) mandar({ t: 'base', slots: visiblesMios(), candado: E.candado > Date.now() }); }
+  function mandarBase() { if (enLinea()) mandar({ t: 'base', slots: visiblesMios(), candado: E.candado > Date.now(), w: MIA.w }); }
   function recibirRobo(m) {
     const b = E.base[m.bi];
     if (E.candado > Date.now()) { mandar({ t: 'roboNo', bi: m.bi, motivo: 'candado' }); return; }

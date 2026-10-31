@@ -6119,25 +6119,22 @@ const altar = (() => {
     ? brazo('M-17 -96 Q4 -58 46 -48', SUETER, 46, -48, PIEL2)
     : brazo('M-19 -101 Q-29 -82 -26 -62', SUETER, -26, -62, PIEL2) + brazo('M19 -101 Q29 -82 26 -62', SUETER, 26, -62, PIEL2);
 
-  // Eduardo: más alto, ropa negra holgada, lentes y gorra negra
-  const PIEL3 = '#eec4a4', NEGRO = '#23232c';
+  // Eduardo: más alto, camisa blanca holgada, pantalón negro holgado y lentes
+  const PIEL3 = '#eec4a4', NEGRO = '#f7f6f2';
   const manga = (d, x, y) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${NEGRO}" stroke-width="7.6" stroke-linecap="round"/>`
     + `<circle cx="${x}" cy="${y}" r="3.8" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>`;
   function eduardo() {
     return `<path d="M-17 -72 L-18 -5 L-3 -5 L0 -52 L3 -5 L18 -5 L17 -72 Z" fill="#1a1a21" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
       <path d="M-9 -40 l1 30 M9 -40 l-1 30" stroke="#33333f" stroke-width="1.4"/>
       <ellipse cx="-10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/><ellipse cx="10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/>
-      <path d="M-25 -122 Q-31 -96 -28 -66 Q0 -60 28 -66 Q31 -96 25 -122 Q0 -130 -25 -122 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
-      <path d="M-13 -86 h26 l3 13 h-32 Z" fill="#2e2e39" stroke="#15151b" stroke-width="1.2"/>
-      <path d="M-11 -124 Q0 -114 11 -124" fill="none" stroke="#15151b" stroke-width="2.4"/>
-      <path d="M-4 -119 v13 M4 -119 v13" stroke="#d9d9e3" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M-25 -122 Q-31 -96 -28 -64 Q0 -58 28 -64 Q31 -96 25 -122 Q0 -130 -25 -122 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-20 -100 Q-18 -84 -21 -68 M20 -100 Q18 -84 21 -68" fill="none" stroke="#d8d6ce" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M0 -122 V-62" stroke="#c9c7bf" stroke-width="1.4"/>
+      <circle cx="2.5" cy="-108" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-96" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-84" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-72" r="1.5" fill="#b9b7af"/>
+      <path d="M-11 -126 L0 -118 L-3 -112 L-13 -121 Z M11 -126 L0 -118 L3 -112 L13 -121 Z" fill="#ffffff" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>
       <circle cx="-22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/><circle cx="22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>
       <circle cx="0" cy="-146" r="22" fill="${PIEL3}" stroke="${INK}" stroke-width="2.2"/>
-      <path d="M-22 -150 Q-23 -140 -19 -136 L-18 -150 Z M22 -150 Q23 -140 19 -136 L18 -150 Z" fill="#17141d"/>
-      <path d="M-23.5 -151 Q-23 -174 0 -174 Q23 -174 23.5 -151 Z" fill="#15151b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M0 -174 V-152 M-12 -171 Q-8 -160 -9 -152 M12 -171 Q8 -160 9 -152" fill="none" stroke="#2e2e39" stroke-width="1.2"/>
-      <circle cx="0" cy="-174" r="2.2" fill="#15151b" stroke="${INK}" stroke-width="1"/>
-      <path d="M-27 -152 Q0 -138 27 -152 Q0 -145 -27 -152 Z" fill="#15151b" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M-22.8 -143 Q-25 -171 0 -172 Q25 -171 22.8 -143 Q18 -155 8 -154 Q3 -161 -4 -155 Q-14 -159 -22.8 -143 Z" fill="#17141d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
       <rect x="-15.5" y="-145" width="12.5" height="9.5" rx="3" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="2"/><rect x="3" y="-145" width="12.5" height="9.5" rx="3" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="2"/>
       <path d="M-3 -141 h6 M-15.5 -141 h-6 M15.5 -141 h6" stroke="${INK}" stroke-width="1.8"/>
       <path d="M-12 -139.5 q2.8 -3 5.6 0 M6.4 -139.5 q2.8 -3 5.6 0" fill="none" stroke="${INK}" stroke-width="1.7" stroke-linecap="round"/>

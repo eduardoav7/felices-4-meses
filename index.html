@@ -6307,15 +6307,30 @@ const altar = (() => {
   function volumen(meta, ms, fin) {
     cancelAnimationFrame(fadeRaf);
     const v0 = musica.volume, t0 = performance.now();
-    (function paso(t) { const k = Math.min(1, (t - t0) / ms); musica.volume = v0 + (meta - v0) * k; if (k < 1) fadeRaf = requestAnimationFrame(paso); else if (fin) fin(); })(t0);
+    (function paso(t) { const k = Math.max(0, Math.min(1, (t - t0) / ms)); musica.volume = Math.max(0, Math.min(1, v0 + (meta - v0) * k)); if (k < 1) fadeRaf = requestAnimationFrame(paso); else if (fin) fin(); })(t0);
   }
   function botonMusica() { const b = $('#alMusica'); if (b) { b.textContent = sonando ? '🔊 Música' : '🔇 Música'; b.setAttribute('aria-pressed', sonando ? 'true' : 'false'); } }
   function tocarMusica() {
     if (!musica) { musica = new Audio('para-tu-abuelito.mp3'); musica.loop = true; musica.volume = 0; }
     const p = musica.play();
     sonando = true; botonMusica(); volumen(.85, 2000);
-    if (p && p.catch) p.catch(() => { sonando = false; botonMusica(); });
+    if (p && p.catch) p.catch(() => { sonando = false; botonMusica(); esperarToque(); });
   }
+  // Si el navegador no deja empezar la música sola (por ejemplo al recargar la página ya dentro del altar),
+  // empieza con el primer toque que haga en la pantalla.
+  let esperando = false;
+  function esperarToque() {
+    if (esperando) return;
+    esperando = true;
+    const intento = e => {
+      if (e && e.target && e.target.closest && e.target.closest('#alMusica')) return;
+      ['pointerdown', 'touchend', 'keydown'].forEach(t => document.removeEventListener(t, intento, true));
+      esperando = false;
+      if (enAltar && quiereMusica && !sonando) tocarMusica();
+    };
+    ['pointerdown', 'touchend', 'keydown'].forEach(t => document.addEventListener(t, intento, true));
+  }
+  let enAltar = false;
   function callarMusica() {
     sonando = false; botonMusica();
     if (musica) volumen(0, 900, () => { if (!sonando) musica.pause(); });
@@ -6337,7 +6352,7 @@ const altar = (() => {
     texto('Tu abuelito vino a darte un abrazo 💛');
   }
   function iniciar() {
-    timers.forEach(clearTimeout); timers = [];
+    timers.forEach(clearTimeout); timers = []; enAltar = true;
     $('#alMusica').hidden = false;
     if (quiereMusica && !sonando) tocarMusica();
     fase(1);
@@ -6351,7 +6366,7 @@ const altar = (() => {
     despues(abrazar, 3900);
     despues(() => { $('#alBtnCarta').hidden = false; }, 5400);
   }
-  function parar() { timers.forEach(clearTimeout); timers = []; if (sonando) callarMusica(); const b = $('#alMusica'); if (b) b.hidden = true; }
+  function parar() { enAltar = false; timers.forEach(clearTimeout); timers = []; if (sonando) callarMusica(); const b = $('#alMusica'); if (b) b.hidden = true; }
   function abrirCarta() {
     timers.forEach(clearTimeout); timers = []; fase(2);
     const s = $('#alSobre'); s.hidden = false; s.classList.remove('abierto');

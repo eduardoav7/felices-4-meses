@@ -6119,19 +6119,17 @@ const altar = (() => {
     ? brazo('M-17 -96 Q4 -58 46 -48', SUETER, 46, -48, PIEL2)
     : brazo('M-19 -101 Q-29 -82 -26 -62', SUETER, -26, -62, PIEL2) + brazo('M19 -101 Q29 -82 26 -62', SUETER, 26, -62, PIEL2);
 
-  // Eduardo: más alto, camisa blanca holgada, pantalón negro holgado y lentes
+  // Eduardo: más alto, playera blanca holgada, pantalón negro holgado y lentes
   const PIEL3 = '#eec4a4', NEGRO = '#f7f6f2';
-  const manga = (d, x, y) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${NEGRO}" stroke-width="7.6" stroke-linecap="round"/>`
+  const manga = (d, x, y) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${PIEL3}" stroke-width="5.6" stroke-linecap="round"/>`
     + `<circle cx="${x}" cy="${y}" r="3.8" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>`;
   function eduardo() {
     return `<path d="M-17 -72 L-18 -5 L-3 -5 L0 -52 L3 -5 L18 -5 L17 -72 Z" fill="#1a1a21" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
       <path d="M-9 -40 l1 30 M9 -40 l-1 30" stroke="#33333f" stroke-width="1.4"/>
       <ellipse cx="-10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/><ellipse cx="10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/>
       <path d="M-25 -122 Q-31 -96 -28 -64 Q0 -58 28 -64 Q31 -96 25 -122 Q0 -130 -25 -122 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
-      <path d="M-20 -100 Q-18 -84 -21 -68 M20 -100 Q18 -84 21 -68" fill="none" stroke="#d8d6ce" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M0 -122 V-62" stroke="#c9c7bf" stroke-width="1.4"/>
-      <circle cx="2.5" cy="-108" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-96" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-84" r="1.5" fill="#b9b7af"/><circle cx="2.5" cy="-72" r="1.5" fill="#b9b7af"/>
-      <path d="M-11 -126 L0 -118 L-3 -112 L-13 -121 Z M11 -126 L0 -118 L3 -112 L13 -121 Z" fill="#ffffff" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M-20 -100 Q-18 -84 -21 -68 M20 -100 Q18 -84 21 -68 M-8 -90 q4 6 2 14" fill="none" stroke="#dcdad2" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M-10 -125 Q0 -115 10 -125" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/><path d="M-8 -123 Q0 -117 8 -123" fill="none" stroke="#dcdad2" stroke-width="1.4"/>
       <circle cx="-22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/><circle cx="22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>
       <circle cx="0" cy="-146" r="22" fill="${PIEL3}" stroke="${INK}" stroke-width="2.2"/>
       <path d="M-22.8 -143 Q-25 -171 0 -172 Q25 -171 22.8 -143 Q18 -155 8 -154 Q3 -161 -4 -155 Q-14 -159 -22.8 -143 Z" fill="#17141d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
@@ -6140,7 +6138,9 @@ const altar = (() => {
       <path d="M-12 -139.5 q2.8 -3 5.6 0 M6.4 -139.5 q2.8 -3 5.6 0" fill="none" stroke="${INK}" stroke-width="1.7" stroke-linecap="round"/>
       <ellipse cx="-14" cy="-131" rx="3.6" ry="2" fill="#f0a08c" opacity=".55"/><ellipse cx="14" cy="-131" rx="3.6" ry="2" fill="#f0a08c" opacity=".55"/>
       <path d="M-4 -130 q4 3.5 8 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
-      ${manga('M23 -117 Q33 -92 29 -64', 29, -63)}${manga('M-23 -117 Q-33 -86 -28 -56', -28, -55)}`;
+      ${manga('M23 -117 Q33 -92 29 -64', 29, -63)}${manga('M-23 -117 Q-33 -86 -28 -56', -28, -55)}
+      <path d="M22 -123 Q33 -118 38 -101 L27 -96 Q25 -104 21 -108 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-22 -123 Q-33 -118 -38 -101 L-27 -96 Q-25 -104 -21 -108 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
   }
   // Los dos de la mano frente al altar
   function nosotros(x, y, s) {

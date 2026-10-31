@@ -579,7 +579,85 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
 @media (max-height: 640px) { .cartita .escena { aspect-ratio: 360 / 170; } }
 /* Botón de la portada que abre la cartita */
 .btn-cartita { background: #3f6fd8; color: #ffffff; }
+.btn-altar { background: #ff9f1c; color: #2a1636; }
 .chip.chip-cartita .n { color: #3f6fd8; }
+/*ALTAR-CSS*/
+/* ---------- Altar para su abuelito (Día de Muertos) ---------- */
+body.velada {
+  --text: #fbefe0;
+  --text-soft: #e2c9b8;
+  --hl: rgba(255, 159, 28, .38);
+  background-color: #1d1126;
+  background-image: radial-gradient(120% 60% at 50% 0%, #4a2550, #1d1126 72%);
+  background-size: auto;
+}
+body.velada .eyebrow { color: #ffb84d; }
+body.velada .btn { box-shadow: 3px 4px 0 #ffb84d; }
+.al-musica { position: fixed; left: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 30; font: 800 14px/1 var(--font-body); color: #2a1636; background: #ffd27a; border: 2.5px solid var(--ink); border-radius: 999px; padding: 10px 14px; box-shadow: 2px 3px 0 var(--ink); cursor: pointer; }
+.al-musica[aria-pressed="false"] { background: #fbefe0; }
+.al-fase { display: flex; flex-direction: column; gap: 22px; }
+.al-fase.entra { animation: alEntra .9s ease both; }
+@keyframes alEntra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.al-escena, .al-altar { margin: 0; border-radius: 22px; overflow: hidden; border: 2.5px solid #ffb84d; box-shadow: 0 0 0 5px rgba(255, 184, 77, .18), 0 18px 40px rgba(0, 0, 0, .35); }
+.al-escena svg, .al-altar svg { display: block; width: 100%; height: auto; }
+.al-texto { margin: 0; text-align: center; font: 700 30px/1.15 var(--font-hand); color: #ffd27a; text-wrap: balance; min-height: 2.3em; }
+.al-texto.cambia { animation: alEntra .7s ease both; }
+.al-aparece:not([hidden]) { animation: alEntra .8s ease both; }
+
+/* Escena del abrazo */
+#alAb { transition: transform 2.6s cubic-bezier(.45, .05, .4, 1), opacity 1.2s ease; }
+.al-camina .al-paso { animation: alPaso .55s ease-in-out infinite; }
+@keyframes alPaso { 50% { transform: translateY(-3px); } }
+#alSep, #alHug { transition: opacity .8s ease; }
+.al-mece { animation: alMece 3.2s ease-in-out infinite; transform-origin: 160px 236px; transform-box: view-box; }
+@keyframes alMece { 0%, 100% { transform: rotate(-1.4deg); } 50% { transform: rotate(1.4deg); } }
+.al-brillo { animation: alBrillo 3s ease-in-out infinite; }
+@keyframes alBrillo { 50% { opacity: .55; } }
+.al-corazon { opacity: 0; }
+.al-hug .al-corazon { animation: alSube 3.6s ease-out infinite; }
+@keyframes alSube { 0% { opacity: 0; transform: translateY(0) scale(.6); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(-70px) scale(1.1); } }
+.al-petalo { animation: alCae linear infinite; }
+@keyframes alCae { from { transform: translateY(-30px) rotate(0); } to { transform: translateY(290px) rotate(320deg); } }
+.al-estrella { animation: alTitila 2.6s ease-in-out infinite; }
+@keyframes alTitila { 50% { opacity: .25; } }
+
+/* Sobre y carta */
+.al-sobre { align-self: center; width: min(280px, 82%); background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; -webkit-tap-highlight-color: transparent; animation: alLatido 2.2s ease-in-out infinite; }
+.al-sobre svg { width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
+.al-sobre-t { font: 700 26px/1 var(--font-hand); color: #ffd27a; }
+.al-sobre:focus-visible { outline: 3px dashed #ffb84d; outline-offset: 6px; border-radius: 12px; }
+@keyframes alLatido { 50% { transform: scale(1.04); } }
+.al-sobre .al-solapa { transform-origin: 120px 24px; transform-box: view-box; transition: transform .6s ease; }
+.al-sobre.abierto { animation: alSale .7s .35s ease-in both; }
+.al-sobre.abierto .al-solapa { transform: scaleY(-1); }
+@keyframes alSale { to { opacity: 0; transform: translateY(30px) scale(.9); } }
+.al-carta:not([hidden]) { animation: alCarta .8s ease both; }
+@keyframes alCarta { from { opacity: 0; transform: translateY(40px) rotate(-1.5deg); } to { opacity: 1; transform: none; } }
+.al-carta.cierra { animation: alCierra .8s ease-in both; }
+@keyframes alCierra { to { opacity: 0; transform: translateY(-20px) scale(.6) rotate(3deg); } }
+
+/* Altar */
+.al-flama { transform-box: fill-box; transform-origin: 50% 100%; }
+.vela { cursor: pointer; }
+.vela .al-luz, .vela .al-flama { opacity: 0; transition: opacity .5s ease; }
+.vela.prendida .al-luz { opacity: 1; animation: alBrillo 2.4s ease-in-out infinite; }
+.vela.prendida .al-flama { opacity: 1; animation: alFlama .9s ease-in-out infinite alternate; }
+@keyframes alFlama { 0% { transform: scale(1, 1) rotate(-3deg); } 100% { transform: scale(.9, 1.12) rotate(3deg); } }
+.vela:not(.prendida) .al-mecha-pista { animation: alBrillo 1.6s ease-in-out infinite; }
+.vela:focus, .vela:focus-visible { outline: none; }
+.vela:focus-visible .al-vaso { stroke: #ffd27a; stroke-width: 3; }
+.al-bandera { transform-box: fill-box; transform-origin: 50% 0; animation: alBandera 3.4s ease-in-out infinite; }
+@keyframes alBandera { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.al-humo { animation: alHumo 4s ease-out infinite; }
+@keyframes alHumo { 0% { opacity: 0; transform: translateY(0) scale(.6); } 25% { opacity: .55; } 100% { opacity: 0; transform: translateY(-60px) scale(1.4); } }
+.al-humo { transform-box: fill-box; transform-origin: 50% 100%; }
+.al-final:not([hidden]) { animation: alEntra 1s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .al-mece, .al-brillo, .al-petalo, .al-estrella, .al-sobre, .al-bandera, .al-humo, .vela.prendida .al-flama, .vela.prendida .al-luz, .al-hug .al-corazon { animation: none !important; }
+  #alAb { transition: none; }
+}
+/*/ALTAR-CSS*/
 
 /* Juego 7: Roba un Michirot (3D) */
 .mr { position: fixed; inset: 0; z-index: 55; overflow: hidden; background: #bfe0ff; color: var(--ink); touch-action: none; -webkit-user-select: none; user-select: none; }
@@ -776,6 +854,7 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     <div class="btn-row">
       <button class="btn" type="button" id="btnEmpezar">Vamos 🐾</button>
       <button class="btn btn-cartita" type="button" data-cartita>Una cartita para ti 💌</button>
+      <button class="btn btn-altar" type="button" data-go="altar">Para tu abuelito 🕯️</button>
       <button class="btn ghost" type="button" id="btnOtraVez" hidden>Empezar desde el principio</button>
       <button class="btn ghost" type="button" id="btnJuegosPortada" data-go="juegos" hidden>Nuestros juegos 🎮</button>
     </div>
@@ -949,6 +1028,69 @@ body.noche .btn { box-shadow: 3px 4px 0 var(--star); }
     </div>
   </section>
 
+<!--ALTAR-HTML-->
+  <!-- ALTAR PARA SU ABUELITO -->
+  <section class="scene" id="altar" hidden>
+    <button class="al-musica" type="button" id="alMusica" aria-pressed="true" hidden>🔊 Música</button>
+    <!-- 1. El abrazo -->
+    <div class="al-fase" id="alFase1">
+      <div class="head">
+        <p class="eyebrow">Día de Muertos</p>
+        <h2><span class="mark">Para tu abuelito</span></h2>
+      </div>
+      <figure class="al-escena" id="alEscena" aria-label="Animación: tu abuelito llega por un caminito de flores de cempasúchil y te da un abrazo"></figure>
+      <p class="al-texto" id="alTexto1" aria-live="polite">Esta noche alguien siguió el caminito de flores…</p>
+      <div class="btn-row al-aparece" id="alBtnCarta" hidden>
+        <button class="btn" type="button" id="alAbrirCarta">Hay una carta para ti 💌</button>
+      </div>
+    </div>
+
+    <!-- 2. La carta -->
+    <div class="al-fase" id="alFase2" hidden>
+      <div class="head">
+        <p class="eyebrow">Una carta para ti</p>
+        <h2><span class="mark">Con todo mi amor</span></h2>
+      </div>
+      <button class="al-sobre" type="button" id="alSobre" aria-label="Abrir el sobre">
+        <svg viewBox="0 0 240 160" aria-hidden="true">
+          <rect x="6" y="20" width="228" height="134" rx="10" fill="#f6e7c8" stroke="#22264a" stroke-width="3"/>
+          <path d="M8 150 L120 80 L232 150" fill="none" stroke="#22264a" stroke-width="3" stroke-linejoin="round"/>
+          <path class="al-solapa" d="M8 24 L120 98 L232 24 Z" fill="#efd6a8" stroke="#22264a" stroke-width="3" stroke-linejoin="round"/>
+          <g transform="translate(120 96)"><circle r="17" fill="#ff9f1c" stroke="#22264a" stroke-width="2.5"/><circle r="9" fill="#ffc44d"/><circle r="3.5" fill="#e0671c"/></g>
+        </svg>
+        <span class="al-sobre-t">Toca para abrir</span>
+      </button>
+      <article class="card letter al-carta" id="alCarta" hidden>
+        <p class="saludo">Mi amor:</p>
+        <p>Sé que extrañar a alguien que quisiste tanto no se quita con el tiempo. Hay días en que se siente más cerquita y días en que pesa más, y las dos cosas están bien.</p>
+        <p>Yo no tuve la suerte de conocer a tu abuelito, pero lo conozco un poquito a través de ti: en tu forma de cuidar a los que quieres, en tu ternura y en esa fuerza tuya que a veces ni tú ves. Algo de eso te lo dejó él, y eso nunca se va.</p>
+        <p>Por eso quise hacerle este altar contigo, para que esta noche tenga su lugar, sus flores y su luz. Y para que sepas que no lo recuerdas sola.</p>
+        <p>Dicen que en estos días regresan a visitarnos los que se nos adelantaron, siguiendo el olor del cempasúchil. Si es así, ojalá se lleve el abrazo más grande de su niña y vea lo bonita y lo valiente que se ha vuelto. Estoy seguro de que está muy orgulloso de ti.</p>
+        <p>Aunque estemos lejos, esta noche prendo una veladora contigo.</p>
+        <p class="firma">Te amo,<br>Eduardo <span class="desp">siempre a tu lado 🕯️</span></p>
+      </article>
+      <div class="btn-row" id="alBtnCerrar" hidden>
+        <button class="btn" type="button" id="alCerrarCarta">Cerrar la carta</button>
+      </div>
+    </div>
+
+    <!-- 3. El altar -->
+    <div class="al-fase" id="alFase3" hidden>
+      <div class="head">
+        <p class="eyebrow">Con flores, pan y luz</p>
+        <h2><span class="mark">Un altar para tu abuelito</span></h2>
+        <p class="lead" id="alPista">Toca cada veladora para encenderla.</p>
+      </div>
+      <figure class="al-altar" id="alAltar" aria-label="Altar de muertos para tu abuelito, con papel picado, arco de cempasúchil, su retrato, pan de muerto, calaverita, agua, sal, fruta y veladoras"></figure>
+      <p class="al-texto al-final" id="alFinal" hidden>Ya tiene su luz. 🕯️<br>Esta noche lo recordamos juntos.</p>
+      <div class="btn-row">
+        <button class="btn ghost" type="button" id="alOtraVez">Ver otra vez el abrazo</button>
+        <button class="btn" type="button" data-go="portada">Volver al inicio</button>
+      </div>
+    </div>
+  </section>
+
+<!--/ALTAR-HTML-->
   <!-- JUEGOS -->
   <section class="scene" id="juegos" hidden>
     <div class="juegos-hub" id="juegosHub">
@@ -1410,7 +1552,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const NS = 'http://www.w3.org/2000/svg';
 const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const ESCENAS = ['portada','camino','cielo','promesas','cartas','tesoro','final','juegos'];
+const ESCENAS = ['portada','camino','cielo','promesas','cartas','tesoro','final','juegos','altar'];
 const KEY = 'felices-4-meses-v2';
 
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
@@ -1432,7 +1574,9 @@ function go(id) {
   if (!ESCENAS.includes(id)) id = 'portada';
   escena = id;
   document.querySelectorAll('.scene').forEach(s => { s.hidden = s.id !== id; });
-  document.body.classList.toggle('noche', id === 'cielo');
+  document.body.classList.toggle('noche', id === 'cielo' || id === 'altar');
+  document.body.classList.toggle('velada', id === 'altar');
+  if (id === 'altar') altar.iniciar(); else if (typeof altar !== 'undefined') altar.parar();
   if (id === 'cielo') prepararCancion(); else bajarCancion();
   if (id === 'juegos') volverJuegos(); else detenerJuegos();
   window.scrollTo(0, 0);
@@ -1975,6 +2119,7 @@ $('#menuBtn').addEventListener('click', () => {
     ['5', 'El tesoro', 'tesoro', S.tesoro.every(Boolean) ? 'listo' : `${S.tesoro.filter(Boolean).length} de 3`],
     ['✉', 'Una última carta', 'final', ''],
     ['🎮', 'Nuestros juegos', 'juegos', juegosGanados() >= JUEGOS.length ? 'listo' : `${juegosGanados()} de ${JUEGOS.length}`],
+    ['🕯️', 'Para tu abuelito', 'altar', S.visto.altar ? 'listo' : 'nuevo'],
   ];
   openModal(`
     <h3>Índice</h3>
@@ -3569,10 +3714,10 @@ const michirot = (() => {
   const MIA_MAX = { cx: 0, cz: 10.6, w: ANCHO_BASE(3), d: 8 };
   const PED_RIV = RIV.map(b => [[b.cx - 1.8, b.cz + .7], [b.cx + 1.8, b.cz + .7], [b.cx - 1.8, b.cz - 1.5], [b.cx + 1.8, b.cz - 1.5]].map(([x, z]) => ({ x, z })));
   const CASA = RIV.map(b => ({ x: b.cx, z: b.cz - 2.5 }));
-  // Base del otro jugador (cuando juegan juntos): más grande, cabe su base completa (hasta 20)
-  const R2 = { cx: 9.4, cz: -10.6, w: 14.4, d: 9.6 };
-  const PED_R2 = [];
-  [-7.4, -9.7, -12.0, -14.3].forEach(z => [3.64, 6.52, 9.4, 12.28, 15.16].forEach(x => PED_R2.push({ x, z })));
+  // Base del otro jugador (cuando juegan juntos): ocupa todo el fondo y es su base tal cual,
+  // reflejada para que la puerta dé a la alfombra (mismo orden izquierda→derecha que en su pantalla)
+  const R2 = { cx: 0, cz: -MIA.cz, w: MIA.w, d: MIA.d };
+  const PED_R2 = PED_MIO.map(p => ({ x: p.x, z: -p.z }));
 
   function fmt(n) {
     n = Math.max(0, Math.floor(n));
@@ -3649,7 +3794,7 @@ const michirot = (() => {
   let jugador, cargando = null, accion = null;
   let alfombra = [], spawnT = 0, secretoT = 4, vuelos = [], flotantes = [];
   let pedMio = [], pedRiv = [[], []], laseres = [], muros = [];
-  let pedR2 = [], grupoRiv1 = null, grupoR2 = null, murosRiv1 = [], murosR2 = [], laserRiv1 = null, laserR2 = null;
+  let pedR2 = [], grupoRiv0 = null, grupoRiv1 = null, murosRiv0 = [], murosRiv1 = [], laserRiv1 = null, varR2 = [], nivR2 = 0, letreroZombie = null;
   let npc = [], ladronT = 90;
   const teclas = new Set(); let joy = { x: 0, z: 0, activo: false };
   const $m = id => document.getElementById(id);
@@ -3999,14 +4144,18 @@ const michirot = (() => {
       return { malla: laser, caja: { x0, x1, z0: zf - .2, z1: zf + .2 } };
     };
     construirBaseMia();
-    laseres.push(hacerBase(RIV[0], '#e4f4df', '#9fd1a0', 1));
+    grupoRiv0 = new T3.Group(); escena.add(grupoRiv0);
+    { const n0 = muros.length; laseres.push(hacerBase(RIV[0], '#e4f4df', '#9fd1a0', 1, grupoRiv0)); murosRiv0 = muros.slice(n0); }
     grupoRiv1 = new T3.Group(); escena.add(grupoRiv1);
     { const n0 = muros.length; laserRiv1 = hacerBase(RIV[1], '#eceff6', '#aab4cc', 1, grupoRiv1); murosRiv1 = muros.slice(n0); laseres.push(laserRiv1); }
-    grupoR2 = new T3.Group(); grupoR2.visible = false; escena.add(grupoR2);
-    { const n0 = muros.length; laserR2 = hacerBase(R2, '#f3e8ff', '#c9b8f5', 1, grupoR2); murosR2 = muros.slice(n0); muros.length = n0; }
+    varR2 = [0, 1, 2, 3].map(l => {
+      const grupo = new T3.Group(); grupo.visible = false; escena.add(grupo);
+      const n0 = muros.length, laser = hacerBase({ cx: R2.cx, cz: R2.cz, w: ANCHO_BASE(l), d: R2.d }, '#f3e8ff', '#c9b8f5', 1, grupo);
+      const m = muros.slice(n0); muros.length = n0; return { grupo, muros: m, laser };
+    });
     { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const g = c.getContext('2d'); g.font = '700 92px Caveat, cursive'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 10; g.strokeStyle = '#ffffff'; g.strokeText('Tu base', 256, 66); g.fillStyle = '#9b55e0'; g.fillText('Tu base', 256, 66);
       const piso = new T3.Mesh(new T3.PlaneGeometry(5, 1.25), new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(c), transparent: true, depthWrite: false })); piso.rotation.x = -Math.PI / 2; piso.position.set(MIA.cx, .18, MIA.cz + .2); piso.renderOrder = 1; escena.add(piso); }
-    letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
+    letreroZombie = letrero('Zombie Gruñón', RIV[0].cx, 2.7, RIV[0].cz - RIV[0].d / 2 - .1, '#2f9e5b');
     letreroBandido = letrero('Michi Bandido', RIV[1].cx, 2.7, RIV[1].cz - RIV[1].d / 2 - .1, '#56607d');
     // Pedestales
     const pedestal = (p, mio) => {
@@ -4097,22 +4246,30 @@ const michirot = (() => {
     if (m === 't' && !it.taco) { it.taco = sombreroTaco(); it.g.add(it.taco); }
     if (it.taco) it.taco.visible = m === 't';
   }
-  function modoRemoto(on) {
+  // Mientras juegan juntos, el fondo del mapa es la base del otro (Zombie y Bandido se van de vacaciones)
+  function modoRemoto(on, w) {
     if (!grupoRiv1) return;
-    grupoRiv1.visible = !on; grupoR2.visible = on;
-    pedRiv[1].forEach(p => { p.g.visible = !on; });
-    pedR2.forEach(p => { p.g.visible = on; if (!on) pintarPed(p, null); });
-    muros = muros.filter(m => !murosRiv1.includes(m) && !murosR2.includes(m)).concat(on ? murosR2 : murosRiv1);
-    laserRiv1.malla.visible = false; laserR2.malla.visible = false;
-    laseres[2] = on ? laserR2 : laserRiv1;
+    const l = Math.max(0, Math.min(3, Math.round(((w || MIA.w) - ANCHO_BASE(0)) / 6.1)));
+    nivR2 = l; R2.w = ANCHO_BASE(l);
+    grupoRiv0.visible = grupoRiv1.visible = !on;
+    if (letreroZombie) letreroZombie.visible = !on;
+    if (npc.length) npc[0].g.visible = !on;
+    pedRiv.forEach(L => L.forEach(p => { p.g.visible = !on; }));
+    varR2.forEach((v, j) => { v.grupo.visible = on && j === l; v.laser.malla.visible = false; });
+    const todosR2 = [].concat(...varR2.map(v => v.muros));
+    muros = muros.filter(m => !murosRiv0.includes(m) && !murosRiv1.includes(m) && !todosR2.includes(m)).concat(on ? varR2[l].muros : murosRiv0.concat(murosRiv1));
+    laserRiv1.malla.visible = false;
+    laseres[2] = on ? varR2[l].laser : laserRiv1;
+    const cap = 8 + 4 * l;
+    pedR2.forEach((p, k) => { p.g.visible = on && k < cap; if (!on) pintarPed(p, null); });
     if (letreroBandido) { const b = on ? R2 : RIV[1]; letreroBandido.position.set(b.cx, 2.7, b.cz - b.d / 2 - .1); }
   }
   const rivBox = r => (r === 1 && enLinea() ? R2 : RIV[r]);
-  function cerradaRiv(r, ahora) { return r === 1 && enLinea() ? !!red.otro.candado : E.riv[r].cerrada > ahora; }
+  function cerradaRiv(r, ahora) { return enLinea() ? r === 1 && !!red.otro.candado : E.riv[r].cerrada > ahora; }
   function pintarRivales() {
     E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
-      if (r === 1 && enLinea()) {
-        if (k === 0) pedR2.forEach((p, j) => { const q = red.otro.base[j], esc = q && cargando && cargando.remoto && cargando.bi === q.bi; pintarPed(p, q && !esc && POR[q.id] ? q.id : null, q && q.mut); });
+      if (enLinea()) {
+        if (r === 1 && k === 0) pedR2.forEach((p, j) => { const q = red.otro.base[j], esc = q && cargando && cargando.remoto && cargando.bi === q.bi; pintarPed(p, q && !esc && POR[q.id] ? q.id : null, q && q.mut); });
       } else pintarPed(pedRiv[r][k], s.id && !s.robando ? s.id : null, s.mut);
     }));
   }
@@ -4481,7 +4638,7 @@ const michirot = (() => {
     const op = [];
     alfombra.forEach(it => { if (!esSecreto(it.id) && !it.bq && it.x > ALF.x0 + 4 && it.x < ALF.x1 - 7) op.push([3, { tipo: 'alf', it }]); });
     E.base.forEach((b, i) => { if (b && !b.llegando && !esSecreto(b.id)) op.push([1, { tipo: 'mio', i }]); });
-    E.riv.forEach((R, r) => R.slots.forEach((sl, k) => { if (sl.id && !sl.robando) op.push([1, { tipo: 'riv', r, k }]); }));
+    if (!enLinea()) E.riv.forEach((R, r) => R.slots.forEach((sl, k) => { if (sl.id && !sl.robando) op.push([1, { tipo: 'riv', r, k }]); }));
     if (!op.length) return null;
     let w = Math.random() * op.reduce((a, o) => a + o[0], 0);
     for (const [p, o] of op) { w -= p; if (w <= 0) return o; }
@@ -4937,7 +5094,7 @@ const michirot = (() => {
       if (cargando && dentroDe(MIA, jugador.x, jugador.z, .3)) { if (cargando.remoto) llegarRoboRemoto(); else soltarRobo(false); }
       // NPCs
       if (npc[1].estado === 'casa' && !cargando && !enLinea()) { ladronT -= dt; if (ladronT <= 0) iniciarLadron(); }
-      npc.forEach(n => { if (!(n.r === 1 && enLinea())) actualizarNPC(n, dt); });
+      if (!enLinea()) npc.forEach(n => actualizarNPC(n, dt));
       // rellenar rivales
       let cambio = false;
       E.riv.forEach(R => R.slots.forEach((s, k) => { if (!s.id && !s.robando && s.vuelve <= ahora) { R.slots[k] = slotRival(); cambio = true; } }));
@@ -4975,10 +5132,10 @@ const michirot = (() => {
       alfombra.forEach(it => { const d = dist(it.g.position, jugador); if (d < dmin) { dmin = d; mejor = it; } });
       if (mejor) a = { tipo: 'comprar', it: mejor, txt: `Comprar ${fmtDe(mejor.id, precio(mejor))}`, ico: mejor.mut ? MUT[mejor.mut].ico : mejor.bq ? '🎲' : '🛒', ok: E.dinero >= precio(mejor) };
       if (!a && enLinea() && dentroDe(R2, jugador.x, jugador.z)) red.otro.base.forEach((o, k) => {
-        if (!a && o && POR[o.id] && PED_R2[k] && dist(PED_R2[k], jugador) < 1.4) a = { tipo: 'robarRemoto', k, txt: `Robar a ${red.otro.nombre}`, ico: '😼', ok: !red.pidiendo };
+        if (!a && o && POR[o.id] && PED_R2[k] && dist(PED_R2[k], jugador) < 1.4) a = esSecreto(o.id) ? { tipo: 'noRobar', k, txt: 'Es de los dos 💞', ico: '💞', ok: false } : { tipo: 'robarRemoto', k, txt: `Robar a ${red.otro.nombre}`, ico: '😼', ok: !red.pidiendo };
       });
       if (!a) E.riv.forEach((R, r) => R.slots.forEach((s, k) => {
-        if (a || !s.id || s.robando || (r === 1 && enLinea())) return;
+        if (a || !s.id || s.robando || enLinea()) return;
         if (dist(PED_RIV[r][k], jugador) < 1.45 && dentroDe(RIV[r], jugador.x, jugador.z)) a = { tipo: 'robar', r, k, txt: 'Robar', ico: '😼', ok: true };
       }));
       if (!a) E.base.forEach((b, i) => { if (!a && b && !b.llegando && !b.robando && dist(PED_MIO[i], jugador) < 1.4) a = { tipo: 'ver', i, txt: 'Ver / vender', ico: '🔍', ok: true }; });
@@ -4996,6 +5153,7 @@ const michirot = (() => {
     if (a.tipo === 'comprar') comprar(a.it);
     else if (a.tipo === 'robar') robar(a.r, a.k);
     else if (a.tipo === 'robarRemoto') pedirRobo(a.k);
+    else if (a.tipo === 'noRobar') { sonido('no'); aviso('💞 Este no se puede robar: es de los dos', 2600); }
     else if (a.tipo === 'ver') info(a.i);
   }
   function uiHud() {
@@ -5066,26 +5224,15 @@ const michirot = (() => {
   let red = null, letreroBandido = null, envioT = 0, baseT = 0;
   const enLinea = () => !!(red && red.listo);
   const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-  // Su mundo → el mío: su base cae en la base grande de la derecha; fuera de su base, girado 180°
-  function aMio(x, z) {
-    const w = (red && red.otro && red.otro.w) || 12.4;
-    if (x > -w / 2 - .5 && x < w / 2 + .5 && z > 6.1 && z < 15.1) {
-      const u = Math.max(0, Math.min(1, (x + w / 2) / w)), v = Math.max(0, Math.min(1, (z - 6.6) / 8));
-      return { x: R2.cx + R2.w / 2 - .6 - u * (R2.w - 1.2), z: R2.cz + R2.d / 2 - .4 - v * (R2.d - .8) };
-    }
-    if (dentroDe(R2, x, z, -.5)) {   // está en MI base (que en su mapa es la grande): la pongo dentro de la mía
-      const u = Math.max(0, Math.min(1, (R2.cx + R2.w / 2 - .6 - x) / (R2.w - 1.2))), v = Math.max(0, Math.min(1, (R2.cz + R2.d / 2 - .4 - z) / (R2.d - .8)));
-      return { x: MIA.cx - MIA.w / 2 + .6 + u * (MIA.w - 1.2), z: MIA.cz - MIA.d / 2 + .4 + v * (MIA.d - .8) };
-    }
-    return { x: R2.cx - x, z: -z };
-  }
+  // Su mundo → el mío: reflejado de frente (su base queda al fondo, con la puerta hacia la alfombra)
+  const aMio = (x, z) => ({ x, z: -z });
   function nombreMio() { return (E.nombre || '').trim() || 'Jugador'; }
   function sala(msg = '') {
     const conectado = enLinea();
     let html = `<p class="adv-sheet-t">Jugar juntos 👥</p>`;
     if (conectado) {
       html += `<p class="mr-sala-ok">💞 Conectado con <b>${esc(red.otro.nombre)}</b></p>
-        <p class="mr-tip">Su base es la de la derecha, donde antes vivía Michi Bandido. Pueden robarse michirots… y atraparse.</p>`;
+        <p class="mr-tip">Su base es la del fondo, con sus michirots en el mismo orden que ella los ve. Pueden robarse michirots… y atraparse.</p>`;
     } else if (red && red.rol === 'host') {
       html += `<p class="mr-tip">Pásale este código para que se una:</p><p class="mr-codigo">${esc(red.codigo)}</p><p class="mr-tip">Esperando a que se conecte… 🐾</p>`;
     } else if (red && red.rol === 'guest') {
@@ -5174,8 +5321,8 @@ const michirot = (() => {
     if (!red.listo || m.de !== red.par) return;
     const o = red.otro;
     if (m.t === 'adios') { salirSala(`${o.nombre} salió de la sala.`); return; }
-    if (m.t === 'pos') { const p = aMio(m.x, m.z); o.tx = p.x; o.tz = p.z; o.y = m.y || 0; o.ang = (m.ang || 0) + Math.PI; o.carga = m.carga || null; o.cargaMut = m.mut || null; return; }
-    if (m.t === 'base') { o.base = Array.isArray(m.slots) ? m.slots.slice(0, 20) : []; o.candado = !!m.candado; if (m.w) o.w = +m.w; pintarRivales(); return; }
+    if (m.t === 'pos') { const p = aMio(m.x, m.z); o.tx = p.x; o.tz = p.z; o.y = m.y || 0; o.ang = Math.PI - (m.ang || 0); o.carga = m.carga || null; o.cargaMut = m.mut || null; return; }
+    if (m.t === 'base') { o.base = Array.isArray(m.slots) ? m.slots.slice(0, 20) : []; o.candado = !!m.candado; if (m.w && +m.w !== o.w) { o.w = +m.w; if (red.listo) modoRemoto(true, o.w); } pintarRivales(); return; }
     if (m.t === 'robo') { recibirRobo(m); return; }
     if (m.t === 'roboOk') { if (red.pidiendo && red.pidiendo.bi === m.bi) empezarRoboRemoto(m); return; }
     if (m.t === 'roboNo') { red.pidiendo = null; sonido('no'); aviso(m.motivo === 'candado' ? `${o.nombre} cerró su base con candado 🔒` : 'Ese michirot ya no está 😿'); return; }
@@ -5187,17 +5334,19 @@ const michirot = (() => {
     red.listo = true;
     // Michi Bandido se va de vacaciones mientras juegan juntos
     const n = npc[1];
+    if (npc[0]) { npc[0].estado = 'casa'; npc[0].x = CASA[0].x; npc[0].z = CASA[0].z; npc[0].carga = null; npc[0].g.position.set(npc[0].x, 0, npc[0].z); }
+    if (cargando && !cargando.remoto && cargando.r === 0) { E.riv[0].slots[cargando.k].robando = false; cargando = null; jugador.carga.visible = false; }
     if (n.carga) { const R = E.riv[1]; R.slots[n.destino] = { id: n.carga.id, vuelve: 0, mut: n.carga.mut || null }; n.carga = null; n.cargaSpr.visible = false; }
     n.estado = 'casa'; n.x = CASA[1].x; n.z = CASA[1].z; n.g.visible = false;
     if (cargando && !cargando.remoto && cargando.r === 1) { E.riv[1].slots[cargando.k].robando = false; cargando = null; jugador.carga.visible = false; }
-    modoRemoto(true);
+    modoRemoto(true, red.otro.w);
     crearAvatar();
     if (letreroBandido) letreroBandido.userData.poner([red.otro.nombre], '#9b55e0', '#ffffff');
     $m('mrCorazon').hidden = false;
     mandarBase(); envioT = 0;
     pintarRivales();
     sonido('mision'); confetti(1500, 60);
-    aviso(`💞 ¡Conectado con ${red.otro.nombre}! Su base es la de la derecha`, 3600);
+    aviso(`💞 ¡Conectado con ${red.otro.nombre}! Su base es la del fondo`, 3600);
     if (!$m('mrCard').hidden) sala();
   }
   function crearAvatar() {
@@ -5227,8 +5376,7 @@ const michirot = (() => {
   }
   function mandarA(r, m) { try { if (r && r.client && r.client.connected) r.client.publish(r.destino, JSON.stringify(Object.assign({ de: r.id }, m)), { qos: 0 }); } catch (e) {} }
   function visiblesMios() {
-    return E.base.map((b, i) => ({ b, i })).filter(({ b }) => b && !b.llegando && !esSecreto(b.id) && !b.robando)
-      .sort((a, c) => ganaB(c.b) - ganaB(a.b)).slice(0, 20).map(({ b, i }) => ({ bi: i, id: b.id, mut: b.mut || null }));
+    return E.base.slice(0, 20).map((b, i) => (b && !b.llegando && !b.robando ? { bi: i, id: b.id, mut: b.mut || null } : null));
   }
   function mandarBase() { if (enLinea()) mandar({ t: 'base', slots: visiblesMios(), candado: E.candado > Date.now(), w: MIA.w }); }
   function recibirRobo(m) {
@@ -5913,6 +6061,301 @@ const ESCENAS = {
   return { abrir, cerrar };
 })();
 
+/*ALTAR-JS*/
+/* ---------- Altar para su abuelito (Día de Muertos) ---------- */
+const altar = (() => {
+  const INK = '#22264a';
+  const brazo = (d, color, x, y, mano) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="8.4" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round"/>`
+    + `<circle cx="${x}" cy="${y}" r="3.6" fill="${mano}" stroke="${INK}" stroke-width="1.8"/>`;
+
+  // Ella: pelo negro, chaparrita y delgadita, con vestido azul y un moñito
+  const PIEL = '#f5cfb3', PELO = '#17141d', VESTIDO = '#7fb2ec';
+  function nina(ojos) {
+    const cara = ojos === 'felices'
+      ? `<path d="M-11 -97 q3 -4 6 0 M5 -97 q3 -4 6 0" fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>`
+      : `<ellipse cx="-8" cy="-97.5" rx="2.2" ry="2.9" fill="${INK}"/><ellipse cx="8" cy="-97.5" rx="2.2" ry="2.9" fill="${INK}"/><circle cx="-7.2" cy="-98.6" r=".8" fill="#fff"/><circle cx="8.8" cy="-98.6" r=".8" fill="#fff"/>`;
+    return `<rect x="-8.5" y="-38" width="6.5" height="35" rx="3" fill="${PIEL}" stroke="${INK}" stroke-width="2"/>
+      <rect x="2" y="-38" width="6.5" height="35" rx="3" fill="${PIEL}" stroke="${INK}" stroke-width="2"/>
+      <ellipse cx="-5.5" cy="-2.6" rx="6.5" ry="3.4" fill="#1d2a57"/><ellipse cx="5.5" cy="-2.6" rx="6.5" ry="3.4" fill="#1d2a57"/>
+      <path d="M-24 -104 Q-28 -80 -20 -67 L20 -67 Q28 -80 24 -104 Z" fill="${PELO}"/>
+      <path d="M-11 -78 Q-14 -60 -21 -37 Q0 -32 21 -37 Q14 -60 11 -78 Q0 -82 -11 -78 Z" fill="${VESTIDO}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-15 -46 Q0 -42 15 -46" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/>
+      <circle cx="0" cy="-101" r="21" fill="${PIEL}" stroke="${INK}" stroke-width="2.2"/>
+      <path d="M-22.5 -97 Q-24 -125 0 -125 Q24 -125 22.5 -97 Q17 -110 7 -108 Q2 -115 -5 -108 Q-14 -112 -22.5 -97 Z" fill="${PELO}" stroke="${INK}" stroke-width="2"/>
+      <g transform="translate(15 -119) rotate(20)"><path d="M0 0 L-7 -5 L-7 5 Z M0 0 L7 -5 L7 5 Z" fill="#3f6fd8" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/><circle r="2" fill="#3f6fd8" stroke="${INK}" stroke-width="1.2"/></g>
+      ${cara}
+      <ellipse cx="-12.5" cy="-90.5" rx="4" ry="2.4" fill="#f59fb2" opacity=".75"/><ellipse cx="12.5" cy="-90.5" rx="4" ry="2.4" fill="#f59fb2" opacity=".75"/>
+      <path d="M-3 -88 q3 3 6 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>`;
+  }
+  const ninaBrazos = pose => pose === 'abrazo'
+    ? brazo('M-9 -74 Q-26 -80 -40 -78', PIEL, -40, -78, PIEL) + brazo('M9 -72 Q-4 -60 -24 -60', PIEL, -24, -60, PIEL)
+    : brazo('M-10 -74 Q-17 -60 -16 -47', PIEL, -16, -47, PIEL) + brazo('M10 -74 Q17 -60 16 -47', PIEL, 16, -47, PIEL);
+
+  // Su abuelito: canoso, lentes, bigote y suéter
+  const PIEL2 = '#eec3a2', SUETER = '#c98f5a', CANAS = '#ecebf3';
+  function abuelo() {
+    return `<rect x="-12" y="-56" width="9.5" height="53" rx="3" fill="#4b4f6b" stroke="${INK}" stroke-width="2"/>
+      <rect x="2.5" y="-56" width="9.5" height="53" rx="3" fill="#4b4f6b" stroke="${INK}" stroke-width="2"/>
+      <ellipse cx="-7.5" cy="-2.8" rx="8" ry="3.8" fill="#3a2a22"/><ellipse cx="7.5" cy="-2.8" rx="8" ry="3.8" fill="#3a2a22"/>
+      <path d="M-20 -106 Q-25 -80 -22 -52 L22 -52 Q25 -80 20 -106 Q0 -112 -20 -106 Z" fill="${SUETER}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-8 -108 L0 -88 L8 -108 Z" fill="#f4efe6" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M0 -88 V-53" stroke="${INK}" stroke-width="1.6"/>
+      <circle cx="3.5" cy="-80" r="1.8" fill="${INK}"/><circle cx="3.5" cy="-70" r="1.8" fill="${INK}"/><circle cx="3.5" cy="-60" r="1.8" fill="${INK}"/>
+      <circle cx="-22" cy="-129" r="4.5" fill="${PIEL2}" stroke="${INK}" stroke-width="1.8"/><circle cx="22" cy="-129" r="4.5" fill="${PIEL2}" stroke="${INK}" stroke-width="1.8"/>
+      <circle cx="0" cy="-130" r="22" fill="${PIEL2}" stroke="${INK}" stroke-width="2.2"/>
+      <ellipse cx="-19" cy="-135" rx="6" ry="7.5" fill="${CANAS}" stroke="${INK}" stroke-width="1.6"/><ellipse cx="19" cy="-135" rx="6" ry="7.5" fill="${CANAS}" stroke="${INK}" stroke-width="1.6"/>
+      <path d="M-5 -151 q5 -5 10 0" fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M-14 -139 q5 -3 9 0 M5 -139 q5 -3 9 0" fill="none" stroke="#b9b8c8" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M-11 -129 q2.5 -3 5 0 M6 -129 q2.5 -3 5 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="-8.5" cy="-129.5" r="6.5" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="1.8"/><circle cx="8.5" cy="-129.5" r="6.5" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="1.8"/>
+      <path d="M-2 -130 h4" stroke="${INK}" stroke-width="1.8"/>
+      <ellipse cx="-14" cy="-120" rx="3.6" ry="2.2" fill="#f0a08c" opacity=".6"/><ellipse cx="14" cy="-120" rx="3.6" ry="2.2" fill="#f0a08c" opacity=".6"/>
+      <path d="M-12 -118 Q-6 -124 0 -119.5 Q6 -124 12 -118 Q6 -114 0 -116.5 Q-6 -114 -12 -118 Z" fill="${CANAS}" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M-4 -112.5 q4 3 8 0" fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>`;
+  }
+  const abueloBrazos = pose => pose === 'abrazo'
+    ? brazo('M-17 -96 Q4 -58 46 -48', SUETER, 46, -48, PIEL2)
+    : brazo('M-19 -101 Q-29 -82 -26 -62', SUETER, -26, -62, PIEL2) + brazo('M19 -101 Q29 -82 26 -62', SUETER, 26, -62, PIEL2);
+
+  const corazon = (x, y, s, c, d) => `<g transform="translate(${x} ${y}) scale(${s})"><path class="al-corazon" style="animation-delay:${d}s" d="M0 5 C-7 -1 -7 -8 0 -4.5 C7 -8 7 -1 0 5 Z" fill="${c}" stroke="${INK}" stroke-width="${1.2 / s}"/></g>`;
+  const flor = (x, y, r, c) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#a24a12" stroke-width=".9"/><circle cx="${x}" cy="${y}" r="${r * .55}" fill="#ffd25e"/>`;
+  function petalos(n, ancho, alto) {
+    let s = '';
+    for (let i = 0; i < n; i++) {
+      const x = (i * 97 + 23) % ancho, d = (i * 1.37) % 6, dur = 6 + (i % 4) * 1.6;
+      s += `<ellipse class="al-petalo" style="animation-duration:${dur}s;animation-delay:-${d}s" cx="${x}" cy="0" rx="3.4" ry="2" fill="${i % 3 ? '#ff9f1c' : '#ffc233'}" opacity=".9"/>`;
+    }
+    return `<g aria-hidden="true">${s}</g>`;
+  }
+
+  function escenaAbrazo() {
+    let estrellas = '';
+    for (let i = 0; i < 18; i++) estrellas += `<circle class="al-estrella" style="animation-delay:-${(i * .7) % 2.6}s" cx="${(i * 71 + 13) % 320}" cy="${(i * 37 + 9) % 120}" r="${i % 3 ? 1 : 1.6}" fill="#ffe8a8"/>`;
+    let camino = '';
+    for (let i = 0; i < 26; i++) {
+      const t = i / 25, x = -6 + t * 196, y = 252 - t * 10 + Math.sin(t * 7) * 4;
+      camino += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${(4 + (i % 3)).toFixed(1)}" ry="2.6" fill="${i % 2 ? '#ff9f1c' : '#ffc233'}" transform="rotate(${(i * 37) % 180} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+    }
+    return `<svg id="alSvg" viewBox="0 0 320 270" role="img" aria-label="Tu abuelito llega por el caminito de cempasúchil y te abraza">
+      <defs>
+        <linearGradient id="alCielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241238"/><stop offset=".6" stop-color="#5a2a55"/><stop offset="1" stop-color="#b8573e"/></linearGradient>
+        <radialGradient id="alGlow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".75"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="320" height="270" fill="url(#alCielo)"/>
+      ${estrellas}
+      <circle cx="266" cy="44" r="17" fill="#ffe8a8"/><circle cx="273" cy="39" r="15" fill="#3a1d47" opacity=".35"/>
+      <path d="M0 226 Q160 204 320 226 V270 H0 Z" fill="#3a2140"/>
+      ${camino}
+      ${petalos(10, 320)}
+      <g id="alSep">
+        <g transform="translate(222 240)">${nina('abiertos')}${ninaBrazos('abajo')}</g>
+        <g id="alAb" style="transform: translate(58px, 240px); opacity: 0">
+          <circle class="al-brillo" cx="0" cy="-80" r="78" fill="url(#alGlow)"/>
+          <g class="al-paso">${abuelo()}${abueloBrazos('abajo')}</g>
+        </g>
+      </g>
+      <g id="alHug" opacity="0">
+        <circle class="al-brillo" cx="160" cy="160" r="105" fill="url(#alGlow)"/>
+        <g class="al-mece">
+          <g transform="translate(146 240) rotate(4)">${brazo('M19 -100 Q40 -98 58 -80', SUETER, 58, -80, PIEL2)}${abuelo()}</g>
+          <g transform="translate(182 240) rotate(-6)">${nina('felices')}${ninaBrazos('abrazo')}</g>
+          <g transform="translate(146 240) rotate(4)">${abueloBrazos('abrazo')}</g>
+        </g>
+        ${corazon(128, 96, 1.5, '#ff7aa2', 0)}${corazon(196, 88, 1.2, '#ffb84d', 1.2)}${corazon(166, 70, 1.8, '#ff5f87', 2.3)}
+      </g>
+    </svg>`;
+  }
+
+  // ----- El altar -----
+  function vela(x, y, i) {
+    return `<g class="vela" data-i="${i}" tabindex="0" role="button" aria-label="Encender veladora ${i + 1}" aria-pressed="false">
+      <rect x="${x - 15}" y="${y - 52}" width="30" height="56" fill="transparent"/>
+      <circle class="al-luz" cx="${x}" cy="${y - 30}" r="26" fill="url(#alGlowV)"/>
+      <rect class="al-vaso" x="${x - 7.5}" y="${y - 25}" width="15" height="25" rx="2" fill="#f4efe6" stroke="${INK}" stroke-width="2"/>
+      <rect x="${x - 7.5}" y="${y - 18}" width="15" height="9" fill="${['#d9473f', '#3f6fd8', '#8f4fd0', '#2f9e5b'][i % 4]}" opacity=".85"/>
+      <path d="M${x} ${y - 25} v-4" stroke="${INK}" stroke-width="1.6"/>
+      <circle class="al-mecha-pista" cx="${x}" cy="${y - 31}" r="4" fill="#ffd27a" opacity=".5"/>
+      <g class="al-flama"><path d="M${x} ${y - 44} C${x - 6} ${y - 37} ${x - 5} ${y - 30} ${x} ${y - 28.5} C${x + 5} ${y - 30} ${x + 6} ${y - 37} ${x} ${y - 44} Z" fill="#ffb03a"/><path d="M${x} ${y - 39} C${x - 2.5} ${y - 35} ${x - 2.5} ${y - 31} ${x} ${y - 30} C${x + 2.5} ${y - 31} ${x + 2.5} ${y - 35} ${x} ${y - 39} Z" fill="#fff1b8"/></g>
+    </g>`;
+  }
+  const pan = (x, y) => `<path d="M${x - 18} ${y} Q${x - 18} ${y - 21} ${x} ${y - 22} Q${x + 18} ${y - 21} ${x + 18} ${y} Z" fill="#d58a3c" stroke="${INK}" stroke-width="2"/>
+    <path d="M${x - 13} ${y - 8} Q${x} ${y - 17} ${x + 13} ${y - 8} M${x - 8} ${y - 18} Q${x - 2} ${y - 10} ${x + 2} ${y - 2} M${x + 8} ${y - 18} Q${x + 2} ${y - 10} ${x - 2} ${y - 2}" fill="none" stroke="#a85b1c" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="${x}" cy="${y - 22}" r="3.6" fill="#c67a2e" stroke="${INK}" stroke-width="1.4"/>
+    <g fill="#fff6e0">${[[-10, -5], [-4, -13], [5, -6], [11, -12], [0, -3], [-13, -14]].map(([a, b]) => `<circle cx="${x + a}" cy="${y + b}" r="1"/>`).join('')}</g>`;
+  const agua = (x, y) => `<path d="M${x - 7.5} ${y - 24} L${x - 6} ${y} L${x + 6} ${y} L${x + 7.5} ${y - 24} Z" fill="rgba(170,215,255,.5)" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M${x - 6.8} ${y - 17} h13.6" stroke="#cfe8ff" stroke-width="1.6"/>`;
+  const sal = (x, y) => `<path d="M${x - 8} ${y - 9} Q${x} ${y - 16} ${x + 8} ${y - 9} Z" fill="#ffffff" stroke="${INK}" stroke-width="1.4"/><path d="M${x - 11} ${y - 9} Q${x} ${y + 3} ${x + 11} ${y - 9} Z" fill="#7dc4d8" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
+  const calaverita = (x, y) => `<path d="M${x - 14} ${y - 17} A14 14 0 1 1 ${x + 14} ${y - 17} Q${x + 14} ${y - 9} ${x + 9} ${y - 7} V${y} H${x - 9} V${y - 7} Q${x - 14} ${y - 9} ${x - 14} ${y - 17} Z" fill="#fffaf2" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="${x - 5.5}" cy="${y - 17}" r="4.6" fill="#3fb6ff" stroke="${INK}" stroke-width="1.3"/><circle cx="${x + 5.5}" cy="${y - 17}" r="4.6" fill="#ff5fa2" stroke="${INK}" stroke-width="1.3"/>
+    <circle cx="${x - 5.5}" cy="${y - 17}" r="1.6" fill="#ffffff"/><circle cx="${x + 5.5}" cy="${y - 17}" r="1.6" fill="#ffffff"/>
+    <path d="M${x} ${y - 11} l-2 2.6 h4 Z" fill="${INK}"/>
+    <path d="M${x - 6} ${y - 4} h12 M${x - 3} ${y - 6.5} v5 M${x} ${y - 6.5} v5 M${x + 3} ${y - 6.5} v5" stroke="${INK}" stroke-width="1.2"/>
+    <g>${[[-6, -27, '#4fd18b'], [0, -29, '#ffd23f'], [6, -27, '#8f6bff']].map(([a, b, c]) => `<circle cx="${x + a}" cy="${y + b}" r="2" fill="${c}"/>`).join('')}</g>`;
+  const fruta = (x, y) => `<path d="M${x - 2} ${y - 6} Q${x + 14} ${y - 4} ${x + 26} ${y - 18} Q${x + 18} ${y - 2} ${x - 2} ${y - 2} Z" fill="#ffd84d" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="${x - 10}" cy="${y - 9}" r="9" fill="#ff8a1f" stroke="${INK}" stroke-width="1.8"/><circle cx="${x + 6}" cy="${y - 9}" r="9" fill="#ff9a2e" stroke="${INK}" stroke-width="1.8"/><circle cx="${x - 2}" cy="${y - 22}" r="8.5" fill="#ff8a1f" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M${x - 2} ${y - 30} q3 -4 6 -3" fill="none" stroke="#3d8a4d" stroke-width="2"/>`;
+  function florero(x, y) {
+    let s = `<path d="M${x - 2} ${y - 30} Q${x - 10} ${y - 52} ${x - 16} ${y - 62} M${x} ${y - 30} V${y - 68} M${x + 2} ${y - 30} Q${x + 10} ${y - 52} ${x + 16} ${y - 62} M${x - 1} ${y - 30} Q${x - 4} ${y - 50} ${x - 7} ${y - 74} M${x + 1} ${y - 30} Q${x + 4} ${y - 50} ${x + 8} ${y - 72}" fill="none" stroke="#3d8a4d" stroke-width="2.2"/>`;
+    [[-16, -64], [0, -70], [16, -64], [-7, -76], [8, -74], [-11, -54], [11, -54]].forEach(([a, b], i) => { s += flor(x + a, y + b, 7.5, i % 2 ? '#ffb02e' : '#ff8a1f'); });
+    return s + `<path d="M${x - 12} ${y - 32} Q${x - 15} ${y - 10} ${x - 9} ${y} H${x + 9} Q${x + 15} ${y - 10} ${x + 12} ${y - 32} Z" fill="#b5532b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M${x - 12.5} ${y - 22} h25" stroke="#f4d39a" stroke-width="2.4"/><path d="M${x - 11} ${y - 14} h22" stroke="#f4d39a" stroke-width="1.6" stroke-dasharray="3 3"/>`;
+  }
+  function escalon(x0, x1, y, h, banda) {
+    let encaje = '';
+    for (let x = x0 + 5; x <= x1 - 4; x += 10) encaje += `<circle cx="${x}" cy="${y + h}" r="5" fill="#fbf1e2"/>`;
+    return `<path d="M${x0 + 6} ${y - 7} H${x1 - 6} L${x1} ${y} H${x0} Z" fill="#fffaf2" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+      ${encaje}<rect x="${x0}" y="${y}" width="${x1 - x0}" height="${h}" fill="#fbf1e2" stroke="${INK}" stroke-width="1.8"/>
+      <rect x="${x0}" y="${y + 8}" width="${x1 - x0}" height="7" fill="${banda}"/>
+      <path d="M${x0} ${y + 18} H${x1}" stroke="${banda}" stroke-width="1.6" stroke-dasharray="4 4"/>`;
+  }
+  function papelPicado() {
+    const colores = ['#ff5fa2', '#ff9f1c', '#8f6bff', '#3fb6ff', '#4fd18b', '#ffd23f'];
+    let s = `<path d="M0 16 Q180 36 360 16" fill="none" stroke="#e9d7c3" stroke-width="1.6"/>`;
+    colores.forEach((c, i) => {
+      const x = 7 + i * 58, xm = x + 27, y = 16 + 10 * (1 - ((xm - 180) / 180) ** 2) - 1;
+      let zig = `M${x} ${y} H${x + 54} V${y + 46}`;
+      for (let k = 0; k < 4; k++) zig += ` L${x + 54 - k * 13.5 - 6.75} ${y + 53} L${x + 54 - (k + 1) * 13.5} ${y + 46}`;
+      const hueco = '#2a1636';
+      s += `<g class="al-bandera" style="animation-delay:-${i * .55}s"><path d="${zig} Z" fill="${c}" opacity=".95"/>
+        <g fill="${hueco}"><circle cx="${xm}" cy="${y + 21}" r="4"/>${[0, 90, 180, 270].map(a => `<ellipse cx="${xm}" cy="${y + 13}" rx="2.6" ry="4.6" transform="rotate(${a} ${xm} ${y + 21})"/>`).join('')}
+        ${[[-17, 7], [17, 7], [-17, 35], [17, 35], [0, 40], [-9, 40], [9, 40]].map(([a, b]) => `<circle cx="${xm + a}" cy="${y + b}" r="2.2"/>`).join('')}
+        <path d="M${x + 4} ${y + 3} h46" stroke="${hueco}" stroke-width="1.6" stroke-dasharray="3 3"/></g></g>`;
+    });
+    return s;
+  }
+  function arco() {
+    let s = `<path d="M92 252 A88 160 0 0 1 268 252" fill="none" stroke="#3d8a4d" stroke-width="5"/>`;
+    for (let i = 0; i <= 30; i++) {
+      const th = Math.PI - (i / 30) * Math.PI, x = 180 + 88 * Math.cos(th), y = 252 - 160 * Math.sin(th);
+      if (i % 3 === 1) s += `<ellipse cx="${(x + 6).toFixed(1)}" cy="${(y - 2).toFixed(1)}" rx="5" ry="2.4" fill="#3d8a4d" transform="rotate(${(i * 40) % 180} ${(x + 6).toFixed(1)} ${(y - 2).toFixed(1)})"/>`;
+      s += flor(x.toFixed(1), y.toFixed(1), 7.6, i % 2 ? '#ffb02e' : '#ff8a1f');
+    }
+    return s;
+  }
+  function retrato() {
+    return `<clipPath id="alMarco"><rect x="151" y="152" width="58" height="82" rx="3"/></clipPath>
+      <rect x="143" y="144" width="74" height="98" rx="6" fill="#b9814f" stroke="${INK}" stroke-width="2.5"/>
+      <rect x="147" y="148" width="66" height="90" rx="4" fill="none" stroke="#e2b57d" stroke-width="2"/>
+      <rect x="151" y="152" width="58" height="82" rx="3" fill="#f6e7c8" stroke="${INK}" stroke-width="1.6"/>
+      <g clip-path="url(#alMarco)"><g transform="translate(180 262) scale(.6)">${abuelo()}</g></g>
+      ${flor(146, 240, 7, '#ff8a1f')}${flor(214, 240, 7, '#ffb02e')}${flor(155, 245, 5.5, '#ffb02e')}${flor(205, 245, 5.5, '#ff8a1f')}`;
+  }
+  function escenaAltar() {
+    let piso = '';
+    for (let i = 0; i < 34; i++) { const x = 20 + ((i * 89) % 320), y = 420 + ((i * 47) % 54); piso += `<ellipse cx="${x}" cy="${y}" rx="${3 + (i % 3)}" ry="2.2" fill="${i % 2 ? '#ff9f1c' : '#ffc233'}" transform="rotate(${(i * 53) % 180} ${x} ${y})"/>`; }
+    return `<svg viewBox="0 0 360 480">
+      <defs>
+        <radialGradient id="alGlowV"><stop offset="0" stop-color="#ffcf6b" stop-opacity=".8"/><stop offset="1" stop-color="#ffcf6b" stop-opacity="0"/></radialGradient>
+        <radialGradient id="alFondo" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#5a2a55"/><stop offset="1" stop-color="#2a1636"/></radialGradient>
+      </defs>
+      <rect width="360" height="480" fill="url(#alFondo)"/>
+      <rect y="410" width="360" height="70" fill="#1f0f28"/>
+      ${piso}
+      ${papelPicado()}
+      ${arco()}
+      ${escalon(34, 326, 352, 58, '#ff5fa2')}
+      ${escalon(72, 288, 300, 52, '#ff9f1c')}
+      ${escalon(108, 252, 250, 50, '#8f6bff')}
+      ${retrato()}
+      <rect x="155" y="219" width="50" height="17" rx="3" fill="#fffaf2" stroke="${INK}" stroke-width="1.4"/>
+      <text x="180" y="232" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="15" fill="#6b3fa0">Abuelito</text>
+      ${pan(104, 300)}${agua(142, 300)}${calaverita(180, 300)}${sal(216, 300)}${pan(256, 300)}
+      ${fruta(66, 352)}${florero(298, 352)}${florero(40, 418)}${florero(320, 418)}
+      <g transform="translate(180 452)"><path class="al-humo" d="M-3 -14 q-8 -10 0 -20 q8 -10 0 -22" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-1.4s" d="M3 -14 q8 -12 0 -22 q-7 -9 1 -20" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-2.7s" d="M0 -14 q-6 -8 2 -18 q6 -8 -2 -16" fill="none" stroke="#d9cfe3" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M-17 -14 Q-15 4 0 4 Q15 4 17 -14 Z" fill="#a0522d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M-8 4 l-3 8 h22 l-3 -8" fill="#8a4524" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/><ellipse cx="0" cy="-14" rx="17" ry="4" fill="#5a2c17" stroke="${INK}" stroke-width="1.8"/><circle cx="-4" cy="-15" r="2.4" fill="#ff7a3c"/><circle cx="4" cy="-14" r="2" fill="#ffb03a"/></g>
+      ${vela(124, 250, 0)}${vela(236, 250, 1)}
+      ${[118, 149, 180, 211, 242].map((x, k) => vela(x, 352, k + 2)).join('')}
+      ${petalos(8, 360)}
+    </svg>`;
+  }
+
+  // ----- Música -----
+  let musica = null, sonando = false, quiereMusica = true, fadeRaf = 0;
+  function volumen(meta, ms, fin) {
+    cancelAnimationFrame(fadeRaf);
+    const v0 = musica.volume, t0 = performance.now();
+    (function paso(t) { const k = Math.min(1, (t - t0) / ms); musica.volume = v0 + (meta - v0) * k; if (k < 1) fadeRaf = requestAnimationFrame(paso); else if (fin) fin(); })(t0);
+  }
+  function botonMusica() { const b = $('#alMusica'); if (b) { b.textContent = sonando ? '🔊 Música' : '🔇 Música'; b.setAttribute('aria-pressed', sonando ? 'true' : 'false'); } }
+  function tocarMusica() {
+    if (!musica) { musica = new Audio('para-tu-abuelito.mp3'); musica.loop = true; musica.volume = 0; }
+    const p = musica.play();
+    sonando = true; botonMusica(); volumen(.85, 2000);
+    if (p && p.catch) p.catch(() => { sonando = false; botonMusica(); });
+  }
+  function callarMusica() {
+    sonando = false; botonMusica();
+    if (musica) volumen(0, 900, () => { if (!sonando) musica.pause(); });
+  }
+  $('#alMusica').addEventListener('click', () => { quiereMusica = !sonando; if (quiereMusica) tocarMusica(); else callarMusica(); });
+
+  // ----- Funcionamiento -----
+  let timers = [];
+  const despues = (fn, ms) => timers.push(setTimeout(fn, ms));
+  const fases = ['alFase1', 'alFase2', 'alFase3'];
+  function fase(n) {
+    fases.forEach((id, i) => { const f = $('#' + id); f.hidden = i !== n - 1; f.classList.toggle('entra', i === n - 1); });
+    window.scrollTo(0, 0);
+  }
+  function texto(t) { const p = $('#alTexto1'); p.textContent = t; p.classList.remove('cambia'); void p.offsetWidth; p.classList.add('cambia'); }
+  function abrazar() {
+    $('#alSep').style.opacity = 0; $('#alHug').style.opacity = 1;
+    $('#alSvg').classList.remove('al-camina'); $('#alSvg').classList.add('al-hug');
+    texto('Tu abuelito vino a darte un abrazo 💛');
+  }
+  function iniciar() {
+    timers.forEach(clearTimeout); timers = [];
+    $('#alMusica').hidden = false;
+    if (quiereMusica && !sonando) tocarMusica();
+    fase(1);
+    $('#alEscena').innerHTML = escenaAbrazo();
+    $('#alTexto1').textContent = 'Esta noche alguien siguió el caminito de flores…';
+    $('#alBtnCarta').hidden = true;
+    if (REDUCED) { $('#alAb').style.opacity = 1; abrazar(); $('#alBtnCarta').hidden = false; return; }
+    const ab = $('#alAb');
+    despues(() => { ab.style.opacity = 1; $('#alSvg').classList.add('al-camina'); }, 500);
+    despues(() => { ab.style.transform = 'translate(150px, 240px)'; }, 1100);
+    despues(abrazar, 3900);
+    despues(() => { $('#alBtnCarta').hidden = false; }, 5400);
+  }
+  function parar() { timers.forEach(clearTimeout); timers = []; if (sonando) callarMusica(); const b = $('#alMusica'); if (b) b.hidden = true; }
+  function abrirCarta() {
+    timers.forEach(clearTimeout); timers = []; fase(2);
+    const s = $('#alSobre'); s.hidden = false; s.classList.remove('abierto');
+    const c = $('#alCarta'); c.hidden = true; c.classList.remove('cierra');
+    $('#alBtnCerrar').hidden = true;
+  }
+  $('#alAbrirCarta').addEventListener('click', abrirCarta);
+  $('#alSobre').addEventListener('click', () => {
+    const s = $('#alSobre'); if (s.classList.contains('abierto')) return;
+    s.classList.add('abierto');
+    despues(() => { s.hidden = true; $('#alCarta').hidden = false; $('#alBtnCerrar').hidden = false; }, REDUCED ? 0 : 1050);
+  });
+  $('#alCerrarCarta').addEventListener('click', () => {
+    $('#alBtnCerrar').hidden = true;
+    $('#alCarta').classList.add('cierra');
+    despues(mostrarAltar, REDUCED ? 0 : 800);
+  });
+  function mostrarAltar() {
+    fase(3);
+    $('#alAltar').innerHTML = escenaAltar();
+    $('#alFinal').hidden = true;
+    $('#alPista').textContent = 'Toca cada veladora para encenderla.';
+    S.visto.altar = true; save();
+  }
+  function prender(v) {
+    if (!v || v.classList.contains('prendida')) return;
+    v.classList.add('prendida'); v.setAttribute('aria-pressed', 'true'); v.setAttribute('aria-label', 'Veladora encendida');
+    const todas = [...document.querySelectorAll('#alAltar .vela')], n = todas.filter(x => x.classList.contains('prendida')).length;
+    if (n < todas.length) { $('#alPista').textContent = `Llevas ${n} de ${todas.length} veladoras.`; return; }
+    $('#alPista').textContent = 'Todas las veladoras están encendidas.';
+    $('#alFinal').hidden = false;
+  }
+  $('#alAltar').addEventListener('click', e => prender(e.target.closest('.vela')));
+  $('#alAltar').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('.vela')) { e.preventDefault(); prender(e.target.closest('.vela')); } });
+  $('#alOtraVez').addEventListener('click', iniciar);
+  return { iniciar, parar };
+})();
+/*/ALTAR-JS*/
 /* ---------- Arranque ---------- */
 portada();
 const hashInicial = (location.hash || '').replace('#', '');

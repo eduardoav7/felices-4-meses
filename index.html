@@ -651,6 +651,8 @@ body.velada .btn { box-shadow: 3px 4px 0 #ffb84d; }
 .al-humo { animation: alHumo 4s ease-out infinite; }
 @keyframes alHumo { 0% { opacity: 0; transform: translateY(0) scale(.6); } 25% { opacity: .55; } 100% { opacity: 0; transform: translateY(-60px) scale(1.4); } }
 .al-humo { transform-box: fill-box; transform-origin: 50% 100%; }
+.al-latido { transform-box: fill-box; transform-origin: 50% 50%; animation: alLatidito 1.4s ease-in-out infinite; }
+@keyframes alLatidito { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } }
 .al-final:not([hidden]) { animation: alEntra 1s ease both; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1081,7 +1083,7 @@ body.velada .btn { box-shadow: 3px 4px 0 #ffb84d; }
         <h2><span class="mark">Un altar para tu abuelito</span></h2>
         <p class="lead" id="alPista">Toca cada veladora para encenderla.</p>
       </div>
-      <figure class="al-altar" id="alAltar" aria-label="Altar de muertos para tu abuelito, con papel picado, arco de cempasúchil, su retrato, pan de muerto, calaverita, agua, sal, fruta y veladoras"></figure>
+      <figure class="al-altar" id="alAltar" aria-label="Altar de muertos para tu abuelito, con papel picado, arco de cempasúchil, su retrato, pan de muerto, calaverita, agua, sal, fruta y veladoras; enfrente estamos tú y yo de la mano"></figure>
       <p class="al-texto al-final" id="alFinal" hidden>Ya tiene su luz. 🕯️<br>Esta noche lo recordamos juntos.</p>
       <div class="btn-row">
         <button class="btn ghost" type="button" id="alOtraVez">Ver otra vez el abrazo</button>
@@ -6117,6 +6119,40 @@ const altar = (() => {
     ? brazo('M-17 -96 Q4 -58 46 -48', SUETER, 46, -48, PIEL2)
     : brazo('M-19 -101 Q-29 -82 -26 -62', SUETER, -26, -62, PIEL2) + brazo('M19 -101 Q29 -82 26 -62', SUETER, 26, -62, PIEL2);
 
+  // Eduardo: más alto, ropa negra holgada, lentes y gorra negra
+  const PIEL3 = '#eec4a4', NEGRO = '#23232c';
+  const manga = (d, x, y) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${NEGRO}" stroke-width="7.6" stroke-linecap="round"/>`
+    + `<circle cx="${x}" cy="${y}" r="3.8" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>`;
+  function eduardo() {
+    return `<path d="M-17 -72 L-18 -5 L-3 -5 L0 -52 L3 -5 L18 -5 L17 -72 Z" fill="#1a1a21" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-9 -40 l1 30 M9 -40 l-1 30" stroke="#33333f" stroke-width="1.4"/>
+      <ellipse cx="-10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/><ellipse cx="10" cy="-3.6" rx="9.5" ry="4.2" fill="#f4f4f6" stroke="${INK}" stroke-width="1.8"/>
+      <path d="M-25 -122 Q-31 -96 -28 -66 Q0 -60 28 -66 Q31 -96 25 -122 Q0 -130 -25 -122 Z" fill="${NEGRO}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-13 -86 h26 l3 13 h-32 Z" fill="#2e2e39" stroke="#15151b" stroke-width="1.2"/>
+      <path d="M-11 -124 Q0 -114 11 -124" fill="none" stroke="#15151b" stroke-width="2.4"/>
+      <path d="M-4 -119 v13 M4 -119 v13" stroke="#d9d9e3" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="-22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/><circle cx="22" cy="-146" r="4.5" fill="${PIEL3}" stroke="${INK}" stroke-width="1.8"/>
+      <circle cx="0" cy="-146" r="22" fill="${PIEL3}" stroke="${INK}" stroke-width="2.2"/>
+      <path d="M-22 -150 Q-23 -140 -19 -136 L-18 -150 Z M22 -150 Q23 -140 19 -136 L18 -150 Z" fill="#17141d"/>
+      <path d="M-23.5 -151 Q-23 -174 0 -174 Q23 -174 23.5 -151 Z" fill="#15151b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M0 -174 V-152 M-12 -171 Q-8 -160 -9 -152 M12 -171 Q8 -160 9 -152" fill="none" stroke="#2e2e39" stroke-width="1.2"/>
+      <circle cx="0" cy="-174" r="2.2" fill="#15151b" stroke="${INK}" stroke-width="1"/>
+      <path d="M-27 -152 Q0 -138 27 -152 Q0 -145 -27 -152 Z" fill="#15151b" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+      <rect x="-15.5" y="-145" width="12.5" height="9.5" rx="3" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="2"/><rect x="3" y="-145" width="12.5" height="9.5" rx="3" fill="rgba(255,255,255,.3)" stroke="${INK}" stroke-width="2"/>
+      <path d="M-3 -141 h6 M-15.5 -141 h-6 M15.5 -141 h6" stroke="${INK}" stroke-width="1.8"/>
+      <path d="M-12 -139.5 q2.8 -3 5.6 0 M6.4 -139.5 q2.8 -3 5.6 0" fill="none" stroke="${INK}" stroke-width="1.7" stroke-linecap="round"/>
+      <ellipse cx="-14" cy="-131" rx="3.6" ry="2" fill="#f0a08c" opacity=".55"/><ellipse cx="14" cy="-131" rx="3.6" ry="2" fill="#f0a08c" opacity=".55"/>
+      <path d="M-4 -130 q4 3.5 8 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+      ${manga('M23 -117 Q33 -92 29 -64', 29, -63)}${manga('M-23 -117 Q-33 -86 -28 -56', -28, -55)}`;
+  }
+  // Los dos de la mano frente al altar
+  function nosotros(x, y, s) {
+    const xn = x, xe = x + 52 * s;
+    return `<g transform="translate(${xn} ${y}) scale(${s})">${nina('felices')}${brazo('M-10 -74 Q-17 -60 -16 -47', PIEL, -16, -47, PIEL)}${brazo('M10 -74 Q19 -62 25 -54', PIEL, 25, -54, PIEL)}</g>
+      <g transform="translate(${xe} ${y}) scale(${s})">${eduardo()}</g>
+      <g transform="translate(${x + 26 * s} ${y - 74 * s})"><path class="al-latido" d="M0 5 C-7 -1 -7 -8 0 -4.5 C7 -8 7 -1 0 5 Z" fill="#ff7aa2" stroke="${INK}" stroke-width="1.2"/></g>`;
+  }
+
   const corazon = (x, y, s, c, d) => `<g transform="translate(${x} ${y}) scale(${s})"><path class="al-corazon" style="animation-delay:${d}s" d="M0 5 C-7 -1 -7 -8 0 -4.5 C7 -8 7 -1 0 5 Z" fill="${c}" stroke="${INK}" stroke-width="${1.2 / s}"/></g>`;
   const flor = (x, y, r, c) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#a24a12" stroke-width=".9"/><circle cx="${x}" cy="${y}" r="${r * .55}" fill="#ffd25e"/>`;
   function petalos(n, ancho, alto) {
@@ -6241,14 +6277,14 @@ const altar = (() => {
   }
   function escenaAltar() {
     let piso = '';
-    for (let i = 0; i < 34; i++) { const x = 20 + ((i * 89) % 320), y = 420 + ((i * 47) % 54); piso += `<ellipse cx="${x}" cy="${y}" rx="${3 + (i % 3)}" ry="2.2" fill="${i % 2 ? '#ff9f1c' : '#ffc233'}" transform="rotate(${(i * 53) % 180} ${x} ${y})"/>`; }
-    return `<svg viewBox="0 0 360 480">
+    for (let i = 0; i < 34; i++) { const x = 20 + ((i * 89) % 320), y = 420 + ((i * 47) % 130); piso += `<ellipse cx="${x}" cy="${y}" rx="${3 + (i % 3)}" ry="2.2" fill="${i % 2 ? '#ff9f1c' : '#ffc233'}" transform="rotate(${(i * 53) % 180} ${x} ${y})"/>`; }
+    return `<svg viewBox="0 0 360 560">
       <defs>
         <radialGradient id="alGlowV"><stop offset="0" stop-color="#ffcf6b" stop-opacity=".8"/><stop offset="1" stop-color="#ffcf6b" stop-opacity="0"/></radialGradient>
         <radialGradient id="alFondo" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#5a2a55"/><stop offset="1" stop-color="#2a1636"/></radialGradient>
       </defs>
-      <rect width="360" height="480" fill="url(#alFondo)"/>
-      <rect y="410" width="360" height="70" fill="#1f0f28"/>
+      <rect width="360" height="560" fill="url(#alFondo)"/>
+      <rect y="410" width="360" height="150" fill="#1f0f28"/><ellipse cx="180" cy="548" rx="70" ry="7" fill="#000" opacity=".25"/>
       ${piso}
       ${papelPicado()}
       ${arco()}
@@ -6260,10 +6296,11 @@ const altar = (() => {
       <text x="180" y="232" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="15" fill="#6b3fa0">Abuelito</text>
       ${pan(104, 300)}${agua(142, 300)}${calaverita(180, 300)}${sal(216, 300)}${pan(256, 300)}
       ${fruta(66, 352)}${florero(298, 352)}${florero(40, 418)}${florero(320, 418)}
-      <g transform="translate(180 452)"><path class="al-humo" d="M-3 -14 q-8 -10 0 -20 q8 -10 0 -22" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-1.4s" d="M3 -14 q8 -12 0 -22 q-7 -9 1 -20" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-2.7s" d="M0 -14 q-6 -8 2 -18 q6 -8 -2 -16" fill="none" stroke="#d9cfe3" stroke-width="2.4" stroke-linecap="round"/>
+      <g transform="translate(76 470)"><path class="al-humo" d="M-3 -14 q-8 -10 0 -20 q8 -10 0 -22" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-1.4s" d="M3 -14 q8 -12 0 -22 q-7 -9 1 -20" fill="none" stroke="#d9cfe3" stroke-width="3" stroke-linecap="round"/><path class="al-humo" style="animation-delay:-2.7s" d="M0 -14 q-6 -8 2 -18 q6 -8 -2 -16" fill="none" stroke="#d9cfe3" stroke-width="2.4" stroke-linecap="round"/>
         <path d="M-17 -14 Q-15 4 0 4 Q15 4 17 -14 Z" fill="#a0522d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M-8 4 l-3 8 h22 l-3 -8" fill="#8a4524" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/><ellipse cx="0" cy="-14" rx="17" ry="4" fill="#5a2c17" stroke="${INK}" stroke-width="1.8"/><circle cx="-4" cy="-15" r="2.4" fill="#ff7a3c"/><circle cx="4" cy="-14" r="2" fill="#ffb03a"/></g>
       ${vela(124, 250, 0)}${vela(236, 250, 1)}
       ${[118, 149, 180, 211, 242].map((x, k) => vela(x, 352, k + 2)).join('')}
+      ${nosotros(152, 548, .92)}
       ${petalos(8, 360)}
     </svg>`;
   }
